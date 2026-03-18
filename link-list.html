@@ -1,615 +1,2290 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="zh-CN" data-bs-theme="light">
-<head>
-  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>INKFLOW — 友情链接</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
-<style>
-:root{--ink-primary:#0a6640;--ink-primary-rgb:10,102,64;--ink-accent:#00c98d;--ink-accent-rgb:0,201,141;--ink-surface:#f8faf9;--ink-card:#ffffff;--ink-border:#e4ede9;--ink-muted:#6b8070;--ink-heading:#0d1117;--ink-text:#2c3e35;--font-display:'Playfair Display',Georgia,serif;--font-body:'DM Sans',sans-serif;--font-mono:'JetBrains Mono',monospace;--radius-sm:6px;--radius-md:12px;--radius-lg:20px;--radius-xl:32px;--shadow-card:0 2px 20px rgba(10,102,64,.08),0 1px 4px rgba(10,102,64,.04);--shadow-hover:0 8px 40px rgba(10,102,64,.16),0 2px 8px rgba(10,102,64,.08);--transition:.28s cubic-bezier(.4,0,.2,1)}
-[data-bs-theme="dark"]{--ink-primary:#00c98d;--ink-accent:#4dffc0;--ink-surface:#0d1117;--ink-card:#161c22;--ink-border:#212e27;--ink-muted:#7aaf96;--ink-heading:#f0f6f3;--ink-text:#c8ddd5;--shadow-card:0 2px 20px rgba(0,0,0,.4);--shadow-hover:0 8px 40px rgba(0,0,0,.6)}
-*,*::before,*::after{box-sizing:border-box}html{scroll-behavior:smooth}
-body{font-family:var(--font-body);font-size:16px;line-height:1.75;color:var(--ink-text);background:var(--ink-surface);-webkit-font-smoothing:antialiased;overflow-x:hidden}
-h1,h2,h3,h4,h5,h6{font-family:var(--font-display);color:var(--ink-heading);line-height:1.2}
-a{color:var(--ink-primary);text-decoration:none;transition:color var(--transition)}a:hover{color:var(--ink-accent)}
-::selection{background:rgba(var(--ink-accent-rgb),.25)}
-::-webkit-scrollbar{width:6px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:var(--ink-border);border-radius:99px}
-body::before{content:'';position:fixed;inset:0;pointer-events:none;opacity:.025;z-index:9999;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");background-size:200px}
-/* NAVBAR */
-.ink-navbar{position:fixed;top:0;left:0;right:0;z-index:1000;transition:all var(--transition);padding:1rem 0}
-.ink-navbar.scrolled{background:rgba(var(--ink-primary-rgb),.97)!important;backdrop-filter:blur(20px);padding:.6rem 0;box-shadow:0 4px 30px rgba(0,0,0,.15)}
-[data-bs-theme="dark"] .ink-navbar.scrolled{background:rgba(13,17,23,.97)!important}
-.ink-navbar .navbar-brand{font-family:var(--font-display);font-size:1.5rem;font-weight:900;color:#fff;letter-spacing:-.02em;display:flex;align-items:center;gap:.5rem}
-.brand-dot{width:8px;height:8px;background:var(--ink-accent);border-radius:50%;display:inline-block;animation:pulse-dot 2s ease-in-out infinite}
-@keyframes pulse-dot{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.4);opacity:.7}}
-.ink-navbar .nav-link{color:rgba(255,255,255,.8)!important;font-weight:500;font-size:.9rem;padding:.4rem .8rem!important;border-radius:var(--radius-sm);transition:all var(--transition)}
-.ink-navbar .nav-link:hover,.ink-navbar .nav-link.active{color:#fff!important;background:rgba(255,255,255,.12)}
-.btn-nav-search{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.18);color:#fff;border-radius:var(--radius-sm);padding:.35rem .7rem;transition:all var(--transition);font-size:.9rem;cursor:pointer}
-.btn-nav-search:hover{background:rgba(255,255,255,.22);color:#fff}
-.theme-toggle{width:36px;height:36px;border-radius:50%;border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.1);color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all var(--transition);font-size:1rem}
-.theme-toggle:hover{background:rgba(255,255,255,.2)}
-.navbar-toggler{border:1px solid rgba(255,255,255,.2);padding:.35rem .65rem;border-radius:var(--radius-sm)}
-.navbar-toggler-icon{background-image:url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255,255,255,0.8%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e")}
-/* PAGE HERO */
-.page-hero{background:linear-gradient(135deg,#081f12 0%,#0a3320 50%,#0d5c38 100%);padding:7rem 0 4rem;position:relative;overflow:hidden}
-.page-hero::before{content:'';position:absolute;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(0,201,141,.15) 0%,transparent 70%);top:-150px;right:-80px;animation:float 8s ease-in-out infinite}
-.page-hero::after{content:'';position:absolute;width:280px;height:280px;border-radius:50%;background:radial-gradient(circle,rgba(0,201,141,.08) 0%,transparent 70%);bottom:-70px;left:8%;animation:float 10s ease-in-out infinite reverse}
-@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-20px)}}
-.page-hero-eyebrow{display:inline-flex;align-items:center;gap:.5rem;background:rgba(0,201,141,.15);border:1px solid rgba(0,201,141,.3);color:var(--ink-accent);border-radius:99px;padding:.3rem .9rem;font-size:.78rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;margin-bottom:1rem}
-.page-hero-title{font-size:clamp(2rem,4vw,3.2rem);font-weight:900;color:#fff;letter-spacing:-.03em;margin-bottom:.75rem}
-.page-hero-sub{color:rgba(255,255,255,.55);font-size:.95rem;line-height:1.7}
-.ink-breadcrumb .breadcrumb-item a{color:rgba(255,255,255,.5);font-size:.82rem}
-.ink-breadcrumb .breadcrumb-item.active{color:rgba(255,255,255,.8);font-size:.82rem}
-.ink-breadcrumb .breadcrumb-item+.breadcrumb-item::before{color:rgba(255,255,255,.3)}
-/* LINK CARDS */
-.link-card{background:var(--ink-card);border:1px solid var(--ink-border);border-radius:var(--radius-lg);padding:1.4rem 1.5rem;transition:all var(--transition);box-shadow:var(--shadow-card);display:flex;align-items:center;gap:1.1rem;text-decoration:none;position:relative;overflow:hidden}
-.link-card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(var(--ink-primary-rgb),.04),transparent);opacity:0;transition:opacity var(--transition)}
-.link-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-hover);border-color:rgba(var(--ink-primary-rgb),.25)}
-.link-card:hover::before{opacity:1}
-.link-avatar{width:56px;height:56px;border-radius:var(--radius-md);display:flex;align-items:center;justify-content:center;font-size:1.5rem;font-weight:700;font-family:var(--font-display);flex-shrink:0;position:relative;overflow:hidden}
-.link-avatar img{width:100%;height:100%;object-fit:cover;border-radius:var(--radius-md)}
-.link-info{flex:1;min-width:0}
-.link-name{font-weight:700;font-size:.97rem;color:var(--ink-heading);margin-bottom:.2rem;transition:color var(--transition);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.link-card:hover .link-name{color:var(--ink-primary)}
-.link-desc{font-size:.82rem;color:var(--ink-muted);line-height:1.5;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
-.link-url{font-size:.75rem;color:var(--ink-muted);font-family:var(--font-mono);margin-top:.3rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;opacity:.7}
-.link-arrow{color:var(--ink-border);font-size:1rem;flex-shrink:0;transition:all var(--transition)}
-.link-card:hover .link-arrow{color:var(--ink-primary);transform:translate(3px,-3px)}
-.link-tag{display:inline-flex;align-items:center;gap:.25rem;padding:.12rem .5rem;border-radius:99px;font-size:.68rem;font-weight:600;margin-top:.35rem}
-/* FEATURED LINK CARD (large) */
-.link-featured{background:var(--ink-card);border:1px solid var(--ink-border);border-radius:var(--radius-xl);padding:2rem;transition:all var(--transition);box-shadow:var(--shadow-card);display:flex;align-items:flex-start;gap:1.5rem;text-decoration:none;position:relative;overflow:hidden}
-.link-featured::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--ink-accent),var(--ink-primary));transform:scaleX(0);transform-origin:left;transition:transform var(--transition)}
-.link-featured:hover{transform:translateY(-4px);box-shadow:var(--shadow-hover);border-color:rgba(var(--ink-primary-rgb),.2)}
-.link-featured:hover::after{transform:scaleX(1)}
-.link-featured-avatar{width:72px;height:72px;border-radius:var(--radius-lg);display:flex;align-items:center;justify-content:center;font-size:1.9rem;font-weight:700;font-family:var(--font-display);flex-shrink:0}
-.link-featured-name{font-family:var(--font-display);font-weight:700;font-size:1.15rem;color:var(--ink-heading);margin-bottom:.35rem;transition:color var(--transition)}
-.link-featured:hover .link-featured-name{color:var(--ink-primary)}
-.link-featured-desc{font-size:.88rem;color:var(--ink-muted);line-height:1.65;margin-bottom:.6rem}
-.link-featured-meta{display:flex;align-items:center;gap:.75rem;flex-wrap:wrap}
-.link-meta-item{font-size:.75rem;color:var(--ink-muted);display:flex;align-items:center;gap:.3rem}
-/* SECTION DIVIDER */
-.section-divider{display:flex;align-items:center;gap:1rem;margin:2.5rem 0 1.5rem}
-.section-divider-title{font-family:var(--font-display);font-size:1.15rem;font-weight:700;color:var(--ink-heading);white-space:nowrap;display:flex;align-items:center;gap:.5rem}
-.section-divider-line{flex:1;height:1px;background:var(--ink-border)}
-.section-divider-count{font-size:.78rem;color:var(--ink-muted);font-family:var(--font-mono);white-space:nowrap;background:var(--ink-surface);border:1px solid var(--ink-border);border-radius:99px;padding:.15rem .6rem}
-/* FILTER TABS */
-.filter-tabs{display:flex;gap:.5rem;margin-bottom:2rem;flex-wrap:wrap}
-.filter-tab{padding:.38rem .9rem;border-radius:99px;font-size:.8rem;font-weight:600;border:1px solid var(--ink-border);color:var(--ink-muted);background:var(--ink-card);cursor:pointer;transition:all var(--transition)}
-.filter-tab.active,.filter-tab:hover{background:var(--ink-primary);border-color:var(--ink-primary);color:#fff}
-/* APPLY CARD */
-.apply-card{background:linear-gradient(135deg,var(--ink-primary) 0%,#052f1c 100%);border-radius:var(--radius-xl);padding:2.5rem;position:relative;overflow:hidden;margin-top:3rem}
-.apply-card::before{content:'';position:absolute;width:250px;height:250px;border-radius:50%;background:rgba(0,201,141,.12);top:-80px;right:-60px}
-.apply-card::after{content:'';position:absolute;width:180px;height:180px;border-radius:50%;background:rgba(0,201,141,.08);bottom:-50px;left:-40px}
-.apply-card-body{position:relative;z-index:1}
-.apply-title{font-family:var(--font-display);font-size:1.6rem;font-weight:700;color:#fff;margin-bottom:.75rem}
-.apply-sub{font-size:.92rem;color:rgba(255,255,255,.6);line-height:1.7;max-width:480px;margin-bottom:1.75rem}
-.apply-requirements{display:flex;flex-direction:column;gap:.6rem;margin-bottom:2rem}
-.apply-req{display:flex;align-items:flex-start;gap:.6rem;font-size:.88rem;color:rgba(255,255,255,.7)}
-.apply-req i{color:var(--ink-accent);margin-top:.1rem;flex-shrink:0}
-.btn-apply{display:inline-flex;align-items:center;gap:.5rem;background:linear-gradient(135deg,var(--ink-accent),#00a876);color:#fff;border:none;border-radius:var(--radius-md);padding:.85rem 2rem;font-weight:600;font-size:.95rem;cursor:pointer;transition:all var(--transition);font-family:var(--font-body)}
-.btn-apply:hover{transform:translateY(-2px);box-shadow:0 8px 25px rgba(0,201,141,.4);color:#fff}
-.apply-form{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:var(--radius-lg);padding:1.75rem;display:none}
-.apply-form.show{display:block}
-.apply-input{width:100%;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);border-radius:var(--radius-sm);padding:.65rem 1rem;color:#fff;font-size:.88rem;font-family:var(--font-body);outline:none;transition:border-color var(--transition);margin-bottom:.75rem}
-.apply-input::placeholder{color:rgba(255,255,255,.35)}
-.apply-input:focus{border-color:rgba(0,201,141,.5)}
-.btn-submit{background:linear-gradient(135deg,var(--ink-accent),#00a876);border:none;color:#fff;padding:.7rem 1.5rem;border-radius:var(--radius-sm);font-weight:600;font-size:.9rem;cursor:pointer;font-family:var(--font-body);transition:all var(--transition)}
-.btn-submit:hover{transform:translateY(-1px);box-shadow:0 4px 15px rgba(0,201,141,.35)}
-/* READING PROGRESS */
-.reading-progress{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--ink-accent),var(--ink-primary));z-index:9998;width:0%;transition:width .1s linear}
-.back-to-top{position:fixed;bottom:2rem;right:2rem;width:44px;height:44px;background:var(--ink-primary);color:#fff;border:none;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:1.1rem;box-shadow:0 4px 20px rgba(var(--ink-primary-rgb),.4);transition:all var(--transition);opacity:0;pointer-events:none;transform:translateY(10px);z-index:999}
-.back-to-top.visible{opacity:1;pointer-events:all;transform:translateY(0)}
-.back-to-top:hover{transform:translateY(-3px)}
-.search-overlay{position:fixed;inset:0;background:rgba(7,26,16,.95);backdrop-filter:blur(20px);z-index:2000;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding-top:10vh;opacity:0;pointer-events:none;transition:opacity .3s ease}
-.search-overlay.active{opacity:1;pointer-events:all}
-.search-close{position:absolute;top:2rem;right:2rem;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);color:rgba(255,255,255,.6);width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:1.1rem;transition:all var(--transition)}
-.search-close:hover{background:rgba(255,255,255,.15);color:#fff}
-.search-main-input{width:100%;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:var(--radius-lg);padding:1.1rem 1.25rem 1.1rem 3.5rem;color:#fff;font-size:1.2rem;font-family:var(--font-body);outline:none}
-.search-main-input::placeholder{color:rgba(255,255,255,.3)}
-.search-tip{padding:.35rem .8rem;border-radius:99px;border:1px solid rgba(255,255,255,.12);color:rgba(255,255,255,.5);font-size:.8rem;cursor:pointer;transition:all var(--transition)}
-.search-tip:hover{border-color:var(--ink-accent);color:var(--ink-accent)}
-.site-footer{background:#071a10;padding:4rem 0 2rem;position:relative;overflow:hidden}
-.site-footer::before{content:'';position:absolute;width:350px;height:350px;border-radius:50%;background:radial-gradient(circle,rgba(0,201,141,.05) 0%,transparent 70%);top:-80px;right:8%}
-.footer-brand{font-family:var(--font-display);font-size:1.6rem;font-weight:900;color:#fff;display:flex;align-items:center;gap:.5rem;margin-bottom:.75rem}
-.footer-tagline{color:rgba(255,255,255,.4);font-size:.88rem;line-height:1.7;max-width:260px;margin-bottom:1.25rem}
-.footer-heading{font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.4);margin-bottom:1rem}
-.footer-links{list-style:none;padding:0;margin:0}
-.footer-links li{margin-bottom:.6rem}
-.footer-links a{color:rgba(255,255,255,.5);font-size:.88rem;transition:color var(--transition)}
-.footer-links a:hover{color:var(--ink-accent)}
-.footer-divider{border-color:rgba(255,255,255,.08);margin:2.5rem 0 1.5rem}
-.footer-copy{font-size:.83rem;color:rgba(255,255,255,.35)}
-.footer-copy span{color:rgba(255,255,255,.55)}
-.fade-up{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease}
-.fade-up.visible{opacity:1;transform:translateY(0)}
-.delay-1{transition-delay:.1s}.delay-2{transition-delay:.2s}.delay-3{transition-delay:.3s}.delay-4{transition-delay:.4s}.delay-5{transition-delay:.5s}
-</style>
-</head>
-<body>
-<div class="reading-progress" id="readingProgress"></div>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>INKFLOW — 友情链接</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --ink-primary: #0a6640;
+        --ink-primary-rgb: 10, 102, 64;
+        --ink-accent: #00c98d;
+        --ink-accent-rgb: 0, 201, 141;
+        --ink-surface: #f8faf9;
+        --ink-card: #ffffff;
+        --ink-border: #e4ede9;
+        --ink-muted: #6b8070;
+        --ink-heading: #0d1117;
+        --ink-text: #2c3e35;
+        --font-display: "Playfair Display", Georgia, serif;
+        --font-body: "DM Sans", sans-serif;
+        --font-mono: "JetBrains Mono", monospace;
+        --radius-sm: 6px;
+        --radius-md: 12px;
+        --radius-lg: 20px;
+        --radius-xl: 32px;
+        --shadow-card:
+          0 2px 20px rgba(10, 102, 64, 0.08), 0 1px 4px rgba(10, 102, 64, 0.04);
+        --shadow-hover:
+          0 8px 40px rgba(10, 102, 64, 0.16), 0 2px 8px rgba(10, 102, 64, 0.08);
+        --transition: 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+      [data-bs-theme="dark"] {
+        --ink-primary: #00c98d;
+        --ink-accent: #4dffc0;
+        --ink-surface: #0d1117;
+        --ink-card: #161c22;
+        --ink-border: #212e27;
+        --ink-muted: #7aaf96;
+        --ink-heading: #f0f6f3;
+        --ink-text: #c8ddd5;
+        --shadow-card: 0 2px 20px rgba(0, 0, 0, 0.4);
+        --shadow-hover: 0 8px 40px rgba(0, 0, 0, 0.6);
+      }
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        font-family: var(--font-body);
+        font-size: 16px;
+        line-height: 1.75;
+        color: var(--ink-text);
+        background: var(--ink-surface);
+        -webkit-font-smoothing: antialiased;
+        overflow-x: hidden;
+      }
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+        font-family: var(--font-display);
+        color: var(--ink-heading);
+        line-height: 1.2;
+      }
+      a {
+        color: var(--ink-primary);
+        text-decoration: none;
+        transition: color var(--transition);
+      }
+      a:hover {
+        color: var(--ink-accent);
+      }
+      ::selection {
+        background: rgba(var(--ink-accent-rgb), 0.25);
+      }
+      ::-webkit-scrollbar {
+        width: 6px;
+      }
+      ::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: var(--ink-border);
+        border-radius: 99px;
+      }
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        opacity: 0.025;
+        z-index: 9999;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+        background-size: 200px;
+      }
+      /* NAVBAR */
+      .ink-navbar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 1000;
+        transition: all var(--transition);
+        padding: 1rem 0;
+      }
+      .ink-navbar.scrolled {
+        background: rgba(var(--ink-primary-rgb), 0.97) !important;
+        backdrop-filter: blur(20px);
+        padding: 0.6rem 0;
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.15);
+      }
+      [data-bs-theme="dark"] .ink-navbar.scrolled {
+        background: rgba(13, 17, 23, 0.97) !important;
+      }
+      .ink-navbar .navbar-brand {
+        font-family: var(--font-display);
+        font-size: 1.5rem;
+        font-weight: 900;
+        color: #fff;
+        letter-spacing: -0.02em;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+      .brand-dot {
+        width: 8px;
+        height: 8px;
+        background: var(--ink-accent);
+        border-radius: 50%;
+        display: inline-block;
+        animation: pulse-dot 2s ease-in-out infinite;
+      }
+      @keyframes pulse-dot {
+        0%,
+        100% {
+          transform: scale(1);
+          opacity: 1;
+        }
+        50% {
+          transform: scale(1.4);
+          opacity: 0.7;
+        }
+      }
+      .ink-navbar .nav-link {
+        color: rgba(255, 255, 255, 0.8) !important;
+        font-weight: 500;
+        font-size: 0.9rem;
+        padding: 0.4rem 0.8rem !important;
+        border-radius: var(--radius-sm);
+        transition: all var(--transition);
+      }
+      .ink-navbar .nav-link:hover,
+      .ink-navbar .nav-link.active {
+        color: #fff !important;
+        background: rgba(255, 255, 255, 0.12);
+      }
+      .btn-nav-search {
+        background: rgba(255, 255, 255, 0.12);
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        color: #fff;
+        border-radius: var(--radius-sm);
+        padding: 0.35rem 0.7rem;
+        transition: all var(--transition);
+        font-size: 0.9rem;
+        cursor: pointer;
+      }
+      .btn-nav-search:hover {
+        background: rgba(255, 255, 255, 0.22);
+        color: #fff;
+      }
+      .theme-toggle {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        background: rgba(255, 255, 255, 0.1);
+        color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all var(--transition);
+        font-size: 1rem;
+      }
+      .theme-toggle:hover {
+        background: rgba(255, 255, 255, 0.2);
+      }
+      .navbar-toggler {
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        padding: 0.35rem 0.65rem;
+        border-radius: var(--radius-sm);
+      }
+      .navbar-toggler-icon {
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255,255,255,0.8%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+      }
+      /* PAGE HERO */
+      .page-hero {
+        background: linear-gradient(
+          135deg,
+          #081f12 0%,
+          #0a3320 50%,
+          #0d5c38 100%
+        );
+        padding: 7rem 0 4rem;
+        position: relative;
+        overflow: hidden;
+      }
+      .page-hero::before {
+        content: "";
+        position: absolute;
+        width: 500px;
+        height: 500px;
+        border-radius: 50%;
+        background: radial-gradient(
+          circle,
+          rgba(0, 201, 141, 0.15) 0%,
+          transparent 70%
+        );
+        top: -150px;
+        right: -80px;
+        animation: float 8s ease-in-out infinite;
+      }
+      .page-hero::after {
+        content: "";
+        position: absolute;
+        width: 280px;
+        height: 280px;
+        border-radius: 50%;
+        background: radial-gradient(
+          circle,
+          rgba(0, 201, 141, 0.08) 0%,
+          transparent 70%
+        );
+        bottom: -70px;
+        left: 8%;
+        animation: float 10s ease-in-out infinite reverse;
+      }
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-20px);
+        }
+      }
+      .page-hero-eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        background: rgba(0, 201, 141, 0.15);
+        border: 1px solid rgba(0, 201, 141, 0.3);
+        color: var(--ink-accent);
+        border-radius: 99px;
+        padding: 0.3rem 0.9rem;
+        font-size: 0.78rem;
+        font-weight: 700;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        margin-bottom: 1rem;
+      }
+      .page-hero-title {
+        font-size: clamp(2rem, 4vw, 3.2rem);
+        font-weight: 900;
+        color: #fff;
+        letter-spacing: -0.03em;
+        margin-bottom: 0.75rem;
+      }
+      .page-hero-sub {
+        color: rgba(255, 255, 255, 0.55);
+        font-size: 0.95rem;
+        line-height: 1.7;
+      }
+      .ink-breadcrumb .breadcrumb-item a {
+        color: rgba(255, 255, 255, 0.5);
+        font-size: 0.82rem;
+      }
+      .ink-breadcrumb .breadcrumb-item.active {
+        color: rgba(255, 255, 255, 0.8);
+        font-size: 0.82rem;
+      }
+      .ink-breadcrumb .breadcrumb-item + .breadcrumb-item::before {
+        color: rgba(255, 255, 255, 0.3);
+      }
+      /* LINK CARDS */
+      .link-card {
+        background: var(--ink-card);
+        border: 1px solid var(--ink-border);
+        border-radius: var(--radius-lg);
+        padding: 1.4rem 1.5rem;
+        transition: all var(--transition);
+        box-shadow: var(--shadow-card);
+        display: flex;
+        align-items: center;
+        gap: 1.1rem;
+        text-decoration: none;
+        position: relative;
+        overflow: hidden;
+      }
+      .link-card::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          135deg,
+          rgba(var(--ink-primary-rgb), 0.04),
+          transparent
+        );
+        opacity: 0;
+        transition: opacity var(--transition);
+      }
+      .link-card:hover {
+        transform: translateY(-4px);
+        box-shadow: var(--shadow-hover);
+        border-color: rgba(var(--ink-primary-rgb), 0.25);
+      }
+      .link-card:hover::before {
+        opacity: 1;
+      }
+      .link-avatar {
+        width: 56px;
+        height: 56px;
+        border-radius: var(--radius-md);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+        font-weight: 700;
+        font-family: var(--font-display);
+        flex-shrink: 0;
+        position: relative;
+        overflow: hidden;
+      }
+      .link-avatar img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: var(--radius-md);
+      }
+      .link-info {
+        flex: 1;
+        min-width: 0;
+      }
+      .link-name {
+        font-weight: 700;
+        font-size: 0.97rem;
+        color: var(--ink-heading);
+        margin-bottom: 0.2rem;
+        transition: color var(--transition);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .link-card:hover .link-name {
+        color: var(--ink-primary);
+      }
+      .link-desc {
+        font-size: 0.82rem;
+        color: var(--ink-muted);
+        line-height: 1.5;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+      }
+      .link-url {
+        font-size: 0.75rem;
+        color: var(--ink-muted);
+        font-family: var(--font-mono);
+        margin-top: 0.3rem;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        opacity: 0.7;
+      }
+      .link-arrow {
+        color: var(--ink-border);
+        font-size: 1rem;
+        flex-shrink: 0;
+        transition: all var(--transition);
+      }
+      .link-card:hover .link-arrow {
+        color: var(--ink-primary);
+        transform: translate(3px, -3px);
+      }
+      .link-tag {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.25rem;
+        padding: 0.12rem 0.5rem;
+        border-radius: 99px;
+        font-size: 0.68rem;
+        font-weight: 600;
+        margin-top: 0.35rem;
+      }
+      /* FEATURED LINK CARD (large) */
+      .link-featured {
+        background: var(--ink-card);
+        border: 1px solid var(--ink-border);
+        border-radius: var(--radius-xl);
+        padding: 2rem;
+        transition: all var(--transition);
+        box-shadow: var(--shadow-card);
+        display: flex;
+        align-items: flex-start;
+        gap: 1.5rem;
+        text-decoration: none;
+        position: relative;
+        overflow: hidden;
+      }
+      .link-featured::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 3px;
+        background: linear-gradient(
+          90deg,
+          var(--ink-accent),
+          var(--ink-primary)
+        );
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: transform var(--transition);
+      }
+      .link-featured:hover {
+        transform: translateY(-4px);
+        box-shadow: var(--shadow-hover);
+        border-color: rgba(var(--ink-primary-rgb), 0.2);
+      }
+      .link-featured:hover::after {
+        transform: scaleX(1);
+      }
+      .link-featured-avatar {
+        width: 72px;
+        height: 72px;
+        border-radius: var(--radius-lg);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.9rem;
+        font-weight: 700;
+        font-family: var(--font-display);
+        flex-shrink: 0;
+      }
+      .link-featured-name {
+        font-family: var(--font-display);
+        font-weight: 700;
+        font-size: 1.15rem;
+        color: var(--ink-heading);
+        margin-bottom: 0.35rem;
+        transition: color var(--transition);
+      }
+      .link-featured:hover .link-featured-name {
+        color: var(--ink-primary);
+      }
+      .link-featured-desc {
+        font-size: 0.88rem;
+        color: var(--ink-muted);
+        line-height: 1.65;
+        margin-bottom: 0.6rem;
+      }
+      .link-featured-meta {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        flex-wrap: wrap;
+      }
+      .link-meta-item {
+        font-size: 0.75rem;
+        color: var(--ink-muted);
+        display: flex;
+        align-items: center;
+        gap: 0.3rem;
+      }
+      /* SECTION DIVIDER */
+      .section-divider {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        margin: 2.5rem 0 1.5rem;
+      }
+      .section-divider-title {
+        font-family: var(--font-display);
+        font-size: 1.15rem;
+        font-weight: 700;
+        color: var(--ink-heading);
+        white-space: nowrap;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+      .section-divider-line {
+        flex: 1;
+        height: 1px;
+        background: var(--ink-border);
+      }
+      .section-divider-count {
+        font-size: 0.78rem;
+        color: var(--ink-muted);
+        font-family: var(--font-mono);
+        white-space: nowrap;
+        background: var(--ink-surface);
+        border: 1px solid var(--ink-border);
+        border-radius: 99px;
+        padding: 0.15rem 0.6rem;
+      }
+      /* FILTER TABS */
+      .filter-tabs {
+        display: flex;
+        gap: 0.5rem;
+        margin-bottom: 2rem;
+        flex-wrap: wrap;
+      }
+      .filter-tab {
+        padding: 0.38rem 0.9rem;
+        border-radius: 99px;
+        font-size: 0.8rem;
+        font-weight: 600;
+        border: 1px solid var(--ink-border);
+        color: var(--ink-muted);
+        background: var(--ink-card);
+        cursor: pointer;
+        transition: all var(--transition);
+      }
+      .filter-tab.active,
+      .filter-tab:hover {
+        background: var(--ink-primary);
+        border-color: var(--ink-primary);
+        color: #fff;
+      }
+      /* APPLY CARD */
+      .apply-card {
+        background: linear-gradient(
+          135deg,
+          var(--ink-primary) 0%,
+          #052f1c 100%
+        );
+        border-radius: var(--radius-xl);
+        padding: 2.5rem;
+        position: relative;
+        overflow: hidden;
+        margin-top: 3rem;
+      }
+      .apply-card::before {
+        content: "";
+        position: absolute;
+        width: 250px;
+        height: 250px;
+        border-radius: 50%;
+        background: rgba(0, 201, 141, 0.12);
+        top: -80px;
+        right: -60px;
+      }
+      .apply-card::after {
+        content: "";
+        position: absolute;
+        width: 180px;
+        height: 180px;
+        border-radius: 50%;
+        background: rgba(0, 201, 141, 0.08);
+        bottom: -50px;
+        left: -40px;
+      }
+      .apply-card-body {
+        position: relative;
+        z-index: 1;
+      }
+      .apply-title {
+        font-family: var(--font-display);
+        font-size: 1.6rem;
+        font-weight: 700;
+        color: #fff;
+        margin-bottom: 0.75rem;
+      }
+      .apply-sub {
+        font-size: 0.92rem;
+        color: rgba(255, 255, 255, 0.6);
+        line-height: 1.7;
+        max-width: 480px;
+        margin-bottom: 1.75rem;
+      }
+      .apply-requirements {
+        display: flex;
+        flex-direction: column;
+        gap: 0.6rem;
+        margin-bottom: 2rem;
+      }
+      .apply-req {
+        display: flex;
+        align-items: flex-start;
+        gap: 0.6rem;
+        font-size: 0.88rem;
+        color: rgba(255, 255, 255, 0.7);
+      }
+      .apply-req i {
+        color: var(--ink-accent);
+        margin-top: 0.1rem;
+        flex-shrink: 0;
+      }
+      .btn-apply {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        background: linear-gradient(135deg, var(--ink-accent), #00a876);
+        color: #fff;
+        border: none;
+        border-radius: var(--radius-md);
+        padding: 0.85rem 2rem;
+        font-weight: 600;
+        font-size: 0.95rem;
+        cursor: pointer;
+        transition: all var(--transition);
+        font-family: var(--font-body);
+      }
+      .btn-apply:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(0, 201, 141, 0.4);
+        color: #fff;
+      }
+      .apply-form {
+        background: rgba(255, 255, 255, 0.06);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        border-radius: var(--radius-lg);
+        padding: 1.75rem;
+        display: none;
+      }
+      .apply-form.show {
+        display: block;
+      }
+      .apply-input {
+        width: 100%;
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        border-radius: var(--radius-sm);
+        padding: 0.65rem 1rem;
+        color: #fff;
+        font-size: 0.88rem;
+        font-family: var(--font-body);
+        outline: none;
+        transition: border-color var(--transition);
+        margin-bottom: 0.75rem;
+      }
+      .apply-input::placeholder {
+        color: rgba(255, 255, 255, 0.35);
+      }
+      .apply-input:focus {
+        border-color: rgba(0, 201, 141, 0.5);
+      }
+      .btn-submit {
+        background: linear-gradient(135deg, var(--ink-accent), #00a876);
+        border: none;
+        color: #fff;
+        padding: 0.7rem 1.5rem;
+        border-radius: var(--radius-sm);
+        font-weight: 600;
+        font-size: 0.9rem;
+        cursor: pointer;
+        font-family: var(--font-body);
+        transition: all var(--transition);
+      }
+      .btn-submit:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 4px 15px rgba(0, 201, 141, 0.35);
+      }
+      /* READING PROGRESS */
+      .reading-progress {
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 3px;
+        background: linear-gradient(
+          90deg,
+          var(--ink-accent),
+          var(--ink-primary)
+        );
+        z-index: 9998;
+        width: 0%;
+        transition: width 0.1s linear;
+      }
+      .back-to-top {
+        position: fixed;
+        bottom: 2rem;
+        right: 2rem;
+        width: 44px;
+        height: 44px;
+        background: var(--ink-primary);
+        color: #fff;
+        border: none;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        font-size: 1.1rem;
+        box-shadow: 0 4px 20px rgba(var(--ink-primary-rgb), 0.4);
+        transition: all var(--transition);
+        opacity: 0;
+        pointer-events: none;
+        transform: translateY(10px);
+        z-index: 999;
+      }
+      .back-to-top.visible {
+        opacity: 1;
+        pointer-events: all;
+        transform: translateY(0);
+      }
+      .back-to-top:hover {
+        transform: translateY(-3px);
+      }
+      .search-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(7, 26, 16, 0.95);
+        backdrop-filter: blur(20px);
+        z-index: 2000;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        padding-top: 10vh;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.3s ease;
+      }
+      .search-overlay.active {
+        opacity: 1;
+        pointer-events: all;
+      }
+      .search-close {
+        position: absolute;
+        top: 2rem;
+        right: 2rem;
+        background: rgba(255, 255, 255, 0.08);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        color: rgba(255, 255, 255, 0.6);
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        font-size: 1.1rem;
+        transition: all var(--transition);
+      }
+      .search-close:hover {
+        background: rgba(255, 255, 255, 0.15);
+        color: #fff;
+      }
+      .search-main-input {
+        width: 100%;
+        background: rgba(255, 255, 255, 0.08);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        border-radius: var(--radius-lg);
+        padding: 1.1rem 1.25rem 1.1rem 3.5rem;
+        color: #fff;
+        font-size: 1.2rem;
+        font-family: var(--font-body);
+        outline: none;
+      }
+      .search-main-input::placeholder {
+        color: rgba(255, 255, 255, 0.3);
+      }
+      .search-tip {
+        padding: 0.35rem 0.8rem;
+        border-radius: 99px;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        color: rgba(255, 255, 255, 0.5);
+        font-size: 0.8rem;
+        cursor: pointer;
+        transition: all var(--transition);
+      }
+      .search-tip:hover {
+        border-color: var(--ink-accent);
+        color: var(--ink-accent);
+      }
+      .site-footer {
+        background: #071a10;
+        padding: 4rem 0 2rem;
+        position: relative;
+        overflow: hidden;
+      }
+      .site-footer::before {
+        content: "";
+        position: absolute;
+        width: 350px;
+        height: 350px;
+        border-radius: 50%;
+        background: radial-gradient(
+          circle,
+          rgba(0, 201, 141, 0.05) 0%,
+          transparent 70%
+        );
+        top: -80px;
+        right: 8%;
+      }
+      .footer-brand {
+        font-family: var(--font-display);
+        font-size: 1.6rem;
+        font-weight: 900;
+        color: #fff;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin-bottom: 0.75rem;
+      }
+      .footer-tagline {
+        color: rgba(255, 255, 255, 0.4);
+        font-size: 0.88rem;
+        line-height: 1.7;
+        max-width: 260px;
+        margin-bottom: 1.25rem;
+      }
+      .footer-heading {
+        font-size: 0.78rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        color: rgba(255, 255, 255, 0.4);
+        margin-bottom: 1rem;
+      }
+      .footer-links {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+      .footer-links li {
+        margin-bottom: 0.6rem;
+      }
+      .footer-links a {
+        color: rgba(255, 255, 255, 0.5);
+        font-size: 0.88rem;
+        transition: color var(--transition);
+      }
+      .footer-links a:hover {
+        color: var(--ink-accent);
+      }
+      .footer-divider {
+        border-color: rgba(255, 255, 255, 0.08);
+        margin: 2.5rem 0 1.5rem;
+      }
+      .footer-copy {
+        font-size: 0.83rem;
+        color: rgba(255, 255, 255, 0.35);
+      }
+      .footer-copy span {
+        color: rgba(255, 255, 255, 0.55);
+      }
+      .fade-up {
+        opacity: 0;
+        transform: translateY(24px);
+        transition:
+          opacity 0.6s ease,
+          transform 0.6s ease;
+      }
+      .fade-up.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      .delay-1 {
+        transition-delay: 0.1s;
+      }
+      .delay-2 {
+        transition-delay: 0.2s;
+      }
+      .delay-3 {
+        transition-delay: 0.3s;
+      }
+      .delay-4 {
+        transition-delay: 0.4s;
+      }
+      .delay-5 {
+        transition-delay: 0.5s;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="reading-progress" id="readingProgress"></div>
 
-<!-- NAVBAR -->
-<nav class="ink-navbar navbar navbar-expand-lg" id="mainNavbar">
-  <div class="container">
-    <a class="navbar-brand" href="blog-theme.html">INKFLOW<span class="brand-dot"></span></a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu"><span class="navbar-toggler-icon"></span></button>
-    <div class="collapse navbar-collapse" id="navMenu">
-      <ul class="navbar-nav mx-auto gap-1">
-        <li class="nav-item"><a class="nav-link" href="blog-theme.html">首页</a></li>
-        <li class="nav-item"><a class="nav-link" href="post-list.html">文章</a></li>
-        <li class="nav-item"><a class="nav-link" href="category-list.html">分类</a></li>
-        <li class="nav-item"><a class="nav-link" href="tag-list.html">标签</a></li>
-        <li class="nav-item"><a class="nav-link" href="archive-list.html">归档</a></li>
-        <li class="nav-item"><a class="nav-link" href="album-list.html">相册</a></li>
-        <li class="nav-item"><a class="nav-link active" href="link-list.html">链接</a></li>
-      </ul>
-      <div class="d-flex align-items-center gap-2">
-        <button class="btn-nav-search" onclick="openSearch()"><i class="bi bi-search me-1"></i>搜索</button>
-        <button class="theme-toggle" id="themeToggle"><i class="bi bi-moon-stars-fill" id="themeIcon"></i></button>
+    <!-- NAVBAR -->
+    <nav class="ink-navbar navbar navbar-expand-lg" id="mainNavbar">
+      <div class="container">
+        <a class="navbar-brand" href="index.hmtl"
+          >INKFLOW<span class="brand-dot"></span
+        ></a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navMenu"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navMenu">
+          <ul class="navbar-nav mx-auto gap-1">
+            <li class="nav-item">
+              <a class="nav-link" href="index.hmtl">首页</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="post-list.html">文章</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="category-list.html">分类</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="tag-list.html">标签</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="archive-list.html">归档</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="album-list.html">相册</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" href="link-list.html">链接</a>
+            </li>
+          </ul>
+          <div class="d-flex align-items-center gap-2">
+            <button class="btn-nav-search" onclick="openSearch()">
+              <i class="bi bi-search me-1"></i>搜索
+            </button>
+            <button class="theme-toggle" id="themeToggle">
+              <i class="bi bi-moon-stars-fill" id="themeIcon"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- PAGE HERO -->
+    <div class="page-hero">
+      <div class="container position-relative" style="z-index: 1">
+        <nav aria-label="breadcrumb" class="ink-breadcrumb mb-3">
+          <ol class="breadcrumb mb-0">
+            <li class="breadcrumb-item">
+              <a href="index.hmtl"><i class="bi bi-house me-1"></i>首页</a>
+            </li>
+            <li class="breadcrumb-item active">友情链接</li>
+          </ol>
+        </nav>
+        <div class="page-hero-eyebrow">
+          <i class="bi bi-link-45deg"></i> 友情链接
+        </div>
+        <h1 class="page-hero-title">值得一读的好站</h1>
+        <p class="page-hero-sub">
+          这里收录了我长期关注的优质博客、工具与资源，每一个都经过亲身筛选
+        </p>
       </div>
     </div>
-  </div>
-</nav>
 
-<!-- PAGE HERO -->
-<div class="page-hero">
-  <div class="container position-relative" style="z-index:1">
-    <nav aria-label="breadcrumb" class="ink-breadcrumb mb-3"><ol class="breadcrumb mb-0">
-      <li class="breadcrumb-item"><a href="blog-theme.html"><i class="bi bi-house me-1"></i>首页</a></li>
-      <li class="breadcrumb-item active">友情链接</li>
-    </ol></nav>
-    <div class="page-hero-eyebrow"><i class="bi bi-link-45deg"></i> 友情链接</div>
-    <h1 class="page-hero-title">值得一读的好站</h1>
-    <p class="page-hero-sub">这里收录了我长期关注的优质博客、工具与资源，每一个都经过亲身筛选</p>
-  </div>
-</div>
+    <!-- MAIN -->
+    <main class="py-5">
+      <div class="container">
+        <div class="row g-5">
+          <!-- LEFT CONTENT -->
+          <div class="col-lg-8">
+            <!-- FILTER -->
+            <div class="filter-tabs fade-up">
+              <span class="filter-tab active" onclick="filterLinks(this, 'all')"
+                >全部</span
+              >
+              <span class="filter-tab" onclick="filterLinks(this, 'blog')"
+                >个人博客</span
+              >
+              <span class="filter-tab" onclick="filterLinks(this, 'tech')"
+                >技术社区</span
+              >
+              <span class="filter-tab" onclick="filterLinks(this, 'tool')"
+                >工具资源</span
+              >
+              <span class="filter-tab" onclick="filterLinks(this, 'design')"
+                >设计灵感</span
+              >
+              <span class="filter-tab" onclick="filterLinks(this, 'news')"
+                >资讯媒体</span
+              >
+            </div>
 
-<!-- MAIN -->
-<main class="py-5">
-  <div class="container">
-    <div class="row g-5">
+            <!-- FEATURED LINKS -->
+            <div class="section-divider fade-up">
+              <div class="section-divider-title">
+                <i class="bi bi-star-fill" style="color: var(--ink-accent)"></i>
+                精选推荐
+              </div>
+              <div class="section-divider-line"></div>
+              <div class="section-divider-count">4 个</div>
+            </div>
 
-      <!-- LEFT CONTENT -->
-      <div class="col-lg-8">
+            <div class="row g-3 mb-2">
+              <div class="col-md-6 fade-up delay-1" data-link-cat="blog">
+                <a href="#" target="_blank" class="link-featured">
+                  <div
+                    class="link-featured-avatar"
+                    style="
+                      background: linear-gradient(135deg, #1a0a30, #6d28d9);
+                      color: #fff;
+                    "
+                  >
+                    阮
+                  </div>
+                  <div style="flex: 1; min-width: 0">
+                    <div class="link-featured-name">阮一峰的网络日志</div>
+                    <div class="link-featured-desc">
+                      每周科技爱好者周刊，分享前沿技术动态与深度思考，是我坚持阅读时间最长的博客。
+                    </div>
+                    <div class="link-featured-meta">
+                      <span class="link-meta-item"
+                        ><i class="bi bi-globe2"></i>ruanyifeng.com</span
+                      >
+                      <span class="link-meta-item"
+                        ><i class="bi bi-calendar3"></i>每周更新</span
+                      >
+                      <span
+                        class="link-meta-item"
+                        style="color: var(--ink-accent)"
+                        ><i class="bi bi-star-fill"></i>强烈推荐</span
+                      >
+                    </div>
+                  </div>
+                  <i
+                    class="bi bi-arrow-up-right link-arrow"
+                    style="font-size: 1.1rem"
+                  ></i>
+                </a>
+              </div>
+              <div class="col-md-6 fade-up delay-2" data-link-cat="tech">
+                <a href="#" target="_blank" class="link-featured">
+                  <div
+                    class="link-featured-avatar"
+                    style="
+                      background: linear-gradient(135deg, #0a1830, #0891b2);
+                      color: #fff;
+                    "
+                  >
+                    掘
+                  </div>
+                  <div style="flex: 1; min-width: 0">
+                    <div class="link-featured-name">稀土掘金</div>
+                    <div class="link-featured-desc">
+                      中文开发者社区中内容质量最高的平台，前端、后端、AI
+                      均有大量高质量原创文章。
+                    </div>
+                    <div class="link-featured-meta">
+                      <span class="link-meta-item"
+                        ><i class="bi bi-globe2"></i>juejin.cn</span
+                      >
+                      <span class="link-meta-item"
+                        ><i class="bi bi-people-fill"></i>百万开发者</span
+                      >
+                      <span
+                        class="link-meta-item"
+                        style="color: var(--ink-accent)"
+                        ><i class="bi bi-star-fill"></i>强烈推荐</span
+                      >
+                    </div>
+                  </div>
+                  <i
+                    class="bi bi-arrow-up-right link-arrow"
+                    style="font-size: 1.1rem"
+                  ></i>
+                </a>
+              </div>
+              <div class="col-md-6 fade-up delay-3" data-link-cat="design">
+                <a href="#" target="_blank" class="link-featured">
+                  <div
+                    class="link-featured-avatar"
+                    style="
+                      background: linear-gradient(135deg, #1a0a20, #9333ea);
+                      color: #fff;
+                    "
+                  >
+                    D
+                  </div>
+                  <div style="flex: 1; min-width: 0">
+                    <div class="link-featured-name">Dribbble</div>
+                    <div class="link-featured-desc">
+                      全球顶级 UI/UX
+                      设计师的作品聚集地，是我寻找设计灵感与色彩搭配参考的首选。
+                    </div>
+                    <div class="link-featured-meta">
+                      <span class="link-meta-item"
+                        ><i class="bi bi-globe2"></i>dribbble.com</span
+                      >
+                      <span class="link-meta-item"
+                        ><i class="bi bi-palette2"></i>设计灵感</span
+                      >
+                      <span
+                        class="link-meta-item"
+                        style="color: var(--ink-accent)"
+                        ><i class="bi bi-star-fill"></i>强烈推荐</span
+                      >
+                    </div>
+                  </div>
+                  <i
+                    class="bi bi-arrow-up-right link-arrow"
+                    style="font-size: 1.1rem"
+                  ></i>
+                </a>
+              </div>
+              <div class="col-md-6 fade-up delay-4" data-link-cat="tool">
+                <a href="#" target="_blank" class="link-featured">
+                  <div
+                    class="link-featured-avatar"
+                    style="
+                      background: linear-gradient(135deg, #0a1830, #1e3a5f);
+                      color: #fff;
+                    "
+                  >
+                    MDN
+                  </div>
+                  <div style="flex: 1; min-width: 0">
+                    <div class="link-featured-name">MDN Web Docs</div>
+                    <div class="link-featured-desc">
+                      Mozilla 维护的 Web 开发权威文档，JavaScript、CSS、HTML
+                      的最终参考答案永远在这里。
+                    </div>
+                    <div class="link-featured-meta">
+                      <span class="link-meta-item"
+                        ><i class="bi bi-globe2"></i>developer.mozilla.org</span
+                      >
+                      <span
+                        class="link-meta-item"
+                        style="color: var(--ink-accent)"
+                        ><i class="bi bi-star-fill"></i>强烈推荐</span
+                      >
+                    </div>
+                  </div>
+                  <i
+                    class="bi bi-arrow-up-right link-arrow"
+                    style="font-size: 1.1rem"
+                  ></i>
+                </a>
+              </div>
+            </div>
 
-        <!-- FILTER -->
-        <div class="filter-tabs fade-up">
-          <span class="filter-tab active" onclick="filterLinks(this,'all')">全部</span>
-          <span class="filter-tab" onclick="filterLinks(this,'blog')">个人博客</span>
-          <span class="filter-tab" onclick="filterLinks(this,'tech')">技术社区</span>
-          <span class="filter-tab" onclick="filterLinks(this,'tool')">工具资源</span>
-          <span class="filter-tab" onclick="filterLinks(this,'design')">设计灵感</span>
-          <span class="filter-tab" onclick="filterLinks(this,'news')">资讯媒体</span>
-        </div>
+            <!-- BLOG LINKS -->
+            <div class="section-divider fade-up">
+              <div class="section-divider-title">
+                <i
+                  class="bi bi-journal-richtext"
+                  style="color: var(--ink-primary)"
+                ></i>
+                个人博客
+              </div>
+              <div class="section-divider-line"></div>
+              <div class="section-divider-count">8 个</div>
+            </div>
+            <div class="row g-3 mb-2" id="blogLinks">
+              <div class="col-md-6 fade-up delay-1" data-link-cat="blog">
+                <a href="#" target="_blank" class="link-card">
+                  <div
+                    class="link-avatar"
+                    style="
+                      background: linear-gradient(135deg, #0a1a10, #0a6640);
+                      color: #fff;
+                      font-size: 1.3rem;
+                    "
+                  >
+                    张
+                  </div>
+                  <div class="link-info">
+                    <div class="link-name">张鑫旭的个人博客</div>
+                    <div class="link-desc">
+                      专注 CSS 研究与分享，近 2000
+                      篇原创文章，中文前端界独一无二的 CSS 深度作者。
+                    </div>
+                    <div class="link-url">zhangxinxu.com</div>
+                  </div>
+                  <i class="bi bi-arrow-up-right link-arrow"></i>
+                </a>
+              </div>
+              <div class="col-md-6 fade-up delay-2" data-link-cat="blog">
+                <a href="#" target="_blank" class="link-card">
+                  <div
+                    class="link-avatar"
+                    style="
+                      background: linear-gradient(135deg, #1a1040, #6d28d9);
+                      color: #fff;
+                      font-size: 1.3rem;
+                    "
+                  >
+                    冴
+                  </div>
+                  <div class="link-info">
+                    <div class="link-name">冴羽的博客</div>
+                    <div class="link-desc">
+                      JavaScript
+                      深度系列文章，原型链、作用域、闭包……每篇都是啃硬骨头的好材料。
+                    </div>
+                    <div class="link-url">github.com/mqyqingfeng</div>
+                  </div>
+                  <i class="bi bi-arrow-up-right link-arrow"></i>
+                </a>
+              </div>
+              <div class="col-md-6 fade-up delay-1" data-link-cat="blog">
+                <a href="#" target="_blank" class="link-card">
+                  <div
+                    class="link-avatar"
+                    style="
+                      background: linear-gradient(135deg, #0a1830, #0d4060);
+                      color: #fff;
+                      font-size: 1.3rem;
+                    "
+                  >
+                    云
+                  </div>
+                  <div class="link-info">
+                    <div class="link-name">云谦的个人站点</div>
+                    <div class="link-desc">
+                      Umi、Dva、Father
+                      作者，前端工程化领域的深度思考者，周刊每期必读。
+                    </div>
+                    <div class="link-url">sorrycc.com</div>
+                  </div>
+                  <i class="bi bi-arrow-up-right link-arrow"></i>
+                </a>
+              </div>
+              <div class="col-md-6 fade-up delay-2" data-link-cat="blog">
+                <a href="#" target="_blank" class="link-card">
+                  <div
+                    class="link-avatar"
+                    style="
+                      background: linear-gradient(135deg, #1a1000, #5a4000);
+                      color: #fff;
+                      font-size: 1.3rem;
+                    "
+                  >
+                    晓
+                  </div>
+                  <div class="link-info">
+                    <div class="link-name">小胡子哥的博客</div>
+                    <div class="link-desc">
+                      Barret
+                      李靖，前端工程实践类文章，视野开阔，逻辑清晰，很有工程价值。
+                    </div>
+                    <div class="link-url">barretlee.com</div>
+                  </div>
+                  <i class="bi bi-arrow-up-right link-arrow"></i>
+                </a>
+              </div>
+            </div>
 
-        <!-- FEATURED LINKS -->
-        <div class="section-divider fade-up">
-          <div class="section-divider-title"><i class="bi bi-star-fill" style="color:var(--ink-accent)"></i> 精选推荐</div>
-          <div class="section-divider-line"></div>
-          <div class="section-divider-count">4 个</div>
-        </div>
+            <!-- TOOL LINKS -->
+            <div class="section-divider fade-up">
+              <div class="section-divider-title">
+                <i class="bi bi-tools" style="color: #d97706"></i> 工具资源
+              </div>
+              <div class="section-divider-line"></div>
+              <div class="section-divider-count">6 个</div>
+            </div>
+            <div class="row g-3 mb-2">
+              <div class="col-md-6 fade-up delay-1" data-link-cat="tool">
+                <a href="#" target="_blank" class="link-card">
+                  <div
+                    class="link-avatar"
+                    style="
+                      background: linear-gradient(135deg, #1a1040, #3730a3);
+                      color: #fff;
+                    "
+                  >
+                    CF
+                  </div>
+                  <div class="link-info">
+                    <div class="link-name">Cloudflare</div>
+                    <div class="link-desc">
+                      全球最强 CDN
+                      与边缘计算平台，免费套餐已经能满足个人开发者绝大多数需求。
+                    </div>
+                    <div class="link-url">cloudflare.com</div>
+                  </div>
+                  <i class="bi bi-arrow-up-right link-arrow"></i>
+                </a>
+              </div>
+              <div class="col-md-6 fade-up delay-2" data-link-cat="tool">
+                <a href="#" target="_blank" class="link-card">
+                  <div
+                    class="link-avatar"
+                    style="
+                      background: linear-gradient(135deg, #0a1020, #111827);
+                      color: #fff;
+                    "
+                  >
+                    V
+                  </div>
+                  <div class="link-info">
+                    <div class="link-name">Vercel</div>
+                    <div class="link-desc">
+                      前端部署首选，与 Next.js、Nuxt、Vite
+                      项目无缝集成，全球边缘节点，极速响应。
+                    </div>
+                    <div class="link-url">vercel.com</div>
+                  </div>
+                  <i class="bi bi-arrow-up-right link-arrow"></i>
+                </a>
+              </div>
+              <div class="col-md-6 fade-up delay-1" data-link-cat="tool">
+                <a href="#" target="_blank" class="link-card">
+                  <div
+                    class="link-avatar"
+                    style="
+                      background: linear-gradient(135deg, #1a1000, #78350f);
+                      color: #fff;
+                      font-size: 1.1rem;
+                    "
+                  >
+                    Ray
+                  </div>
+                  <div class="link-info">
+                    <div class="link-name">Ray.so</div>
+                    <div class="link-desc">
+                      最优雅的代码截图生成器，一键生成漂亮的代码图片，技术博客写作必备工具。
+                    </div>
+                    <div class="link-url">ray.so</div>
+                  </div>
+                  <i class="bi bi-arrow-up-right link-arrow"></i>
+                </a>
+              </div>
+              <div class="col-md-6 fade-up delay-2" data-link-cat="tool">
+                <a href="#" target="_blank" class="link-card">
+                  <div
+                    class="link-avatar"
+                    style="
+                      background: linear-gradient(135deg, #0a1a10, #1a5c2a);
+                      color: var(--ink-accent);
+                      font-size: 1.1rem;
+                    "
+                  >
+                    CSS
+                  </div>
+                  <div class="link-info">
+                    <div class="link-name">CSS Tricks</div>
+                    <div class="link-desc">
+                      CSS 领域最权威的英文资源站，Flexbox、Grid、Animation
+                      的完整教程与 Tricks 收录。
+                    </div>
+                    <div class="link-url">css-tricks.com</div>
+                  </div>
+                  <i class="bi bi-arrow-up-right link-arrow"></i>
+                </a>
+              </div>
+            </div>
 
-        <div class="row g-3 mb-2">
-          <div class="col-md-6 fade-up delay-1" data-link-cat="blog">
-            <a href="#" target="_blank" class="link-featured">
-              <div class="link-featured-avatar" style="background:linear-gradient(135deg,#1a0a30,#6d28d9);color:#fff">阮</div>
-              <div style="flex:1;min-width:0">
-                <div class="link-featured-name">阮一峰的网络日志</div>
-                <div class="link-featured-desc">每周科技爱好者周刊，分享前沿技术动态与深度思考，是我坚持阅读时间最长的博客。</div>
-                <div class="link-featured-meta">
-                  <span class="link-meta-item"><i class="bi bi-globe2"></i>ruanyifeng.com</span>
-                  <span class="link-meta-item"><i class="bi bi-calendar3"></i>每周更新</span>
-                  <span class="link-meta-item" style="color:var(--ink-accent)"><i class="bi bi-star-fill"></i>强烈推荐</span>
-                </div>
+            <!-- DESIGN LINKS -->
+            <div class="section-divider fade-up">
+              <div class="section-divider-title">
+                <i class="bi bi-palette2" style="color: #9333ea"></i> 设计灵感
               </div>
-              <i class="bi bi-arrow-up-right link-arrow" style="font-size:1.1rem"></i>
-            </a>
-          </div>
-          <div class="col-md-6 fade-up delay-2" data-link-cat="tech">
-            <a href="#" target="_blank" class="link-featured">
-              <div class="link-featured-avatar" style="background:linear-gradient(135deg,#0a1830,#0891b2);color:#fff">掘</div>
-              <div style="flex:1;min-width:0">
-                <div class="link-featured-name">稀土掘金</div>
-                <div class="link-featured-desc">中文开发者社区中内容质量最高的平台，前端、后端、AI 均有大量高质量原创文章。</div>
-                <div class="link-featured-meta">
-                  <span class="link-meta-item"><i class="bi bi-globe2"></i>juejin.cn</span>
-                  <span class="link-meta-item"><i class="bi bi-people-fill"></i>百万开发者</span>
-                  <span class="link-meta-item" style="color:var(--ink-accent)"><i class="bi bi-star-fill"></i>强烈推荐</span>
-                </div>
+              <div class="section-divider-line"></div>
+              <div class="section-divider-count">4 个</div>
+            </div>
+            <div class="row g-3">
+              <div class="col-md-6 fade-up delay-1" data-link-cat="design">
+                <a href="#" target="_blank" class="link-card">
+                  <div
+                    class="link-avatar"
+                    style="
+                      background: linear-gradient(135deg, #1a0030, #6600cc);
+                      color: #fff;
+                    "
+                  >
+                    A
+                  </div>
+                  <div class="link-info">
+                    <div class="link-name">Awwwards</div>
+                    <div class="link-desc">
+                      全球最高水准网页设计奖项评选平台，每日精选创意网站，视觉冲击力极强。
+                    </div>
+                    <div class="link-url">awwwards.com</div>
+                  </div>
+                  <i class="bi bi-arrow-up-right link-arrow"></i>
+                </a>
               </div>
-              <i class="bi bi-arrow-up-right link-arrow" style="font-size:1.1rem"></i>
-            </a>
-          </div>
-          <div class="col-md-6 fade-up delay-3" data-link-cat="design">
-            <a href="#" target="_blank" class="link-featured">
-              <div class="link-featured-avatar" style="background:linear-gradient(135deg,#1a0a20,#9333ea);color:#fff">D</div>
-              <div style="flex:1;min-width:0">
-                <div class="link-featured-name">Dribbble</div>
-                <div class="link-featured-desc">全球顶级 UI/UX 设计师的作品聚集地，是我寻找设计灵感与色彩搭配参考的首选。</div>
-                <div class="link-featured-meta">
-                  <span class="link-meta-item"><i class="bi bi-globe2"></i>dribbble.com</span>
-                  <span class="link-meta-item"><i class="bi bi-palette2"></i>设计灵感</span>
-                  <span class="link-meta-item" style="color:var(--ink-accent)"><i class="bi bi-star-fill"></i>强烈推荐</span>
-                </div>
+              <div class="col-md-6 fade-up delay-2" data-link-cat="design">
+                <a href="#" target="_blank" class="link-card">
+                  <div
+                    class="link-avatar"
+                    style="
+                      background: linear-gradient(135deg, #0a1820, #1e3a5f);
+                      color: #fff;
+                    "
+                  >
+                    Ui
+                  </div>
+                  <div class="link-info">
+                    <div class="link-name">UI Verse</div>
+                    <div class="link-desc">
+                      纯 CSS
+                      组件库，数千个精美组件开箱即用，适合快速原型与博客样式参考。
+                    </div>
+                    <div class="link-url">uiverse.io</div>
+                  </div>
+                  <i class="bi bi-arrow-up-right link-arrow"></i>
+                </a>
               </div>
-              <i class="bi bi-arrow-up-right link-arrow" style="font-size:1.1rem"></i>
-            </a>
-          </div>
-          <div class="col-md-6 fade-up delay-4" data-link-cat="tool">
-            <a href="#" target="_blank" class="link-featured">
-              <div class="link-featured-avatar" style="background:linear-gradient(135deg,#0a1830,#1e3a5f);color:#fff">MDN</div>
-              <div style="flex:1;min-width:0">
-                <div class="link-featured-name">MDN Web Docs</div>
-                <div class="link-featured-desc">Mozilla 维护的 Web 开发权威文档，JavaScript、CSS、HTML 的最终参考答案永远在这里。</div>
-                <div class="link-featured-meta">
-                  <span class="link-meta-item"><i class="bi bi-globe2"></i>developer.mozilla.org</span>
-                  <span class="link-meta-item" style="color:var(--ink-accent)"><i class="bi bi-star-fill"></i>强烈推荐</span>
-                </div>
+              <div class="col-md-6 fade-up delay-3" data-link-cat="design">
+                <a href="#" target="_blank" class="link-card">
+                  <div
+                    class="link-avatar"
+                    style="
+                      background: linear-gradient(135deg, #1a0a10, #5a1a30);
+                      color: #fff;
+                    "
+                  >
+                    C
+                  </div>
+                  <div class="link-info">
+                    <div class="link-name">Coolors</div>
+                    <div class="link-desc">
+                      超好用的调色板生成工具，一键生成和谐配色方案，支持对比度检查与导出。
+                    </div>
+                    <div class="link-url">coolors.co</div>
+                  </div>
+                  <i class="bi bi-arrow-up-right link-arrow"></i>
+                </a>
               </div>
-              <i class="bi bi-arrow-up-right link-arrow" style="font-size:1.1rem"></i>
-            </a>
-          </div>
-        </div>
+              <div class="col-md-6 fade-up delay-4" data-link-cat="design">
+                <a href="#" target="_blank" class="link-card">
+                  <div
+                    class="link-avatar"
+                    style="
+                      background: linear-gradient(135deg, #0a1a20, #1a4060);
+                      color: #fff;
+                    "
+                  >
+                    F
+                  </div>
+                  <div class="link-info">
+                    <div class="link-name">Fontpair</div>
+                    <div class="link-desc">
+                      字体搭配参考网站，提供数百组 Google Fonts
+                      的最佳搭配方案与实际效果预览。
+                    </div>
+                    <div class="link-url">fontpair.co</div>
+                  </div>
+                  <i class="bi bi-arrow-up-right link-arrow"></i>
+                </a>
+              </div>
+            </div>
 
-        <!-- BLOG LINKS -->
-        <div class="section-divider fade-up">
-          <div class="section-divider-title"><i class="bi bi-journal-richtext" style="color:var(--ink-primary)"></i> 个人博客</div>
-          <div class="section-divider-line"></div>
-          <div class="section-divider-count">8 个</div>
-        </div>
-        <div class="row g-3 mb-2" id="blogLinks">
-          <div class="col-md-6 fade-up delay-1" data-link-cat="blog">
-            <a href="#" target="_blank" class="link-card">
-              <div class="link-avatar" style="background:linear-gradient(135deg,#0a1a10,#0a6640);color:#fff;font-size:1.3rem">张</div>
-              <div class="link-info">
-                <div class="link-name">张鑫旭的个人博客</div>
-                <div class="link-desc">专注 CSS 研究与分享，近 2000 篇原创文章，中文前端界独一无二的 CSS 深度作者。</div>
-                <div class="link-url">zhangxinxu.com</div>
-              </div>
-              <i class="bi bi-arrow-up-right link-arrow"></i>
-            </a>
-          </div>
-          <div class="col-md-6 fade-up delay-2" data-link-cat="blog">
-            <a href="#" target="_blank" class="link-card">
-              <div class="link-avatar" style="background:linear-gradient(135deg,#1a1040,#6d28d9);color:#fff;font-size:1.3rem">冴</div>
-              <div class="link-info">
-                <div class="link-name">冴羽的博客</div>
-                <div class="link-desc">JavaScript 深度系列文章，原型链、作用域、闭包……每篇都是啃硬骨头的好材料。</div>
-                <div class="link-url">github.com/mqyqingfeng</div>
-              </div>
-              <i class="bi bi-arrow-up-right link-arrow"></i>
-            </a>
-          </div>
-          <div class="col-md-6 fade-up delay-1" data-link-cat="blog">
-            <a href="#" target="_blank" class="link-card">
-              <div class="link-avatar" style="background:linear-gradient(135deg,#0a1830,#0d4060);color:#fff;font-size:1.3rem">云</div>
-              <div class="link-info">
-                <div class="link-name">云谦的个人站点</div>
-                <div class="link-desc">Umi、Dva、Father 作者，前端工程化领域的深度思考者，周刊每期必读。</div>
-                <div class="link-url">sorrycc.com</div>
-              </div>
-              <i class="bi bi-arrow-up-right link-arrow"></i>
-            </a>
-          </div>
-          <div class="col-md-6 fade-up delay-2" data-link-cat="blog">
-            <a href="#" target="_blank" class="link-card">
-              <div class="link-avatar" style="background:linear-gradient(135deg,#1a1000,#5a4000);color:#fff;font-size:1.3rem">晓</div>
-              <div class="link-info">
-                <div class="link-name">小胡子哥的博客</div>
-                <div class="link-desc">Barret 李靖，前端工程实践类文章，视野开阔，逻辑清晰，很有工程价值。</div>
-                <div class="link-url">barretlee.com</div>
-              </div>
-              <i class="bi bi-arrow-up-right link-arrow"></i>
-            </a>
-          </div>
-        </div>
-
-        <!-- TOOL LINKS -->
-        <div class="section-divider fade-up">
-          <div class="section-divider-title"><i class="bi bi-tools" style="color:#d97706"></i> 工具资源</div>
-          <div class="section-divider-line"></div>
-          <div class="section-divider-count">6 个</div>
-        </div>
-        <div class="row g-3 mb-2">
-          <div class="col-md-6 fade-up delay-1" data-link-cat="tool">
-            <a href="#" target="_blank" class="link-card">
-              <div class="link-avatar" style="background:linear-gradient(135deg,#1a1040,#3730a3);color:#fff">CF</div>
-              <div class="link-info">
-                <div class="link-name">Cloudflare</div>
-                <div class="link-desc">全球最强 CDN 与边缘计算平台，免费套餐已经能满足个人开发者绝大多数需求。</div>
-                <div class="link-url">cloudflare.com</div>
-              </div>
-              <i class="bi bi-arrow-up-right link-arrow"></i>
-            </a>
-          </div>
-          <div class="col-md-6 fade-up delay-2" data-link-cat="tool">
-            <a href="#" target="_blank" class="link-card">
-              <div class="link-avatar" style="background:linear-gradient(135deg,#0a1020,#111827);color:#fff">V</div>
-              <div class="link-info">
-                <div class="link-name">Vercel</div>
-                <div class="link-desc">前端部署首选，与 Next.js、Nuxt、Vite 项目无缝集成，全球边缘节点，极速响应。</div>
-                <div class="link-url">vercel.com</div>
-              </div>
-              <i class="bi bi-arrow-up-right link-arrow"></i>
-            </a>
-          </div>
-          <div class="col-md-6 fade-up delay-1" data-link-cat="tool">
-            <a href="#" target="_blank" class="link-card">
-              <div class="link-avatar" style="background:linear-gradient(135deg,#1a1000,#78350f);color:#fff;font-size:1.1rem">Ray</div>
-              <div class="link-info">
-                <div class="link-name">Ray.so</div>
-                <div class="link-desc">最优雅的代码截图生成器，一键生成漂亮的代码图片，技术博客写作必备工具。</div>
-                <div class="link-url">ray.so</div>
-              </div>
-              <i class="bi bi-arrow-up-right link-arrow"></i>
-            </a>
-          </div>
-          <div class="col-md-6 fade-up delay-2" data-link-cat="tool">
-            <a href="#" target="_blank" class="link-card">
-              <div class="link-avatar" style="background:linear-gradient(135deg,#0a1a10,#1a5c2a);color:var(--ink-accent);font-size:1.1rem">CSS</div>
-              <div class="link-info">
-                <div class="link-name">CSS Tricks</div>
-                <div class="link-desc">CSS 领域最权威的英文资源站，Flexbox、Grid、Animation 的完整教程与 Tricks 收录。</div>
-                <div class="link-url">css-tricks.com</div>
-              </div>
-              <i class="bi bi-arrow-up-right link-arrow"></i>
-            </a>
-          </div>
-        </div>
-
-        <!-- DESIGN LINKS -->
-        <div class="section-divider fade-up">
-          <div class="section-divider-title"><i class="bi bi-palette2" style="color:#9333ea"></i> 设计灵感</div>
-          <div class="section-divider-line"></div>
-          <div class="section-divider-count">4 个</div>
-        </div>
-        <div class="row g-3">
-          <div class="col-md-6 fade-up delay-1" data-link-cat="design">
-            <a href="#" target="_blank" class="link-card">
-              <div class="link-avatar" style="background:linear-gradient(135deg,#1a0030,#6600cc);color:#fff">A</div>
-              <div class="link-info">
-                <div class="link-name">Awwwards</div>
-                <div class="link-desc">全球最高水准网页设计奖项评选平台，每日精选创意网站，视觉冲击力极强。</div>
-                <div class="link-url">awwwards.com</div>
-              </div>
-              <i class="bi bi-arrow-up-right link-arrow"></i>
-            </a>
-          </div>
-          <div class="col-md-6 fade-up delay-2" data-link-cat="design">
-            <a href="#" target="_blank" class="link-card">
-              <div class="link-avatar" style="background:linear-gradient(135deg,#0a1820,#1e3a5f);color:#fff">Ui</div>
-              <div class="link-info">
-                <div class="link-name">UI Verse</div>
-                <div class="link-desc">纯 CSS 组件库，数千个精美组件开箱即用，适合快速原型与博客样式参考。</div>
-                <div class="link-url">uiverse.io</div>
-              </div>
-              <i class="bi bi-arrow-up-right link-arrow"></i>
-            </a>
-          </div>
-          <div class="col-md-6 fade-up delay-3" data-link-cat="design">
-            <a href="#" target="_blank" class="link-card">
-              <div class="link-avatar" style="background:linear-gradient(135deg,#1a0a10,#5a1a30);color:#fff">C</div>
-              <div class="link-info">
-                <div class="link-name">Coolors</div>
-                <div class="link-desc">超好用的调色板生成工具，一键生成和谐配色方案，支持对比度检查与导出。</div>
-                <div class="link-url">coolors.co</div>
-              </div>
-              <i class="bi bi-arrow-up-right link-arrow"></i>
-            </a>
-          </div>
-          <div class="col-md-6 fade-up delay-4" data-link-cat="design">
-            <a href="#" target="_blank" class="link-card">
-              <div class="link-avatar" style="background:linear-gradient(135deg,#0a1a20,#1a4060);color:#fff">F</div>
-              <div class="link-info">
-                <div class="link-name">Fontpair</div>
-                <div class="link-desc">字体搭配参考网站，提供数百组 Google Fonts 的最佳搭配方案与实际效果预览。</div>
-                <div class="link-url">fontpair.co</div>
-              </div>
-              <i class="bi bi-arrow-up-right link-arrow"></i>
-            </a>
-          </div>
-        </div>
-
-        <!-- APPLY CARD -->
-        <div class="apply-card fade-up">
-          <div class="apply-card-body">
-            <div class="row align-items-center g-4">
-              <div class="col-md-7">
-                <div class="apply-title">申请友情链接</div>
-                <p class="apply-sub">如果你也有一个用心维护的个人博客，欢迎与我互换链接。我会认真审核每一份申请。</p>
-                <div class="apply-requirements">
-                  <div class="apply-req"><i class="bi bi-check-circle-fill"></i><span>博客有原创内容，非采集站或纯转载</span></div>
-                  <div class="apply-req"><i class="bi bi-check-circle-fill"></i><span>坚持更新，近三个月内有发布文章</span></div>
-                  <div class="apply-req"><i class="bi bi-check-circle-fill"></i><span>已将本站添加至你的友链页面</span></div>
-                  <div class="apply-req"><i class="bi bi-check-circle-fill"></i><span>内容合法合规，无违禁内容</span></div>
-                </div>
-                <button class="btn-apply" onclick="toggleApplyForm()">
-                  <i class="bi bi-send-fill"></i> 提交申请
-                </button>
-              </div>
-              <div class="col-md-5">
-                <div class="apply-form" id="applyForm">
-                  <input type="text" class="apply-input" placeholder="博客名称 *" />
-                  <input type="url" class="apply-input" placeholder="博客地址 * (https://...)" />
-                  <input type="url" class="apply-input" placeholder="头像地址（可选）" />
-                  <input type="text" class="apply-input" placeholder="一句话介绍 *" />
-                  <input type="email" class="apply-input" placeholder="联系邮箱 *" />
-                  <div style="display:flex;gap:.5rem">
-                    <button class="btn-submit" style="flex:1"><i class="bi bi-check-lg me-1"></i> 提交</button>
-                    <button onclick="toggleApplyForm()" style="background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.7);padding:.7rem 1rem;border-radius:var(--radius-sm);cursor:pointer;font-family:var(--font-body);font-size:.88rem">取消</button>
+            <!-- APPLY CARD -->
+            <div class="apply-card fade-up">
+              <div class="apply-card-body">
+                <div class="row align-items-center g-4">
+                  <div class="col-md-7">
+                    <div class="apply-title">申请友情链接</div>
+                    <p class="apply-sub">
+                      如果你也有一个用心维护的个人博客，欢迎与我互换链接。我会认真审核每一份申请。
+                    </p>
+                    <div class="apply-requirements">
+                      <div class="apply-req">
+                        <i class="bi bi-check-circle-fill"></i
+                        ><span>博客有原创内容，非采集站或纯转载</span>
+                      </div>
+                      <div class="apply-req">
+                        <i class="bi bi-check-circle-fill"></i
+                        ><span>坚持更新，近三个月内有发布文章</span>
+                      </div>
+                      <div class="apply-req">
+                        <i class="bi bi-check-circle-fill"></i
+                        ><span>已将本站添加至你的友链页面</span>
+                      </div>
+                      <div class="apply-req">
+                        <i class="bi bi-check-circle-fill"></i
+                        ><span>内容合法合规，无违禁内容</span>
+                      </div>
+                    </div>
+                    <button class="btn-apply" onclick="toggleApplyForm()">
+                      <i class="bi bi-send-fill"></i> 提交申请
+                    </button>
+                  </div>
+                  <div class="col-md-5">
+                    <div class="apply-form" id="applyForm">
+                      <input
+                        type="text"
+                        class="apply-input"
+                        placeholder="博客名称 *"
+                      />
+                      <input
+                        type="url"
+                        class="apply-input"
+                        placeholder="博客地址 * (https://...)"
+                      />
+                      <input
+                        type="url"
+                        class="apply-input"
+                        placeholder="头像地址（可选）"
+                      />
+                      <input
+                        type="text"
+                        class="apply-input"
+                        placeholder="一句话介绍 *"
+                      />
+                      <input
+                        type="email"
+                        class="apply-input"
+                        placeholder="联系邮箱 *"
+                      />
+                      <div style="display: flex; gap: 0.5rem">
+                        <button class="btn-submit" style="flex: 1">
+                          <i class="bi bi-check-lg me-1"></i> 提交
+                        </button>
+                        <button
+                          onclick="toggleApplyForm()"
+                          style="
+                            background: rgba(255, 255, 255, 0.1);
+                            border: 1px solid rgba(255, 255, 255, 0.2);
+                            color: rgba(255, 255, 255, 0.7);
+                            padding: 0.7rem 1rem;
+                            border-radius: var(--radius-sm);
+                            cursor: pointer;
+                            font-family: var(--font-body);
+                            font-size: 0.88rem;
+                          "
+                        >
+                          取消
+                        </button>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
+          <!-- /col -->
+
+          <!-- SIDEBAR -->
+          <div class="col-lg-4">
+            <!-- Stats -->
+            <div
+              style="
+                background: var(--ink-card);
+                border: 1px solid var(--ink-border);
+                border-radius: var(--radius-lg);
+                padding: 1.6rem;
+                box-shadow: var(--shadow-card);
+                margin-bottom: 1.5rem;
+              "
+              class="fade-up delay-1"
+            >
+              <div
+                style="
+                  font-family: var(--font-display);
+                  font-size: 1rem;
+                  font-weight: 700;
+                  margin-bottom: 1.1rem;
+                  padding-bottom: 0.7rem;
+                  border-bottom: 2px solid var(--ink-border);
+                  display: flex;
+                  align-items: center;
+                  gap: 0.45rem;
+                "
+              >
+                <span
+                  style="
+                    width: 4px;
+                    height: 16px;
+                    background: linear-gradient(
+                      to bottom,
+                      var(--ink-accent),
+                      var(--ink-primary)
+                    );
+                    border-radius: 99px;
+                    display: inline-block;
+                  "
+                ></span>
+                链接统计
+              </div>
+              <div class="d-flex flex-column gap-2">
+                <div
+                  style="
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    padding: 0.6rem 0;
+                    border-bottom: 1px solid var(--ink-border);
+                  "
+                >
+                  <span
+                    style="
+                      font-size: 0.88rem;
+                      color: var(--ink-heading);
+                      display: flex;
+                      align-items: center;
+                      gap: 0.4rem;
+                    "
+                    ><i
+                      class="bi bi-journal-richtext"
+                      style="color: var(--ink-primary)"
+                    ></i
+                    >个人博客</span
+                  >
+                  <span
+                    style="
+                      font-family: var(--font-mono);
+                      font-size: 0.85rem;
+                      font-weight: 600;
+                      color: var(--ink-primary);
+                    "
+                    >8</span
+                  >
+                </div>
+                <div
+                  style="
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    padding: 0.6rem 0;
+                    border-bottom: 1px solid var(--ink-border);
+                  "
+                >
+                  <span
+                    style="
+                      font-size: 0.88rem;
+                      color: var(--ink-heading);
+                      display: flex;
+                      align-items: center;
+                      gap: 0.4rem;
+                    "
+                    ><i class="bi bi-code-square" style="color: #0891b2"></i
+                    >技术社区</span
+                  >
+                  <span
+                    style="
+                      font-family: var(--font-mono);
+                      font-size: 0.85rem;
+                      font-weight: 600;
+                      color: #0891b2;
+                    "
+                    >4</span
+                  >
+                </div>
+                <div
+                  style="
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    padding: 0.6rem 0;
+                    border-bottom: 1px solid var(--ink-border);
+                  "
+                >
+                  <span
+                    style="
+                      font-size: 0.88rem;
+                      color: var(--ink-heading);
+                      display: flex;
+                      align-items: center;
+                      gap: 0.4rem;
+                    "
+                    ><i class="bi bi-tools" style="color: #d97706"></i
+                    >工具资源</span
+                  >
+                  <span
+                    style="
+                      font-family: var(--font-mono);
+                      font-size: 0.85rem;
+                      font-weight: 600;
+                      color: #d97706;
+                    "
+                    >6</span
+                  >
+                </div>
+                <div
+                  style="
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    padding: 0.6rem 0;
+                  "
+                >
+                  <span
+                    style="
+                      font-size: 0.88rem;
+                      color: var(--ink-heading);
+                      display: flex;
+                      align-items: center;
+                      gap: 0.4rem;
+                    "
+                    ><i class="bi bi-palette2" style="color: #9333ea"></i
+                    >设计灵感</span
+                  >
+                  <span
+                    style="
+                      font-family: var(--font-mono);
+                      font-size: 0.85rem;
+                      font-weight: 600;
+                      color: #9333ea;
+                    "
+                    >4</span
+                  >
+                </div>
+              </div>
+              <div
+                style="
+                  margin-top: 1rem;
+                  padding-top: 0.75rem;
+                  border-top: 1px solid var(--ink-border);
+                  display: flex;
+                  justify-content: space-between;
+                  align-items: center;
+                "
+              >
+                <span style="font-size: 0.82rem; color: var(--ink-muted)"
+                  >共收录</span
+                >
+                <span
+                  style="
+                    font-family: var(--font-display);
+                    font-size: 1.5rem;
+                    font-weight: 900;
+                    color: var(--ink-primary);
+                  "
+                  >22</span
+                >
+              </div>
+            </div>
+
+            <!-- My info card (for exchange) -->
+            <div
+              style="
+                background: var(--ink-card);
+                border: 1px solid var(--ink-border);
+                border-radius: var(--radius-lg);
+                padding: 1.6rem;
+                box-shadow: var(--shadow-card);
+                margin-bottom: 1.5rem;
+              "
+              class="fade-up delay-2"
+            >
+              <div
+                style="
+                  font-family: var(--font-display);
+                  font-size: 1rem;
+                  font-weight: 700;
+                  margin-bottom: 1.1rem;
+                  padding-bottom: 0.7rem;
+                  border-bottom: 2px solid var(--ink-border);
+                  display: flex;
+                  align-items: center;
+                  gap: 0.45rem;
+                "
+              >
+                <span
+                  style="
+                    width: 4px;
+                    height: 16px;
+                    background: linear-gradient(
+                      to bottom,
+                      var(--ink-accent),
+                      var(--ink-primary)
+                    );
+                    border-radius: 99px;
+                    display: inline-block;
+                  "
+                ></span>
+                本站信息
+              </div>
+              <div style="display: flex; flex-direction: column; gap: 0.85rem">
+                <div>
+                  <div
+                    style="
+                      font-size: 0.72rem;
+                      text-transform: uppercase;
+                      letter-spacing: 0.07em;
+                      color: var(--ink-muted);
+                      font-weight: 600;
+                      margin-bottom: 0.25rem;
+                    "
+                  >
+                    博客名称
+                  </div>
+                  <div
+                    style="
+                      font-family: var(--font-display);
+                      font-weight: 700;
+                      font-size: 1rem;
+                      color: var(--ink-heading);
+                    "
+                  >
+                    INKFLOW
+                  </div>
+                </div>
+                <div>
+                  <div
+                    style="
+                      font-size: 0.72rem;
+                      text-transform: uppercase;
+                      letter-spacing: 0.07em;
+                      color: var(--ink-muted);
+                      font-weight: 600;
+                      margin-bottom: 0.25rem;
+                    "
+                  >
+                    博客地址
+                  </div>
+                  <div
+                    style="
+                      font-family: var(--font-mono);
+                      font-size: 0.83rem;
+                      color: var(--ink-primary);
+                    "
+                  >
+                    inkflow.dev
+                  </div>
+                </div>
+                <div>
+                  <div
+                    style="
+                      font-size: 0.72rem;
+                      text-transform: uppercase;
+                      letter-spacing: 0.07em;
+                      color: var(--ink-muted);
+                      font-weight: 600;
+                      margin-bottom: 0.25rem;
+                    "
+                  >
+                    一句话介绍
+                  </div>
+                  <div
+                    style="
+                      font-size: 0.86rem;
+                      color: var(--ink-text);
+                      line-height: 1.6;
+                    "
+                  >
+                    关于技术、设计与人文的独立博客
+                  </div>
+                </div>
+                <div>
+                  <div
+                    style="
+                      font-size: 0.72rem;
+                      text-transform: uppercase;
+                      letter-spacing: 0.07em;
+                      color: var(--ink-muted);
+                      font-weight: 600;
+                      margin-bottom: 0.4rem;
+                    "
+                  >
+                    头像预览
+                  </div>
+                  <div
+                    style="
+                      width: 52px;
+                      height: 52px;
+                      border-radius: var(--radius-md);
+                      background: linear-gradient(
+                        135deg,
+                        var(--ink-accent),
+                        var(--ink-primary)
+                      );
+                      display: flex;
+                      align-items: center;
+                      justify-content: center;
+                      font-family: var(--font-display);
+                      font-size: 1.1rem;
+                      font-weight: 900;
+                      color: #fff;
+                    "
+                  >
+                    IF
+                  </div>
+                </div>
+              </div>
+              <button
+                onclick="
+                  navigator.clipboard.writeText(
+                    '博客名称：INKFLOW\n地址：https://inkflow.dev\n介绍：关于技术、设计与人文的独立博客',
+                  )
+                "
+                style="
+                  width: 100%;
+                  margin-top: 1.1rem;
+                  background: rgba(var(--ink-primary-rgb), 0.08);
+                  border: 1px solid rgba(var(--ink-primary-rgb), 0.2);
+                  color: var(--ink-primary);
+                  border-radius: var(--radius-sm);
+                  padding: 0.6rem;
+                  font-size: 0.86rem;
+                  font-weight: 600;
+                  cursor: pointer;
+                  font-family: var(--font-body);
+                  transition: all var(--transition);
+                "
+                onmouseover="
+                  this.style.background = 'rgba(var(--ink-primary-rgb),.15)'
+                "
+                onmouseout="
+                  this.style.background = 'rgba(var(--ink-primary-rgb),.08)'
+                "
+              >
+                <i class="bi bi-clipboard me-1"></i> 一键复制本站信息
+              </button>
+            </div>
+
+            <!-- Recently added -->
+            <div
+              style="
+                background: var(--ink-card);
+                border: 1px solid var(--ink-border);
+                border-radius: var(--radius-lg);
+                padding: 1.6rem;
+                box-shadow: var(--shadow-card);
+              "
+              class="fade-up delay-3"
+            >
+              <div
+                style="
+                  font-family: var(--font-display);
+                  font-size: 1rem;
+                  font-weight: 700;
+                  margin-bottom: 1.1rem;
+                  padding-bottom: 0.7rem;
+                  border-bottom: 2px solid var(--ink-border);
+                  display: flex;
+                  align-items: center;
+                  gap: 0.45rem;
+                "
+              >
+                <span
+                  style="
+                    width: 4px;
+                    height: 16px;
+                    background: linear-gradient(
+                      to bottom,
+                      var(--ink-accent),
+                      var(--ink-primary)
+                    );
+                    border-radius: 99px;
+                    display: inline-block;
+                  "
+                ></span>
+                最近新增
+              </div>
+              <div style="display: flex; flex-direction: column; gap: 0.75rem">
+                <a
+                  href="#"
+                  style="
+                    display: flex;
+                    align-items: center;
+                    gap: 0.75rem;
+                    text-decoration: none;
+                    transition: all var(--transition);
+                  "
+                  class="recently-added-item"
+                >
+                  <div
+                    style="
+                      width: 36px;
+                      height: 36px;
+                      border-radius: 8px;
+                      background: linear-gradient(135deg, #1a1040, #6d28d9);
+                      display: flex;
+                      align-items: center;
+                      justify-content: center;
+                      color: #fff;
+                      font-size: 0.85rem;
+                      font-weight: 700;
+                      flex-shrink: 0;
+                    "
+                  >
+                    C
+                  </div>
+                  <div style="flex: 1; min-width: 0">
+                    <div
+                      style="
+                        font-size: 0.86rem;
+                        font-weight: 600;
+                        color: var(--ink-heading);
+                      "
+                    >
+                      Coolors
+                    </div>
+                    <div style="font-size: 0.75rem; color: var(--ink-muted)">
+                      3 天前收录
+                    </div>
+                  </div>
+                  <i
+                    class="bi bi-arrow-up-right"
+                    style="
+                      color: var(--ink-muted);
+                      font-size: 0.85rem;
+                      flex-shrink: 0;
+                    "
+                  ></i>
+                </a>
+                <a
+                  href="#"
+                  style="
+                    display: flex;
+                    align-items: center;
+                    gap: 0.75rem;
+                    text-decoration: none;
+                    transition: all var(--transition);
+                  "
+                  class="recently-added-item"
+                >
+                  <div
+                    style="
+                      width: 36px;
+                      height: 36px;
+                      border-radius: 8px;
+                      background: linear-gradient(135deg, #1a0a10, #5a1a30);
+                      display: flex;
+                      align-items: center;
+                      justify-content: center;
+                      color: #fff;
+                      font-size: 0.85rem;
+                      font-weight: 700;
+                      flex-shrink: 0;
+                    "
+                  >
+                    F
+                  </div>
+                  <div style="flex: 1; min-width: 0">
+                    <div
+                      style="
+                        font-size: 0.86rem;
+                        font-weight: 600;
+                        color: var(--ink-heading);
+                      "
+                    >
+                      Fontpair
+                    </div>
+                    <div style="font-size: 0.75rem; color: var(--ink-muted)">
+                      1 周前收录
+                    </div>
+                  </div>
+                  <i
+                    class="bi bi-arrow-up-right"
+                    style="
+                      color: var(--ink-muted);
+                      font-size: 0.85rem;
+                      flex-shrink: 0;
+                    "
+                  ></i>
+                </a>
+                <a
+                  href="#"
+                  style="
+                    display: flex;
+                    align-items: center;
+                    gap: 0.75rem;
+                    text-decoration: none;
+                    transition: all var(--transition);
+                  "
+                  class="recently-added-item"
+                >
+                  <div
+                    style="
+                      width: 36px;
+                      height: 36px;
+                      border-radius: 8px;
+                      background: linear-gradient(135deg, #0a1830, #1e3a5f);
+                      display: flex;
+                      align-items: center;
+                      justify-content: center;
+                      color: #fff;
+                      font-size: 0.85rem;
+                      font-weight: 700;
+                      flex-shrink: 0;
+                    "
+                  >
+                    U
+                  </div>
+                  <div style="flex: 1; min-width: 0">
+                    <div
+                      style="
+                        font-size: 0.86rem;
+                        font-weight: 600;
+                        color: var(--ink-heading);
+                      "
+                    >
+                      UI Verse
+                    </div>
+                    <div style="font-size: 0.75rem; color: var(--ink-muted)">
+                      2 周前收录
+                    </div>
+                  </div>
+                  <i
+                    class="bi bi-arrow-up-right"
+                    style="
+                      color: var(--ink-muted);
+                      font-size: 0.85rem;
+                      flex-shrink: 0;
+                    "
+                  ></i>
+                </a>
+              </div>
+            </div>
+          </div>
         </div>
+      </div>
+    </main>
 
-      </div><!-- /col -->
-
-      <!-- SIDEBAR -->
-      <div class="col-lg-4">
-
-        <!-- Stats -->
-        <div style="background:var(--ink-card);border:1px solid var(--ink-border);border-radius:var(--radius-lg);padding:1.6rem;box-shadow:var(--shadow-card);margin-bottom:1.5rem" class="fade-up delay-1">
-          <div style="font-family:var(--font-display);font-size:1rem;font-weight:700;margin-bottom:1.1rem;padding-bottom:.7rem;border-bottom:2px solid var(--ink-border);display:flex;align-items:center;gap:.45rem">
-            <span style="width:4px;height:16px;background:linear-gradient(to bottom,var(--ink-accent),var(--ink-primary));border-radius:99px;display:inline-block"></span>
-            链接统计
+    <!-- FOOTER -->
+    <footer class="site-footer">
+      <div class="container">
+        <div class="row g-4">
+          <div class="col-md-4">
+            <div class="footer-brand">
+              INKFLOW<span class="brand-dot"></span>
+            </div>
+            <p class="footer-tagline">一个关于技术、设计与人文的独立博客。</p>
           </div>
-          <div class="d-flex flex-column gap-2">
-            <div style="display:flex;justify-content:space-between;align-items:center;padding:.6rem 0;border-bottom:1px solid var(--ink-border)">
-              <span style="font-size:.88rem;color:var(--ink-heading);display:flex;align-items:center;gap:.4rem"><i class="bi bi-journal-richtext" style="color:var(--ink-primary)"></i>个人博客</span>
-              <span style="font-family:var(--font-mono);font-size:.85rem;font-weight:600;color:var(--ink-primary)">8</span>
-            </div>
-            <div style="display:flex;justify-content:space-between;align-items:center;padding:.6rem 0;border-bottom:1px solid var(--ink-border)">
-              <span style="font-size:.88rem;color:var(--ink-heading);display:flex;align-items:center;gap:.4rem"><i class="bi bi-code-square" style="color:#0891b2"></i>技术社区</span>
-              <span style="font-family:var(--font-mono);font-size:.85rem;font-weight:600;color:#0891b2">4</span>
-            </div>
-            <div style="display:flex;justify-content:space-between;align-items:center;padding:.6rem 0;border-bottom:1px solid var(--ink-border)">
-              <span style="font-size:.88rem;color:var(--ink-heading);display:flex;align-items:center;gap:.4rem"><i class="bi bi-tools" style="color:#d97706"></i>工具资源</span>
-              <span style="font-family:var(--font-mono);font-size:.85rem;font-weight:600;color:#d97706">6</span>
-            </div>
-            <div style="display:flex;justify-content:space-between;align-items:center;padding:.6rem 0">
-              <span style="font-size:.88rem;color:var(--ink-heading);display:flex;align-items:center;gap:.4rem"><i class="bi bi-palette2" style="color:#9333ea"></i>设计灵感</span>
-              <span style="font-family:var(--font-mono);font-size:.85rem;font-weight:600;color:#9333ea">4</span>
-            </div>
+          <div class="col-md-2">
+            <div class="footer-heading">导航</div>
+            <ul class="footer-links">
+              <li><a href="index.hmtl">首页</a></li>
+              <li><a href="post-list.html">文章</a></li>
+              <li><a href="category-list.html">分类</a></li>
+            </ul>
           </div>
-          <div style="margin-top:1rem;padding-top:.75rem;border-top:1px solid var(--ink-border);display:flex;justify-content:space-between;align-items:center">
-            <span style="font-size:.82rem;color:var(--ink-muted)">共收录</span>
-            <span style="font-family:var(--font-display);font-size:1.5rem;font-weight:900;color:var(--ink-primary)">22</span>
+          <div class="col-md-2">
+            <div class="footer-heading">更多</div>
+            <ul class="footer-links">
+              <li><a href="archive-list.html">归档</a></li>
+              <li><a href="album-list.html">相册</a></li>
+              <li><a href="tag-list.html">标签</a></li>
+            </ul>
+          </div>
+          <div class="col-md-4">
+            <div class="footer-heading">关于</div>
+            <p
+              style="
+                color: rgba(255, 255, 255, 0.45);
+                font-size: 0.86rem;
+                line-height: 1.7;
+              "
+            >
+              专注于 Web 技术与 AI 应用的探索者，记录每一个有价值的思考。
+            </p>
           </div>
         </div>
-
-        <!-- My info card (for exchange) -->
-        <div style="background:var(--ink-card);border:1px solid var(--ink-border);border-radius:var(--radius-lg);padding:1.6rem;box-shadow:var(--shadow-card);margin-bottom:1.5rem" class="fade-up delay-2">
-          <div style="font-family:var(--font-display);font-size:1rem;font-weight:700;margin-bottom:1.1rem;padding-bottom:.7rem;border-bottom:2px solid var(--ink-border);display:flex;align-items:center;gap:.45rem">
-            <span style="width:4px;height:16px;background:linear-gradient(to bottom,var(--ink-accent),var(--ink-primary));border-radius:99px;display:inline-block"></span>
-            本站信息
-          </div>
-          <div style="display:flex;flex-direction:column;gap:.85rem">
-            <div>
-              <div style="font-size:.72rem;text-transform:uppercase;letter-spacing:.07em;color:var(--ink-muted);font-weight:600;margin-bottom:.25rem">博客名称</div>
-              <div style="font-family:var(--font-display);font-weight:700;font-size:1rem;color:var(--ink-heading)">INKFLOW</div>
-            </div>
-            <div>
-              <div style="font-size:.72rem;text-transform:uppercase;letter-spacing:.07em;color:var(--ink-muted);font-weight:600;margin-bottom:.25rem">博客地址</div>
-              <div style="font-family:var(--font-mono);font-size:.83rem;color:var(--ink-primary)">inkflow.dev</div>
-            </div>
-            <div>
-              <div style="font-size:.72rem;text-transform:uppercase;letter-spacing:.07em;color:var(--ink-muted);font-weight:600;margin-bottom:.25rem">一句话介绍</div>
-              <div style="font-size:.86rem;color:var(--ink-text);line-height:1.6">关于技术、设计与人文的独立博客</div>
-            </div>
-            <div>
-              <div style="font-size:.72rem;text-transform:uppercase;letter-spacing:.07em;color:var(--ink-muted);font-weight:600;margin-bottom:.4rem">头像预览</div>
-              <div style="width:52px;height:52px;border-radius:var(--radius-md);background:linear-gradient(135deg,var(--ink-accent),var(--ink-primary));display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-size:1.1rem;font-weight:900;color:#fff">IF</div>
-            </div>
-          </div>
-          <button onclick="navigator.clipboard.writeText('博客名称：INKFLOW\n地址：https://inkflow.dev\n介绍：关于技术、设计与人文的独立博客')" style="width:100%;margin-top:1.1rem;background:rgba(var(--ink-primary-rgb),.08);border:1px solid rgba(var(--ink-primary-rgb),.2);color:var(--ink-primary);border-radius:var(--radius-sm);padding:.6rem;font-size:.86rem;font-weight:600;cursor:pointer;font-family:var(--font-body);transition:all var(--transition)" onmouseover="this.style.background='rgba(var(--ink-primary-rgb),.15)'" onmouseout="this.style.background='rgba(var(--ink-primary-rgb),.08)'">
-            <i class="bi bi-clipboard me-1"></i> 一键复制本站信息
-          </button>
-        </div>
-
-        <!-- Recently added -->
-        <div style="background:var(--ink-card);border:1px solid var(--ink-border);border-radius:var(--radius-lg);padding:1.6rem;box-shadow:var(--shadow-card)" class="fade-up delay-3">
-          <div style="font-family:var(--font-display);font-size:1rem;font-weight:700;margin-bottom:1.1rem;padding-bottom:.7rem;border-bottom:2px solid var(--ink-border);display:flex;align-items:center;gap:.45rem">
-            <span style="width:4px;height:16px;background:linear-gradient(to bottom,var(--ink-accent),var(--ink-primary));border-radius:99px;display:inline-block"></span>
-            最近新增
-          </div>
-          <div style="display:flex;flex-direction:column;gap:.75rem">
-            <a href="#" style="display:flex;align-items:center;gap:.75rem;text-decoration:none;transition:all var(--transition)" class="recently-added-item">
-              <div style="width:36px;height:36px;border-radius:8px;background:linear-gradient(135deg,#1a1040,#6d28d9);display:flex;align-items:center;justify-content:center;color:#fff;font-size:.85rem;font-weight:700;flex-shrink:0">C</div>
-              <div style="flex:1;min-width:0"><div style="font-size:.86rem;font-weight:600;color:var(--ink-heading)">Coolors</div><div style="font-size:.75rem;color:var(--ink-muted)">3 天前收录</div></div>
-              <i class="bi bi-arrow-up-right" style="color:var(--ink-muted);font-size:.85rem;flex-shrink:0"></i>
-            </a>
-            <a href="#" style="display:flex;align-items:center;gap:.75rem;text-decoration:none;transition:all var(--transition)" class="recently-added-item">
-              <div style="width:36px;height:36px;border-radius:8px;background:linear-gradient(135deg,#1a0a10,#5a1a30);display:flex;align-items:center;justify-content:center;color:#fff;font-size:.85rem;font-weight:700;flex-shrink:0">F</div>
-              <div style="flex:1;min-width:0"><div style="font-size:.86rem;font-weight:600;color:var(--ink-heading)">Fontpair</div><div style="font-size:.75rem;color:var(--ink-muted)">1 周前收录</div></div>
-              <i class="bi bi-arrow-up-right" style="color:var(--ink-muted);font-size:.85rem;flex-shrink:0"></i>
-            </a>
-            <a href="#" style="display:flex;align-items:center;gap:.75rem;text-decoration:none;transition:all var(--transition)" class="recently-added-item">
-              <div style="width:36px;height:36px;border-radius:8px;background:linear-gradient(135deg,#0a1830,#1e3a5f);display:flex;align-items:center;justify-content:center;color:#fff;font-size:.85rem;font-weight:700;flex-shrink:0">U</div>
-              <div style="flex:1;min-width:0"><div style="font-size:.86rem;font-weight:600;color:var(--ink-heading)">UI Verse</div><div style="font-size:.75rem;color:var(--ink-muted)">2 周前收录</div></div>
-              <i class="bi bi-arrow-up-right" style="color:var(--ink-muted);font-size:.85rem;flex-shrink:0"></i>
-            </a>
+        <hr class="footer-divider" />
+        <div
+          style="
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+          "
+        >
+          <div class="footer-copy">
+            © 2025 <span>INKFLOW</span> · 保留所有权利
           </div>
         </div>
-
       </div>
+    </footer>
 
+    <!-- SEARCH OVERLAY -->
+    <div class="search-overlay" id="searchOverlay">
+      <button class="search-close" onclick="closeSearch()">
+        <i class="bi bi-x-lg"></i>
+      </button>
+      <div style="width: 100%; max-width: 700px; padding: 0 2rem">
+        <div style="position: relative; margin-bottom: 1.5rem">
+          <i
+            class="bi bi-search"
+            style="
+              position: absolute;
+              left: 1.25rem;
+              top: 50%;
+              transform: translateY(-50%);
+              color: rgba(255, 255, 255, 0.4);
+              font-size: 1.3rem;
+            "
+          ></i>
+          <input
+            type="text"
+            class="search-main-input"
+            placeholder="搜索链接…"
+          />
+        </div>
+        <div style="display: flex; gap: 0.5rem; flex-wrap: wrap">
+          <span class="search-tip">个人博客</span
+          ><span class="search-tip">工具</span
+          ><span class="search-tip">设计</span>
+        </div>
+      </div>
     </div>
-  </div>
-</main>
+    <button class="back-to-top" id="backToTop" onclick="scrollToTop()">
+      <i class="bi bi-chevron-up"></i>
+    </button>
 
-<!-- FOOTER -->
-<footer class="site-footer">
-  <div class="container">
-    <div class="row g-4">
-      <div class="col-md-4">
-        <div class="footer-brand">INKFLOW<span class="brand-dot"></span></div>
-        <p class="footer-tagline">一个关于技术、设计与人文的独立博客。</p>
-      </div>
-      <div class="col-md-2"><div class="footer-heading">导航</div>
-        <ul class="footer-links"><li><a href="blog-theme.html">首页</a></li><li><a href="post-list.html">文章</a></li><li><a href="category-list.html">分类</a></li></ul>
-      </div>
-      <div class="col-md-2"><div class="footer-heading">更多</div>
-        <ul class="footer-links"><li><a href="archive-list.html">归档</a></li><li><a href="album-list.html">相册</a></li><li><a href="tag-list.html">标签</a></li></ul>
-      </div>
-      <div class="col-md-4"><div class="footer-heading">关于</div>
-        <p style="color:rgba(255,255,255,.45);font-size:.86rem;line-height:1.7">专注于 Web 技术与 AI 应用的探索者，记录每一个有价值的思考。</p>
-      </div>
-    </div>
-    <hr class="footer-divider" />
-    <div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:.5rem">
-      <div class="footer-copy">© 2025 <span>INKFLOW</span> · 保留所有权利</div>
-    </div>
-  </div>
-</footer>
-
-<!-- SEARCH OVERLAY -->
-<div class="search-overlay" id="searchOverlay">
-  <button class="search-close" onclick="closeSearch()"><i class="bi bi-x-lg"></i></button>
-  <div style="width:100%;max-width:700px;padding:0 2rem">
-    <div style="position:relative;margin-bottom:1.5rem">
-      <i class="bi bi-search" style="position:absolute;left:1.25rem;top:50%;transform:translateY(-50%);color:rgba(255,255,255,.4);font-size:1.3rem"></i>
-      <input type="text" class="search-main-input" placeholder="搜索链接…" />
-    </div>
-    <div style="display:flex;gap:.5rem;flex-wrap:wrap">
-      <span class="search-tip">个人博客</span><span class="search-tip">工具</span><span class="search-tip">设计</span>
-    </div>
-  </div>
-</div>
-<button class="back-to-top" id="backToTop" onclick="scrollToTop()"><i class="bi bi-chevron-up"></i></button>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-<script>
-const navbar=document.getElementById('mainNavbar');
-window.addEventListener('scroll',()=>{
-  navbar.classList.toggle('scrolled',window.scrollY>60);
-  document.getElementById('readingProgress').style.width=(window.scrollY/(document.documentElement.scrollHeight-document.documentElement.clientHeight)*100)+'%';
-  document.getElementById('backToTop').classList.toggle('visible',window.scrollY>400);
-},{passive:true});
-const themeToggle=document.getElementById('themeToggle'),themeIcon=document.getElementById('themeIcon');let isDark=false;
-themeToggle.addEventListener('click',()=>{isDark=!isDark;document.documentElement.setAttribute('data-bs-theme',isDark?'dark':'light');themeIcon.className=isDark?'bi bi-sun-fill':'bi bi-moon-stars-fill'});
-function openSearch(){document.getElementById('searchOverlay').classList.add('active');document.body.style.overflow='hidden'}
-function closeSearch(){document.getElementById('searchOverlay').classList.remove('active');document.body.style.overflow=''}
-function scrollToTop(){window.scrollTo({top:0,behavior:'smooth'})}
-document.addEventListener('keydown',e=>{if(e.key==='Escape')closeSearch();if((e.metaKey||e.ctrlKey)&&e.key==='k'){e.preventDefault();openSearch()}});
-function filterLinks(el,cat){
-  document.querySelectorAll('.filter-tab').forEach(t=>t.classList.remove('active'));
-  el.classList.add('active');
-  document.querySelectorAll('[data-link-cat]').forEach(card=>{
-    const parent=card.closest('.col-md-6,.col-12');
-    if(!parent)return;
-    if(cat==='all'||card.dataset.linkCat===cat){parent.style.opacity='1';parent.style.transform=''}
-    else{parent.style.opacity='.2';parent.style.transform='scale(.97)'}
-  });
-}
-function toggleApplyForm(){
-  const f=document.getElementById('applyForm');
-  f.classList.toggle('show');
-}
-const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target)}})},{threshold:.08,rootMargin:'0px 0px -30px 0px'});
-document.querySelectorAll('.fade-up').forEach(el=>obs.observe(el));
-</script>
-</body>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      const navbar = document.getElementById("mainNavbar");
+      window.addEventListener(
+        "scroll",
+        () => {
+          navbar.classList.toggle("scrolled", window.scrollY > 60);
+          document.getElementById("readingProgress").style.width =
+            (window.scrollY /
+              (document.documentElement.scrollHeight -
+                document.documentElement.clientHeight)) *
+              100 +
+            "%";
+          document
+            .getElementById("backToTop")
+            .classList.toggle("visible", window.scrollY > 400);
+        },
+        { passive: true },
+      );
+      const themeToggle = document.getElementById("themeToggle"),
+        themeIcon = document.getElementById("themeIcon");
+      let isDark = false;
+      themeToggle.addEventListener("click", () => {
+        isDark = !isDark;
+        document.documentElement.setAttribute(
+          "data-bs-theme",
+          isDark ? "dark" : "light",
+        );
+        themeIcon.className = isDark
+          ? "bi bi-sun-fill"
+          : "bi bi-moon-stars-fill";
+      });
+      function openSearch() {
+        document.getElementById("searchOverlay").classList.add("active");
+        document.body.style.overflow = "hidden";
+      }
+      function closeSearch() {
+        document.getElementById("searchOverlay").classList.remove("active");
+        document.body.style.overflow = "";
+      }
+      function scrollToTop() {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") closeSearch();
+        if ((e.metaKey || e.ctrlKey) && e.key === "k") {
+          e.preventDefault();
+          openSearch();
+        }
+      });
+      function filterLinks(el, cat) {
+        document
+          .querySelectorAll(".filter-tab")
+          .forEach((t) => t.classList.remove("active"));
+        el.classList.add("active");
+        document.querySelectorAll("[data-link-cat]").forEach((card) => {
+          const parent = card.closest(".col-md-6,.col-12");
+          if (!parent) return;
+          if (cat === "all" || card.dataset.linkCat === cat) {
+            parent.style.opacity = "1";
+            parent.style.transform = "";
+          } else {
+            parent.style.opacity = ".2";
+            parent.style.transform = "scale(.97)";
+          }
+        });
+      }
+      function toggleApplyForm() {
+        const f = document.getElementById("applyForm");
+        f.classList.toggle("show");
+      }
+      const obs = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((e) => {
+            if (e.isIntersecting) {
+              e.target.classList.add("visible");
+              obs.unobserve(e.target);
+            }
+          });
+        },
+        { threshold: 0.08, rootMargin: "0px 0px -30px 0px" },
+      );
+      document.querySelectorAll(".fade-up").forEach((el) => obs.observe(el));
+    </script>
+  </body>
 </html>

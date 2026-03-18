@@ -1,0 +1,1113 @@
+<!doctype html>
+<html lang="zh-CN" data-bs-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>INKFLOW — 个人资料</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="inkflow.css" />
+  </head>
+  <body>
+    <div class="reading-progress" id="readingProgress"></div>
+
+    <!-- NAVBAR -->
+    <nav class="ink-navbar navbar navbar-expand-lg" id="mainNavbar">
+      <div class="container">
+        <a class="navbar-brand" href="index.hmtl"
+          >INKFLOW<span class="brand-dot"></span
+        ></a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navMenu"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navMenu">
+          <ul class="navbar-nav mx-auto gap-1">
+            <li class="nav-item">
+              <a class="nav-link" href="index.hmtl">首页</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="post-list.html">文章</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="category-list.html">分类</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="tag-list.html">标签</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="archive-list.html">归档</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="album-list.html">相册</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="link-list.html">链接</a>
+            </li>
+          </ul>
+          <div class="d-flex align-items-center gap-2">
+            <button class="btn-nav-search" onclick="openSearch()">
+              <i class="bi bi-search me-1"></i>搜索
+            </button>
+            <button class="theme-toggle" id="themeToggle">
+              <i class="bi bi-moon-stars-fill" id="themeIcon"></i>
+            </button>
+            <a href="login.html" class="btn-nav-login" id="navLoginBtn"
+              ><i class="bi bi-person me-1"></i> 登录</a
+            >
+            <div
+              class="nav-user-wrapper"
+              id="navUserWrapper"
+              style="display: none"
+            >
+              <div class="nav-user-avatar" id="navUserAvatar">陈</div>
+              <div class="nav-user-dropdown">
+                <div
+                  style="
+                    padding: 0.6rem 1rem 0.4rem;
+                    border-bottom: 1px solid var(--ink-border);
+                  "
+                >
+                  <div
+                    style="
+                      font-size: 0.82rem;
+                      font-weight: 600;
+                      color: var(--ink-heading);
+                    "
+                    id="navUserName"
+                  >
+                    陈明远
+                  </div>
+                  <div style="font-size: 0.75rem; color: var(--ink-muted)">
+                    个人主页
+                  </div>
+                </div>
+                <a href="profile.html" class="nav-user-dropdown-item"
+                  ><i class="bi bi-person-circle"></i> 个人资料</a
+                >
+                <a href="#" class="nav-user-dropdown-item"
+                  ><i class="bi bi-bookmark"></i> 我的收藏</a
+                >
+                <hr />
+                <a
+                  href="#"
+                  class="nav-user-dropdown-item danger"
+                  id="navLogoutBtn"
+                  ><i class="bi bi-box-arrow-right"></i> 退出登录</a
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- PROFILE HERO -->
+    <div class="profile-hero">
+      <div class="container position-relative" style="z-index: 1">
+        <nav aria-label="breadcrumb" class="ink-breadcrumb mb-4">
+          <ol class="breadcrumb mb-0 align-items-center">
+            <li class="breadcrumb-item">
+              <a href="index.hmtl"><i class="bi bi-house me-1"></i>首页</a>
+            </li>
+            <li class="breadcrumb-item active">个人资料</li>
+          </ol>
+        </nav>
+        <!-- Profile header info (shown in hero) -->
+        <div class="d-flex align-items-end gap-4 flex-wrap">
+          <div class="profile-avatar-wrap">
+            <div
+              class="profile-avatar"
+              id="profileAvatarEl"
+              style="width: 90px; height: 90px; font-size: 1.8rem"
+            >
+              陈
+            </div>
+            <div
+              class="profile-avatar-edit"
+              onclick="document.getElementById('avatarInput').click()"
+              title="更换头像"
+            >
+              <i class="bi bi-camera"></i>
+            </div>
+            <input
+              type="file"
+              id="avatarInput"
+              accept="image/*"
+              style="display: none"
+            />
+          </div>
+          <div style="padding-bottom: 0.5rem">
+            <h1
+              style="
+                font-family: var(--font-display);
+                font-size: 1.8rem;
+                font-weight: 700;
+                color: #fff;
+                margin-bottom: 0.25rem;
+              "
+            >
+              陈明远
+            </h1>
+            <div
+              style="
+                color: rgba(255, 255, 255, 0.55);
+                font-size: 0.9rem;
+                display: flex;
+                align-items: center;
+                gap: 1rem;
+                flex-wrap: wrap;
+              "
+            >
+              <span><i class="bi bi-at me-1"></i>chenmingyuan</span>
+              <span><i class="bi bi-geo-alt me-1"></i>上海，中国</span>
+              <span><i class="bi bi-calendar3 me-1"></i>2021年3月加入</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MAIN -->
+    <main class="py-5">
+      <div class="container">
+        <div class="row g-4">
+          <!-- SIDEBAR -->
+          <div class="col-lg-3">
+            <!-- Stats -->
+            <div class="profile-card fade-up">
+              <div class="profile-section-title">数据概览</div>
+              <div class="d-flex flex-column gap-2">
+                <div
+                  style="
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    padding: 0.55rem 0;
+                    border-bottom: 1px solid var(--ink-border);
+                  "
+                >
+                  <span
+                    style="
+                      font-size: 0.88rem;
+                      color: var(--ink-muted);
+                      display: flex;
+                      align-items: center;
+                      gap: 0.4rem;
+                    "
+                    ><i
+                      class="bi bi-file-text"
+                      style="color: var(--ink-primary)"
+                    ></i
+                    >发布文章</span
+                  >
+                  <span
+                    style="
+                      font-family: var(--font-mono);
+                      font-size: 0.9rem;
+                      font-weight: 700;
+                      color: var(--ink-heading);
+                    "
+                    >128</span
+                  >
+                </div>
+                <div
+                  style="
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    padding: 0.55rem 0;
+                    border-bottom: 1px solid var(--ink-border);
+                  "
+                >
+                  <span
+                    style="
+                      font-size: 0.88rem;
+                      color: var(--ink-muted);
+                      display: flex;
+                      align-items: center;
+                      gap: 0.4rem;
+                    "
+                    ><i class="bi bi-eye" style="color: #0891b2"></i
+                    >总阅读量</span
+                  >
+                  <span
+                    style="
+                      font-family: var(--font-mono);
+                      font-size: 0.9rem;
+                      font-weight: 700;
+                      color: var(--ink-heading);
+                    "
+                    >56.2k</span
+                  >
+                </div>
+                <div
+                  style="
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    padding: 0.55rem 0;
+                    border-bottom: 1px solid var(--ink-border);
+                  "
+                >
+                  <span
+                    style="
+                      font-size: 0.88rem;
+                      color: var(--ink-muted);
+                      display: flex;
+                      align-items: center;
+                      gap: 0.4rem;
+                    "
+                    ><i class="bi bi-heart" style="color: #ef4444"></i
+                    >收到点赞</span
+                  >
+                  <span
+                    style="
+                      font-family: var(--font-mono);
+                      font-size: 0.9rem;
+                      font-weight: 700;
+                      color: var(--ink-heading);
+                    "
+                    >3,284</span
+                  >
+                </div>
+                <div
+                  style="
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    padding: 0.55rem 0;
+                    border-bottom: 1px solid var(--ink-border);
+                  "
+                >
+                  <span
+                    style="
+                      font-size: 0.88rem;
+                      color: var(--ink-muted);
+                      display: flex;
+                      align-items: center;
+                      gap: 0.4rem;
+                    "
+                    ><i class="bi bi-chat" style="color: #7c3aed"></i
+                    >收到评论</span
+                  >
+                  <span
+                    style="
+                      font-family: var(--font-mono);
+                      font-size: 0.9rem;
+                      font-weight: 700;
+                      color: var(--ink-heading);
+                    "
+                    >486</span
+                  >
+                </div>
+                <div
+                  style="
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    padding: 0.55rem 0;
+                  "
+                >
+                  <span
+                    style="
+                      font-size: 0.88rem;
+                      color: var(--ink-muted);
+                      display: flex;
+                      align-items: center;
+                      gap: 0.4rem;
+                    "
+                    ><i class="bi bi-bookmark" style="color: #d97706"></i
+                    >我的收藏</span
+                  >
+                  <span
+                    style="
+                      font-family: var(--font-mono);
+                      font-size: 0.9rem;
+                      font-weight: 700;
+                      color: var(--ink-heading);
+                    "
+                    >72</span
+                  >
+                </div>
+              </div>
+            </div>
+
+            <!-- Writing streak -->
+            <div
+              class="profile-card fade-up delay-1"
+              style="
+                background: linear-gradient(
+                  135deg,
+                  var(--ink-primary),
+                  #052f1c
+                );
+                border: none;
+              "
+            >
+              <div
+                style="
+                  font-family: var(--font-display);
+                  font-size: 0.95rem;
+                  font-weight: 700;
+                  color: rgba(255, 255, 255, 0.9);
+                  margin-bottom: 0.75rem;
+                  display: flex;
+                  align-items: center;
+                  gap: 0.4rem;
+                "
+              >
+                <i class="bi bi-fire" style="color: var(--ink-accent)"></i>
+                写作连续记录
+              </div>
+              <div
+                style="
+                  font-family: var(--font-display);
+                  font-size: 2.5rem;
+                  font-weight: 900;
+                  color: var(--ink-accent);
+                  line-height: 1;
+                "
+              >
+                18
+              </div>
+              <div
+                style="
+                  font-size: 0.78rem;
+                  color: rgba(255, 255, 255, 0.5);
+                  margin-top: 0.2rem;
+                  margin-bottom: 1rem;
+                "
+              >
+                天连续写作
+              </div>
+              <div style="display: flex; gap: 3px">
+                <!-- Mini activity dots -->
+                <script>
+                  document.write(
+                    Array.from({ length: 21 }, (_, i) => {
+                      const a =
+                        i > 12 ? Math.random() > 0.3 : Math.random() > 0.7;
+                      return `<div style="flex:1;height:8px;border-radius:2px;background:${a ? "rgba(0,201,141,.7)" : "rgba(255,255,255,.1)"}"></div>`;
+                    }).join(""),
+                  );
+                </script>
+              </div>
+              <div
+                style="
+                  font-size: 0.75rem;
+                  color: rgba(255, 255, 255, 0.4);
+                  margin-top: 0.5rem;
+                "
+              >
+                最近 21 天
+              </div>
+            </div>
+
+            <!-- Profile nav -->
+            <div class="profile-card fade-up delay-2">
+              <div style="display: flex; flex-direction: column; gap: 0.2rem">
+                <a
+                  href="#basic"
+                  class="nav-user-dropdown-item"
+                  style="border-radius: var(--radius-sm)"
+                  onclick="scrollToSection('basic')"
+                  ><i class="bi bi-person-circle"></i> 基本信息</a
+                >
+                <a
+                  href="#account"
+                  class="nav-user-dropdown-item"
+                  style="border-radius: var(--radius-sm)"
+                  onclick="scrollToSection('account')"
+                  ><i class="bi bi-shield-lock"></i> 账号安全</a
+                >
+                <a
+                  href="#notify"
+                  class="nav-user-dropdown-item"
+                  style="border-radius: var(--radius-sm)"
+                  onclick="scrollToSection('notify')"
+                  ><i class="bi bi-bell"></i> 通知偏好</a
+                >
+                <a
+                  href="#danger"
+                  class="nav-user-dropdown-item danger"
+                  style="border-radius: var(--radius-sm)"
+                  onclick="scrollToSection('danger')"
+                  ><i class="bi bi-exclamation-triangle"></i> 危险操作</a
+                >
+              </div>
+            </div>
+          </div>
+          <!-- /.sidebar -->
+
+          <!-- MAIN FORMS -->
+          <div class="col-lg-9">
+            <!-- ── BASIC INFO ── -->
+            <div
+              class="profile-card fade-up mb-4"
+              id="basic"
+              data-profile-section="basic"
+            >
+              <div
+                class="d-flex align-items-center justify-content-between mb-0"
+              >
+                <div
+                  class="profile-section-title mb-0"
+                  style="border: none; padding: 0"
+                >
+                  基本信息
+                </div>
+                <div
+                  data-view-actions="basic"
+                  style="display: flex; gap: 0.5rem"
+                >
+                  <button
+                    class="btn-profile-save"
+                    style="padding: 0.45rem 1.1rem; font-size: 0.83rem"
+                    data-profile-edit="basic"
+                  >
+                    <i class="bi bi-pencil me-1"></i> 编辑
+                  </button>
+                </div>
+                <div
+                  data-edit-actions="basic"
+                  style="display: none; gap: 0.5rem"
+                >
+                  <button
+                    class="btn-profile-cancel"
+                    style="padding: 0.45rem 1.1rem; font-size: 0.83rem"
+                    data-profile-cancel="basic"
+                  >
+                    取消
+                  </button>
+                  <button
+                    class="btn-profile-save"
+                    style="padding: 0.45rem 1.1rem; font-size: 0.83rem"
+                    data-profile-save="basic"
+                  >
+                    <i class="bi bi-check-lg me-1"></i> 保存
+                  </button>
+                </div>
+              </div>
+              <hr
+                style="border-color: var(--ink-border); margin: 1rem 0 1.5rem"
+              />
+
+              <div class="row g-3">
+                <div class="col-md-6">
+                  <label class="profile-label"
+                    >姓名 <span style="color: #ef4444">*</span></label
+                  >
+                  <input
+                    type="text"
+                    class="profile-input"
+                    value="陈明远"
+                    readonly
+                  />
+                </div>
+                <div class="col-md-6">
+                  <label class="profile-label">用户名</label>
+                  <div style="position: relative">
+                    <span
+                      style="
+                        position: absolute;
+                        left: 0.9rem;
+                        top: 50%;
+                        transform: translateY(-50%);
+                        color: var(--ink-muted);
+                        font-size: 0.9rem;
+                      "
+                      >@</span
+                    >
+                    <input
+                      type="text"
+                      class="profile-input"
+                      value="chenmingyuan"
+                      readonly
+                      style="padding-left: 2rem"
+                    />
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <label class="profile-label">职位 / 身份</label>
+                  <input
+                    type="text"
+                    class="profile-input"
+                    value="全栈工程师 · 产品思考者"
+                    readonly
+                  />
+                </div>
+                <div class="col-md-6">
+                  <label class="profile-label">所在城市</label>
+                  <input
+                    type="text"
+                    class="profile-input"
+                    value="上海，中国"
+                    readonly
+                  />
+                </div>
+                <div class="col-12">
+                  <label class="profile-label">个人简介</label>
+                  <textarea
+                    class="profile-input"
+                    rows="3"
+                    readonly
+                    style="resize: none"
+                  >
+专注于 Web 技术与 AI 应用的探索者，相信好的技术文章能改变一个开发者的职业轨迹。在 INKFLOW 写作已有 4 年，累计发布 128 篇原创文章。</textarea
+                  >
+                </div>
+                <div class="col-md-6">
+                  <label class="profile-label">个人网站</label>
+                  <input
+                    type="url"
+                    class="profile-input"
+                    value="https://inkflow.dev"
+                    readonly
+                  />
+                </div>
+                <div class="col-md-6">
+                  <label class="profile-label">GitHub</label>
+                  <input
+                    type="text"
+                    class="profile-input"
+                    value="github.com/chenmingyuan"
+                    readonly
+                  />
+                </div>
+              </div>
+            </div>
+
+            <!-- ── ACCOUNT SECURITY ── -->
+            <div
+              class="profile-card fade-up mb-4"
+              id="account"
+              data-profile-section="account"
+            >
+              <div
+                class="d-flex align-items-center justify-content-between mb-0"
+              >
+                <div
+                  class="profile-section-title mb-0"
+                  style="border: none; padding: 0"
+                >
+                  账号安全
+                </div>
+                <div
+                  data-view-actions="account"
+                  style="display: flex; gap: 0.5rem"
+                >
+                  <button
+                    class="btn-profile-save"
+                    style="padding: 0.45rem 1.1rem; font-size: 0.83rem"
+                    data-profile-edit="account"
+                  >
+                    <i class="bi bi-pencil me-1"></i> 修改
+                  </button>
+                </div>
+                <div
+                  data-edit-actions="account"
+                  style="display: none; gap: 0.5rem"
+                >
+                  <button
+                    class="btn-profile-cancel"
+                    style="padding: 0.45rem 1.1rem; font-size: 0.83rem"
+                    data-profile-cancel="account"
+                  >
+                    取消
+                  </button>
+                  <button
+                    class="btn-profile-save"
+                    style="padding: 0.45rem 1.1rem; font-size: 0.83rem"
+                    data-profile-save="account"
+                  >
+                    <i class="bi bi-check-lg me-1"></i> 保存
+                  </button>
+                </div>
+              </div>
+              <hr
+                style="border-color: var(--ink-border); margin: 1rem 0 1.5rem"
+              />
+
+              <div class="row g-3">
+                <div class="col-md-6">
+                  <label class="profile-label">绑定邮箱</label>
+                  <div style="position: relative">
+                    <input
+                      type="email"
+                      class="profile-input"
+                      value="chen@inkflow.dev"
+                      readonly
+                    />
+                    <span
+                      style="
+                        position: absolute;
+                        right: 0.9rem;
+                        top: 50%;
+                        transform: translateY(-50%);
+                        background: rgba(16, 185, 129, 0.1);
+                        color: #10b981;
+                        border-radius: 99px;
+                        padding: 0.1rem 0.55rem;
+                        font-size: 0.7rem;
+                        font-weight: 700;
+                      "
+                      >已验证</span
+                    >
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <label class="profile-label">手机号码</label>
+                  <input
+                    type="tel"
+                    class="profile-input"
+                    value="138 **** 8888"
+                    readonly
+                  />
+                </div>
+                <div class="col-12">
+                  <label class="profile-label">当前密码</label>
+                  <input
+                    type="password"
+                    class="profile-input"
+                    placeholder="输入当前密码以修改"
+                    readonly
+                  />
+                </div>
+                <div class="col-md-6">
+                  <label class="profile-label">新密码</label>
+                  <input
+                    type="password"
+                    class="profile-input"
+                    placeholder="至少 8 位，包含字母和数字"
+                    readonly
+                  />
+                </div>
+                <div class="col-md-6">
+                  <label class="profile-label">确认新密码</label>
+                  <input
+                    type="password"
+                    class="profile-input"
+                    placeholder="再次输入新密码"
+                    readonly
+                  />
+                </div>
+              </div>
+
+              <!-- 2FA row -->
+              <div
+                style="
+                  margin-top: 1.25rem;
+                  padding: 1.1rem;
+                  background: var(--ink-surface);
+                  border: 1px solid var(--ink-border);
+                  border-radius: var(--radius-md);
+                  display: flex;
+                  align-items: center;
+                  justify-content: space-between;
+                  flex-wrap: wrap;
+                  gap: 0.75rem;
+                "
+              >
+                <div>
+                  <div
+                    style="
+                      font-size: 0.9rem;
+                      font-weight: 600;
+                      color: var(--ink-heading);
+                      margin-bottom: 0.2rem;
+                    "
+                  >
+                    <i
+                      class="bi bi-shield-check me-2"
+                      style="color: var(--ink-primary)"
+                    ></i
+                    >两步验证
+                  </div>
+                  <div style="font-size: 0.82rem; color: var(--ink-muted)">
+                    通过身份验证器 App 为账号加一层保护
+                  </div>
+                </div>
+                <div style="display: flex; align-items: center; gap: 0.6rem">
+                  <span style="font-size: 0.78rem; color: var(--ink-muted)"
+                    >未开启</span
+                  >
+                  <div
+                    onclick="
+                      this.classList.toggle('on');
+                      this.nextElementSibling.textContent =
+                        this.classList.contains('on') ? '已开启' : '未开启';
+                    "
+                    style="
+                      width: 44px;
+                      height: 24px;
+                      border-radius: 99px;
+                      background: var(--ink-border);
+                      cursor: pointer;
+                      position: relative;
+                      transition: background var(--transition);
+                    "
+                    id="tfaSwitch"
+                  >
+                    <div
+                      style="
+                        width: 18px;
+                        height: 18px;
+                        border-radius: 50%;
+                        background: #fff;
+                        position: absolute;
+                        top: 3px;
+                        left: 3px;
+                        transition: transform var(--transition);
+                        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+                      "
+                    ></div>
+                  </div>
+                  <span
+                    style="font-size: 0.78rem; color: var(--ink-muted)"
+                    id="tfaLabel"
+                    >未开启</span
+                  >
+                </div>
+              </div>
+            </div>
+
+            <!-- ── NOTIFICATION PREFS ── -->
+            <div class="profile-card fade-up mb-4" id="notify">
+              <div class="profile-section-title">通知偏好</div>
+
+              <div style="display: flex; flex-direction: column; gap: 0.85rem">
+                <!-- Row -->
+                <div
+                  style="
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    padding: 0.75rem;
+                    background: var(--ink-surface);
+                    border: 1px solid var(--ink-border);
+                    border-radius: var(--radius-md);
+                  "
+                >
+                  <div>
+                    <div
+                      style="
+                        font-size: 0.9rem;
+                        font-weight: 600;
+                        color: var(--ink-heading);
+                      "
+                    >
+                      新文章发布
+                    </div>
+                    <div style="font-size: 0.8rem; color: var(--ink-muted)">
+                      有新文章发布时通过邮件通知我
+                    </div>
+                  </div>
+                  <label
+                    style="
+                      position: relative;
+                      display: inline-block;
+                      width: 44px;
+                      height: 24px;
+                      cursor: pointer;
+                    "
+                  >
+                    <input
+                      type="checkbox"
+                      checked
+                      style="opacity: 0; width: 0; height: 0"
+                      class="notify-toggle"
+                    />
+                    <span class="notify-slider"></span>
+                  </label>
+                </div>
+                <div
+                  style="
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    padding: 0.75rem;
+                    background: var(--ink-surface);
+                    border: 1px solid var(--ink-border);
+                    border-radius: var(--radius-md);
+                  "
+                >
+                  <div>
+                    <div
+                      style="
+                        font-size: 0.9rem;
+                        font-weight: 600;
+                        color: var(--ink-heading);
+                      "
+                    >
+                      评论回复
+                    </div>
+                    <div style="font-size: 0.8rem; color: var(--ink-muted)">
+                      有人回复我的评论时通知我
+                    </div>
+                  </div>
+                  <label
+                    style="
+                      position: relative;
+                      display: inline-block;
+                      width: 44px;
+                      height: 24px;
+                      cursor: pointer;
+                    "
+                  >
+                    <input
+                      type="checkbox"
+                      checked
+                      style="opacity: 0; width: 0; height: 0"
+                      class="notify-toggle"
+                    />
+                    <span class="notify-slider"></span>
+                  </label>
+                </div>
+                <div
+                  style="
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    padding: 0.75rem;
+                    background: var(--ink-surface);
+                    border: 1px solid var(--ink-border);
+                    border-radius: var(--radius-md);
+                  "
+                >
+                  <div>
+                    <div
+                      style="
+                        font-size: 0.9rem;
+                        font-weight: 600;
+                        color: var(--ink-heading);
+                      "
+                    >
+                      周刊推送
+                    </div>
+                    <div style="font-size: 0.8rem; color: var(--ink-muted)">
+                      每周一期精选内容摘要
+                    </div>
+                  </div>
+                  <label
+                    style="
+                      position: relative;
+                      display: inline-block;
+                      width: 44px;
+                      height: 24px;
+                      cursor: pointer;
+                    "
+                  >
+                    <input
+                      type="checkbox"
+                      style="opacity: 0; width: 0; height: 0"
+                      class="notify-toggle"
+                    />
+                    <span class="notify-slider"></span>
+                  </label>
+                </div>
+              </div>
+              <div style="margin-top: 1.25rem">
+                <button
+                  class="btn-profile-save"
+                  onclick="showToast('通知设置已保存 ✓')"
+                >
+                  <i class="bi bi-check-lg me-1"></i> 保存偏好
+                </button>
+              </div>
+            </div>
+
+            <!-- ── DANGER ZONE ── -->
+            <div class="danger-zone fade-up" id="danger">
+              <div
+                style="
+                  font-family: var(--font-display);
+                  font-size: 1rem;
+                  font-weight: 700;
+                  color: #ef4444;
+                  margin-bottom: 1rem;
+                  display: flex;
+                  align-items: center;
+                  gap: 0.4rem;
+                "
+              >
+                <i class="bi bi-exclamation-triangle-fill"></i> 危险操作
+              </div>
+              <div
+                class="d-flex align-items-center justify-content-between flex-wrap gap-3"
+              >
+                <div>
+                  <div
+                    style="
+                      font-size: 0.9rem;
+                      font-weight: 600;
+                      color: var(--ink-heading);
+                      margin-bottom: 0.25rem;
+                    "
+                  >
+                    注销账号
+                  </div>
+                  <div style="font-size: 0.83rem; color: var(--ink-muted)">
+                    永久删除账号及所有数据，此操作不可撤销
+                  </div>
+                </div>
+                <button class="btn-danger" onclick="confirmDelete()">
+                  <i class="bi bi-trash me-1"></i> 注销账号
+                </button>
+              </div>
+            </div>
+          </div>
+          <!-- /.col -->
+        </div>
+        <!-- /.row -->
+      </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="site-footer">
+      <div class="container">
+        <div class="row g-4">
+          <div class="col-md-4">
+            <div class="footer-brand">
+              INKFLOW<span class="brand-dot"></span>
+            </div>
+            <p class="footer-tagline">一个关于技术、设计与人文的独立博客。</p>
+          </div>
+          <div class="col-md-2">
+            <div class="footer-heading">导航</div>
+            <ul class="footer-links">
+              <li><a href="index.hmtl">首页</a></li>
+              <li><a href="post-list.html">文章</a></li>
+              <li><a href="category-list.html">分类</a></li>
+            </ul>
+          </div>
+          <div class="col-md-2">
+            <div class="footer-heading">更多</div>
+            <ul class="footer-links">
+              <li><a href="archive-list.html">归档</a></li>
+              <li><a href="album-list.html">相册</a></li>
+              <li><a href="link-list.html">链接</a></li>
+            </ul>
+          </div>
+          <div class="col-md-4">
+            <div class="footer-heading">关于</div>
+            <p
+              style="
+                color: rgba(255, 255, 255, 0.45);
+                font-size: 0.86rem;
+                line-height: 1.7;
+              "
+            >
+              用心记录，认真分享。
+            </p>
+          </div>
+        </div>
+        <hr class="footer-divider" />
+        <div class="footer-bottom">
+          <div class="footer-copy">
+            © 2025 <span>INKFLOW</span> · 保留所有权利
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- SEARCH OVERLAY -->
+    <div class="search-overlay" id="searchOverlay">
+      <button class="search-close" onclick="closeSearch()">
+        <i class="bi bi-x-lg"></i>
+      </button>
+      <div class="search-box">
+        <div class="search-input-wrap">
+          <i class="bi bi-search"></i>
+          <input
+            type="text"
+            class="search-main-input"
+            placeholder="搜索文章…"
+          />
+        </div>
+        <div class="search-tips">
+          <span class="search-tip">Vite 5</span
+          ><span class="search-tip">React</span
+          ><span class="search-tip">设计系统</span>
+        </div>
+      </div>
+    </div>
+    <button class="back-to-top" id="backToTop">
+      <i class="bi bi-chevron-up"></i>
+    </button>
+
+    <!-- Toggle switch CSS (inline for simplicity) -->
+    <style>
+      .notify-slider {
+        position: absolute;
+        inset: 0;
+        background: var(--ink-border);
+        border-radius: 99px;
+        transition: all var(--transition);
+        cursor: pointer;
+      }
+      .notify-slider::before {
+        content: "";
+        position: absolute;
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        background: #fff;
+        top: 3px;
+        left: 3px;
+        transition: transform var(--transition);
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+      }
+      .notify-toggle:checked + .notify-slider {
+        background: var(--ink-primary);
+      }
+      .notify-toggle:checked + .notify-slider::before {
+        transform: translateX(20px);
+      }
+
+      /* 2FA toggle */
+      #tfaSwitch.on {
+        background: var(--ink-primary);
+      }
+      #tfaSwitch.on > div {
+        transform: translateX(20px);
+      }
+    </style>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="inkflow.js"></script>
+    <script>
+      /* Profile page specific */
+
+      function scrollToSection(id) {
+        const el = document.getElementById(id);
+        if (el) {
+          el.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+        return false;
+      }
+
+      function confirmDelete() {
+        if (
+          confirm("确认要永久注销账号吗？此操作无法撤销，所有数据将被清除。")
+        ) {
+          showToast("账号注销申请已提交，请检查邮箱确认");
+        }
+      }
+    </script>
+  </body>
+</html>
