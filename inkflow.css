@@ -475,14 +475,15 @@ body::before {
 .nav-user-dropdown-item.danger:hover { background: rgba(239,68,68,.07); color: #ef4444; }
 .nav-user-dropdown hr { border-color: var(--ink-border); margin: .35rem 0; }
 
-/* Mobile: dropdown becomes static */
+/* Mobile: hide user dropdown (prevent it showing inside toggler menu) */
 @media (max-width: 991px) {
   .nav-user-dropdown {
-    position: static; box-shadow: none; opacity: 1;
-    pointer-events: all; transform: none; border: none;
-    padding: 0; background: transparent; width: auto;
+    display: none;
   }
-  .nav-user-wrapper:hover .nav-user-dropdown { transform: none; }
+  .nav-user-wrapper:hover .nav-user-dropdown,
+  .nav-user-wrapper.open .nav-user-dropdown {
+    display: none;
+  }
 }
 
 .navbar-toggler {
@@ -565,7 +566,6 @@ body::before {
 .ink-breadcrumb .breadcrumb-item a { color: rgba(255,255,255,.5); }
 .ink-breadcrumb .breadcrumb-item.active { color: rgba(255,255,255,.8); }
 .ink-breadcrumb .breadcrumb-item + .breadcrumb-item::before { color: rgba(255,255,255,.3); }
-.ink-breadcrumb .breadcrumb-item i { vertical-align: -.1em; }
 
 
 /* ==========================================================
@@ -1248,7 +1248,7 @@ body::before {
 }
 .filter-tab.active, .filter-tab:hover { background: var(--ink-primary); border-color: var(--ink-primary); color: #fff; }
 
-.filter-tabs {
+.filter-tabs, .year-nav {
   display: flex; gap: .5rem; margin-bottom: 2rem;
   flex-wrap: wrap;
 }
@@ -2088,11 +2088,11 @@ body:has(.auth-page) { overflow: hidden; }
 
 .profile-avatar-wrap { position: relative; display: inline-block; }
 .profile-avatar {
-  width: 100px; height: 100px; border-radius: 50%;
+  width: 90px; height: 90px; border-radius: 50%;
   background: linear-gradient(135deg, var(--ink-accent), var(--ink-primary));
   border: 4px solid var(--ink-card);
   display: flex; align-items: center; justify-content: center;
-  font-size: 2.2rem; font-weight: 900; color: #fff;
+  font-size: 2rem; font-weight: 900; color: #fff;
   font-family: var(--font-display); box-shadow: var(--shadow-card);
 }
 .profile-avatar-edit {
@@ -2211,26 +2211,7 @@ body:has(.auth-page) { overflow: hidden; }
 }
 .streak-dot.active { background: var(--ink-accent); }
 
-/* Toggle switch (notifications) */
-.ink-toggle {
-  position: relative; display: inline-block;
-  width: 44px; height: 24px;
-}
-.ink-toggle input { opacity: 0; width: 0; height: 0; }
-.ink-toggle-slider {
-  position: absolute; cursor: pointer; inset: 0;
-  background: var(--ink-border); border-radius: 99px;
-  transition: background var(--transition);
-}
-.ink-toggle-slider::before {
-  content: ''; position: absolute;
-  width: 18px; height: 18px; border-radius: 50%;
-  background: #fff; left: 3px; top: 3px;
-  transition: transform var(--transition);
-  box-shadow: 0 1px 4px rgba(0,0,0,.15);
-}
-.ink-toggle input:checked + .ink-toggle-slider { background: var(--ink-primary); }
-.ink-toggle input:checked + .ink-toggle-slider::before { transform: translateX(20px); }
+
 
 
 /* ==========================================================
@@ -2684,7 +2665,7 @@ body:has(.auth-page) { overflow: hidden; }
 /* heatmap-week/heatmap-day classes defined in Section 15 (Archive) */
 
 /* --- ARCHIVE LIST: Year nav --- */
-.year-nav { display: flex; gap: .5rem; margin-bottom: 2rem; flex-wrap: wrap; }
+/* .year-nav merged into .filter-tabs above */
 /* .year-btn styles merged into .archive-year-tab selector above */
 
 /* --- ARCHIVE LIST: Month sections --- */
@@ -2928,8 +2909,9 @@ body:has(.auth-page) { overflow: hidden; }
 }
 .notify-label-wrap {
   position: relative; display: inline-block;
-  width: 44px; height: 24px; cursor: pointer; flex-shrink: 0;
+  width: 44px; height: 24px;
 }
+.notify-label-wrap input { opacity: 0; width: 0; height: 0; }
 
 /* --- PROFILE: notify slider (extracted from inline <style>) --- */
 .notify-slider {
@@ -2947,8 +2929,6 @@ body:has(.auth-page) { overflow: hidden; }
 .notify-toggle:checked + .notify-slider { background: var(--ink-primary); }
 .notify-toggle:checked + .notify-slider::before { transform: translateX(20px); }
 /* 2FA toggle */
-#tfaSwitch.on { background: var(--ink-primary); }
-#tfaSwitch.on > div { transform: translateX(20px); }
 
 
 /* ==========================================================
@@ -3011,10 +2991,7 @@ body:has(.auth-page) { overflow: hidden; }
 }
 
 /* --- PROFILE: Additional utility classes --- */
-.profile-avatar-lg {
-  width: 90px !important; height: 90px !important;
-  font-size: 1.8rem !important;
-}
+
 .profile-hero-name {
   font-family: var(--font-display);
   font-size: 1.8rem; font-weight: 700;
