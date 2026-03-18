@@ -597,61 +597,61 @@
             </div>
 
             <!-- APPLY CARD -->
-            <div class="apply-card fade-up">
-              <div class="apply-card-body">
+            <div class="link-apply-card fade-up">
+              <div class="link-apply-card-body">
                 <div class="row align-items-center g-4">
                   <div class="col-md-7">
-                    <div class="apply-title">申请友情链接</div>
-                    <p class="apply-sub">
+                    <div class="link-apply-title">申请友情链接</div>
+                    <p class="link-apply-sub">
                       如果你也有一个用心维护的个人博客，欢迎与我互换链接。我会认真审核每一份申请。
                     </p>
-                    <div class="apply-requirements">
-                      <div class="apply-req">
+                    <div class="link-apply-requirements">
+                      <div class="link-apply-req">
                         <i class="bi bi-check-circle-fill"></i
                         ><span>博客有原创内容，非采集站或纯转载</span>
                       </div>
-                      <div class="apply-req">
+                      <div class="link-apply-req">
                         <i class="bi bi-check-circle-fill"></i
                         ><span>坚持更新，近三个月内有发布文章</span>
                       </div>
-                      <div class="apply-req">
+                      <div class="link-apply-req">
                         <i class="bi bi-check-circle-fill"></i
                         ><span>已将本站添加至你的友链页面</span>
                       </div>
-                      <div class="apply-req">
+                      <div class="link-apply-req">
                         <i class="bi bi-check-circle-fill"></i
                         ><span>内容合法合规，无违禁内容</span>
                       </div>
                     </div>
-                    <button class="btn-apply" onclick="toggleApplyForm()">
+                    <button class="btn-apply" onclick="toggleLinkApplyForm()">
                       <i class="bi bi-send-fill"></i> 提交申请
                     </button>
                   </div>
                   <div class="col-md-5">
-                    <div class="apply-form" id="applyForm">
+                    <div class="link-apply-form" id="linkApplyForm">
                       <input
                         type="text"
-                        class="apply-input"
+                        class="link-apply-input"
                         placeholder="博客名称 *"
                       />
                       <input
                         type="url"
-                        class="apply-input"
+                        class="link-apply-input"
                         placeholder="博客地址 * (https://...)"
                       />
                       <input
                         type="url"
-                        class="apply-input"
+                        class="link-apply-input"
                         placeholder="头像地址（可选）"
                       />
                       <input
                         type="text"
-                        class="apply-input"
+                        class="link-apply-input"
                         placeholder="一句话介绍 *"
                       />
                       <input
                         type="email"
-                        class="apply-input"
+                        class="link-apply-input"
                         placeholder="联系邮箱 *"
                       />
                       <div class="d-flex gap-2">
@@ -659,7 +659,7 @@
                           <i class="bi bi-check-lg me-1"></i> 提交
                         </button>
                         <button
-                          onclick="toggleApplyForm()"
+                          onclick="toggleLinkApplyForm()"
                           style="
                             background: rgba(255, 255, 255, 0.1);
                             border: 1px solid rgba(255, 255, 255, 0.2);
@@ -1289,5 +1289,12 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="inkflow.js"></script>
+    <script>
+      /* Link list page specific */
+      function toggleLinkApplyForm() {
+        const form = document.getElementById("linkApplyForm");
+        if (form) form.classList.toggle("show");
+      }
+    </script>
   </body>
 </html>

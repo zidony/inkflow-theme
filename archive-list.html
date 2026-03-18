@@ -246,7 +246,7 @@
                     </div>
                     <div class="tl-meta">
                       <span class="tl-cat"
-                        ><i class="bi bi-brain me-1"></i>AI</span
+                        ><i class="bi bi-robot me-1"></i>AI</span
                       >
                       <span class="tl-read"
                         ><i class="bi bi-clock"></i>12 min</span
@@ -368,7 +368,7 @@
                     </div>
                     <div class="tl-meta">
                       <span class="tl-cat"
-                        ><i class="bi bi-brain me-1"></i>AI</span
+                        ><i class="bi bi-robot me-1"></i>AI</span
                       ><span class="tl-read"
                         ><i class="bi bi-clock"></i>15 min</span
                       ><span class="tl-read"
@@ -645,7 +645,7 @@
                       font-size: 0.88rem;
                       color: var(--ink-heading);
                     "
-                    ><i class="bi bi-brain" style="color: #0891b2"></i
+                    ><i class="bi bi-robot" style="color: #0891b2"></i
                     >人工智能</span
                   >
                   <span
@@ -909,5 +909,54 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="inkflow.js"></script>
+    <script>
+      /* ── archive-list.html page-specific JS ── */
+
+      function buildHeatmap(year) {
+        const grid = document.getElementById("heatmapGrid");
+        if (!grid) return;
+        const weeks = 52,
+          days = 7;
+        // Simulate activity data (in real use, replace with server data)
+        const seed = parseInt(year) % 100;
+        grid.innerHTML = "";
+        for (let w = 0; w < weeks; w++) {
+          const col = document.createElement("div");
+          col.className = "heatmap-col";
+          for (let d = 0; d < days; d++) {
+            const cell = document.createElement("div");
+            cell.className = "heatmap-cell";
+            const rand = Math.sin(w * 7 + d + seed) * 0.5 + 0.5;
+            const level =
+              rand > 0.85
+                ? 4
+                : rand > 0.65
+                  ? 3
+                  : rand > 0.45
+                    ? 2
+                    : rand > 0.3
+                      ? 1
+                      : 0;
+            if (level) cell.setAttribute("data-level", level);
+            const date = new Date(parseInt(year), 0, w * 7 + d + 1);
+            cell.title =
+              date.toLocaleDateString("zh-CN") +
+              (level ? ` · ${level} 篇` : " · 无文章");
+            col.appendChild(cell);
+          }
+          grid.appendChild(col);
+        }
+      }
+
+      function setYear(el, year) {
+        document
+          .querySelectorAll(".year-btn")
+          .forEach((b) => b.classList.remove("active"));
+        el.classList.add("active");
+        buildHeatmap(year);
+      }
+
+      document.addEventListener("DOMContentLoaded", () => buildHeatmap("2025"));
+    </script>
   </body>
 </html>

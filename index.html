@@ -52,7 +52,7 @@
           <i class="bi bi-person me-1"></i> 登录
         </a>
         <!-- 已登录：显示头像 + 下拉菜单（默认隐藏，JS 控制） -->
-        <div class="nav-user-wrapper" id="navUserWrapper" class="d-none">
+        <div class="nav-user-wrapper d-none" id="navUserWrapper">
           <div class="nav-user-avatar" id="navUserAvatar">陈</div>
           <div class="nav-user-dropdown">
             <div class="nav-user-dropdown-header">
@@ -201,7 +201,7 @@
       <div class="col-6 col-md-4 col-lg-2 fade-up delay-4">
         <div class="category-card cat-c4">
           <div class="d-flex align-items-center gap-3 w-100">
-            <div class="cat-icon"><i class="bi bi-brain"></i></div>
+            <div class="cat-icon"><i class="bi bi-robot"></i></div>
             <div>
               <div class="cat-name">AI</div>
               <div class="cat-count">19 篇</div>
@@ -293,7 +293,7 @@
       <div class="col-lg-4 d-flex flex-column gap-4">
         <div class="post-card fade-up delay-2">
           <div class="post-card-image" style="background: linear-gradient(135deg, #1a1040 0%, #2d1b69 100%); height:140px;">
-            <div class="img-placeholder"><i class="bi bi-brush" class="img-icon-muted"></i></div>
+            <div class="img-placeholder"><i class="bi bi-brush img-icon-muted"></i></div>
             <div class="post-card-badge">设计</div>
           </div>
           <div class="post-card-body">
@@ -314,11 +314,11 @@
 
         <div class="post-card fade-up delay-3">
           <div class="post-card-image" style="background: linear-gradient(135deg, #0d3040 0%, #0e5a6a 100%); height:140px;">
-            <div class="img-placeholder"><i class="bi bi-robot" class="img-icon-muted"></i></div>
+            <div class="img-placeholder"><i class="bi bi-robot img-icon-muted"></i></div>
             <div class="post-card-badge">AI</div>
           </div>
           <div class="post-card-body">
-            <div class="post-card-category"><i class="bi bi-brain me-1"></i>人工智能</div>
+            <div class="post-card-category"><i class="bi bi-robot me-1"></i>人工智能</div>
             <h3 class="post-card-title">本地部署 LLM：Ollama + Open WebUI 完全配置手册</h3>
             <div class="post-card-footer">
               <div class="author-row">
@@ -338,7 +338,7 @@
       <div class="col-md-6 col-lg-4 fade-up delay-1">
         <div class="post-card">
           <div class="post-card-image" style="background: linear-gradient(135deg, #1a2f0a 0%, #2d5c1a 100%);">
-            <div class="img-placeholder"><i class="bi bi-graph-up-arrow" class="img-icon-muted"></i></div>
+            <div class="img-placeholder"><i class="bi bi-graph-up-arrow img-icon-muted"></i></div>
             <div class="post-card-badge">产品</div>
           </div>
           <div class="post-card-body">
@@ -362,7 +362,7 @@
       <div class="col-md-6 col-lg-4 fade-up delay-2">
         <div class="post-card">
           <div class="post-card-image" style="background: linear-gradient(135deg, #1a0a2e 0%, #4a0d6b 100%);">
-            <div class="img-placeholder"><i class="bi bi-shield-lock" class="img-icon-muted"></i></div>
+            <div class="img-placeholder"><i class="bi bi-shield-lock img-icon-muted"></i></div>
             <div class="post-card-badge">技术</div>
           </div>
           <div class="post-card-body">
@@ -386,7 +386,7 @@
       <div class="col-md-6 col-lg-4 fade-up delay-3">
         <div class="post-card">
           <div class="post-card-image" style="background: linear-gradient(135deg, #0a2030 0%, #0d4060 100%);">
-            <div class="img-placeholder"><i class="bi bi-database" class="img-icon-muted"></i></div>
+            <div class="img-placeholder"><i class="bi bi-database img-icon-muted"></i></div>
             <div class="post-card-badge">技术</div>
           </div>
           <div class="post-card-body">
@@ -463,7 +463,7 @@
         <div class="d-flex flex-column gap-3">
 
           <!-- Post list item -->
-          <div class="post-card flex-row align-items-stretch fade-up" class="post-card-row">
+          <div class="post-card-row post-card flex-row align-items-stretch fade-up">
             <div class="post-card-thumb-sm" style="background:linear-gradient(135deg,#0a1a0a,#1a4a2a)">
               <i class="bi bi-terminal"></i>
             </div>
@@ -477,7 +477,7 @@
             </div>
           </div>
 
-          <div class="post-card flex-row align-items-stretch fade-up delay-1" class="post-card-row">
+          <div class="post-card-row post-card flex-row align-items-stretch fade-up delay-1">
             <div class="post-card-thumb-sm" style="background:linear-gradient(135deg,#1a0a30,#3d0f6e)">
               <i class="bi bi-infinity"></i>
             </div>
@@ -491,7 +491,7 @@
             </div>
           </div>
 
-          <div class="post-card flex-row align-items-stretch fade-up delay-2" class="post-card-row">
+          <div class="post-card-row post-card flex-row align-items-stretch fade-up delay-2">
             <div class="post-card-thumb-sm" style="background:linear-gradient(135deg,#0a1e30,#0d4569)">
               <i class="bi bi-layers"></i>
             </div>
@@ -505,7 +505,7 @@
             </div>
           </div>
 
-          <div class="post-card flex-row align-items-stretch fade-up delay-3" class="post-card-row">
+          <div class="post-card-row post-card flex-row align-items-stretch fade-up delay-3">
             <div class="post-card-thumb-sm" style="background:linear-gradient(135deg,#2a1500,#5c3200)">
               <i class="bi bi-book-half"></i>
             </div>
@@ -642,7 +642,7 @@
           <li><a href="#"><i class="bi bi-cpu"></i> 技术开发</a></li>
           <li><a href="#"><i class="bi bi-palette2"></i> UI 设计</a></li>
           <li><a href="#"><i class="bi bi-rocket-takeoff"></i> 产品思维</a></li>
-          <li><a href="#"><i class="bi bi-brain"></i> AI 探索</a></li>
+          <li><a href="#"><i class="bi bi-robot"></i> AI 探索</a></li>
           <li><a href="#"><i class="bi bi-feather"></i> 生活随笔</a></li>
         </ul>
       </div>

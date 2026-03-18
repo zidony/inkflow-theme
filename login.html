@@ -17,25 +17,6 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="inkflow.css" />
-    <style>
-      body {
-        overflow: hidden;
-      }
-      @media (max-width: 768px) {
-        body {
-          overflow: auto;
-        }
-      }
-      .auth-page {
-        height: 100vh;
-      }
-      @media (max-width: 768px) {
-        .auth-page {
-          height: auto;
-          min-height: 100vh;
-        }
-      }
-    </style>
   </head>
   <body>
     <div class="auth-page">
@@ -65,7 +46,11 @@
           <a href="index.html" class="auth-back-link">
             <i class="bi bi-arrow-left"></i> 返回首页
           </a>
-          <button class="theme-toggle" id="themeToggle" title="切换主题">
+          <button
+            class="theme-toggle border text-success"
+            id="themeToggle"
+            title="切换主题"
+          >
             <i class="bi bi-moon-stars-fill" id="themeIcon"></i>
           </button>
         </div>
@@ -153,7 +138,7 @@
             使用 Google 账号登录
           </button>
           <button class="btn-auth-social" type="button">
-            <i class="bi bi-github fs-5"></i>
+            <i class="bi bi-github fs-6"></i>
             使用 GitHub 账号登录
           </button>
 

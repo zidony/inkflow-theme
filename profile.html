@@ -69,7 +69,7 @@
             <a href="login.html" class="btn-nav-login" id="navLoginBtn"
               ><i class="bi bi-person me-1"></i> 登录</a
             >
-            <div class="nav-user-wrapper" id="navUserWrapper" class="d-none">
+            <div class="nav-user-wrapper d-none" id="navUserWrapper">
               <div class="nav-user-avatar" id="navUserAvatar">陈</div>
               <div class="nav-user-dropdown">
                 <div class="nav-user-dropdown-header">
@@ -975,44 +975,6 @@
     <button class="back-to-top" id="backToTop">
       <i class="bi bi-chevron-up"></i>
     </button>
-
-    <!-- Toggle switch CSS (inline for simplicity) -->
-    <style>
-      .notify-slider {
-        position: absolute;
-        inset: 0;
-        background: var(--ink-border);
-        border-radius: 99px;
-        transition: all var(--transition);
-        cursor: pointer;
-      }
-      .notify-slider::before {
-        content: "";
-        position: absolute;
-        width: 18px;
-        height: 18px;
-        border-radius: 50%;
-        background: #fff;
-        top: 3px;
-        left: 3px;
-        transition: transform var(--transition);
-        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
-      }
-      .notify-toggle:checked + .notify-slider {
-        background: var(--ink-primary);
-      }
-      .notify-toggle:checked + .notify-slider::before {
-        transform: translateX(20px);
-      }
-
-      /* 2FA toggle */
-      #tfaSwitch.on {
-        background: var(--ink-primary);
-      }
-      #tfaSwitch.on > div {
-        transform: translateX(20px);
-      }
-    </style>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="inkflow.js"></script>
