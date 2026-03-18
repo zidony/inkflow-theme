@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-bs-theme="light">
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>INKFLOW — 文章列表</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+:root{--ink-primary:#0a6640;--ink-primary-rgb:10,102,64;--ink-accent:#00c98d;--ink-accent-rgb:0,201,141;--ink-surface:#f8faf9;--ink-card:#ffffff;--ink-border:#e4ede9;--ink-muted:#6b8070;--ink-heading:#0d1117;--ink-text:#2c3e35;--font-display:'Playfair Display',Georgia,serif;--font-body:'DM Sans',sans-serif;--font-mono:'JetBrains Mono',monospace;--radius-sm:6px;--radius-md:12px;--radius-lg:20px;--radius-xl:32px;--shadow-card:0 2px 20px rgba(10,102,64,.08),0 1px 4px rgba(10,102,64,.04);--shadow-hover:0 8px 40px rgba(10,102,64,.16),0 2px 8px rgba(10,102,64,.08);--transition:.28s cubic-bezier(.4,0,.2,1)}
+[data-bs-theme="dark"]{--ink-primary:#00c98d;--ink-accent:#4dffc0;--ink-surface:#0d1117;--ink-card:#161c22;--ink-border:#212e27;--ink-muted:#7aaf96;--ink-heading:#f0f6f3;--ink-text:#c8ddd5;--shadow-card:0 2px 20px rgba(0,0,0,.4);--shadow-hover:0 8px 40px rgba(0,0,0,.6)}
+*,*::before,*::after{box-sizing:border-box}html{scroll-behavior:smooth}
+body{font-family:var(--font-body);font-size:16px;line-height:1.75;color:var(--ink-text);background:var(--ink-surface);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+h1,h2,h3,h4,h5,h6{font-family:var(--font-display);color:var(--ink-heading);line-height:1.2}
+a{color:var(--ink-primary);text-decoration:none;transition:color var(--transition)}a:hover{color:var(--ink-accent)}
+::selection{background:rgba(var(--ink-accent-rgb),.25)}
+::-webkit-scrollbar{width:6px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:var(--ink-border);border-radius:99px}
+body::before{content:'';position:fixed;inset:0;pointer-events:none;opacity:.025;z-index:9999;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");background-size:200px}
+/* NAVBAR */
+.ink-navbar{position:fixed;top:0;left:0;right:0;z-index:1000;transition:all var(--transition);padding:1rem 0}
+.ink-navbar.scrolled{background:rgba(var(--ink-primary-rgb),.97)!important;backdrop-filter:blur(20px);padding:.6rem 0;box-shadow:0 4px 30px rgba(0,0,0,.15)}
+[data-bs-theme="dark"] .ink-navbar.scrolled{background:rgba(13,17,23,.97)!important}
+.ink-navbar .navbar-brand{font-family:var(--font-display);font-size:1.5rem;font-weight:900;color:#fff;letter-spacing:-.02em;display:flex;align-items:center;gap:.5rem}
+.brand-dot{width:8px;height:8px;background:var(--ink-accent);border-radius:50%;display:inline-block;animation:pulse-dot 2s ease-in-out infinite}
+@keyframes pulse-dot{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.4);opacity:.7}}
+.ink-navbar .nav-link{color:rgba(255,255,255,.8)!important;font-weight:500;font-size:.9rem;padding:.4rem .8rem!important;border-radius:var(--radius-sm);transition:all var(--transition)}
+.ink-navbar .nav-link:hover,.ink-navbar .nav-link.active{color:#fff!important;background:rgba(255,255,255,.12)}
+.btn-nav-search{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.18);color:#fff;border-radius:var(--radius-sm);padding:.35rem .7rem;transition:all var(--transition);font-size:.9rem;cursor:pointer}
+.btn-nav-search:hover{background:rgba(255,255,255,.22);color:#fff}
+.theme-toggle{width:36px;height:36px;border-radius:50%;border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.1);color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all var(--transition);font-size:1rem}
+.theme-toggle:hover{background:rgba(255,255,255,.2)}
+.navbar-toggler{border:1px solid rgba(255,255,255,.2);padding:.35rem .65rem;border-radius:var(--radius-sm)}
+.navbar-toggler-icon{background-image:url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255,255,255,0.8%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e")}
+/* PAGE HERO */
+.page-hero{background:linear-gradient(135deg,#081f12 0%,#0a3320 50%,#0d5c38 100%);padding:7rem 0 4rem;position:relative;overflow:hidden}
+.page-hero::before{content:'';position:absolute;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(0,201,141,.15) 0%,transparent 70%);top:-150px;right:-80px;animation:float 8s ease-in-out infinite}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-20px)}}
+.page-hero-eyebrow{display:inline-flex;align-items:center;gap:.5rem;background:rgba(0,201,141,.15);border:1px solid rgba(0,201,141,.3);color:var(--ink-accent);border-radius:99px;padding:.3rem .9rem;font-size:.78rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;margin-bottom:1rem}
+.page-hero-title{font-size:clamp(2rem,4vw,3.2rem);font-weight:900;color:#fff;letter-spacing:-.03em;margin-bottom:.75rem}
+.page-hero-sub{color:rgba(255,255,255,.55);font-size:.95rem;line-height:1.7}
+.ink-breadcrumb .breadcrumb-item a{color:rgba(255,255,255,.5);font-size:.82rem}
+.ink-breadcrumb .breadcrumb-item.active{color:rgba(255,255,255,.8);font-size:.82rem}
+.ink-breadcrumb .breadcrumb-item+.breadcrumb-item::before{color:rgba(255,255,255,.3)}
+/* TAG PILLS */
+.tag-pill{display:inline-flex;align-items:center;gap:.3rem;padding:.28rem .75rem;border-radius:99px;font-size:.75rem;font-weight:600;border:1px solid var(--ink-border);color:var(--ink-muted);background:var(--ink-card);transition:all var(--transition);cursor:pointer}
+.tag-pill:hover{border-color:var(--ink-primary);color:var(--ink-primary);background:rgba(var(--ink-primary-rgb),.06)}
+.tag-pill.active{background:var(--ink-primary);border-color:var(--ink-primary);color:#fff}
+/* FILTER BAR */
+.filter-bar{background:var(--ink-card);border:1px solid var(--ink-border);border-radius:var(--radius-lg);padding:1.25rem 1.5rem;box-shadow:var(--shadow-card);margin-bottom:2rem}
+.filter-search-wrap{position:relative}
+.filter-search-wrap i{position:absolute;left:.9rem;top:50%;transform:translateY(-50%);color:var(--ink-muted);font-size:.95rem}
+.filter-search-input{width:100%;background:var(--ink-surface);border:1px solid var(--ink-border);border-radius:var(--radius-sm);padding:.6rem .9rem .6rem 2.4rem;color:var(--ink-text);font-size:.9rem;font-family:var(--font-body);outline:none;transition:border-color var(--transition)}
+.filter-search-input:focus{border-color:var(--ink-primary)}
+.filter-search-input::placeholder{color:var(--ink-muted)}
+.sort-select{background:var(--ink-surface);border:1px solid var(--ink-border);border-radius:var(--radius-sm);padding:.6rem .9rem;color:var(--ink-text);font-size:.88rem;font-family:var(--font-body);outline:none;cursor:pointer;transition:border-color var(--transition)}
+.sort-select:focus{border-color:var(--ink-primary)}
+/* POST CARDS */
+.post-card{background:var(--ink-card);border:1px solid var(--ink-border);border-radius:var(--radius-lg);overflow:hidden;transition:all var(--transition);height:100%;display:flex;flex-direction:column;box-shadow:var(--shadow-card)}
+.post-card:hover{transform:translateY(-5px);box-shadow:var(--shadow-hover);border-color:rgba(var(--ink-primary-rgb),.25)}
+.post-card-image{position:relative;height:190px;overflow:hidden}
+.post-card-image .img-ph{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:2.8rem;transition:transform .5s cubic-bezier(.4,0,.2,1)}
+.post-card:hover .img-ph{transform:scale(1.08)}
+.post-card-badge{position:absolute;top:.9rem;left:.9rem;background:var(--ink-primary);color:#fff;border-radius:99px;padding:.18rem .65rem;font-size:.7rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase}
+.post-card-body{padding:1.4rem;flex:1;display:flex;flex-direction:column}
+.post-card-category{font-size:.73rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--ink-primary);margin-bottom:.5rem}
+.post-card-title{font-family:var(--font-display);font-size:1.15rem;font-weight:700;line-height:1.35;color:var(--ink-heading);margin-bottom:.7rem;transition:color var(--transition)}
+.post-card:hover .post-card-title{color:var(--ink-primary)}
+.post-card-excerpt{color:var(--ink-muted);font-size:.86rem;line-height:1.7;flex:1;margin-bottom:1.1rem;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.post-card-footer{display:flex;align-items:center;justify-content:space-between;padding-top:.9rem;border-top:1px solid var(--ink-border);gap:.5rem}
+.avatar-xs{width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,var(--ink-accent),var(--ink-primary));display:flex;align-items:center;justify-content:center;font-size:.68rem;font-weight:700;color:#fff;flex-shrink:0}
+.author-name{font-size:.8rem;font-weight:600;color:var(--ink-heading)}
+.post-date{font-size:.76rem;color:var(--ink-muted)}
+.read-time{font-size:.76rem;color:var(--ink-muted);display:flex;align-items:center;gap:.3rem;white-space:nowrap}
+/* LIST VIEW */
+.post-list-item{background:var(--ink-card);border:1px solid var(--ink-border);border-radius:var(--radius-lg);overflow:hidden;transition:all var(--transition);box-shadow:var(--shadow-card);display:flex;align-items:stretch}
+.post-list-item:hover{transform:translateY(-3px);box-shadow:var(--shadow-hover);border-color:rgba(var(--ink-primary-rgb),.25)}
+.post-list-thumb{width:160px;min-width:160px;display:flex;align-items:center;justify-content:center;font-size:2.5rem;transition:transform .5s cubic-bezier(.4,0,.2,1)}
+.post-list-item:hover .post-list-thumb{transform:scale(1.06)}
+.post-list-body{padding:1.25rem 1.5rem;flex:1;display:flex;flex-direction:column;justify-content:center}
+.post-list-title{font-family:var(--font-display);font-size:1.12rem;font-weight:700;line-height:1.35;color:var(--ink-heading);margin-bottom:.5rem;transition:color var(--transition)}
+.post-list-item:hover .post-list-title{color:var(--ink-primary)}
+.post-list-excerpt{color:var(--ink-muted);font-size:.86rem;line-height:1.65;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;margin-bottom:.85rem}
+.post-list-meta{display:flex;align-items:center;gap:1rem;flex-wrap:wrap}
+.meta-tag{font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-primary)}
+.meta-sep{color:var(--ink-border)}
+/* SIDEBAR */
+.sidebar-card{background:var(--ink-card);border:1px solid var(--ink-border);border-radius:var(--radius-lg);padding:1.6rem;box-shadow:var(--shadow-card);margin-bottom:1.4rem}
+.sidebar-title{font-family:var(--font-display);font-size:1rem;font-weight:700;margin-bottom:1.1rem;padding-bottom:.7rem;border-bottom:2px solid var(--ink-border);display:flex;align-items:center;gap:.5rem}
+.sidebar-title::before{content:'';width:4px;height:16px;background:linear-gradient(to bottom,var(--ink-accent),var(--ink-primary));border-radius:99px}
+/* VIEW TOGGLE */
+.view-toggle{display:flex;gap:.3rem}
+.view-btn{width:34px;height:34px;border:1px solid var(--ink-border);background:var(--ink-card);border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--ink-muted);transition:all var(--transition);font-size:.95rem}
+.view-btn.active,.view-btn:hover{background:var(--ink-primary);border-color:var(--ink-primary);color:#fff}
+/* PAGINATION */
+.ink-pagination .page-link{border:1px solid var(--ink-border);color:var(--ink-muted);border-radius:var(--radius-sm)!important;padding:.5rem .85rem;font-size:.88rem;transition:all var(--transition);font-weight:500;background:var(--ink-card)}
+.ink-pagination .page-link:hover{background:rgba(var(--ink-primary-rgb),.08);border-color:var(--ink-primary);color:var(--ink-primary)}
+.ink-pagination .page-item.active .page-link{background:var(--ink-primary);border-color:var(--ink-primary);color:#fff}
+/* READING PROGRESS */
+.reading-progress{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--ink-accent),var(--ink-primary));z-index:9998;width:0%;transition:width .1s linear}
+/* BACK TO TOP */
+.back-to-top{position:fixed;bottom:2rem;right:2rem;width:44px;height:44px;background:var(--ink-primary);color:#fff;border:none;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:1.1rem;box-shadow:0 4px 20px rgba(var(--ink-primary-rgb),.4);transition:all var(--transition);opacity:0;pointer-events:none;transform:translateY(10px);z-index:999}
+.back-to-top.visible{opacity:1;pointer-events:all;transform:translateY(0)}
+.back-to-top:hover{transform:translateY(-3px)}
+/* SEARCH */
+.search-overlay{position:fixed;inset:0;background:rgba(7,26,16,.95);backdrop-filter:blur(20px);z-index:2000;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding-top:10vh;opacity:0;pointer-events:none;transition:opacity .3s ease}
+.search-overlay.active{opacity:1;pointer-events:all}
+.search-close{position:absolute;top:2rem;right:2rem;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);color:rgba(255,255,255,.6);width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all var(--transition);font-size:1.1rem}
+.search-close:hover{background:rgba(255,255,255,.15);color:#fff}
+.search-main-input{width:100%;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:var(--radius-lg);padding:1.1rem 1.25rem 1.1rem 3.5rem;color:#fff;font-size:1.2rem;font-family:var(--font-body);outline:none}
+.search-main-input::placeholder{color:rgba(255,255,255,.3)}
+.search-tip{padding:.35rem .8rem;border-radius:99px;border:1px solid rgba(255,255,255,.12);color:rgba(255,255,255,.5);font-size:.8rem;cursor:pointer;transition:all var(--transition)}
+.search-tip:hover{border-color:var(--ink-accent);color:var(--ink-accent)}
+/* FOOTER */
+.site-footer{background:#071a10;padding:4rem 0 2rem}
+.footer-brand{font-family:var(--font-display);font-size:1.6rem;font-weight:900;color:#fff;display:flex;align-items:center;gap:.5rem;margin-bottom:.75rem}
+.footer-copy{font-size:.83rem;color:rgba(255,255,255,.35)}
+.footer-copy span{color:rgba(255,255,255,.55)}
+.footer-divider{border-color:rgba(255,255,255,.08);margin:2.5rem 0 1.5rem}
+.footer-links{list-style:none;padding:0;margin:0}
+.footer-links li{margin-bottom:.6rem}
+.footer-links a{color:rgba(255,255,255,.5);font-size:.88rem;transition:color var(--transition)}
+.footer-links a:hover{color:var(--ink-accent)}
+.footer-heading{font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.4);margin-bottom:1rem}
+/* FADE UP */
+.fade-up{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease}
+.fade-up.visible{opacity:1;transform:translateY(0)}
+.delay-1{transition-delay:.1s}.delay-2{transition-delay:.2s}.delay-3{transition-delay:.3s}.delay-4{transition-delay:.4s}
+/* POPULAR */
+.pop-item{display:flex;gap:.9rem;padding:.8rem 0;border-bottom:1px solid var(--ink-border);cursor:pointer}
+.pop-item:last-child{border-bottom:none;padding-bottom:0}
+.pop-item:first-child{padding-top:0}
+.pop-rank{font-family:var(--font-display);font-size:1.4rem;font-weight:900;color:var(--ink-border);line-height:1;min-width:26px}
+.pop-title{font-size:.86rem;font-weight:600;color:var(--ink-heading);line-height:1.4;transition:color var(--transition);margin-bottom:.2rem}
+.pop-item:hover .pop-title{color:var(--ink-primary)}
+.pop-meta{font-size:.75rem;color:var(--ink-muted)}
+/* RESULT COUNT */
+.result-count{font-size:.85rem;color:var(--ink-muted);display:flex;align-items:center;gap:.4rem}
+</style>
+</head>
+<body>
+<div class="reading-progress" id="readingProgress"></div>
+
+<!-- NAVBAR -->
+<nav class="ink-navbar navbar navbar-expand-lg" id="mainNavbar">
+  <div class="container">
+    <a class="navbar-brand" href="blog-theme.html">INKFLOW<span class="brand-dot"></span></a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu"><span class="navbar-toggler-icon"></span></button>
+    <div class="collapse navbar-collapse" id="navMenu">
+      <ul class="navbar-nav mx-auto gap-1">
+        <li class="nav-item"><a class="nav-link" href="blog-theme.html">首页</a></li>
+        <li class="nav-item"><a class="nav-link active" href="post-list.html">文章</a></li>
+        <li class="nav-item"><a class="nav-link" href="category-list.html">分类</a></li>
+        <li class="nav-item"><a class="nav-link" href="tag-list.html">标签</a></li>
+        <li class="nav-item"><a class="nav-link" href="archive-list.html">归档</a></li>
+        <li class="nav-item"><a class="nav-link" href="album-list.html">相册</a></li>
+        <li class="nav-item"><a class="nav-link" href="link-list.html">链接</a></li>
+      </ul>
+      <div class="d-flex align-items-center gap-2">
+        <button class="btn-nav-search" onclick="openSearch()"><i class="bi bi-search me-1"></i>搜索</button>
+        <button class="theme-toggle" id="themeToggle"><i class="bi bi-moon-stars-fill" id="themeIcon"></i></button>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- PAGE HERO -->
+<div class="page-hero">
+  <div class="container position-relative" style="z-index:1">
+    <nav aria-label="breadcrumb" class="ink-breadcrumb mb-3">
+      <ol class="breadcrumb mb-0">
+        <li class="breadcrumb-item"><a href="blog-theme.html"><i class="bi bi-house me-1"></i>首页</a></li>
+        <li class="breadcrumb-item active">全部文章</li>
+      </ol>
+    </nav>
+    <div class="page-hero-eyebrow"><i class="bi bi-journal-richtext"></i> 文章列表</div>
+    <h1 class="page-hero-title">探索所有内容</h1>
+    <p class="page-hero-sub">128 篇文章，涵盖技术开发、产品设计、AI 探索与生活随笔</p>
+  </div>
+</div>
+
+<!-- MAIN -->
+<main class="py-5">
+  <div class="container">
+    <div class="row g-4">
+
+      <!-- LEFT CONTENT -->
+      <div class="col-lg-8">
+
+        <!-- FILTER BAR -->
+        <div class="filter-bar fade-up">
+          <div class="row g-2 align-items-center">
+            <div class="col-md-5">
+              <div class="filter-search-wrap">
+                <i class="bi bi-search"></i>
+                <input type="text" class="filter-search-input" placeholder="搜索文章标题、关键词…" />
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="d-flex gap-2 flex-wrap">
+                <span class="tag-pill active">全部</span>
+                <span class="tag-pill">技术</span>
+                <span class="tag-pill">设计</span>
+                <span class="tag-pill">AI</span>
+                <span class="tag-pill">随笔</span>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="d-flex align-items-center justify-content-end gap-2">
+                <select class="sort-select">
+                  <option>最新发布</option>
+                  <option>最多阅读</option>
+                  <option>最多评论</option>
+                </select>
+                <div class="view-toggle">
+                  <button class="view-btn active" id="gridBtn" title="网格视图"><i class="bi bi-grid"></i></button>
+                  <button class="view-btn" id="listBtn" title="列表视图"><i class="bi bi-list-ul"></i></button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- RESULT COUNT -->
+        <div class="result-count mb-3 fade-up delay-1">
+          <i class="bi bi-collection"></i> 共找到 <strong style="color:var(--ink-heading)">128</strong> 篇文章
+        </div>
+
+        <!-- GRID VIEW -->
+        <div id="gridView">
+          <div class="row g-3">
+            <!-- Card 1 -->
+            <div class="col-md-6 fade-up delay-1">
+              <a href="post-detail.html" class="post-card d-block text-decoration-none">
+                <div class="post-card-image" style="background:linear-gradient(135deg,#081f14,#1a5c2a)">
+                  <div class="img-ph"><i class="bi bi-code-slash" style="color:rgba(255,255,255,.18)"></i></div>
+                  <span class="post-card-badge">技术</span>
+                </div>
+                <div class="post-card-body">
+                  <div class="post-card-category"><i class="bi bi-cpu me-1"></i>前端开发</div>
+                  <h3 class="post-card-title">2025 年前端开发的终极工具链：从 Vite 5 到 RSC 的完整指南</h3>
+                  <p class="post-card-excerpt">前端生态从未停止进化。本文带你走过现代前端工具链的每一个关键节点，探讨 Vite 5 的革命性改进…</p>
+                  <div class="post-card-footer">
+                    <div class="d-flex align-items-center gap-2">
+                      <div class="avatar-xs">陈</div>
+                      <div><div class="author-name">陈明远</div><div class="post-date">2月28日</div></div>
+                    </div>
+                    <div class="read-time"><i class="bi bi-clock"></i> 18 min</div>
+                  </div>
+                </div>
+              </a>
+            </div>
+            <!-- Card 2 -->
+            <div class="col-md-6 fade-up delay-2">
+              <a href="post-detail.html" class="post-card d-block text-decoration-none">
+                <div class="post-card-image" style="background:linear-gradient(135deg,#1a1040,#2d1b69)">
+                  <div class="img-ph"><i class="bi bi-brush" style="color:rgba(255,255,255,.18)"></i></div>
+                  <span class="post-card-badge" style="background:#7c3aed">设计</span>
+                </div>
+                <div class="post-card-body">
+                  <div class="post-card-category" style="color:#7c3aed"><i class="bi bi-palette2 me-1"></i>UI/UX 设计</div>
+                  <h3 class="post-card-title">设计系统的本质：语义化 Token 体系构建实践</h3>
+                  <p class="post-card-excerpt">如何从 0 到 1 构建一个真正可扩展的设计系统？本文从 Token 分层策略出发，逐步拆解实现细节…</p>
+                  <div class="post-card-footer">
+                    <div class="d-flex align-items-center gap-2">
+                      <div class="avatar-xs" style="background:linear-gradient(135deg,#7c3aed,#c026d3)">李</div>
+                      <div><div class="author-name">李晓雨</div><div class="post-date">2月20日</div></div>
+                    </div>
+                    <div class="read-time"><i class="bi bi-clock"></i> 12 min</div>
+                  </div>
+                </div>
+              </a>
+            </div>
+            <!-- Card 3 -->
+            <div class="col-md-6 fade-up delay-1">
+              <a href="post-detail.html" class="post-card d-block text-decoration-none">
+                <div class="post-card-image" style="background:linear-gradient(135deg,#0d3040,#0e5a6a)">
+                  <div class="img-ph"><i class="bi bi-robot" style="color:rgba(255,255,255,.18)"></i></div>
+                  <span class="post-card-badge" style="background:#0891b2">AI</span>
+                </div>
+                <div class="post-card-body">
+                  <div class="post-card-category" style="color:#0891b2"><i class="bi bi-brain me-1"></i>人工智能</div>
+                  <h3 class="post-card-title">本地部署 LLM：Ollama + Open WebUI 完全配置手册</h3>
+                  <p class="post-card-excerpt">完整讲解如何在本地运行大语言模型，从硬件选型、模型下载到自定义 API 接口配置一条龙…</p>
+                  <div class="post-card-footer">
+                    <div class="d-flex align-items-center gap-2">
+                      <div class="avatar-xs" style="background:linear-gradient(135deg,#10b981,#0ea5e9)">陈</div>
+                      <div><div class="author-name">陈明远</div><div class="post-date">2月15日</div></div>
+                    </div>
+                    <div class="read-time"><i class="bi bi-clock"></i> 15 min</div>
+                  </div>
+                </div>
+              </a>
+            </div>
+            <!-- Card 4 -->
+            <div class="col-md-6 fade-up delay-2">
+              <a href="post-detail.html" class="post-card d-block text-decoration-none">
+                <div class="post-card-image" style="background:linear-gradient(135deg,#1a2f0a,#2d5c1a)">
+                  <div class="img-ph"><i class="bi bi-graph-up-arrow" style="color:rgba(255,255,255,.18)"></i></div>
+                  <span class="post-card-badge" style="background:#16a34a">产品</span>
+                </div>
+                <div class="post-card-body">
+                  <div class="post-card-category" style="color:#16a34a"><i class="bi bi-rocket-takeoff me-1"></i>产品思维</div>
+                  <h3 class="post-card-title">B2B SaaS 产品 PMF 验证的 6 个关键信号</h3>
+                  <p class="post-card-excerpt">如何在早期阶段判断你的 SaaS 产品是否找到了 Product-Market Fit？这里有 6 个可量化的信号指标…</p>
+                  <div class="post-card-footer">
+                    <div class="d-flex align-items-center gap-2">
+                      <div class="avatar-xs" style="background:linear-gradient(135deg,#16a34a,#0d9488)">王</div>
+                      <div><div class="author-name">王思远</div><div class="post-date">2月10日</div></div>
+                    </div>
+                    <div class="read-time"><i class="bi bi-clock"></i> 10 min</div>
+                  </div>
+                </div>
+              </a>
+            </div>
+            <!-- Card 5 -->
+            <div class="col-md-6 fade-up delay-1">
+              <a href="post-detail.html" class="post-card d-block text-decoration-none">
+                <div class="post-card-image" style="background:linear-gradient(135deg,#1a0a2e,#4a0d6b)">
+                  <div class="img-ph"><i class="bi bi-shield-lock" style="color:rgba(255,255,255,.18)"></i></div>
+                  <span class="post-card-badge" style="background:#6d28d9">安全</span>
+                </div>
+                <div class="post-card-body">
+                  <div class="post-card-category" style="color:#6d28d9"><i class="bi bi-shield-check me-1"></i>Web 安全</div>
+                  <h3 class="post-card-title">OWASP Top 10 漏洞防御清单（2025 版）完整解析</h3>
+                  <p class="post-card-excerpt">从 SQL 注入到 SSRF，逐一拆解最新的 OWASP Top 10 漏洞类型，并给出可立即落地的防御方案…</p>
+                  <div class="post-card-footer">
+                    <div class="d-flex align-items-center gap-2">
+                      <div class="avatar-xs" style="background:linear-gradient(135deg,#6d28d9,#c026d3)">赵</div>
+                      <div><div class="author-name">赵宇轩</div><div class="post-date">2月5日</div></div>
+                    </div>
+                    <div class="read-time"><i class="bi bi-clock"></i> 14 min</div>
+                  </div>
+                </div>
+              </a>
+            </div>
+            <!-- Card 6 -->
+            <div class="col-md-6 fade-up delay-2">
+              <a href="post-detail.html" class="post-card d-block text-decoration-none">
+                <div class="post-card-image" style="background:linear-gradient(135deg,#0a1a30,#173a60)">
+                  <div class="img-ph"><i class="bi bi-database" style="color:rgba(255,255,255,.18)"></i></div>
+                  <span class="post-card-badge">技术</span>
+                </div>
+                <div class="post-card-body">
+                  <div class="post-card-category"><i class="bi bi-server me-1"></i>数据库</div>
+                  <h3 class="post-card-title">PostgreSQL 性能调优：从慢查询到毫秒级响应</h3>
+                  <p class="post-card-excerpt">索引策略、查询计划分析、连接池配置——一篇涵盖 PostgreSQL 生产调优全景的深度文章…</p>
+                  <div class="post-card-footer">
+                    <div class="d-flex align-items-center gap-2">
+                      <div class="avatar-xs" style="background:linear-gradient(135deg,#0ea5e9,#3b82f6)">林</div>
+                      <div><div class="author-name">林志明</div><div class="post-date">1月30日</div></div>
+                    </div>
+                    <div class="read-time"><i class="bi bi-clock"></i> 22 min</div>
+                  </div>
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- LIST VIEW (hidden by default) -->
+        <div id="listView" class="d-none">
+          <div class="d-flex flex-column gap-3">
+            <a href="post-detail.html" class="post-list-item text-decoration-none">
+              <div class="post-list-thumb" style="background:linear-gradient(135deg,#081f14,#1a5c2a);color:rgba(255,255,255,.18)"><i class="bi bi-code-slash"></i></div>
+              <div class="post-list-body">
+                <div class="meta-tag"><i class="bi bi-cpu me-1"></i>前端开发</div>
+                <div class="post-list-title">2025 年前端开发的终极工具链：从 Vite 5 到 RSC 的完整指南</div>
+                <div class="post-list-excerpt">前端生态从未停止进化。本文带你走过现代前端工具链的每一个关键节点，探讨 Vite 5 的革命性改进与 React Server Components 实际落地经验。</div>
+                <div class="post-list-meta">
+                  <span class="post-date"><i class="bi bi-calendar3 me-1"></i>2025年2月28日</span>
+                  <span class="meta-sep">·</span>
+                  <span class="read-time"><i class="bi bi-clock me-1"></i>18 min</span>
+                  <span class="meta-sep">·</span>
+                  <span class="read-time"><i class="bi bi-eye me-1"></i>3,240</span>
+                </div>
+              </div>
+            </a>
+            <a href="post-detail.html" class="post-list-item text-decoration-none">
+              <div class="post-list-thumb" style="background:linear-gradient(135deg,#1a1040,#2d1b69);color:rgba(255,255,255,.18)"><i class="bi bi-brush"></i></div>
+              <div class="post-list-body">
+                <div class="meta-tag" style="color:#7c3aed"><i class="bi bi-palette2 me-1"></i>UI/UX 设计</div>
+                <div class="post-list-title">设计系统的本质：语义化 Token 体系构建实践</div>
+                <div class="post-list-excerpt">如何从 0 到 1 构建一个真正可扩展的设计系统？本文从 Token 分层策略出发，逐步拆解实现细节与工程化配置方案。</div>
+                <div class="post-list-meta">
+                  <span class="post-date"><i class="bi bi-calendar3 me-1"></i>2025年2月20日</span>
+                  <span class="meta-sep">·</span>
+                  <span class="read-time"><i class="bi bi-clock me-1"></i>12 min</span>
+                  <span class="meta-sep">·</span>
+                  <span class="read-time"><i class="bi bi-eye me-1"></i>2,180</span>
+                </div>
+              </div>
+            </a>
+            <a href="post-detail.html" class="post-list-item text-decoration-none">
+              <div class="post-list-thumb" style="background:linear-gradient(135deg,#0d3040,#0e5a6a);color:rgba(255,255,255,.18)"><i class="bi bi-robot"></i></div>
+              <div class="post-list-body">
+                <div class="meta-tag" style="color:#0891b2"><i class="bi bi-brain me-1"></i>人工智能</div>
+                <div class="post-list-title">本地部署 LLM：Ollama + Open WebUI 完全配置手册</div>
+                <div class="post-list-excerpt">完整讲解如何在本地运行大语言模型，从硬件选型、模型下载到自定义 API 接口配置，一站式解决方案。</div>
+                <div class="post-list-meta">
+                  <span class="post-date"><i class="bi bi-calendar3 me-1"></i>2025年2月15日</span>
+                  <span class="meta-sep">·</span>
+                  <span class="read-time"><i class="bi bi-clock me-1"></i>15 min</span>
+                  <span class="meta-sep">·</span>
+                  <span class="read-time"><i class="bi bi-eye me-1"></i>4,520</span>
+                </div>
+              </div>
+            </a>
+            <a href="post-detail.html" class="post-list-item text-decoration-none">
+              <div class="post-list-thumb" style="background:linear-gradient(135deg,#1a2f0a,#2d5c1a);color:rgba(255,255,255,.18)"><i class="bi bi-graph-up-arrow"></i></div>
+              <div class="post-list-body">
+                <div class="meta-tag" style="color:#16a34a"><i class="bi bi-rocket-takeoff me-1"></i>产品思维</div>
+                <div class="post-list-title">B2B SaaS 产品 PMF 验证的 6 个关键信号</div>
+                <div class="post-list-excerpt">如何在早期阶段判断你的 SaaS 产品是否找到了 Product-Market Fit？这里有 6 个可量化的信号指标，帮你做出客观判断。</div>
+                <div class="post-list-meta">
+                  <span class="post-date"><i class="bi bi-calendar3 me-1"></i>2025年2月10日</span>
+                  <span class="meta-sep">·</span>
+                  <span class="read-time"><i class="bi bi-clock me-1"></i>10 min</span>
+                  <span class="meta-sep">·</span>
+                  <span class="read-time"><i class="bi bi-eye me-1"></i>1,890</span>
+                </div>
+              </div>
+            </a>
+            <a href="post-detail.html" class="post-list-item text-decoration-none">
+              <div class="post-list-thumb" style="background:linear-gradient(135deg,#1a0a2e,#4a0d6b);color:rgba(255,255,255,.18)"><i class="bi bi-shield-lock"></i></div>
+              <div class="post-list-body">
+                <div class="meta-tag" style="color:#6d28d9"><i class="bi bi-shield-check me-1"></i>Web 安全</div>
+                <div class="post-list-title">OWASP Top 10 漏洞防御清单（2025 版）完整解析</div>
+                <div class="post-list-excerpt">从 SQL 注入到 SSRF，逐一拆解最新的 OWASP Top 10 漏洞类型，并给出可立即落地的防御方案与代码示例。</div>
+                <div class="post-list-meta">
+                  <span class="post-date"><i class="bi bi-calendar3 me-1"></i>2025年2月5日</span>
+                  <span class="meta-sep">·</span>
+                  <span class="read-time"><i class="bi bi-clock me-1"></i>14 min</span>
+                  <span class="meta-sep">·</span>
+                  <span class="read-time"><i class="bi bi-eye me-1"></i>2,750</span>
+                </div>
+              </div>
+            </a>
+          </div>
+        </div>
+
+        <!-- PAGINATION -->
+        <div class="d-flex justify-content-center mt-5 fade-up">
+          <nav><ul class="pagination ink-pagination gap-1">
+            <li class="page-item disabled"><a class="page-link" href="#"><i class="bi bi-chevron-left"></i></a></li>
+            <li class="page-item active"><a class="page-link" href="#">1</a></li>
+            <li class="page-item"><a class="page-link" href="#">2</a></li>
+            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <li class="page-item"><span class="page-link">…</span></li>
+            <li class="page-item"><a class="page-link" href="#">11</a></li>
+            <li class="page-item"><a class="page-link" href="#"><i class="bi bi-chevron-right"></i></a></li>
+          </ul></nav>
+        </div>
+
+      </div><!-- /col -->
+
+      <!-- SIDEBAR -->
+      <div class="col-lg-4">
+
+        <!-- Popular posts -->
+        <div class="sidebar-card fade-up delay-1">
+          <div class="sidebar-title">热门文章</div>
+          <div class="pop-item">
+            <div class="pop-rank">01</div>
+            <div><div class="pop-title">React 18 并发特性深度解析与最佳实践</div><div class="pop-meta"><i class="bi bi-eye me-1"></i>8,421 次阅读</div></div>
+          </div>
+          <div class="pop-item">
+            <div class="pop-rank">02</div>
+            <div><div class="pop-title">从零开始的 TypeScript 类型体操完全指南</div><div class="pop-meta"><i class="bi bi-eye me-1"></i>6,892 次阅读</div></div>
+          </div>
+          <div class="pop-item">
+            <div class="pop-rank">03</div>
+            <div><div class="pop-title">Redis 高并发场景下的缓存策略设计</div><div class="pop-meta"><i class="bi bi-eye me-1"></i>5,315 次阅读</div></div>
+          </div>
+          <div class="pop-item">
+            <div class="pop-rank">04</div>
+            <div><div class="pop-title">程序员的职业天花板：技术 vs 管理</div><div class="pop-meta"><i class="bi bi-eye me-1"></i>4,780 次阅读</div></div>
+          </div>
+        </div>
+
+        <!-- Tags -->
+        <div class="sidebar-card fade-up delay-2">
+          <div class="sidebar-title">热门标签</div>
+          <div class="d-flex flex-wrap gap-2">
+            <span class="tag-pill active">JavaScript</span><span class="tag-pill">TypeScript</span>
+            <span class="tag-pill">React</span><span class="tag-pill">Node.js</span>
+            <span class="tag-pill">Python</span><span class="tag-pill">Docker</span>
+            <span class="tag-pill">PostgreSQL</span><span class="tag-pill">AI</span>
+            <span class="tag-pill">设计系统</span><span class="tag-pill">性能优化</span>
+          </div>
+        </div>
+
+        <!-- Archive mini -->
+        <div class="sidebar-card fade-up delay-3">
+          <div class="sidebar-title">归档速览</div>
+          <div class="d-flex flex-column gap-2">
+            <div class="d-flex justify-content-between align-items-center py-1" style="border-bottom:1px solid var(--ink-border)">
+              <span style="font-size:.88rem;color:var(--ink-heading);font-weight:500">2025 年</span>
+              <span class="tag-pill active" style="font-size:.72rem;padding:.15rem .55rem">36 篇</span>
+            </div>
+            <div class="d-flex justify-content-between align-items-center py-1" style="border-bottom:1px solid var(--ink-border)">
+              <span style="font-size:.88rem;color:var(--ink-heading);font-weight:500">2024 年</span>
+              <span class="tag-pill" style="font-size:.72rem;padding:.15rem .55rem">52 篇</span>
+            </div>
+            <div class="d-flex justify-content-between align-items-center py-1" style="border-bottom:1px solid var(--ink-border)">
+              <span style="font-size:.88rem;color:var(--ink-heading);font-weight:500">2023 年</span>
+              <span class="tag-pill" style="font-size:.72rem;padding:.15rem .55rem">28 篇</span>
+            </div>
+            <div class="d-flex justify-content-between align-items-center py-1">
+              <span style="font-size:.88rem;color:var(--ink-heading);font-weight:500">2022 年</span>
+              <span class="tag-pill" style="font-size:.72rem;padding:.15rem .55rem">12 篇</span>
+            </div>
+          </div>
+          <a href="archive-list.html" class="d-block text-center mt-3" style="font-size:.84rem;color:var(--ink-primary);font-weight:600">查看完整归档 <i class="bi bi-arrow-right ms-1"></i></a>
+        </div>
+
+        <!-- Newsletter -->
+        <div class="fade-up delay-4" style="background:linear-gradient(135deg,var(--ink-primary) 0%,#052f1c 100%);border-radius:var(--radius-lg);padding:1.75rem;position:relative;overflow:hidden">
+          <div style="position:absolute;width:180px;height:180px;border-radius:50%;background:rgba(0,201,141,.12);top:-60px;right:-40px"></div>
+          <div style="position:relative;z-index:1">
+            <div style="font-family:var(--font-display);font-size:1.15rem;font-weight:700;color:#fff;margin-bottom:.5rem"><i class="bi bi-envelope-paper me-2"></i>订阅周刊</div>
+            <p style="font-size:.83rem;color:rgba(255,255,255,.6);margin-bottom:1rem;line-height:1.6">每周精选 5 篇，直达收件箱</p>
+            <input type="email" placeholder="your@email.com" style="width:100%;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);border-radius:var(--radius-sm);padding:.6rem .9rem;color:#fff;font-size:.86rem;outline:none;font-family:var(--font-body);margin-bottom:.6rem" />
+            <button style="width:100%;background:linear-gradient(135deg,var(--ink-accent),#00a876);border:none;color:#fff;padding:.65rem;border-radius:var(--radius-sm);font-weight:600;font-size:.88rem;cursor:pointer;font-family:var(--font-body)">
+              <i class="bi bi-send-fill me-1"></i> 立即订阅
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</main>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="row g-4">
+      <div class="col-md-4">
+        <div class="footer-brand">INKFLOW<span class="brand-dot"></span></div>
+        <p class="footer-tagline">一个关于技术、设计与人文的独立博客。</p>
+      </div>
+      <div class="col-md-2"><div class="footer-heading">导航</div>
+        <ul class="footer-links">
+          <li><a href="blog-theme.html">首页</a></li><li><a href="post-list.html">文章</a></li>
+          <li><a href="category-list.html">分类</a></li><li><a href="archive-list.html">归档</a></li>
+        </ul>
+      </div>
+      <div class="col-md-2"><div class="footer-heading">更多</div>
+        <ul class="footer-links">
+          <li><a href="album-list.html">相册</a></li><li><a href="link-list.html">链接</a></li>
+          <li><a href="tag-list.html">标签</a></li>
+        </ul>
+      </div>
+      <div class="col-md-4"><div class="footer-heading">关于</div>
+        <p style="color:rgba(255,255,255,.45);font-size:.86rem;line-height:1.7">专注于 Web 技术与 AI 应用的探索者，相信好的技术文章能改变一个开发者的职业轨迹。</p>
+      </div>
+    </div>
+    <hr class="footer-divider" />
+    <div class="footer-bottom" style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:.5rem">
+      <div class="footer-copy">© 2025 <span>INKFLOW</span> · 保留所有权利</div>
+      <div style="display:flex;gap:.5rem">
+        <span style="font-size:.72rem;padding:.25rem .6rem;border-radius:99px;border:1px solid rgba(255,255,255,.12);color:rgba(255,255,255,.35);font-family:var(--font-mono)">BS v5.3</span>
+        <span style="font-size:.72rem;padding:.25rem .6rem;border-radius:99px;border:1px solid rgba(255,255,255,.12);color:rgba(255,255,255,.35);font-family:var(--font-mono)">BI v1.13</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- SEARCH OVERLAY -->
+<div class="search-overlay" id="searchOverlay">
+  <button class="search-close" onclick="closeSearch()"><i class="bi bi-x-lg"></i></button>
+  <div style="width:100%;max-width:700px;padding:0 2rem">
+    <div style="position:relative;margin-bottom:1.5rem">
+      <i class="bi bi-search" style="position:absolute;left:1.25rem;top:50%;transform:translateY(-50%);color:rgba(255,255,255,.4);font-size:1.3rem"></i>
+      <input type="text" class="search-main-input" placeholder="搜索文章…" />
+    </div>
+    <div style="display:flex;gap:.5rem;flex-wrap:wrap"><span class="search-tip">React</span><span class="search-tip">TypeScript</span><span class="search-tip">AI 工具</span><span class="search-tip">设计系统</span></div>
+  </div>
+</div>
+
+<button class="back-to-top" id="backToTop" onclick="scrollToTop()"><i class="bi bi-chevron-up"></i></button>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+const navbar=document.getElementById('mainNavbar');
+window.addEventListener('scroll',()=>{
+  navbar.classList.toggle('scrolled',window.scrollY>60);
+  document.getElementById('readingProgress').style.width=(window.scrollY/(document.documentElement.scrollHeight-document.documentElement.clientHeight)*100)+'%';
+  document.getElementById('backToTop').classList.toggle('visible',window.scrollY>400);
+},{passive:true});
+const themeToggle=document.getElementById('themeToggle'),themeIcon=document.getElementById('themeIcon');
+let isDark=false;
+themeToggle.addEventListener('click',()=>{isDark=!isDark;document.documentElement.setAttribute('data-bs-theme',isDark?'dark':'light');themeIcon.className=isDark?'bi bi-sun-fill':'bi bi-moon-stars-fill'});
+function openSearch(){document.getElementById('searchOverlay').classList.add('active');document.body.style.overflow='hidden'}
+function closeSearch(){document.getElementById('searchOverlay').classList.remove('active');document.body.style.overflow=''}
+function scrollToTop(){window.scrollTo({top:0,behavior:'smooth'})}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeSearch();if((e.metaKey||e.ctrlKey)&&e.key==='k'){e.preventDefault();openSearch()}});
+// View toggle
+const gridBtn=document.getElementById('gridBtn'),listBtn=document.getElementById('listBtn');
+const gridView=document.getElementById('gridView'),listView=document.getElementById('listView');
+gridBtn.addEventListener('click',()=>{gridView.classList.remove('d-none');listView.classList.add('d-none');gridBtn.classList.add('active');listBtn.classList.remove('active')});
+listBtn.addEventListener('click',()=>{listView.classList.remove('d-none');gridView.classList.add('d-none');listBtn.classList.add('active');gridBtn.classList.remove('active')});
+// Tag filter
+document.querySelectorAll('.tag-pill').forEach(p=>p.addEventListener('click',function(){const par=this.closest('.d-flex');if(par){par.querySelectorAll('.tag-pill').forEach(x=>x.classList.remove('active'));this.classList.add('active')}}));
+// Fade up
+const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target)}})},{threshold:.08,rootMargin:'0px 0px -30px 0px'});
+document.querySelectorAll('.fade-up').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>

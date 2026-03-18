@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-bs-theme="light">
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>INKFLOW — 文章分类</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+:root{--ink-primary:#0a6640;--ink-primary-rgb:10,102,64;--ink-accent:#00c98d;--ink-accent-rgb:0,201,141;--ink-surface:#f8faf9;--ink-card:#ffffff;--ink-border:#e4ede9;--ink-muted:#6b8070;--ink-heading:#0d1117;--ink-text:#2c3e35;--font-display:'Playfair Display',Georgia,serif;--font-body:'DM Sans',sans-serif;--font-mono:'JetBrains Mono',monospace;--radius-sm:6px;--radius-md:12px;--radius-lg:20px;--radius-xl:32px;--shadow-card:0 2px 20px rgba(10,102,64,.08),0 1px 4px rgba(10,102,64,.04);--shadow-hover:0 8px 40px rgba(10,102,64,.16),0 2px 8px rgba(10,102,64,.08);--transition:.28s cubic-bezier(.4,0,.2,1)}
+[data-bs-theme="dark"]{--ink-primary:#00c98d;--ink-accent:#4dffc0;--ink-surface:#0d1117;--ink-card:#161c22;--ink-border:#212e27;--ink-muted:#7aaf96;--ink-heading:#f0f6f3;--ink-text:#c8ddd5;--shadow-card:0 2px 20px rgba(0,0,0,.4);--shadow-hover:0 8px 40px rgba(0,0,0,.6)}
+*,*::before,*::after{box-sizing:border-box}html{scroll-behavior:smooth}
+body{font-family:var(--font-body);font-size:16px;line-height:1.75;color:var(--ink-text);background:var(--ink-surface);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+h1,h2,h3,h4,h5,h6{font-family:var(--font-display);color:var(--ink-heading);line-height:1.2}
+a{color:var(--ink-primary);text-decoration:none;transition:color var(--transition)}a:hover{color:var(--ink-accent)}
+body::before{content:'';position:fixed;inset:0;pointer-events:none;opacity:.025;z-index:9999;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");background-size:200px}
+.ink-navbar{position:fixed;top:0;left:0;right:0;z-index:1000;transition:all var(--transition);padding:1rem 0}
+.ink-navbar.scrolled{background:rgba(var(--ink-primary-rgb),.97)!important;backdrop-filter:blur(20px);padding:.6rem 0;box-shadow:0 4px 30px rgba(0,0,0,.15)}
+[data-bs-theme="dark"] .ink-navbar.scrolled{background:rgba(13,17,23,.97)!important}
+.ink-navbar .navbar-brand{font-family:var(--font-display);font-size:1.5rem;font-weight:900;color:#fff;letter-spacing:-.02em;display:flex;align-items:center;gap:.5rem}
+.brand-dot{width:8px;height:8px;background:var(--ink-accent);border-radius:50%;display:inline-block;animation:pulse-dot 2s ease-in-out infinite}
+@keyframes pulse-dot{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.4);opacity:.7}}
+.ink-navbar .nav-link{color:rgba(255,255,255,.8)!important;font-weight:500;font-size:.9rem;padding:.4rem .8rem!important;border-radius:6px;transition:all var(--transition)}
+.ink-navbar .nav-link:hover,.ink-navbar .nav-link.active{color:#fff!important;background:rgba(255,255,255,.12)}
+.btn-nav-search{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.18);color:#fff;border-radius:6px;padding:.35rem .7rem;cursor:pointer;font-size:.9rem}
+.theme-toggle{width:36px;height:36px;border-radius:50%;border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.1);color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all var(--transition)}
+.navbar-toggler{border:1px solid rgba(255,255,255,.2);padding:.35rem .65rem;border-radius:6px}
+.navbar-toggler-icon{background-image:url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255,255,255,0.8%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e")}
+.page-hero{background:linear-gradient(135deg,#081f12 0%,#0a3320 50%,#0d5c38 100%);padding:7rem 0 4rem;position:relative;overflow:hidden}
+.page-hero::before{content:'';position:absolute;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(0,201,141,.15) 0%,transparent 70%);top:-150px;right:-80px;animation:float 8s ease-in-out infinite}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-20px)}}
+.page-hero-eyebrow{display:inline-flex;align-items:center;gap:.5rem;background:rgba(0,201,141,.15);border:1px solid rgba(0,201,141,.3);color:var(--ink-accent);border-radius:99px;padding:.3rem .9rem;font-size:.78rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;margin-bottom:1rem}
+.page-hero-title{font-size:clamp(2rem,4vw,3.2rem);font-weight:900;color:#fff;letter-spacing:-.03em;margin-bottom:.75rem}
+.page-hero-sub{color:rgba(255,255,255,.55);font-size:.95rem;line-height:1.7}
+.ink-breadcrumb .breadcrumb-item a{color:rgba(255,255,255,.5);font-size:.82rem}
+.ink-breadcrumb .breadcrumb-item.active{color:rgba(255,255,255,.8);font-size:.82rem}
+.ink-breadcrumb .breadcrumb-item+.breadcrumb-item::before{color:rgba(255,255,255,.3)}
+/* CATEGORY HERO CARDS */
+.cat-hero-card{border-radius:var(--radius-xl);overflow:hidden;position:relative;min-height:280px;display:flex;flex-direction:column;justify-content:flex-end;transition:all var(--transition);cursor:pointer;box-shadow:var(--shadow-card)}
+.cat-hero-card:hover{transform:translateY(-6px);box-shadow:var(--shadow-hover)}
+.cat-hero-card .overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.85) 0%,rgba(0,0,0,.2) 60%,transparent 100%)}
+.cat-hero-card .content{position:relative;z-index:1;padding:1.75rem}
+.cat-hero-icon{width:52px;height:52px;border-radius:var(--radius-md);display:flex;align-items:center;justify-content:center;font-size:1.5rem;margin-bottom:1rem;background:rgba(255,255,255,.15);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.2);color:#fff}
+.cat-hero-name{font-family:var(--font-display);font-size:1.5rem;font-weight:700;color:#fff;margin-bottom:.4rem}
+.cat-hero-desc{font-size:.85rem;color:rgba(255,255,255,.65);line-height:1.5;margin-bottom:.9rem}
+.cat-hero-count{display:inline-flex;align-items:center;gap:.35rem;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.25);color:#fff;border-radius:99px;padding:.22rem .7rem;font-size:.75rem;font-weight:600}
+.cat-hero-arrow{position:absolute;top:1.25rem;right:1.25rem;width:36px;height:36px;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.25);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:1rem;transition:all var(--transition)}
+.cat-hero-card:hover .cat-hero-arrow{background:rgba(255,255,255,.3);transform:translate(2px,-2px)}
+/* STANDARD CATEGORY CARDS */
+.cat-std-card{background:var(--ink-card);border:1px solid var(--ink-border);border-radius:var(--radius-lg);padding:1.5rem;transition:all var(--transition);box-shadow:var(--shadow-card);display:flex;align-items:center;gap:1.1rem;position:relative;overflow:hidden;cursor:pointer}
+.cat-std-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;transform:scaleX(0);transform-origin:left;transition:transform var(--transition)}
+.cat-std-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-hover)}
+.cat-std-card:hover::after{transform:scaleX(1)}
+.cat-std-icon{width:50px;height:50px;border-radius:var(--radius-md);display:flex;align-items:center;justify-content:center;font-size:1.4rem;flex-shrink:0}
+.cat-std-name{font-weight:700;font-size:1rem;color:var(--ink-heading);margin-bottom:.2rem}
+.cat-std-desc{font-size:.8rem;color:var(--ink-muted);line-height:1.5}
+.cat-std-count{margin-left:auto;font-family:var(--font-display);font-size:1.6rem;font-weight:900;color:var(--ink-border);flex-shrink:0}
+/* Recent posts in category section */
+.cat-recent-post{display:flex;gap:.85rem;padding:.85rem 0;border-bottom:1px solid var(--ink-border)}
+.cat-recent-post:last-child{border-bottom:none;padding-bottom:0}
+.cat-recent-post:first-child{padding-top:0}
+.cat-post-thumb{width:60px;height:60px;border-radius:var(--radius-sm);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:1.3rem}
+.cat-post-title{font-size:.87rem;font-weight:600;color:var(--ink-heading);line-height:1.4;margin-bottom:.25rem;transition:color var(--transition)}
+.cat-recent-post:hover .cat-post-title{color:var(--ink-primary)}
+.cat-post-meta{font-size:.75rem;color:var(--ink-muted)}
+/* SEARCH BAR */
+.cat-search-bar{background:var(--ink-card);border:1px solid var(--ink-border);border-radius:var(--radius-lg);padding:1.25rem 1.5rem;box-shadow:var(--shadow-card);margin-bottom:2rem;display:flex;align-items:center;gap:1rem;flex-wrap:wrap}
+.cat-search-input-wrap{position:relative;flex:1;min-width:200px}
+.cat-search-input-wrap i{position:absolute;left:.9rem;top:50%;transform:translateY(-50%);color:var(--ink-muted)}
+.cat-search-input{width:100%;background:var(--ink-surface);border:1px solid var(--ink-border);border-radius:6px;padding:.6rem .9rem .6rem 2.3rem;color:var(--ink-text);font-size:.9rem;font-family:var(--font-body);outline:none;transition:border-color var(--transition)}
+.cat-search-input:focus{border-color:var(--ink-primary)}
+/* READING PROGRESS */
+.reading-progress{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--ink-accent),var(--ink-primary));z-index:9998;width:0%}
+.back-to-top{position:fixed;bottom:2rem;right:2rem;width:44px;height:44px;background:var(--ink-primary);color:#fff;border:none;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:1.1rem;box-shadow:0 4px 20px rgba(var(--ink-primary-rgb),.4);transition:all var(--transition);opacity:0;pointer-events:none;transform:translateY(10px);z-index:999}
+.back-to-top.visible{opacity:1;pointer-events:all;transform:translateY(0)}
+.search-overlay{position:fixed;inset:0;background:rgba(7,26,16,.95);backdrop-filter:blur(20px);z-index:2000;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding-top:10vh;opacity:0;pointer-events:none;transition:opacity .3s ease}
+.search-overlay.active{opacity:1;pointer-events:all}
+.search-close{position:absolute;top:2rem;right:2rem;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);color:rgba(255,255,255,.6);width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:1.1rem}
+.search-main-input{width:100%;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:20px;padding:1.1rem 1.25rem 1.1rem 3.5rem;color:#fff;font-size:1.2rem;font-family:var(--font-body);outline:none}
+.search-main-input::placeholder{color:rgba(255,255,255,.3)}
+.search-tip{padding:.35rem .8rem;border-radius:99px;border:1px solid rgba(255,255,255,.12);color:rgba(255,255,255,.5);font-size:.8rem;cursor:pointer;transition:all var(--transition)}
+.search-tip:hover{border-color:var(--ink-accent);color:var(--ink-accent)}
+.site-footer{background:#071a10;padding:4rem 0 2rem}
+.footer-brand{font-family:var(--font-display);font-size:1.6rem;font-weight:900;color:#fff;display:flex;align-items:center;gap:.5rem;margin-bottom:.75rem}
+.footer-copy{font-size:.83rem;color:rgba(255,255,255,.35)}
+.footer-copy span{color:rgba(255,255,255,.55)}
+.footer-divider{border-color:rgba(255,255,255,.08);margin:2.5rem 0 1.5rem}
+.footer-links{list-style:none;padding:0;margin:0}
+.footer-links li{margin-bottom:.6rem}
+.footer-links a{color:rgba(255,255,255,.5);font-size:.88rem;transition:color var(--transition)}
+.footer-links a:hover{color:var(--ink-accent)}
+.footer-heading{font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.4);margin-bottom:1rem}
+.fade-up{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease}
+.fade-up.visible{opacity:1;transform:translateY(0)}
+.delay-1{transition-delay:.1s}.delay-2{transition-delay:.2s}.delay-3{transition-delay:.3s}.delay-4{transition-delay:.4s}.delay-5{transition-delay:.5s}
+.section-label{font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:.09em;color:var(--ink-muted);margin-bottom:1rem;display:flex;align-items:center;gap:.5rem}
+.section-label::before{content:'';width:16px;height:2px;background:var(--ink-border);border-radius:99px}
+</style>
+</head>
+<body>
+<div class="reading-progress" id="readingProgress"></div>
+
+<nav class="ink-navbar navbar navbar-expand-lg" id="mainNavbar">
+  <div class="container">
+    <a class="navbar-brand" href="blog-theme.html">INKFLOW<span class="brand-dot"></span></a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu"><span class="navbar-toggler-icon"></span></button>
+    <div class="collapse navbar-collapse" id="navMenu">
+      <ul class="navbar-nav mx-auto gap-1">
+        <li class="nav-item"><a class="nav-link" href="blog-theme.html">首页</a></li>
+        <li class="nav-item"><a class="nav-link" href="post-list.html">文章</a></li>
+        <li class="nav-item"><a class="nav-link active" href="category-list.html">分类</a></li>
+        <li class="nav-item"><a class="nav-link" href="tag-list.html">标签</a></li>
+        <li class="nav-item"><a class="nav-link" href="archive-list.html">归档</a></li>
+        <li class="nav-item"><a class="nav-link" href="album-list.html">相册</a></li>
+        <li class="nav-item"><a class="nav-link" href="link-list.html">链接</a></li>
+      </ul>
+      <div class="d-flex align-items-center gap-2">
+        <button class="btn-nav-search" onclick="openSearch()"><i class="bi bi-search me-1"></i>搜索</button>
+        <button class="theme-toggle" id="themeToggle"><i class="bi bi-moon-stars-fill" id="themeIcon"></i></button>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<div class="page-hero">
+  <div class="container position-relative" style="z-index:1">
+    <nav aria-label="breadcrumb" class="ink-breadcrumb mb-3">
+      <ol class="breadcrumb mb-0">
+        <li class="breadcrumb-item"><a href="blog-theme.html"><i class="bi bi-house me-1"></i>首页</a></li>
+        <li class="breadcrumb-item active">文章分类</li>
+      </ol>
+    </nav>
+    <div class="page-hero-eyebrow"><i class="bi bi-folder2-open"></i> 内容分类</div>
+    <h1 class="page-hero-title">按领域探索内容</h1>
+    <p class="page-hero-sub">6 大主题方向，128 篇深度文章，总有一个适合你的切入点</p>
+  </div>
+</div>
+
+<main class="py-5">
+  <div class="container">
+
+    <!-- SEARCH BAR -->
+    <div class="cat-search-bar fade-up">
+      <div class="cat-search-input-wrap">
+        <i class="bi bi-search"></i>
+        <input type="text" class="cat-search-input" placeholder="搜索分类…" />
+      </div>
+      <div style="font-size:.85rem;color:var(--ink-muted)">共 <strong style="color:var(--ink-heading)">6</strong> 个分类</div>
+    </div>
+
+    <!-- FEATURED CATEGORIES: 2 large cards -->
+    <div class="section-label fade-up">精选主分类</div>
+    <div class="row g-4 mb-4">
+      <div class="col-md-6 fade-up delay-1">
+        <a href="post-list.html" class="cat-hero-card d-block text-decoration-none" style="background:linear-gradient(135deg,#081f14 0%,#0d4a25 40%,#0a6640 100%)">
+          <div class="overlay"></div>
+          <div class="cat-hero-arrow"><i class="bi bi-arrow-right"></i></div>
+          <div class="content">
+            <div class="cat-hero-icon"><i class="bi bi-cpu"></i></div>
+            <div class="cat-hero-name">技术开发</div>
+            <p class="cat-hero-desc">前端、后端、架构设计、DevOps 与安全——工程师视角的深度技术内容</p>
+            <span class="cat-hero-count"><i class="bi bi-journal-text"></i> 48 篇文章</span>
+          </div>
+        </a>
+      </div>
+      <div class="col-md-6 fade-up delay-2">
+        <a href="post-list.html" class="cat-hero-card d-block text-decoration-none" style="background:linear-gradient(135deg,#1a0a30 0%,#3d1a6e 40%,#6d28d9 100%)">
+          <div class="overlay"></div>
+          <div class="cat-hero-arrow"><i class="bi bi-arrow-right"></i></div>
+          <div class="content">
+            <div class="cat-hero-icon"><i class="bi bi-palette2"></i></div>
+            <div class="cat-hero-name">UI/UX 设计</div>
+            <p class="cat-hero-desc">设计系统、交互原则、视觉语言——在美学与工程之间寻找平衡点</p>
+            <span class="cat-hero-count"><i class="bi bi-journal-text"></i> 32 篇文章</span>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <!-- STANDARD CATEGORIES -->
+    <div class="section-label fade-up">全部分类</div>
+    <div class="row g-3 mb-5">
+      <div class="col-md-6 col-lg-4 fade-up delay-1">
+        <a href="post-list.html" class="cat-std-card text-decoration-none" style="--bar-color:#0891b2">
+          <div class="cat-std-icon" style="background:#eff8ff;color:#0891b2"><i class="bi bi-brain"></i></div>
+          <div>
+            <div class="cat-std-name">人工智能</div>
+            <div class="cat-std-desc">LLM、RAG、本地部署、Prompt 工程</div>
+          </div>
+          <div class="cat-std-count" style="color:#d1f0fb">19</div>
+          <i class="bi bi-arrow-right ms-2" style="color:var(--ink-muted)"></i>
+        </a>
+        <style>.col-md-6.col-lg-4:nth-child(1) .cat-std-card::after{background:#0891b2}</style>
+      </div>
+      <div class="col-md-6 col-lg-4 fade-up delay-2">
+        <a href="post-list.html" class="cat-std-card text-decoration-none">
+          <div class="cat-std-icon" style="background:#fef9ec;color:#d97706"><i class="bi bi-rocket-takeoff"></i></div>
+          <div>
+            <div class="cat-std-name">产品思维</div>
+            <div class="cat-std-desc">需求分析、PMF、增长策略、用户研究</div>
+          </div>
+          <div class="cat-std-count" style="color:#fde68a">21</div>
+          <i class="bi bi-arrow-right ms-2" style="color:var(--ink-muted)"></i>
+        </a>
+      </div>
+      <div class="col-md-6 col-lg-4 fade-up delay-3">
+        <a href="post-list.html" class="cat-std-card text-decoration-none">
+          <div class="cat-std-icon" style="background:#ecfdf5;color:#16a34a"><i class="bi bi-graph-up-arrow"></i></div>
+          <div>
+            <div class="cat-std-name">个人成长</div>
+            <div class="cat-std-desc">学习方法、阅读笔记、职业规划</div>
+          </div>
+          <div class="cat-std-count" style="color:#bbf7d0">15</div>
+          <i class="bi bi-arrow-right ms-2" style="color:var(--ink-muted)"></i>
+        </a>
+      </div>
+      <div class="col-md-6 col-lg-4 fade-up delay-1">
+        <a href="post-list.html" class="cat-std-card text-decoration-none">
+          <div class="cat-std-icon" style="background:#fdf4ff;color:#c026d3"><i class="bi bi-feather"></i></div>
+          <div>
+            <div class="cat-std-name">生活随笔</div>
+            <div class="cat-std-desc">旅行、摄影、美食、杂思片段</div>
+          </div>
+          <div class="cat-std-count" style="color:#f5d0fe">11</div>
+          <i class="bi bi-arrow-right ms-2" style="color:var(--ink-muted)"></i>
+        </a>
+      </div>
+      <div class="col-md-6 col-lg-4 fade-up delay-2">
+        <a href="post-list.html" class="cat-std-card text-decoration-none">
+          <div class="cat-std-icon" style="background:#fff7ed;color:#ea580c"><i class="bi bi-camera2"></i></div>
+          <div>
+            <div class="cat-std-name">视觉影像</div>
+            <div class="cat-std-desc">摄影技术、后期处理、器材选购</div>
+          </div>
+          <div class="cat-std-count" style="color:#fed7aa">8</div>
+          <i class="bi bi-arrow-right ms-2" style="color:var(--ink-muted)"></i>
+        </a>
+      </div>
+      <div class="col-md-6 col-lg-4 fade-up delay-3">
+        <a href="post-list.html" class="cat-std-card text-decoration-none">
+          <div class="cat-std-icon" style="background:#f0fdf4;color:#0a6640"><i class="bi bi-book-half"></i></div>
+          <div>
+            <div class="cat-std-name">读书笔记</div>
+            <div class="cat-std-desc">非虚构书评、读后感、知识提炼</div>
+          </div>
+          <div class="cat-std-count" style="color:#bbf7d0">9</div>
+          <i class="bi bi-arrow-right ms-2" style="color:var(--ink-muted)"></i>
+        </a>
+      </div>
+    </div>
+
+    <!-- RECENT POSTS PER CATEGORY -->
+    <div class="section-label fade-up">各分类最新文章</div>
+    <div class="row g-4">
+      <!-- Tech recent -->
+      <div class="col-lg-4 fade-up delay-1">
+        <div style="background:var(--ink-card);border:1px solid var(--ink-border);border-radius:var(--radius-lg);overflow:hidden;box-shadow:var(--shadow-card)">
+          <div style="background:linear-gradient(135deg,#081f14,#0a6640);padding:1.1rem 1.4rem;display:flex;align-items:center;gap:.6rem">
+            <div style="width:32px;height:32px;border-radius:8px;background:rgba(255,255,255,.15);display:flex;align-items:center;justify-content:center;font-size:1rem;color:#fff"><i class="bi bi-cpu"></i></div>
+            <span style="font-family:var(--font-display);font-weight:700;color:#fff;font-size:.95rem">技术开发</span>
+            <span style="margin-left:auto;font-size:.75rem;background:rgba(255,255,255,.15);color:#fff;border-radius:99px;padding:.15rem .55rem;font-weight:600">48 篇</span>
+          </div>
+          <div style="padding:1rem 1.4rem">
+            <div class="cat-recent-post">
+              <div class="cat-post-thumb" style="background:linear-gradient(135deg,#081f14,#1a5c2a);color:rgba(255,255,255,.3)"><i class="bi bi-code-slash"></i></div>
+              <div><div class="cat-post-title">2025 年前端开发的终极工具链</div><div class="cat-post-meta">2月28日 · 18 min</div></div>
+            </div>
+            <div class="cat-recent-post">
+              <div class="cat-post-thumb" style="background:linear-gradient(135deg,#0a1a30,#173a60);color:rgba(255,255,255,.3)"><i class="bi bi-database"></i></div>
+              <div><div class="cat-post-title">PostgreSQL 性能调优完整路径</div><div class="cat-post-meta">1月30日 · 22 min</div></div>
+            </div>
+            <div class="cat-recent-post">
+              <div class="cat-post-thumb" style="background:linear-gradient(135deg,#1a0a2e,#4a0d6b);color:rgba(255,255,255,.3)"><i class="bi bi-shield-lock"></i></div>
+              <div><div class="cat-post-title">OWASP Top 10 防御清单 2025</div><div class="cat-post-meta">2月5日 · 14 min</div></div>
+            </div>
+          </div>
+          <div style="padding:.75rem 1.4rem 1.1rem"><a href="post-list.html" style="font-size:.83rem;color:var(--ink-primary);font-weight:600">查看全部 48 篇 <i class="bi bi-arrow-right ms-1"></i></a></div>
+        </div>
+      </div>
+      <!-- Design recent -->
+      <div class="col-lg-4 fade-up delay-2">
+        <div style="background:var(--ink-card);border:1px solid var(--ink-border);border-radius:var(--radius-lg);overflow:hidden;box-shadow:var(--shadow-card)">
+          <div style="background:linear-gradient(135deg,#1a1040,#6d28d9);padding:1.1rem 1.4rem;display:flex;align-items:center;gap:.6rem">
+            <div style="width:32px;height:32px;border-radius:8px;background:rgba(255,255,255,.15);display:flex;align-items:center;justify-content:center;font-size:1rem;color:#fff"><i class="bi bi-palette2"></i></div>
+            <span style="font-family:var(--font-display);font-weight:700;color:#fff;font-size:.95rem">UI/UX 设计</span>
+            <span style="margin-left:auto;font-size:.75rem;background:rgba(255,255,255,.15);color:#fff;border-radius:99px;padding:.15rem .55rem;font-weight:600">32 篇</span>
+          </div>
+          <div style="padding:1rem 1.4rem">
+            <div class="cat-recent-post">
+              <div class="cat-post-thumb" style="background:linear-gradient(135deg,#1a1040,#2d1b69);color:rgba(255,255,255,.3)"><i class="bi bi-brush"></i></div>
+              <div><div class="cat-post-title">语义化 Token 体系构建实践</div><div class="cat-post-meta">2月20日 · 12 min</div></div>
+            </div>
+            <div class="cat-recent-post">
+              <div class="cat-post-thumb" style="background:linear-gradient(135deg,#1a0a30,#4a0d6b);color:rgba(255,255,255,.3)"><i class="bi bi-grid-3x3-gap"></i></div>
+              <div><div class="cat-post-title">从零搭建响应式设计系统</div><div class="cat-post-meta">2月1日 · 15 min</div></div>
+            </div>
+            <div class="cat-recent-post">
+              <div class="cat-post-thumb" style="background:linear-gradient(135deg,#2a0a40,#6b21a8);color:rgba(255,255,255,.3)"><i class="bi bi-eye"></i></div>
+              <div><div class="cat-post-title">视觉层次感：排版的 7 大原则</div><div class="cat-post-meta">1月15日 · 8 min</div></div>
+            </div>
+          </div>
+          <div style="padding:.75rem 1.4rem 1.1rem"><a href="post-list.html" style="font-size:.83rem;color:#7c3aed;font-weight:600">查看全部 32 篇 <i class="bi bi-arrow-right ms-1"></i></a></div>
+        </div>
+      </div>
+      <!-- AI recent -->
+      <div class="col-lg-4 fade-up delay-3">
+        <div style="background:var(--ink-card);border:1px solid var(--ink-border);border-radius:var(--radius-lg);overflow:hidden;box-shadow:var(--shadow-card)">
+          <div style="background:linear-gradient(135deg,#0d3040,#0891b2);padding:1.1rem 1.4rem;display:flex;align-items:center;gap:.6rem">
+            <div style="width:32px;height:32px;border-radius:8px;background:rgba(255,255,255,.15);display:flex;align-items:center;justify-content:center;font-size:1rem;color:#fff"><i class="bi bi-brain"></i></div>
+            <span style="font-family:var(--font-display);font-weight:700;color:#fff;font-size:.95rem">人工智能</span>
+            <span style="margin-left:auto;font-size:.75rem;background:rgba(255,255,255,.15);color:#fff;border-radius:99px;padding:.15rem .55rem;font-weight:600">19 篇</span>
+          </div>
+          <div style="padding:1rem 1.4rem">
+            <div class="cat-recent-post">
+              <div class="cat-post-thumb" style="background:linear-gradient(135deg,#0d3040,#0e5a6a);color:rgba(255,255,255,.3)"><i class="bi bi-robot"></i></div>
+              <div><div class="cat-post-title">Ollama + Open WebUI 配置手册</div><div class="cat-post-meta">2月15日 · 15 min</div></div>
+            </div>
+            <div class="cat-recent-post">
+              <div class="cat-post-thumb" style="background:linear-gradient(135deg,#082030,#0d4060);color:rgba(255,255,255,.3)"><i class="bi bi-vector-pen"></i></div>
+              <div><div class="cat-post-title">AI 驱动的个人知识管理系统</div><div class="cat-post-meta">3月1日 · 12 min</div></div>
+            </div>
+            <div class="cat-recent-post">
+              <div class="cat-post-thumb" style="background:linear-gradient(135deg,#0a1820,#0c3a50);color:rgba(255,255,255,.3)"><i class="bi bi-lightning-charge"></i></div>
+              <div><div class="cat-post-title">RAG 系统构建：从原理到落地</div><div class="cat-post-meta">1月25日 · 20 min</div></div>
+            </div>
+          </div>
+          <div style="padding:.75rem 1.4rem 1.1rem"><a href="post-list.html" style="font-size:.83rem;color:#0891b2;font-weight:600">查看全部 19 篇 <i class="bi bi-arrow-right ms-1"></i></a></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="row g-4">
+      <div class="col-md-4"><div class="footer-brand">INKFLOW<span class="brand-dot"></span></div><p style="color:rgba(255,255,255,.4);font-size:.88rem;line-height:1.7;max-width:260px">一个关于技术、设计与人文的独立博客。</p></div>
+      <div class="col-md-2"><div class="footer-heading">导航</div><ul class="footer-links"><li><a href="blog-theme.html">首页</a></li><li><a href="post-list.html">文章</a></li><li><a href="archive-list.html">归档</a></li></ul></div>
+      <div class="col-md-2"><div class="footer-heading">更多</div><ul class="footer-links"><li><a href="album-list.html">相册</a></li><li><a href="link-list.html">链接</a></li><li><a href="tag-list.html">标签</a></li></ul></div>
+      <div class="col-md-4"><div class="footer-heading">关于</div><p style="color:rgba(255,255,255,.45);font-size:.86rem;line-height:1.7">专注于 Web 技术与 AI 应用探索，相信好文章能改变一个开发者的轨迹。</p></div>
+    </div>
+    <hr class="footer-divider" />
+    <div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:.5rem">
+      <div class="footer-copy">© 2025 <span>INKFLOW</span> · 保留所有权利</div>
+    </div>
+  </div>
+</footer>
+
+<div class="search-overlay" id="searchOverlay">
+  <button class="search-close" onclick="closeSearch()"><i class="bi bi-x-lg"></i></button>
+  <div style="width:100%;max-width:700px;padding:0 2rem">
+    <div style="position:relative;margin-bottom:1.5rem"><i class="bi bi-search" style="position:absolute;left:1.25rem;top:50%;transform:translateY(-50%);color:rgba(255,255,255,.4);font-size:1.3rem"></i><input type="text" class="search-main-input" placeholder="搜索文章…" /></div>
+    <div style="display:flex;gap:.5rem;flex-wrap:wrap"><span class="search-tip">前端开发</span><span class="search-tip">设计系统</span><span class="search-tip">AI 工具</span></div>
+  </div>
+</div>
+<button class="back-to-top" id="backToTop" onclick="scrollToTop()"><i class="bi bi-chevron-up"></i></button>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+const navbar=document.getElementById('mainNavbar');
+window.addEventListener('scroll',()=>{navbar.classList.toggle('scrolled',window.scrollY>60);document.getElementById('backToTop').classList.toggle('visible',window.scrollY>400)},{passive:true});
+const themeToggle=document.getElementById('themeToggle'),themeIcon=document.getElementById('themeIcon');let isDark=false;
+themeToggle.addEventListener('click',()=>{isDark=!isDark;document.documentElement.setAttribute('data-bs-theme',isDark?'dark':'light');themeIcon.className=isDark?'bi bi-sun-fill':'bi bi-moon-stars-fill'});
+function openSearch(){document.getElementById('searchOverlay').classList.add('active');document.body.style.overflow='hidden'}
+function closeSearch(){document.getElementById('searchOverlay').classList.remove('active');document.body.style.overflow=''}
+function scrollToTop(){window.scrollTo({top:0,behavior:'smooth'})}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeSearch();if((e.metaKey||e.ctrlKey)&&e.key==='k'){e.preventDefault();openSearch()}});
+document.querySelectorAll('.cat-std-card').forEach((c,i)=>{const colors=['#0891b2','#d97706','#16a34a','#c026d3','#ea580c','#0a6640'];c.style.setProperty('--b',colors[i]||colors[0]);c.addEventListener('mouseenter',()=>c.querySelector('style')||null)});
+const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target)}})},{threshold:.08,rootMargin:'0px 0px -30px 0px'});
+document.querySelectorAll('.fade-up').forEach(el=>obs.observe(el));
+// Cat card bottom bar colors
+const catCards=document.querySelectorAll('.cat-std-card');
+const barColors=['#0891b2','#d97706','#16a34a','#c026d3','#ea580c','#0a6640'];
+catCards.forEach((c,i)=>{const style=document.createElement('style');style.textContent=`.cat-std-card:nth-child(${i+1})::after{background:${barColors[i]||'var(--ink-primary)'}}`;document.head.appendChild(style)});
+</script>
+</body>
+</html>
