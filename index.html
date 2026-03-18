@@ -1,738 +1,1028 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="zh-CN" data-bs-theme="light">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>INKFLOW — 个人博客</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>INKFLOW — 个人博客</title>
 
-  <!-- Bootstrap 5.3.8 -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" />
-  <!-- Bootstrap Icons 1.13.1 -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css" />
-  <!-- Google Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+    <!-- Bootstrap 5.3.8 -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+    />
+    <!-- Bootstrap Icons 1.13.1 -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css"
+    />
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
 
-  <link rel="stylesheet" href="inkflow.css" />
-</head>
-<body>
+    <link rel="stylesheet" href="inkflow.css" />
+  </head>
+  <body>
+    <!-- Reading Progress -->
+    <div class="reading-progress" id="readingProgress"></div>
 
-<!-- Reading Progress -->
-<div class="reading-progress" id="readingProgress"></div>
-
-<!-- ===== NAVBAR ===== -->
-<nav class="ink-navbar navbar navbar-expand-lg" id="mainNavbar">
-  <div class="container">
-    <a class="navbar-brand" href="#">
-      INKFLOW<span class="brand-dot"></span>
-    </a>
-
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-
-    <div class="collapse navbar-collapse" id="navMenu">
-      <ul class="navbar-nav mx-auto gap-1">
-        <li class="nav-item"><a class="nav-link active" href="#">首页</a></li>
-        <li class="nav-item"><a class="nav-link" href="#">技术</a></li>
-        <li class="nav-item"><a class="nav-link" href="#">设计</a></li>
-        <li class="nav-item"><a class="nav-link" href="#">产品</a></li>
-        <li class="nav-item"><a class="nav-link" href="#">随笔</a></li>
-        <li class="nav-item"><a class="nav-link" href="#">关于</a></li>
-      </ul>
-      <div class="d-flex align-items-center gap-2">
-        <button class="btn-nav-search" onclick="openSearch()">
-          <i class="bi bi-search me-1"></i> 搜索
-        </button>
-        <button class="theme-toggle" id="themeToggle" title="切换主题">
-          <i class="bi bi-moon-stars-fill" id="themeIcon"></i>
-        </button>
-        <!-- 未登录：显示登录按钮 -->
-        <a href="login.html" class="btn-nav-login" id="navLoginBtn">
-          <i class="bi bi-person me-1"></i> 登录
+    <!-- ===== NAVBAR ===== -->
+    <nav class="ink-navbar navbar navbar-expand-lg" id="mainNavbar">
+      <div class="container">
+        <a class="navbar-brand" href="index.html">
+          INKFLOW<span class="brand-dot"></span>
         </a>
-        <!-- 已登录：显示头像 + 下拉菜单（默认隐藏，JS 控制） -->
-        <div class="nav-user-wrapper d-none" id="navUserWrapper">
-          <div class="nav-user-avatar" id="navUserAvatar">陈</div>
-          <div class="nav-user-dropdown">
-            <div class="nav-user-dropdown-header">
-              <div class="nav-user-dropdown-name" id="navUserName">陈明远</div>
-              <div class="nav-user-dropdown-sub">个人主页</div>
-            </div>
-            <a href="profile.html" class="nav-user-dropdown-item"><i class="bi bi-person-circle"></i> 个人资料</a>
-            <a href="#" class="nav-user-dropdown-item"><i class="bi bi-bookmark"></i> 我的收藏</a>
-            <a href="#" class="nav-user-dropdown-item"><i class="bi bi-gear"></i> 账号设置</a>
-            <hr>
-            <a href="#" class="nav-user-dropdown-item danger" id="navLogoutBtn"><i class="bi bi-box-arrow-right"></i> 退出登录</a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</nav>
-
-<!-- ===== HERO ===== -->
-<header class="hero-gradient">
-  <div class="hero-section">
-    <div class="container">
-      <div class="row align-items-center g-5">
-
-        <!-- Left -->
-        <div class="col-lg-6">
-          <div class="hero-eyebrow">
-            <i class="bi bi-stars"></i> 欢迎来到我的数字花园
-          </div>
-          <h1 class="hero-title">
-            书写<span class="accent-word">洞见</span>，<br>
-            分享<span class="accent-word">智慧</span>，<br>
-            点亮世界
-          </h1>
-          <p class="hero-sub">
-            在这里，我记录技术探索、设计思考与生活感悟。每一篇文章都是一次深入思考的结晶。
-          </p>
-          <div class="hero-cta-group">
-            <a href="#posts" class="btn-hero-primary">
-              <i class="bi bi-book-open"></i> 开始阅读
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navMenu"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navMenu">
+          <ul class="navbar-nav mx-auto gap-1">
+            <li class="nav-item">
+              <a class="nav-link active" href="index.html">首页</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="category-list.html">分类</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="tag-list.html">标签</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="archive-list.html">归档</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="album-list.html">相册</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="link-list.html">链接</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="post-show.html">关于</a>
+            </li>
+          </ul>
+          <div class="d-flex align-items-center gap-2">
+            <a href="login.html" class="btn-nav-login" id="navLoginBtn">
+              <i class="bi bi-person me-1"></i> 登录
             </a>
-            <a href="#about" class="btn-hero-ghost">
-              <i class="bi bi-person-circle"></i> 了解作者
-            </a>
-          </div>
-          <div class="hero-stats">
-            <div class="stat-item">
-              <div class="stat-num" data-count="128">0</div>
-              <div class="stat-label">篇文章</div>
-            </div>
-            <div class="stat-item">
-              <div class="stat-num" data-count="12">0</div>
-              <div class="stat-label">个专题</div>
-            </div>
-            <div class="stat-item">
-              <div class="stat-num" data-suffix="k" data-count="56">0</div>
-              <div class="stat-label">读者</div>
-            </div>
-            <div class="stat-item">
-              <div class="stat-num" data-count="4">0</div>
-              <div class="stat-label">年沉淀</div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Right: Featured Card -->
-        <div class="col-lg-6">
-          <div class="hero-card-wrapper">
-            <div class="hero-float-badge">
-              <strong>本月最热</strong>阅读量 · 2.4k
-            </div>
-            <div class="hero-card">
-              <div class="hero-card-tag">
-                <i class="bi bi-lightning-charge-fill"></i> 精选推荐
-              </div>
-              <div class="hero-card-title">
-                从零构建 AI 驱动的个人知识管理系统：一年实践总结
-              </div>
-              <p class="hero-card-excerpt">
-                过去一年，我用 LangChain、向量数据库和本地 LLM 构建了一套属于自己的第二大脑。这篇文章将分享完整的架构设计、踩过的坑，以及最终的效果评估……
-              </p>
-              <div class="hero-card-meta">
-                <div class="avatar-sm">陈</div>
-                <div>
-                  <div class="meta-author">陈明远</div>
-                  <div class="meta-date">2025年3月1日</div>
+            <div class="nav-user-wrapper d-none" id="navUserWrapper">
+              <div class="nav-user-avatar" id="navUserAvatar">陈</div>
+              <div class="nav-user-dropdown">
+                <div class="nav-user-dropdown-header">
+                  <div class="nav-user-dropdown-name" id="navUserName">
+                    陈明远
+                  </div>
+                  <div class="nav-user-dropdown-sub">个人主页</div>
                 </div>
-                <div class="hero-card-readtime">
-                  <i class="bi bi-clock"></i> 12 分钟
-                </div>
-              </div>
-            </div><!-- /.hero-card -->
-          </div><!-- /.hero-card-wrapper -->
-        </div><!-- /.col -->
-
-      </div>
-    </div>
-  </div>
-</header>
-
-<!-- ===== CATEGORIES ===== -->
-<section class="section-pad bg-surface" id="categories">
-  <div class="container">
-    <div class="text-center mb-5 fade-up">
-      <div class="section-eyebrow justify-content-center">探索分类</div>
-      <h2 class="section-title">找到你感兴趣的领域</h2>
-      <p class="section-sub mx-auto">涵盖技术开发、产品设计、个人成长等多个维度</p>
-    </div>
-    <div class="row g-3">
-      <div class="col-6 col-md-4 col-lg-2 fade-up delay-1">
-        <div class="category-card cat-c1">
-          <div class="d-flex align-items-center gap-3 w-100">
-            <div class="cat-icon"><i class="bi bi-cpu"></i></div>
-            <div>
-              <div class="cat-name">技术</div>
-              <div class="cat-count">48 篇</div>
-            </div>
-            <i class="bi bi-arrow-right cat-arrow ms-auto"></i>
-          </div>
-        </div>
-      </div>
-      <div class="col-6 col-md-4 col-lg-2 fade-up delay-2">
-        <div class="category-card cat-c2">
-          <div class="d-flex align-items-center gap-3 w-100">
-            <div class="cat-icon"><i class="bi bi-palette2"></i></div>
-            <div>
-              <div class="cat-name">设计</div>
-              <div class="cat-count">32 篇</div>
-            </div>
-            <i class="bi bi-arrow-right cat-arrow ms-auto"></i>
-          </div>
-        </div>
-      </div>
-      <div class="col-6 col-md-4 col-lg-2 fade-up delay-3">
-        <div class="category-card cat-c3">
-          <div class="d-flex align-items-center gap-3 w-100">
-            <div class="cat-icon"><i class="bi bi-rocket-takeoff"></i></div>
-            <div>
-              <div class="cat-name">产品</div>
-              <div class="cat-count">21 篇</div>
-            </div>
-            <i class="bi bi-arrow-right cat-arrow ms-auto"></i>
-          </div>
-        </div>
-      </div>
-      <div class="col-6 col-md-4 col-lg-2 fade-up delay-4">
-        <div class="category-card cat-c4">
-          <div class="d-flex align-items-center gap-3 w-100">
-            <div class="cat-icon"><i class="bi bi-robot"></i></div>
-            <div>
-              <div class="cat-name">AI</div>
-              <div class="cat-count">19 篇</div>
-            </div>
-            <i class="bi bi-arrow-right cat-arrow ms-auto"></i>
-          </div>
-        </div>
-      </div>
-      <div class="col-6 col-md-4 col-lg-2 fade-up delay-5">
-        <div class="category-card cat-c5">
-          <div class="d-flex align-items-center gap-3 w-100">
-            <div class="cat-icon"><i class="bi bi-graph-up-arrow"></i></div>
-            <div>
-              <div class="cat-name">成长</div>
-              <div class="cat-count">15 篇</div>
-            </div>
-            <i class="bi bi-arrow-right cat-arrow ms-auto"></i>
-          </div>
-        </div>
-      </div>
-      <div class="col-6 col-md-4 col-lg-2 fade-up delay-5">
-        <div class="category-card cat-c6">
-          <div class="d-flex align-items-center gap-3 w-100">
-            <div class="cat-icon"><i class="bi bi-feather"></i></div>
-            <div>
-              <div class="cat-name">随笔</div>
-              <div class="cat-count">11 篇</div>
-            </div>
-            <i class="bi bi-arrow-right cat-arrow ms-auto"></i>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ===== LATEST POSTS ===== -->
-<section class="section-pad" id="posts">
-  <div class="container">
-    <div class="row align-items-end mb-5">
-      <div class="col fade-up">
-        <div class="section-eyebrow">最新文章</div>
-        <h2 class="section-title mb-0">新鲜出炉的内容</h2>
-      </div>
-      <div class="col-auto fade-up delay-2">
-        <div class="d-flex gap-2 flex-wrap">
-          <span class="tag-pill active">全部</span>
-          <span class="tag-pill">技术</span>
-          <span class="tag-pill">设计</span>
-          <span class="tag-pill">AI</span>
-          <span class="tag-pill">产品</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="row g-4">
-      <!-- Featured large card -->
-      <div class="col-lg-8 fade-up delay-1">
-        <div class="post-card-featured">
-          <div class="featured-image" style="background: linear-gradient(135deg, #0d2b0f 0%, #1a5c2a 50%, #0a3a40 100%);">
-            <div class="img-placeholder" style="color: rgba(255,255,255,.2);">
-              <i class="bi bi-code-slash"></i>
-            </div>
-            <div class="featured-badge"><i class="bi bi-star-fill"></i> 编辑推荐</div>
-          </div>
-          <div class="featured-body">
-            <div class="post-card-category"><i class="bi bi-cpu me-1"></i>技术 · 前端开发</div>
-            <h2 class="featured-title">
-              2025 年前端开发的终极工具链：从 Vite 5 到 RSC 的完整指南
-            </h2>
-            <p class="post-card-excerpt post-card-excerpt--2">
-              前端生态系统从未停止进化。在这篇深度指南中，我将带你走过现代前端工具链的每一个关键节点，探讨 Vite 5 的革命性改进、React Server Components 的实际落地经验，以及如何构建真正高性能的 Web 应用。
-            </p>
-            <div class="post-card-footer">
-              <div class="author-row">
-                <div class="avatar-xs">陈</div>
-                <div>
-                  <div class="author-name">陈明远</div>
-                  <div class="post-date">2025年2月28日</div>
-                </div>
-              </div>
-              <div class="read-time"><i class="bi bi-clock"></i> 18 分钟阅读</div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Side cards -->
-      <div class="col-lg-4 d-flex flex-column gap-4">
-        <div class="post-card fade-up delay-2">
-          <div class="post-card-image" style="background: linear-gradient(135deg, #1a1040 0%, #2d1b69 100%); height:140px;">
-            <div class="img-placeholder"><i class="bi bi-brush img-icon-muted"></i></div>
-            <div class="post-card-badge">设计</div>
-          </div>
-          <div class="post-card-body">
-            <div class="post-card-category"><i class="bi bi-palette2 me-1"></i>UI/UX</div>
-            <h3 class="post-card-title">设计系统的本质：语义化 Token 体系构建实践</h3>
-            <div class="post-card-footer">
-              <div class="author-row">
-                <div class="avatar-xs" style="background:linear-gradient(135deg,#f59e0b,#ef4444);">李</div>
-                <div>
-                  <div class="author-name">李晓雨</div>
-                  <div class="post-date">2月20日</div>
-                </div>
-              </div>
-              <div class="read-time"><i class="bi bi-clock"></i> 8 min</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="post-card fade-up delay-3">
-          <div class="post-card-image" style="background: linear-gradient(135deg, #0d3040 0%, #0e5a6a 100%); height:140px;">
-            <div class="img-placeholder"><i class="bi bi-robot img-icon-muted"></i></div>
-            <div class="post-card-badge">AI</div>
-          </div>
-          <div class="post-card-body">
-            <div class="post-card-category"><i class="bi bi-robot me-1"></i>人工智能</div>
-            <h3 class="post-card-title">本地部署 LLM：Ollama + Open WebUI 完全配置手册</h3>
-            <div class="post-card-footer">
-              <div class="author-row">
-                <div class="avatar-xs" style="background:linear-gradient(135deg,#10b981,#0ea5e9);">陈</div>
-                <div>
-                  <div class="author-name">陈明远</div>
-                  <div class="post-date">2月15日</div>
-                </div>
-              </div>
-              <div class="read-time"><i class="bi bi-clock"></i> 15 min</div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Three column cards -->
-      <div class="col-md-6 col-lg-4 fade-up delay-1">
-        <div class="post-card">
-          <div class="post-card-image" style="background: linear-gradient(135deg, #1a2f0a 0%, #2d5c1a 100%);">
-            <div class="img-placeholder"><i class="bi bi-graph-up-arrow img-icon-muted"></i></div>
-            <div class="post-card-badge">产品</div>
-          </div>
-          <div class="post-card-body">
-            <div class="post-card-category"><i class="bi bi-rocket-takeoff me-1"></i>产品思维</div>
-            <h3 class="post-card-title">B2B SaaS 产品 PMF 验证的 6 个关键信号</h3>
-            <p class="post-card-excerpt">如何在早期阶段判断你的 SaaS 产品是否已经找到了 Product-Market Fit？这里有 6 个可以量化的信号指标。</p>
-            <div class="post-card-footer">
-              <div class="author-row">
-                <div class="avatar-xs" style="background:linear-gradient(135deg,#0a6640,#00c98d);">王</div>
-                <div>
-                  <div class="author-name">王思远</div>
-                  <div class="post-date">2月10日</div>
-                </div>
-              </div>
-              <div class="read-time"><i class="bi bi-clock"></i> 10 min</div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-md-6 col-lg-4 fade-up delay-2">
-        <div class="post-card">
-          <div class="post-card-image" style="background: linear-gradient(135deg, #1a0a2e 0%, #4a0d6b 100%);">
-            <div class="img-placeholder"><i class="bi bi-shield-lock img-icon-muted"></i></div>
-            <div class="post-card-badge">技术</div>
-          </div>
-          <div class="post-card-body">
-            <div class="post-card-category"><i class="bi bi-shield-check me-1"></i>安全</div>
-            <h3 class="post-card-title">Web 安全实战：OWASP Top 10 漏洞防御清单（2025版）</h3>
-            <p class="post-card-excerpt">从 SQL 注入到 SSRF，逐一拆解最新的 OWASP Top 10 漏洞类型，并给出可立即落地的防御方案。</p>
-            <div class="post-card-footer">
-              <div class="author-row">
-                <div class="avatar-xs" style="background:linear-gradient(135deg,#7c3aed,#c026d3);">赵</div>
-                <div>
-                  <div class="author-name">赵宇轩</div>
-                  <div class="post-date">2月5日</div>
-                </div>
-              </div>
-              <div class="read-time"><i class="bi bi-clock"></i> 14 min</div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-md-6 col-lg-4 fade-up delay-3">
-        <div class="post-card">
-          <div class="post-card-image" style="background: linear-gradient(135deg, #0a2030 0%, #0d4060 100%);">
-            <div class="img-placeholder"><i class="bi bi-database img-icon-muted"></i></div>
-            <div class="post-card-badge">技术</div>
-          </div>
-          <div class="post-card-body">
-            <div class="post-card-category"><i class="bi bi-server me-1"></i>后端</div>
-            <h3 class="post-card-title">PostgreSQL 性能调优：从慢查询到毫秒级响应的完整路径</h3>
-            <p class="post-card-excerpt">索引策略、查询计划分析、连接池配置……一篇涵盖 PostgreSQL 生产调优全景的深度文章。</p>
-            <div class="post-card-footer">
-              <div class="author-row">
-                <div class="avatar-xs" style="background:linear-gradient(135deg,#0ea5e9,#3b82f6);">林</div>
-                <div>
-                  <div class="author-name">林志明</div>
-                  <div class="post-date">1月30日</div>
-                </div>
-              </div>
-              <div class="read-time"><i class="bi bi-clock"></i> 22 min</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Pagination -->
-    <div class="d-flex justify-content-center mt-5 fade-up">
-      <nav>
-        <ul class="pagination ink-pagination gap-1">
-          <li class="page-item disabled"><a class="page-link" href="#"><i class="bi bi-chevron-left"></i></a></li>
-          <li class="page-item active"><a class="page-link" href="#">1</a></li>
-          <li class="page-item"><a class="page-link" href="#">2</a></li>
-          <li class="page-item"><a class="page-link" href="#">3</a></li>
-          <li class="page-item"><span class="page-link">…</span></li>
-          <li class="page-item"><a class="page-link" href="#">12</a></li>
-          <li class="page-item"><a class="page-link" href="#"><i class="bi bi-chevron-right"></i></a></li>
-        </ul>
-      </nav>
-    </div>
-  </div>
-</section>
-
-<!-- ===== QUOTE ===== -->
-<div class="quote-section">
-  <div class="container">
-    <div class="row justify-content-center">
-      <div class="col-lg-9 text-center fade-up">
-        <p class="quote-text">
-          "写作不仅是记录思想，更是塑造思想的过程。每一次落笔，都是一次与未来自己的对话。"
-        </p>
-        <div class="quote-author justify-content-center">
-          <div class="quote-avatar"><i class="bi bi-person-fill"></i></div>
-          <div class="text-start">
-            <div class="quote-name">陈明远</div>
-            <div class="quote-title">博主 · 全栈工程师 · 终身学习者</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- ===== SIDEBAR LAYOUT ===== -->
-<section class="section-pad bg-surface" id="about">
-  <div class="container">
-    <div class="row g-5">
-
-      <!-- Main: More posts -->
-      <div class="col-lg-8">
-        <div class="d-flex align-items-center justify-content-between mb-4">
-          <div>
-            <div class="section-eyebrow">深度阅读</div>
-            <h2 class="section-title mb-0">长文精选</h2>
-          </div>
-        </div>
-
-        <!-- List style posts -->
-        <div class="d-flex flex-column gap-3">
-
-          <!-- Post list item -->
-          <div class="post-card-row post-card flex-row align-items-stretch fade-up">
-            <div class="post-card-thumb-sm" style="background:linear-gradient(135deg,#0a1a0a,#1a4a2a)">
-              <i class="bi bi-terminal"></i>
-            </div>
-            <div class="post-card-body">
-              <div class="post-card-category"><i class="bi bi-cpu me-1"></i>CLI 工具</div>
-              <h3 class="post-card-title">打造你的终端工作流：Zsh + Tmux + Neovim 完整配置指南</h3>
-              <div class="post-card-footer" style="margin-top:auto;">
-                <div class="post-date"><i class="bi bi-calendar3 me-1"></i>2025年1月22日</div>
-                <div class="read-time"><i class="bi bi-clock"></i> 25 min</div>
+                <a href="profile.html" class="nav-user-dropdown-item"
+                  ><i class="bi bi-person-circle"></i> 个人资料</a
+                >
+                <a href="#" class="nav-user-dropdown-item"
+                  ><i class="bi bi-bookmark"></i> 我的收藏</a
+                >
+                <a href="#" class="nav-user-dropdown-item"
+                  ><i class="bi bi-gear"></i> 账号设置</a
+                >
+                <hr />
+                <a
+                  href="#"
+                  class="nav-user-dropdown-item danger"
+                  id="navLogoutBtn"
+                  ><i class="bi bi-box-arrow-right"></i> 退出登录</a
+                >
               </div>
             </div>
-          </div>
-
-          <div class="post-card-row post-card flex-row align-items-stretch fade-up delay-1">
-            <div class="post-card-thumb-sm" style="background:linear-gradient(135deg,#1a0a30,#3d0f6e)">
-              <i class="bi bi-infinity"></i>
-            </div>
-            <div class="post-card-body">
-              <div class="post-card-category"><i class="bi bi-gear me-1"></i>DevOps</div>
-              <h3 class="post-card-title">GitHub Actions 进阶：构建真正生产级别的 CI/CD 流水线</h3>
-              <div class="post-card-footer" style="margin-top:auto;">
-                <div class="post-date"><i class="bi bi-calendar3 me-1"></i>2025年1月15日</div>
-                <div class="read-time"><i class="bi bi-clock"></i> 19 min</div>
-              </div>
-            </div>
-          </div>
-
-          <div class="post-card-row post-card flex-row align-items-stretch fade-up delay-2">
-            <div class="post-card-thumb-sm" style="background:linear-gradient(135deg,#0a1e30,#0d4569)">
-              <i class="bi bi-layers"></i>
-            </div>
-            <div class="post-card-body">
-              <div class="post-card-category"><i class="bi bi-stack me-1"></i>架构</div>
-              <h3 class="post-card-title">微服务 vs 单体架构：2025 年的再思考与选型决策框架</h3>
-              <div class="post-card-footer" style="margin-top:auto;">
-                <div class="post-date"><i class="bi bi-calendar3 me-1"></i>2025年1月8日</div>
-                <div class="read-time"><i class="bi bi-clock"></i> 16 min</div>
-              </div>
-            </div>
-          </div>
-
-          <div class="post-card-row post-card flex-row align-items-stretch fade-up delay-3">
-            <div class="post-card-thumb-sm" style="background:linear-gradient(135deg,#2a1500,#5c3200)">
-              <i class="bi bi-book-half"></i>
-            </div>
-            <div class="post-card-body">
-              <div class="post-card-category"><i class="bi bi-feather me-1"></i>随笔</div>
-              <h3 class="post-card-title">读《穷查理宝典》：工程师视角下的多元思维模型实践</h3>
-              <div class="post-card-footer" style="margin-top:auto;">
-                <div class="post-date"><i class="bi bi-calendar3 me-1"></i>2024年12月29日</div>
-                <div class="read-time"><i class="bi bi-clock"></i> 11 min</div>
-              </div>
-            </div>
-          </div>
-
-        </div>
-      </div>
-
-      <!-- Sidebar -->
-      <div class="col-lg-4">
-
-        <!-- Author -->
-        <div class="author-profile-card fade-up mb-4">
-          <div class="author-avatar">陈</div>
-          <div class="author-name-lg">陈明远</div>
-          <div class="author-role">全栈工程师 · 产品思考者 · 写作爱好者</div>
-          <p class="author-bio">
-            专注于 Web 技术与 AI 应用的探索者。相信好的技术文章能改变一个开发者的职业轨迹。
-          </p>
-          <div class="author-social">
-            <div class="social-btn"><i class="bi bi-twitter-x"></i></div>
-            <div class="social-btn"><i class="bi bi-github"></i></div>
-            <div class="social-btn"><i class="bi bi-linkedin"></i></div>
-            <div class="social-btn"><i class="bi bi-envelope-fill"></i></div>
-            <div class="social-btn"><i class="bi bi-rss-fill"></i></div>
-          </div>
-        </div>
-
-        <!-- Newsletter -->
-        <div class="newsletter-card fade-up delay-1">
-          <div class="newsletter-title"><i class="bi bi-envelope-paper me-2"></i>订阅周刊</div>
-          <p class="newsletter-sub">每周精选 5 篇优质内容，直达你的收件箱，不骚扰，只分享。</p>
-          <div class="newsletter-form">
-            <input type="email" class="newsletter-input" placeholder="your@email.com" />
-            <button class="btn-subscribe">
-              <i class="bi bi-send-fill"></i> 立即订阅 · 免费
+            <button class="theme-toggle" id="themeToggle" title="切换主题">
+              <i class="bi bi-moon-stars-fill" id="themeIcon"></i>
             </button>
           </div>
         </div>
+      </div>
+    </nav>
 
-        <!-- Popular Posts -->
-        <div class="sidebar-card fade-up delay-2">
-          <div class="sidebar-title">热门文章</div>
-          <div class="popular-post-item">
-            <div class="popular-rank">01</div>
-            <div>
-              <div class="popular-post-title">React 18 并发特性深度解析与最佳实践</div>
-              <div class="popular-post-meta"><i class="bi bi-eye me-1"></i>8,421 次阅读</div>
+    <!-- ===== HERO ===== -->
+    <header class="hero-gradient">
+      <div class="hero-section">
+        <div class="container">
+          <div class="row align-items-center g-5">
+            <!-- Left -->
+            <div class="col-lg-6">
+              <div class="hero-eyebrow">
+                <i class="bi bi-stars"></i> 欢迎来到我的数字花园
+              </div>
+              <h1 class="hero-title">
+                书写<span class="accent-word">洞见</span>，<br />
+                分享<span class="accent-word">智慧</span>，<br />
+                点亮世界
+              </h1>
+              <p class="hero-sub">
+                在这里，我记录技术探索、设计思考与生活感悟。每一篇文章都是一次深入思考的结晶。
+              </p>
+              <div class="hero-cta-group">
+                <a href="#posts" class="btn-hero-primary">
+                  <i class="bi bi-book-open"></i> 开始阅读
+                </a>
+                <a href="#about" class="btn-hero-ghost">
+                  <i class="bi bi-person-circle"></i> 了解作者
+                </a>
+              </div>
+              <div class="hero-stats">
+                <div class="stat-item">
+                  <div class="stat-num" data-count="128">0</div>
+                  <div class="stat-label">篇文章</div>
+                </div>
+                <div class="stat-item">
+                  <div class="stat-num" data-count="12">0</div>
+                  <div class="stat-label">个专题</div>
+                </div>
+                <div class="stat-item">
+                  <div class="stat-num" data-suffix="k" data-count="56">0</div>
+                  <div class="stat-label">读者</div>
+                </div>
+                <div class="stat-item">
+                  <div class="stat-num" data-count="4">0</div>
+                  <div class="stat-label">年沉淀</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Right: Featured Card -->
+            <div class="col-lg-6">
+              <div class="hero-card-wrapper">
+                <div class="hero-float-badge">
+                  <strong>本月最热</strong>阅读量 · 2.4k
+                </div>
+                <div class="hero-card">
+                  <div class="hero-card-tag">
+                    <i class="bi bi-lightning-charge-fill"></i> 精选推荐
+                  </div>
+                  <div class="hero-card-title">
+                    从零构建 AI 驱动的个人知识管理系统：一年实践总结
+                  </div>
+                  <p class="hero-card-excerpt">
+                    过去一年，我用 LangChain、向量数据库和本地 LLM
+                    构建了一套属于自己的第二大脑。这篇文章将分享完整的架构设计、踩过的坑，以及最终的效果评估……
+                  </p>
+                  <div class="hero-card-meta">
+                    <div class="avatar-sm">陈</div>
+                    <div>
+                      <div class="meta-author">陈明远</div>
+                      <div class="meta-date">2025年3月1日</div>
+                    </div>
+                    <div class="hero-card-readtime">
+                      <i class="bi bi-clock"></i> 12 分钟
+                    </div>
+                  </div>
+                </div>
+                <!-- /.hero-card -->
+              </div>
+              <!-- /.hero-card-wrapper -->
+            </div>
+            <!-- /.col -->
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- ===== CATEGORIES ===== -->
+    <section class="section-pad bg-surface" id="categories">
+      <div class="container">
+        <div class="text-center mb-5 fade-up">
+          <div class="section-eyebrow justify-content-center">探索分类</div>
+          <h2 class="section-title">找到你感兴趣的领域</h2>
+          <p class="section-sub mx-auto">
+            涵盖技术开发、产品设计、个人成长等多个维度
+          </p>
+        </div>
+        <div class="row g-3">
+          <div class="col-6 col-md-4 col-lg-2 fade-up delay-1">
+            <div class="category-card cat-c1">
+              <div class="d-flex align-items-center gap-3 w-100">
+                <div class="cat-icon"><i class="bi bi-cpu"></i></div>
+                <div>
+                  <div class="cat-name">技术</div>
+                  <div class="cat-count">48 篇</div>
+                </div>
+                <i class="bi bi-arrow-right cat-arrow ms-auto"></i>
+              </div>
             </div>
           </div>
-          <div class="popular-post-item">
-            <div class="popular-rank">02</div>
-            <div>
-              <div class="popular-post-title">从零开始的 TypeScript 类型体操指南</div>
-              <div class="popular-post-meta"><i class="bi bi-eye me-1"></i>6,892 次阅读</div>
+          <div class="col-6 col-md-4 col-lg-2 fade-up delay-2">
+            <div class="category-card cat-c2">
+              <div class="d-flex align-items-center gap-3 w-100">
+                <div class="cat-icon"><i class="bi bi-palette2"></i></div>
+                <div>
+                  <div class="cat-name">设计</div>
+                  <div class="cat-count">32 篇</div>
+                </div>
+                <i class="bi bi-arrow-right cat-arrow ms-auto"></i>
+              </div>
             </div>
           </div>
-          <div class="popular-post-item">
-            <div class="popular-rank">03</div>
-            <div>
-              <div class="popular-post-title">Redis 实战：高并发场景下的缓存策略设计</div>
-              <div class="popular-post-meta"><i class="bi bi-eye me-1"></i>5,315 次阅读</div>
+          <div class="col-6 col-md-4 col-lg-2 fade-up delay-3">
+            <div class="category-card cat-c3">
+              <div class="d-flex align-items-center gap-3 w-100">
+                <div class="cat-icon"><i class="bi bi-rocket-takeoff"></i></div>
+                <div>
+                  <div class="cat-name">产品</div>
+                  <div class="cat-count">21 篇</div>
+                </div>
+                <i class="bi bi-arrow-right cat-arrow ms-auto"></i>
+              </div>
             </div>
           </div>
-          <div class="popular-post-item">
-            <div class="popular-rank">04</div>
-            <div>
-              <div class="popular-post-title">程序员的职业天花板：技术 vs 管理的路径选择</div>
-              <div class="popular-post-meta"><i class="bi bi-eye me-1"></i>4,780 次阅读</div>
+          <div class="col-6 col-md-4 col-lg-2 fade-up delay-4">
+            <div class="category-card cat-c4">
+              <div class="d-flex align-items-center gap-3 w-100">
+                <div class="cat-icon"><i class="bi bi-robot"></i></div>
+                <div>
+                  <div class="cat-name">AI</div>
+                  <div class="cat-count">19 篇</div>
+                </div>
+                <i class="bi bi-arrow-right cat-arrow ms-auto"></i>
+              </div>
+            </div>
+          </div>
+          <div class="col-6 col-md-4 col-lg-2 fade-up delay-5">
+            <div class="category-card cat-c5">
+              <div class="d-flex align-items-center gap-3 w-100">
+                <div class="cat-icon"><i class="bi bi-graph-up-arrow"></i></div>
+                <div>
+                  <div class="cat-name">成长</div>
+                  <div class="cat-count">15 篇</div>
+                </div>
+                <i class="bi bi-arrow-right cat-arrow ms-auto"></i>
+              </div>
+            </div>
+          </div>
+          <div class="col-6 col-md-4 col-lg-2 fade-up delay-5">
+            <div class="category-card cat-c6">
+              <div class="d-flex align-items-center gap-3 w-100">
+                <div class="cat-icon"><i class="bi bi-feather"></i></div>
+                <div>
+                  <div class="cat-name">随笔</div>
+                  <div class="cat-count">11 篇</div>
+                </div>
+                <i class="bi bi-arrow-right cat-arrow ms-auto"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== LATEST POSTS ===== -->
+    <section class="section-pad" id="posts">
+      <div class="container">
+        <div class="row align-items-end mb-5">
+          <div class="col fade-up">
+            <div class="section-eyebrow">最新文章</div>
+            <h2 class="section-title mb-0">新鲜出炉的内容</h2>
+          </div>
+          <div class="col-auto fade-up delay-2">
+            <div class="d-flex gap-2 flex-wrap">
+              <span class="tag-pill active">全部</span>
+              <span class="tag-pill">技术</span>
+              <span class="tag-pill">设计</span>
+              <span class="tag-pill">AI</span>
+              <span class="tag-pill">产品</span>
             </div>
           </div>
         </div>
 
-        <!-- Tags -->
-        <div class="sidebar-card fade-up delay-3">
-          <div class="sidebar-title">标签云</div>
-          <div class="d-flex flex-wrap gap-2">
-            <span class="tag-pill active">JavaScript</span>
-            <span class="tag-pill">TypeScript</span>
-            <span class="tag-pill">React</span>
-            <span class="tag-pill">Node.js</span>
-            <span class="tag-pill">Python</span>
-            <span class="tag-pill">Docker</span>
-            <span class="tag-pill">PostgreSQL</span>
-            <span class="tag-pill">AI</span>
-            <span class="tag-pill">设计系统</span>
-            <span class="tag-pill">性能优化</span>
-            <span class="tag-pill">架构</span>
-            <span class="tag-pill">产品</span>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ===== FOOTER ===== -->
-<footer class="site-footer">
-  <div class="container">
-    <div class="row g-5">
-      <div class="col-lg-4">
-        <div class="footer-brand">
-          INKFLOW<span class="brand-dot"></span>
-        </div>
-        <p class="footer-tagline">一个关于技术、设计与人文的独立博客。这里是我数字世界的根据地。</p>
-        <div class="d-flex gap-2">
-          <div class="social-btn-footer" title="Twitter / X">
-            <i class="bi bi-twitter-x"></i>
-          </div>
-          <div class="social-btn-footer" title="GitHub">
-            <i class="bi bi-github"></i>
-          </div>
-          <div class="social-btn-footer" title="LinkedIn">
-            <i class="bi bi-linkedin"></i>
-          </div>
-          <div class="social-btn-footer" title="RSS">
-            <i class="bi bi-rss-fill"></i>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-6 col-md-3 col-lg-2">
-        <div class="footer-heading">内容分类</div>
-        <ul class="footer-links">
-          <li><a href="#"><i class="bi bi-cpu"></i> 技术开发</a></li>
-          <li><a href="#"><i class="bi bi-palette2"></i> UI 设计</a></li>
-          <li><a href="#"><i class="bi bi-rocket-takeoff"></i> 产品思维</a></li>
-          <li><a href="#"><i class="bi bi-robot"></i> AI 探索</a></li>
-          <li><a href="#"><i class="bi bi-feather"></i> 生活随笔</a></li>
-        </ul>
-      </div>
-
-      <div class="col-6 col-md-3 col-lg-2">
-        <div class="footer-heading">快速链接</div>
-        <ul class="footer-links">
-          <li><a href="#"><i class="bi bi-house"></i> 首页</a></li>
-          <li><a href="#"><i class="bi bi-person-circle"></i> 关于我</a></li>
-          <li><a href="#"><i class="bi bi-archive"></i> 文章归档</a></li>
-          <li><a href="#"><i class="bi bi-briefcase"></i> 项目展示</a></li>
-          <li><a href="#"><i class="bi bi-chat-dots"></i> 联系我</a></li>
-        </ul>
-      </div>
-
-      <div class="col-md-6 col-lg-4">
-        <div class="footer-heading">最新动态</div>
-        <div class="d-flex flex-column gap-3">
-          <div style="padding-bottom:.75rem;border-bottom:1px solid rgba(255,255,255,.06);">
-            <div style="font-size:.85rem;color:rgba(255,255,255,.7);font-weight:500;margin-bottom:.2rem;">
-              2025 年前端开发的终极工具链
+        <div class="row g-4">
+          <!-- Featured large card -->
+          <div class="col-lg-8 fade-up delay-1">
+            <div class="post-card-featured">
+              <div
+                class="featured-image"
+                style="
+                  background: linear-gradient(
+                    135deg,
+                    #0d2b0f 0%,
+                    #1a5c2a 50%,
+                    #0a3a40 100%
+                  );
+                "
+              >
+                <div
+                  class="img-placeholder"
+                  style="color: rgba(255, 255, 255, 0.2)"
+                >
+                  <i class="bi bi-code-slash"></i>
+                </div>
+                <div class="featured-badge">
+                  <i class="bi bi-star-fill"></i> 编辑推荐
+                </div>
+              </div>
+              <div class="featured-body">
+                <div class="post-card-category">
+                  <i class="bi bi-cpu me-1"></i>技术 · 前端开发
+                </div>
+                <h2 class="featured-title">
+                  2025 年前端开发的终极工具链：从 Vite 5 到 RSC 的完整指南
+                </h2>
+                <p class="post-card-excerpt post-card-excerpt--2">
+                  前端生态系统从未停止进化。在这篇深度指南中，我将带你走过现代前端工具链的每一个关键节点，探讨
+                  Vite 5 的革命性改进、React Server Components
+                  的实际落地经验，以及如何构建真正高性能的 Web 应用。
+                </p>
+                <div class="post-card-footer">
+                  <div class="author-row">
+                    <div class="avatar-xs">陈</div>
+                    <div>
+                      <div class="author-name">陈明远</div>
+                      <div class="post-date">2025年2月28日</div>
+                    </div>
+                  </div>
+                  <div class="read-time">
+                    <i class="bi bi-clock"></i> 18 分钟阅读
+                  </div>
+                </div>
+              </div>
             </div>
-            <div style="font-size:.75rem;color:rgba(255,255,255,.3);">2月28日 · 18 分钟</div>
           </div>
-          <div style="padding-bottom:.75rem;border-bottom:1px solid rgba(255,255,255,.06);">
-            <div style="font-size:.85rem;color:rgba(255,255,255,.7);font-weight:500;margin-bottom:.2rem;">
-              本地部署 LLM：Ollama + Open WebUI
+
+          <!-- Side cards -->
+          <div class="col-lg-4 d-flex flex-column gap-4">
+            <div class="post-card fade-up delay-2">
+              <div
+                class="post-card-image"
+                style="
+                  background: linear-gradient(135deg, #1a1040 0%, #2d1b69 100%);
+                  height: 140px;
+                "
+              >
+                <div class="img-placeholder">
+                  <i class="bi bi-brush img-icon-muted"></i>
+                </div>
+                <div class="post-card-badge">设计</div>
+              </div>
+              <div class="post-card-body">
+                <div class="post-card-category">
+                  <i class="bi bi-palette2 me-1"></i>UI/UX
+                </div>
+                <h3 class="post-card-title">
+                  设计系统的本质：语义化 Token 体系构建实践
+                </h3>
+                <div class="post-card-footer">
+                  <div class="author-row">
+                    <div
+                      class="avatar-xs"
+                      style="
+                        background: linear-gradient(135deg, #f59e0b, #ef4444);
+                      "
+                    >
+                      李
+                    </div>
+                    <div>
+                      <div class="author-name">李晓雨</div>
+                      <div class="post-date">2月20日</div>
+                    </div>
+                  </div>
+                  <div class="read-time"><i class="bi bi-clock"></i> 8 min</div>
+                </div>
+              </div>
             </div>
-            <div style="font-size:.75rem;color:rgba(255,255,255,.3);">2月15日 · 15 分钟</div>
+
+            <div class="post-card fade-up delay-3">
+              <div
+                class="post-card-image"
+                style="
+                  background: linear-gradient(135deg, #0d3040 0%, #0e5a6a 100%);
+                  height: 140px;
+                "
+              >
+                <div class="img-placeholder">
+                  <i class="bi bi-robot img-icon-muted"></i>
+                </div>
+                <div class="post-card-badge">AI</div>
+              </div>
+              <div class="post-card-body">
+                <div class="post-card-category">
+                  <i class="bi bi-robot me-1"></i>人工智能
+                </div>
+                <h3 class="post-card-title">
+                  本地部署 LLM：Ollama + Open WebUI 完全配置手册
+                </h3>
+                <div class="post-card-footer">
+                  <div class="author-row">
+                    <div
+                      class="avatar-xs"
+                      style="
+                        background: linear-gradient(135deg, #10b981, #0ea5e9);
+                      "
+                    >
+                      陈
+                    </div>
+                    <div>
+                      <div class="author-name">陈明远</div>
+                      <div class="post-date">2月15日</div>
+                    </div>
+                  </div>
+                  <div class="read-time">
+                    <i class="bi bi-clock"></i> 15 min
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
-          <div>
-            <div style="font-size:.85rem;color:rgba(255,255,255,.7);font-weight:500;margin-bottom:.2rem;">
-              B2B SaaS 产品 PMF 验证的 6 个关键信号
+
+          <!-- Three column cards -->
+          <div class="col-md-6 col-lg-4 fade-up delay-1">
+            <div class="post-card">
+              <div
+                class="post-card-image"
+                style="
+                  background: linear-gradient(135deg, #1a2f0a 0%, #2d5c1a 100%);
+                "
+              >
+                <div class="img-placeholder">
+                  <i class="bi bi-graph-up-arrow img-icon-muted"></i>
+                </div>
+                <div class="post-card-badge">产品</div>
+              </div>
+              <div class="post-card-body">
+                <div class="post-card-category">
+                  <i class="bi bi-rocket-takeoff me-1"></i>产品思维
+                </div>
+                <h3 class="post-card-title">
+                  B2B SaaS 产品 PMF 验证的 6 个关键信号
+                </h3>
+                <p class="post-card-excerpt">
+                  如何在早期阶段判断你的 SaaS 产品是否已经找到了 Product-Market
+                  Fit？这里有 6 个可以量化的信号指标。
+                </p>
+                <div class="post-card-footer">
+                  <div class="author-row">
+                    <div
+                      class="avatar-xs"
+                      style="
+                        background: linear-gradient(135deg, #0a6640, #00c98d);
+                      "
+                    >
+                      王
+                    </div>
+                    <div>
+                      <div class="author-name">王思远</div>
+                      <div class="post-date">2月10日</div>
+                    </div>
+                  </div>
+                  <div class="read-time">
+                    <i class="bi bi-clock"></i> 10 min
+                  </div>
+                </div>
+              </div>
             </div>
-            <div style="font-size:.75rem;color:rgba(255,255,255,.3);">2月10日 · 10 分钟</div>
+          </div>
+
+          <div class="col-md-6 col-lg-4 fade-up delay-2">
+            <div class="post-card">
+              <div
+                class="post-card-image"
+                style="
+                  background: linear-gradient(135deg, #1a0a2e 0%, #4a0d6b 100%);
+                "
+              >
+                <div class="img-placeholder">
+                  <i class="bi bi-shield-lock img-icon-muted"></i>
+                </div>
+                <div class="post-card-badge">技术</div>
+              </div>
+              <div class="post-card-body">
+                <div class="post-card-category">
+                  <i class="bi bi-shield-check me-1"></i>安全
+                </div>
+                <h3 class="post-card-title">
+                  Web 安全实战：OWASP Top 10 漏洞防御清单（2025版）
+                </h3>
+                <p class="post-card-excerpt">
+                  从 SQL 注入到 SSRF，逐一拆解最新的 OWASP Top 10
+                  漏洞类型，并给出可立即落地的防御方案。
+                </p>
+                <div class="post-card-footer">
+                  <div class="author-row">
+                    <div
+                      class="avatar-xs"
+                      style="
+                        background: linear-gradient(135deg, #7c3aed, #c026d3);
+                      "
+                    >
+                      赵
+                    </div>
+                    <div>
+                      <div class="author-name">赵宇轩</div>
+                      <div class="post-date">2月5日</div>
+                    </div>
+                  </div>
+                  <div class="read-time">
+                    <i class="bi bi-clock"></i> 14 min
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-6 col-lg-4 fade-up delay-3">
+            <div class="post-card">
+              <div
+                class="post-card-image"
+                style="
+                  background: linear-gradient(135deg, #0a2030 0%, #0d4060 100%);
+                "
+              >
+                <div class="img-placeholder">
+                  <i class="bi bi-database img-icon-muted"></i>
+                </div>
+                <div class="post-card-badge">技术</div>
+              </div>
+              <div class="post-card-body">
+                <div class="post-card-category">
+                  <i class="bi bi-server me-1"></i>后端
+                </div>
+                <h3 class="post-card-title">
+                  PostgreSQL 性能调优：从慢查询到毫秒级响应的完整路径
+                </h3>
+                <p class="post-card-excerpt">
+                  索引策略、查询计划分析、连接池配置……一篇涵盖 PostgreSQL
+                  生产调优全景的深度文章。
+                </p>
+                <div class="post-card-footer">
+                  <div class="author-row">
+                    <div
+                      class="avatar-xs"
+                      style="
+                        background: linear-gradient(135deg, #0ea5e9, #3b82f6);
+                      "
+                    >
+                      林
+                    </div>
+                    <div>
+                      <div class="author-name">林志明</div>
+                      <div class="post-date">1月30日</div>
+                    </div>
+                  </div>
+                  <div class="read-time">
+                    <i class="bi bi-clock"></i> 22 min
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Pagination -->
+        <div class="d-flex justify-content-center mt-5 fade-up">
+          <nav>
+            <ul class="pagination ink-pagination gap-1">
+              <li class="page-item disabled">
+                <a class="page-link" href="#"
+                  ><i class="bi bi-chevron-left"></i
+                ></a>
+              </li>
+              <li class="page-item active">
+                <a class="page-link" href="#">1</a>
+              </li>
+              <li class="page-item"><a class="page-link" href="#">2</a></li>
+              <li class="page-item"><a class="page-link" href="#">3</a></li>
+              <li class="page-item"><span class="page-link">…</span></li>
+              <li class="page-item"><a class="page-link" href="#">12</a></li>
+              <li class="page-item">
+                <a class="page-link" href="#"
+                  ><i class="bi bi-chevron-right"></i
+                ></a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== QUOTE ===== -->
+    <div class="quote-section">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-lg-9 text-center fade-up">
+            <p class="quote-text">
+              "写作不仅是记录思想，更是塑造思想的过程。每一次落笔，都是一次与未来自己的对话。"
+            </p>
+            <div class="quote-author justify-content-center">
+              <div class="quote-avatar"><i class="bi bi-person-fill"></i></div>
+              <div class="text-start">
+                <div class="quote-name">陈明远</div>
+                <div class="quote-title">博主 · 全栈工程师 · 终身学习者</div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
 
-    <hr class="footer-divider" />
+    <!-- ===== SIDEBAR LAYOUT ===== -->
+    <section class="section-pad bg-surface" id="about">
+      <div class="container">
+        <div class="row g-5">
+          <!-- Main: More posts -->
+          <div class="col-lg-8">
+            <div class="d-flex align-items-center justify-content-between mb-4">
+              <div>
+                <div class="section-eyebrow">深度阅读</div>
+                <h2 class="section-title mb-0">长文精选</h2>
+              </div>
+            </div>
 
-    <div class="footer-bottom">
-      <div class="footer-copy">
-        © 2025 <span>INKFLOW</span> · 陈明远 · 保留所有权利
-        <span style="margin-left:.75rem;color:rgba(255,255,255,.25);">
-          基于 Bootstrap 5.3 构建，托管于 Vercel
-        </span>
+            <!-- List style posts -->
+            <div class="d-flex flex-column gap-3">
+              <!-- Post list item -->
+              <div
+                class="post-card-row post-card flex-row align-items-stretch fade-up"
+              >
+                <div
+                  class="post-card-thumb-sm"
+                  style="background: linear-gradient(135deg, #0a1a0a, #1a4a2a)"
+                >
+                  <i class="bi bi-terminal"></i>
+                </div>
+                <div class="post-card-body">
+                  <div class="post-card-category">
+                    <i class="bi bi-cpu me-1"></i>CLI 工具
+                  </div>
+                  <h3 class="post-card-title">
+                    打造你的终端工作流：Zsh + Tmux + Neovim 完整配置指南
+                  </h3>
+                  <div class="post-card-footer" style="margin-top: auto">
+                    <div class="post-date">
+                      <i class="bi bi-calendar3 me-1"></i>2025年1月22日
+                    </div>
+                    <div class="read-time">
+                      <i class="bi bi-clock"></i> 25 min
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div
+                class="post-card-row post-card flex-row align-items-stretch fade-up delay-1"
+              >
+                <div
+                  class="post-card-thumb-sm"
+                  style="background: linear-gradient(135deg, #1a0a30, #3d0f6e)"
+                >
+                  <i class="bi bi-infinity"></i>
+                </div>
+                <div class="post-card-body">
+                  <div class="post-card-category">
+                    <i class="bi bi-gear me-1"></i>DevOps
+                  </div>
+                  <h3 class="post-card-title">
+                    GitHub Actions 进阶：构建真正生产级别的 CI/CD 流水线
+                  </h3>
+                  <div class="post-card-footer" style="margin-top: auto">
+                    <div class="post-date">
+                      <i class="bi bi-calendar3 me-1"></i>2025年1月15日
+                    </div>
+                    <div class="read-time">
+                      <i class="bi bi-clock"></i> 19 min
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div
+                class="post-card-row post-card flex-row align-items-stretch fade-up delay-2"
+              >
+                <div
+                  class="post-card-thumb-sm"
+                  style="background: linear-gradient(135deg, #0a1e30, #0d4569)"
+                >
+                  <i class="bi bi-layers"></i>
+                </div>
+                <div class="post-card-body">
+                  <div class="post-card-category">
+                    <i class="bi bi-stack me-1"></i>架构
+                  </div>
+                  <h3 class="post-card-title">
+                    微服务 vs 单体架构：2025 年的再思考与选型决策框架
+                  </h3>
+                  <div class="post-card-footer" style="margin-top: auto">
+                    <div class="post-date">
+                      <i class="bi bi-calendar3 me-1"></i>2025年1月8日
+                    </div>
+                    <div class="read-time">
+                      <i class="bi bi-clock"></i> 16 min
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div
+                class="post-card-row post-card flex-row align-items-stretch fade-up delay-3"
+              >
+                <div
+                  class="post-card-thumb-sm"
+                  style="background: linear-gradient(135deg, #2a1500, #5c3200)"
+                >
+                  <i class="bi bi-book-half"></i>
+                </div>
+                <div class="post-card-body">
+                  <div class="post-card-category">
+                    <i class="bi bi-feather me-1"></i>随笔
+                  </div>
+                  <h3 class="post-card-title">
+                    读《穷查理宝典》：工程师视角下的多元思维模型实践
+                  </h3>
+                  <div class="post-card-footer" style="margin-top: auto">
+                    <div class="post-date">
+                      <i class="bi bi-calendar3 me-1"></i>2024年12月29日
+                    </div>
+                    <div class="read-time">
+                      <i class="bi bi-clock"></i> 11 min
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Sidebar -->
+          <div class="col-lg-4">
+            <!-- Author -->
+            <div class="author-profile-card fade-up mb-4">
+              <div class="author-avatar">陈</div>
+              <div class="author-name-lg">陈明远</div>
+              <div class="author-role">
+                全栈工程师 · 产品思考者 · 写作爱好者
+              </div>
+              <p class="author-bio">
+                专注于 Web 技术与 AI
+                应用的探索者。相信好的技术文章能改变一个开发者的职业轨迹。
+              </p>
+              <div class="author-social">
+                <div class="social-btn"><i class="bi bi-twitter-x"></i></div>
+                <div class="social-btn"><i class="bi bi-github"></i></div>
+                <div class="social-btn"><i class="bi bi-linkedin"></i></div>
+                <div class="social-btn">
+                  <i class="bi bi-envelope-fill"></i>
+                </div>
+                <div class="social-btn"><i class="bi bi-rss-fill"></i></div>
+              </div>
+            </div>
+
+            <!-- Newsletter -->
+            <div class="newsletter-card fade-up delay-1">
+              <div class="newsletter-title">
+                <i class="bi bi-envelope-paper me-2"></i>订阅周刊
+              </div>
+              <p class="newsletter-sub">
+                每周精选 5 篇优质内容，直达你的收件箱，不骚扰，只分享。
+              </p>
+              <div class="newsletter-form">
+                <input
+                  type="email"
+                  class="newsletter-input"
+                  placeholder="your@email.com"
+                />
+                <button class="btn-subscribe">
+                  <i class="bi bi-send-fill"></i> 立即订阅 · 免费
+                </button>
+              </div>
+            </div>
+
+            <!-- Popular Posts -->
+            <div class="sidebar-card fade-up delay-2">
+              <div class="sidebar-title">热门文章</div>
+              <div class="popular-post-item">
+                <div class="popular-rank">01</div>
+                <div>
+                  <div class="popular-post-title">
+                    React 18 并发特性深度解析与最佳实践
+                  </div>
+                  <div class="popular-post-meta">
+                    <i class="bi bi-eye me-1"></i>8,421 次阅读
+                  </div>
+                </div>
+              </div>
+              <div class="popular-post-item">
+                <div class="popular-rank">02</div>
+                <div>
+                  <div class="popular-post-title">
+                    从零开始的 TypeScript 类型体操指南
+                  </div>
+                  <div class="popular-post-meta">
+                    <i class="bi bi-eye me-1"></i>6,892 次阅读
+                  </div>
+                </div>
+              </div>
+              <div class="popular-post-item">
+                <div class="popular-rank">03</div>
+                <div>
+                  <div class="popular-post-title">
+                    Redis 实战：高并发场景下的缓存策略设计
+                  </div>
+                  <div class="popular-post-meta">
+                    <i class="bi bi-eye me-1"></i>5,315 次阅读
+                  </div>
+                </div>
+              </div>
+              <div class="popular-post-item">
+                <div class="popular-rank">04</div>
+                <div>
+                  <div class="popular-post-title">
+                    程序员的职业天花板：技术 vs 管理的路径选择
+                  </div>
+                  <div class="popular-post-meta">
+                    <i class="bi bi-eye me-1"></i>4,780 次阅读
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Tags -->
+            <div class="sidebar-card fade-up delay-3">
+              <div class="sidebar-title">标签云</div>
+              <div class="d-flex flex-wrap gap-2">
+                <span class="tag-pill active">JavaScript</span>
+                <span class="tag-pill">TypeScript</span>
+                <span class="tag-pill">React</span>
+                <span class="tag-pill">Node.js</span>
+                <span class="tag-pill">Python</span>
+                <span class="tag-pill">Docker</span>
+                <span class="tag-pill">PostgreSQL</span>
+                <span class="tag-pill">AI</span>
+                <span class="tag-pill">设计系统</span>
+                <span class="tag-pill">性能优化</span>
+                <span class="tag-pill">架构</span>
+                <span class="tag-pill">产品</span>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="footer-badges">
-        <span class="footer-badge">BS v5.3</span>
-        <span class="footer-badge">BI v1.13</span>
-        <span class="footer-badge">CC BY 4.0</span>
+    </section>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="site-footer">
+      <div class="container">
+        <div class="row g-5">
+          <div class="col-lg-4">
+            <div class="footer-brand">
+              INKFLOW<span class="brand-dot"></span>
+            </div>
+            <p class="footer-tagline">
+              一个关于技术、设计与人文的独立博客。这里是我数字世界的根据地。
+            </p>
+            <div class="d-flex gap-2">
+              <div class="social-btn-footer" title="Twitter / X">
+                <i class="bi bi-twitter-x"></i>
+              </div>
+              <div class="social-btn-footer" title="GitHub">
+                <i class="bi bi-github"></i>
+              </div>
+              <div class="social-btn-footer" title="LinkedIn">
+                <i class="bi bi-linkedin"></i>
+              </div>
+              <div class="social-btn-footer" title="RSS">
+                <i class="bi bi-rss-fill"></i>
+              </div>
+            </div>
+          </div>
+          <div class="col-6 col-md-3 col-lg-2">
+            <div class="footer-heading">内容分类</div>
+            <ul class="footer-links">
+              <li>
+                <a href="post-list.html"><i class="bi bi-cpu"></i> 技术开发</a>
+              </li>
+              <li>
+                <a href="post-list.html"
+                  ><i class="bi bi-palette2"></i> UI 设计</a
+                >
+              </li>
+              <li>
+                <a href="post-list.html"
+                  ><i class="bi bi-rocket-takeoff"></i> 产品思维</a
+                >
+              </li>
+              <li>
+                <a href="post-list.html"><i class="bi bi-robot"></i> AI 探索</a>
+              </li>
+              <li>
+                <a href="post-list.html"
+                  ><i class="bi bi-feather"></i> 生活随笔</a
+                >
+              </li>
+            </ul>
+          </div>
+          <div class="col-6 col-md-3 col-lg-2">
+            <div class="footer-heading">快速链接</div>
+            <ul class="footer-links">
+              <li>
+                <a href="index.html"><i class="bi bi-house"></i> 首页</a>
+              </li>
+              <li>
+                <a href="category-list.html"><i class="bi bi-grid"></i> 分类</a>
+              </li>
+              <li>
+                <a href="tag-list.html"><i class="bi bi-tags"></i> 标签</a>
+              </li>
+              <li>
+                <a href="archive-list.html"
+                  ><i class="bi bi-archive"></i> 归档</a
+                >
+              </li>
+              <li>
+                <a href="post-show.html"
+                  ><i class="bi bi-person-circle"></i> 关于</a
+                >
+              </li>
+            </ul>
+          </div>
+          <div class="col-md-6 col-lg-4">
+            <div class="footer-heading">最新动态</div>
+            <div class="d-flex flex-column gap-3">
+              <div class="footer-recent-item">
+                <div class="footer-recent-title">
+                  2025 年前端开发的终极工具链
+                </div>
+                <div class="footer-recent-meta">2月28日 · 18 分钟</div>
+              </div>
+              <div class="footer-recent-item">
+                <div class="footer-recent-title">
+                  本地部署 LLM：Ollama + Open WebUI
+                </div>
+                <div class="footer-recent-meta">2月15日 · 15 分钟</div>
+              </div>
+              <div class="footer-recent-item border-0 pb-0">
+                <div class="footer-recent-title">
+                  设计系统的本质：语义化 Token 体系
+                </div>
+                <div class="footer-recent-meta">2月20日 · 12 分钟</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <hr class="footer-divider" />
+        <div class="footer-bottom">
+          <div class="footer-copy">
+            © 2025 <span>INKFLOW</span> · 陈明远 · 保留所有权利
+          </div>
+          <div class="footer-badges">
+            <span class="footer-badge">BS v5.3</span>
+            <span class="footer-badge">BI v1.13</span>
+            <span class="footer-badge">CC BY 4.0</span>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- ===== SEARCH OVERLAY ===== -->
+    <div class="search-overlay" id="searchOverlay">
+      <button class="search-close" onclick="closeSearch()">
+        <i class="bi bi-x-lg"></i>
+      </button>
+      <div class="search-box">
+        <div class="search-input-wrap">
+          <i class="bi bi-search"></i>
+          <input
+            type="text"
+            class="search-main-input"
+            id="searchInput"
+            placeholder="搜索文章、标签、主题……"
+          />
+        </div>
+        <div
+          style="
+            color: rgba(255, 255, 255, 0.35);
+            font-size: 0.82rem;
+            margin-bottom: 0.75rem;
+            letter-spacing: 0.03em;
+          "
+        >
+          热门搜索
+        </div>
+        <div class="search-tips">
+          <span class="search-tip">React 18</span>
+          <span class="search-tip">TypeScript</span>
+          <span class="search-tip">设计系统</span>
+          <span class="search-tip">AI 工具</span>
+          <span class="search-tip">性能优化</span>
+          <span class="search-tip">职业发展</span>
+        </div>
       </div>
     </div>
-  </div>
-</footer>
 
-<!-- ===== SEARCH OVERLAY ===== -->
-<div class="search-overlay" id="searchOverlay">
-  <button class="search-close" onclick="closeSearch()">
-    <i class="bi bi-x-lg"></i>
-  </button>
-  <div class="search-box">
-    <div class="search-input-wrap">
-      <i class="bi bi-search"></i>
-      <input type="text" class="search-main-input" id="searchInput" placeholder="搜索文章、标签、主题……" />
-    </div>
-    <div style="color:rgba(255,255,255,.35);font-size:.82rem;margin-bottom:.75rem;letter-spacing:.03em;">
-      热门搜索
-    </div>
-    <div class="search-tips">
-      <span class="search-tip">React 18</span>
-      <span class="search-tip">TypeScript</span>
-      <span class="search-tip">设计系统</span>
-      <span class="search-tip">AI 工具</span>
-      <span class="search-tip">性能优化</span>
-      <span class="search-tip">职业发展</span>
-    </div>
-  </div>
-</div>
+    <!-- ===== BACK TO TOP ===== -->
+    <button class="back-to-top" id="backToTop" onclick="scrollToTop()">
+      <i class="bi bi-chevron-up"></i>
+    </button>
 
-<!-- ===== BACK TO TOP ===== -->
-<button class="back-to-top" id="backToTop" onclick="scrollToTop()">
-  <i class="bi bi-chevron-up"></i>
-</button>
+    <!-- Bootstrap 5.3.8 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
-<!-- Bootstrap 5.3.8 JS -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
-<script src="inkflow.js"></script>
-</body>
+    <script src="inkflow.js"></script>
+  </body>
 </html>
