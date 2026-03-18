@@ -656,6 +656,15 @@ function initAuthTabs() {
   const tabBtns = document.querySelectorAll('.auth-tab-btn');
   if (!tabBtns.length) return;
 
+  // 初始化：找到 active 按钮，显示对应 pane，隐藏其余
+  const activeBtn = document.querySelector('.auth-tab-btn.active') || tabBtns[0];
+  const activeTarget = activeBtn?.dataset.authTab;
+  document.querySelectorAll('.auth-tab-pane').forEach(pane => {
+    // 清除任何 d-none class，完全交由 style.display 控制
+    pane.classList.remove('d-none');
+    pane.style.display = pane.id === activeTarget ? 'block' : 'none';
+  });
+
   tabBtns.forEach(btn => {
     btn.addEventListener('click', () => {
       const target = btn.dataset.authTab;
@@ -663,7 +672,7 @@ function initAuthTabs() {
       tabBtns.forEach(b => b.classList.toggle('active', b === btn));
       // Show/hide panes
       document.querySelectorAll('.auth-tab-pane').forEach(pane => {
-        pane.style.display = pane.id === target ? '' : 'none';
+        pane.style.display = pane.id === target ? 'block' : 'none';
       });
     });
   });

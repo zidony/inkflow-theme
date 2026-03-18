@@ -1199,6 +1199,9 @@ body::before {
 .author-role    { font-size: .85rem; color: var(--ink-muted); margin-bottom: 1rem; }
 .author-bio     { font-size: .88rem; color: var(--ink-muted); line-height: 1.7; margin-bottom: 1.5rem; }
 .author-social, .social-row {
+  display: flex; justify-content: center; gap: .5rem;
+}
+.social-btn {
   width: 36px; height: 36px; border-radius: 50%;
   border: 1px solid var(--ink-border);
   background: var(--ink-surface);
@@ -1803,7 +1806,7 @@ body::before {
 .author-card-name { font-family: var(--font-display); font-size: 1.2rem; font-weight: 700; margin-bottom: .25rem; }
 .author-card-role { font-size: .83rem; color: var(--ink-muted); margin-bottom: .9rem; }
 .author-card-bio  { font-size: .88rem; color: var(--ink-muted); line-height: 1.7; margin-bottom: 1.3rem; max-width: 460px; margin-left: auto; margin-right: auto; }
-.social-row { display: flex; justify-content: center; gap: .5rem; }
+/* .social-row merged into .author-social selector above */
 
 /* Prev / Next post */
 .post-nav { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 3rem 0; }
@@ -2608,7 +2611,7 @@ body:has(.auth-page) { overflow: hidden; }
 }
 
 /* ==========================================================
-   INDEX: Post card row layout helpers
+   BLOG-THEME: Post card row layout helpers
    ========================================================== */
 .post-card-row { flex-direction: row !important; }
 .post-card-thumb-sm {
@@ -3067,8 +3070,8 @@ body:has(.auth-page) { overflow: hidden; }
 }
 
 /* --- LOGIN: Auth tab panes --- */
-/* .auth-tab-pane { display: none; }
-.auth-tab-pane.active { display: block; } */
+/* .auth-tab-pane: visibility controlled by initAuthTabs() via style.display */
+.auth-tab-pane { /* display managed by JS */ }
 
 /* --- CONTEXT selectors: standalone triggers --- */
 .ink-breadcrumb { }   /* styles applied via .ink-breadcrumb .* child selectors */
