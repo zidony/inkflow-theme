@@ -1,5 +1,5 @@
 /**
- * INKFLOW Blog Theme — Unified JavaScript v2.0
+ * INKFLOW Blog Theme — Unified JavaScript v2.2
  * =========================================================
  * 模块说明 (Modules):
  *
@@ -17,7 +17,7 @@
  * 12. Archive — Year Tab Switching
  * 13. Album — Filter Tabs
  * 14. Album — Lightbox
- * 15. Link List — Filter Tabs
+ * 15. Link List — Filter & Apply Form
  * 16. Post Detail — TOC Scroll Spy
  * 17. Post Detail — Reactions & Like
  * 18. Post Detail — Copy Code Block
@@ -27,14 +27,18 @@
  * 22. Profile Page — Edit Mode Toggle
  * 23. Profile Page — Avatar Upload Preview
  * 24. Keyboard Shortcuts (Esc / Ctrl+K)
+ * 25. Login / Register — Auth Tabs
+ * 26. Login — Password Toggle
+ * 27. Login — Form Submit Handlers
  *
- * v2.0 变更说明:
- * - 新增 Bootstrap 变量覆盖，btn-primary 等原生类自动变为品牌绿
- * - Login tab 改用 BS5 原生 Tab API，移除自定义 switchTab()
- * - 密码显示切换 togglePwd() 迁移为统一的 .auth-pwd-toggle 事件绑定
- * - 新增 initAuthTabs() 模块管理登录页 Tab 切换
- * - Toast 改用 class 驱动（不再写 style 字符串），新增 .ink-toast CSS
- * - 所有模块严格检查 DOM 存在性，安全可跨页复用
+ * v2.2 变更说明:
+ * - 修复 initViewToggle：改用 classList.toggle('d-none') 避免与 Bootstrap d-none 冲突
+ * - toggleApplyForm 统一使用 linkApplyForm ID，与 link-list.html 对齐
+ * - 清理所有 CSS/JS 重复定义（11 处 CSS 重复、0 处 JS 重复）
+ * - 新增 post-list 缺失 CSS：img-ph hover、post-card-badge、pop-item、result-count
+ * - 新增 tag-list CSS：tag-cloud-wrap、cloud-tag（恢复彩色多色标签云）
+ * - tag-list.html 恢复原版彩色标签云 JS 实现
+ * - archive-list.html setYear() 移入 inkflow.js，统一管理
  * =========================================================
  */
 
@@ -302,15 +306,15 @@ function initViewToggle() {
   gridBtn.addEventListener('click', () => {
     gridBtn.classList.add('active');
     listBtn.classList.remove('active');
-    if (gridView) gridView.style.display = '';
-    if (listView) listView.style.display = 'none';
+    if (gridView) gridView.classList.remove('d-none');
+    if (listView) listView.classList.add('d-none');
   });
 
   listBtn.addEventListener('click', () => {
     listBtn.classList.add('active');
     gridBtn.classList.remove('active');
-    if (listView) listView.style.display = '';
-    if (gridView) gridView.style.display = 'none';
+    if (listView) listView.classList.remove('d-none');
+    if (gridView) gridView.classList.add('d-none');
   });
 }
 
@@ -350,6 +354,31 @@ function initArchiveTabs() {
       this.classList.add('active');
     });
   });
+}
+
+/* year-btn switching for archive heatmap — called by onclick in archive-list.html */
+function setYear(el, year) {
+  document.querySelectorAll('.year-btn').forEach(b => b.classList.remove('active'));
+  if (el) el.classList.add('active');
+  // Re-generate heatmap with different seed per year
+  const grid = document.getElementById('heatmapGrid');
+  if (!grid) return;
+  grid.innerHTML = '';
+  const levels = [0, 0, 0, 1, 1, 2, 2, 3, 4];
+  const seed = parseInt(year) % 100;
+  for (let week = 0; week < 53; week++) {
+    const weekEl = document.createElement('div');
+    weekEl.className = 'heatmap-week';
+    for (let day = 0; day < 7; day++) {
+      const dayEl = document.createElement('div');
+      dayEl.className = 'heatmap-day';
+      const rand = Math.abs(Math.sin(week * 7 + day + seed)) * levels.length | 0;
+      const lvl = levels[Math.min(rand, levels.length - 1)];
+      if (lvl > 0) dayEl.dataset.level = lvl;
+      weekEl.appendChild(dayEl);
+    }
+    grid.appendChild(weekEl);
+  }
 }
 
 
@@ -423,7 +452,7 @@ function filterLinks(el, cat) {
 }
 
 function toggleApplyForm() {
-  const form = document.getElementById('applyForm');
+  const form = document.getElementById('linkApplyForm');
   if (form) form.classList.toggle('show');
 }
 

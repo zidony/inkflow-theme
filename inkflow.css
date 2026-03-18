@@ -565,7 +565,7 @@ body::before {
 .ink-breadcrumb .breadcrumb-item a { color: rgba(255,255,255,.5); }
 .ink-breadcrumb .breadcrumb-item.active { color: rgba(255,255,255,.8); }
 .ink-breadcrumb .breadcrumb-item + .breadcrumb-item::before { color: rgba(255,255,255,.3); }
-.ink-breadcrumb .breadcrumb-item i { vertical-align: -.1em; }
+/* .ink-breadcrumb .breadcrumb-item i { vertical-align: -.1em; } */
 
 
 /* ==========================================================
@@ -739,7 +739,7 @@ body::before {
   font-size: .7rem; font-weight: 700; color: #fff; flex-shrink: 0;
 }
 
-.meta-author { font-size: .85rem; color: rgba(255,255,255,.7); font-weight: 500; }
+.meta-author { display: flex; align-items: center; gap: .65rem; font-size: .85rem; color: rgba(255,255,255,.7); font-weight: 500; }
 .meta-date   { font-size: .8rem;  color: rgba(255,255,255,.4); }
 
 .hero-card-readtime {
@@ -1337,14 +1337,15 @@ body::before {
 .heatmap-day[data-level="3"] { background: rgba(var(--ink-primary-rgb),.8); }
 .heatmap-day[data-level="4"] { background: var(--ink-primary); }
 
-.archive-year-tab {
+.archive-year-tab, .year-btn {
   padding: .45rem 1.1rem; border-radius: 99px;
   font-size: .85rem; font-weight: 600;
   border: 1px solid var(--ink-border);
   color: var(--ink-muted); background: var(--ink-card);
   cursor: pointer; transition: all var(--transition);
 }
-.archive-year-tab.active, .archive-year-tab:hover {
+.archive-year-tab.active, .archive-year-tab:hover,
+.year-btn.active, .year-btn:hover {
   background: var(--ink-primary); border-color: var(--ink-primary); color: #fff;
 }
 
@@ -1583,29 +1584,7 @@ body::before {
 .link-featured-meta { display: flex; align-items: center; gap: .75rem; flex-wrap: wrap; }
 .link-meta-item { font-size: .75rem; color: var(--ink-muted); display: flex; align-items: center; gap: .3rem; }
 
-/* Apply form (申请收录) */
-.link-apply-card {
-  background: var(--ink-card);
-  border: 1px solid var(--ink-border);
-  border-radius: var(--radius-xl);
-  padding: 2rem;
-  box-shadow: var(--shadow-card);
-}
-.link-apply-input {
-  width: 100%;
-  background: var(--ink-surface);
-  border: 1.5px solid var(--ink-border);
-  border-radius: var(--radius-md);
-  padding: .7rem 1rem;
-  color: var(--ink-text);
-  font-size: .92rem;
-  font-family: var(--font-body);
-  outline: none;
-  transition: border-color var(--transition);
-  margin-bottom: .85rem;
-}
-.link-apply-input:focus { border-color: var(--ink-primary); }
-.link-apply-input::placeholder { color: var(--ink-muted); }
+/* link-apply-card — dark gradient version in v2.1 section */
 
 
 /* ==========================================================
@@ -2438,6 +2417,7 @@ body:has(.auth-page) { overflow: hidden; }
 }
 .cat-std-card::after {
   content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 3px;
+  background: var(--cat-bar, var(--ink-primary));
   transform: scaleX(0); transform-origin: left; transition: transform var(--transition);
 }
 .cat-std-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-hover); }
@@ -2640,7 +2620,6 @@ body:has(.auth-page) { overflow: hidden; }
 .img-icon-muted { color: rgba(255,255,255,.2); font-size: 2.5rem; }
 
 /* cat-std-card bottom bar driven by CSS custom property --cat-bar */
-.cat-std-card::after { background: var(--cat-bar, var(--ink-primary)); }
 
 
 /* ==========================================================
@@ -2673,19 +2652,13 @@ body:has(.auth-page) { overflow: hidden; }
   gap: 1rem;
 }
 
-/* Shared stat item (used in stats-bar and stats-banner) */
-.stat-item  { text-align: center; }
-.stat-num   { font-family: var(--font-display); font-size: 1.9rem; font-weight: 900; color: var(--ink-accent); line-height: 1; }
-.stat-label { font-size: .73rem; color: rgba(255,255,255,.5); text-transform: uppercase; letter-spacing: .07em; margin-top: .2rem; }
+/* stat-item / stat-num / stat-label — defined in Section 08 (Hero Stats) */
 
 /* --- ALBUM LIST: Photo masonry --- */
 .masonry-section { margin-top: 4rem; }
 .masonry-header  { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.5rem; }
 .masonry-title   { font-family: var(--font-display); font-size: 1.5rem; font-weight: 700; }
-.photo-masonry   { columns: 4; gap: 10px; }
-@media (max-width: 1200px) { .photo-masonry { columns: 3; } }
-@media (max-width: 768px)  { .photo-masonry { columns: 2; } }
-@media (max-width: 480px)  { .photo-masonry { columns: 1; } }
+
 
 /* --- ARCHIVE LIST: Activity heatmap --- */
 .heatmap-wrap {
@@ -2697,29 +2670,11 @@ body:has(.auth-page) { overflow: hidden; }
   margin-bottom: 2rem;
   overflow-x: auto;
 }
-.heatmap-grid { display: flex; gap: 3px; align-items: flex-start; }
-.heatmap-col  { display: flex; flex-direction: column; gap: 3px; }
-.heatmap-cell {
-  width: 12px; height: 12px; border-radius: 2px;
-  cursor: pointer; transition: transform .15s;
-  background: var(--ink-border);
-}
-.heatmap-cell:hover { transform: scale(1.3); }
-.heatmap-cell[data-level="1"] { background: rgba(var(--ink-primary-rgb), .2); }
-.heatmap-cell[data-level="2"] { background: rgba(var(--ink-primary-rgb), .45); }
-.heatmap-cell[data-level="3"] { background: rgba(var(--ink-primary-rgb), .7); }
-.heatmap-cell[data-level="4"] { background: var(--ink-primary); }
+/* heatmap-week/heatmap-day classes defined in Section 15 (Archive) */
 
 /* --- ARCHIVE LIST: Year nav --- */
 .year-nav { display: flex; gap: .5rem; margin-bottom: 2rem; flex-wrap: wrap; }
-.year-btn {
-  padding: .45rem 1.1rem; border-radius: 99px;
-  font-size: .85rem; font-weight: 600;
-  border: 1px solid var(--ink-border); color: var(--ink-muted);
-  background: var(--ink-card); cursor: pointer;
-  transition: all var(--transition); font-family: var(--font-mono);
-}
-.year-btn.active, .year-btn:hover { background: var(--ink-primary); border-color: var(--ink-primary); color: #fff; }
+/* .year-btn styles merged into .archive-year-tab selector above */
 
 /* --- ARCHIVE LIST: Month sections --- */
 .month-section { margin-bottom: 3rem; }
@@ -2826,8 +2781,7 @@ body:has(.auth-page) { overflow: hidden; }
 .recently-added-item:hover { transform: translateX(4px); }
 .recently-added-item:hover .link-name { color: var(--ink-primary); }
 
-/* --- POST DETAIL: meta-author row --- */
-.meta-author { display: flex; align-items: center; gap: .65rem; }
+/* meta-author — merged into Section 09 */
 
 /* --- POST DETAIL: article-tags --- */
 .article-tags { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: 1rem; }
@@ -2904,11 +2858,6 @@ body:has(.auth-page) { overflow: hidden; }
 
 /* --- TAG LIST: Tag cloud wrap --- */
 
-/* TAG CLOUD */
-.tag-cloud-wrap{background:var(--ink-card);border:1px solid var(--ink-border);border-radius:var(--radius-xl);padding:2.5rem;box-shadow:var(--shadow-card)}
-.cloud-tag{display:inline-flex;align-items:center;gap:.35rem;border-radius:99px;border:1px solid;font-weight:600;cursor:pointer;transition:all var(--transition);line-height:1}
-.cloud-tag:hover{transform:translateY(-2px) scale(1.04);box-shadow:0 4px 15px rgba(0,0,0,.1)}
-
 /* --- TAG LIST: Tag group cards --- */
 .tag-group {
   background: var(--ink-card); border: 1px solid var(--ink-border);
@@ -2971,18 +2920,79 @@ body:has(.auth-page) { overflow: hidden; }
 #tfaSwitch.on > div { transform: translateX(20px); }
 
 
-.post-card-image .img-ph{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:2.8rem;transition:transform .5s cubic-bezier(.4,0,.2,1)}
-.post-card:hover .img-ph{transform:scale(1.08)}
-.post-card-badge{position:absolute;top:.9rem;left:.9rem;background:var(--ink-primary);color:#fff;border-radius:99px;padding:.18rem .65rem;font-size:.7rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase}
-/* POPULAR */
-.pop-item{display:flex;gap:.9rem;padding:.8rem 0;border-bottom:1px solid var(--ink-border);cursor:pointer}
-.pop-item:last-child{border-bottom:none;padding-bottom:0}
-.pop-item:first-child{padding-top:0}
-.pop-rank{font-family:var(--font-display);font-size:1.4rem;font-weight:900;color:var(--ink-border);line-height:1;min-width:26px}
-.pop-title{font-size:.86rem;font-weight:600;color:var(--ink-heading);line-height:1.4;transition:color var(--transition);margin-bottom:.2rem}
-.pop-item:hover .pop-title{color:var(--ink-primary)}
-.pop-meta{font-size:.75rem;color:var(--ink-muted)}
-/* RESULT COUNT */
-.result-count{font-size:.85rem;color:var(--ink-muted);display:flex;align-items:center;gap:.4rem}
+/* ==========================================================
+   v2.2 ADDITIONS
+   ========================================================== */
+
+/* --- POST LIST: Image placeholder hover + badge --- */
+.post-card-image .img-ph {
+  width: 100%; height: 100%; display: flex;
+  align-items: center; justify-content: center;
+  font-size: 2.8rem;
+  transition: transform .5s cubic-bezier(.4,0,.2,1);
+}
+.post-card:hover .img-ph { transform: scale(1.08); }
+.post-card-badge {
+  position: absolute; top: .9rem; left: .9rem;
+  background: var(--ink-primary); color: #fff;
+  border-radius: 99px; padding: .18rem .65rem;
+  font-size: .7rem; font-weight: 700;
+  letter-spacing: .04em; text-transform: uppercase;
+}
+
+/* --- POST LIST: Popular sidebar items --- */
+.pop-item {
+  display: flex; gap: .9rem;
+  padding: .8rem 0; border-bottom: 1px solid var(--ink-border); cursor: pointer;
+}
+.pop-item:last-child  { border-bottom: none; padding-bottom: 0; }
+.pop-item:first-child { padding-top: 0; }
+.pop-rank  { font-family: var(--font-display); font-size: 1.4rem; font-weight: 900; color: var(--ink-border); line-height: 1; min-width: 26px; }
+.pop-title { font-size: .86rem; font-weight: 600; color: var(--ink-heading); line-height: 1.4; transition: color var(--transition); margin-bottom: .2rem; }
+.pop-item:hover .pop-title { color: var(--ink-primary); }
+.pop-meta  { font-size: .75rem; color: var(--ink-muted); }
+
+/* --- POST LIST: Result count --- */
+.result-count { font-size: .85rem; color: var(--ink-muted); display: flex; align-items: center; gap: .4rem; }
+
+/* --- TAG LIST: Cloud wrap and cloud tags --- */
+.tag-cloud-wrap {
+  background: var(--ink-card); border: 1px solid var(--ink-border);
+  border-radius: var(--radius-xl); padding: 2.5rem;
+  box-shadow: var(--shadow-card);
+}
+.cloud-tag {
+  display: inline-flex; align-items: center; gap: .35rem;
+  border-radius: 99px; border: 1px solid;
+  font-weight: 600; cursor: pointer;
+  transition: all var(--transition); line-height: 1;
+  text-decoration: none;
+}
+.cloud-tag:hover {
+  transform: translateY(-2px) scale(1.04);
+  box-shadow: 0 4px 15px rgba(0,0,0,.1);
+}
+
+/* --- SHARED: Section heading (used in tag-list, category-list etc.) --- */
+.section-heading {
+  font-family: var(--font-display);
+  font-size: 1.4rem; font-weight: 700; margin-bottom: 1.5rem;
+}
 
 
+.post-card-category {
+  font-size: .75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .07em;
+  color: var(--ink-primary);
+  margin-bottom: .6rem;
+}
+
+
+.section-eyebrow::before {
+  content:'';
+  width:20px; height:2px;
+  background: var(--ink-primary);
+  border-radius: 99px;
+}

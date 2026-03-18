@@ -911,52 +911,10 @@
     <script src="inkflow.js"></script>
     <script>
       /* ── archive-list.html page-specific JS ── */
-
-      function buildHeatmap(year) {
-        const grid = document.getElementById("heatmapGrid");
-        if (!grid) return;
-        const weeks = 52,
-          days = 7;
-        // Simulate activity data (in real use, replace with server data)
-        const seed = parseInt(year) % 100;
-        grid.innerHTML = "";
-        for (let w = 0; w < weeks; w++) {
-          const col = document.createElement("div");
-          col.className = "heatmap-col";
-          for (let d = 0; d < days; d++) {
-            const cell = document.createElement("div");
-            cell.className = "heatmap-cell";
-            const rand = Math.sin(w * 7 + d + seed) * 0.5 + 0.5;
-            const level =
-              rand > 0.85
-                ? 4
-                : rand > 0.65
-                  ? 3
-                  : rand > 0.45
-                    ? 2
-                    : rand > 0.3
-                      ? 1
-                      : 0;
-            if (level) cell.setAttribute("data-level", level);
-            const date = new Date(parseInt(year), 0, w * 7 + d + 1);
-            cell.title =
-              date.toLocaleDateString("zh-CN") +
-              (level ? ` · ${level} 篇` : " · 无文章");
-            col.appendChild(cell);
-          }
-          grid.appendChild(col);
-        }
-      }
-
-      function setYear(el, year) {
-        document
-          .querySelectorAll(".year-btn")
-          .forEach((b) => b.classList.remove("active"));
-        el.classList.add("active");
-        buildHeatmap(year);
-      }
-
-      document.addEventListener("DOMContentLoaded", () => buildHeatmap("2025"));
+      /* setYear() 函数由 inkflow.js 提供，此处仅初始化首次渲染 */
+      document.addEventListener("DOMContentLoaded", () =>
+        setYear(null, "2025"),
+      );
     </script>
   </body>
 </html>

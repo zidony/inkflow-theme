@@ -177,17 +177,7 @@
         </div>
 
         <!-- TAG GROUPS with recent posts -->
-        <h2
-          style="
-            font-size: 1.4rem;
-            font-weight: 700;
-            margin-bottom: 1.5rem;
-            font-family: var(--font-display);
-          "
-          class="fade-up"
-        >
-          热门标签下的文章
-        </h2>
+        <h2 class="section-heading fade-up">热门标签下的文章</h2>
         <div class="row g-4">
           <div class="col-md-6 col-lg-4 fade-up delay-1">
             <div class="tag-group">
@@ -198,17 +188,7 @@
                 <div class="tag-group-name">
                   <i class="bi bi-hash"></i> JavaScript
                 </div>
-                <span
-                  style="
-                    font-size: 0.75rem;
-                    background: rgba(255, 255, 255, 0.15);
-                    color: #fff;
-                    border-radius: 99px;
-                    padding: 0.15rem 0.6rem;
-                    font-weight: 600;
-                  "
-                  >24 篇</span
-                >
+                <span class="tag-group-count">24 篇</span>
               </div>
               <div class="tag-group-body">
                 <div class="tag-group-post">
@@ -237,17 +217,7 @@
                 <div class="tag-group-name">
                   <i class="bi bi-hash"></i> React
                 </div>
-                <span
-                  style="
-                    font-size: 0.75rem;
-                    background: rgba(255, 255, 255, 0.15);
-                    color: #fff;
-                    border-radius: 99px;
-                    padding: 0.15rem 0.6rem;
-                    font-weight: 600;
-                  "
-                  >18 篇</span
-                >
+                <span class="tag-group-count">18 篇</span>
               </div>
               <div class="tag-group-body">
                 <div class="tag-group-post">
@@ -276,17 +246,7 @@
                 <div class="tag-group-name">
                   <i class="bi bi-hash"></i> TypeScript
                 </div>
-                <span
-                  style="
-                    font-size: 0.75rem;
-                    background: rgba(255, 255, 255, 0.15);
-                    color: #fff;
-                    border-radius: 99px;
-                    padding: 0.15rem 0.6rem;
-                    font-weight: 600;
-                  "
-                  >15 篇</span
-                >
+                <span class="tag-group-count">15 篇</span>
               </div>
               <div class="tag-group-body">
                 <div class="tag-group-post">
@@ -314,17 +274,7 @@
                 <div class="tag-group-name">
                   <i class="bi bi-hash"></i> Docker
                 </div>
-                <span
-                  style="
-                    font-size: 0.75rem;
-                    background: rgba(255, 255, 255, 0.15);
-                    color: #fff;
-                    border-radius: 99px;
-                    padding: 0.15rem 0.6rem;
-                    font-weight: 600;
-                  "
-                  >12 篇</span
-                >
+                <span class="tag-group-count">12 篇</span>
               </div>
               <div class="tag-group-body">
                 <div class="tag-group-post">
@@ -352,17 +302,7 @@
                 <div class="tag-group-name">
                   <i class="bi bi-hash"></i> AI · LLM
                 </div>
-                <span
-                  style="
-                    font-size: 0.75rem;
-                    background: rgba(255, 255, 255, 0.15);
-                    color: #fff;
-                    border-radius: 99px;
-                    padding: 0.15rem 0.6rem;
-                    font-weight: 600;
-                  "
-                  >19 篇</span
-                >
+                <span class="tag-group-count">19 篇</span>
               </div>
               <div class="tag-group-body">
                 <div class="tag-group-post">
@@ -391,17 +331,7 @@
                 <div class="tag-group-name">
                   <i class="bi bi-hash"></i> 设计系统
                 </div>
-                <span
-                  style="
-                    font-size: 0.75rem;
-                    background: rgba(255, 255, 255, 0.15);
-                    color: #fff;
-                    border-radius: 99px;
-                    padding: 0.15rem 0.6rem;
-                    font-weight: 600;
-                  "
-                  >11 篇</span
-                >
+                <span class="tag-group-count">11 篇</span>
               </div>
               <div class="tag-group-body">
                 <div class="tag-group-post">
@@ -517,8 +447,8 @@
     <script src="inkflow.js"></script>
     <script>
       /* ── tag-list.html page-specific JS ── */
-      // TAG CLOUD GENERATOR
-      const tags = [
+
+      const TAGS = [
         {
           name: "JavaScript",
           count: 24,
@@ -691,9 +621,10 @@
 
       function renderCloud(list) {
         const container = document.getElementById("tagCloudInner");
+        if (!container) return;
+        const max = Math.max(...list.map((t) => t.count));
+        const min = Math.min(...list.map((t) => t.count));
         container.innerHTML = "";
-        const max = Math.max(...list.map((t) => t.count)),
-          min = Math.min(...list.map((t) => t.count));
         list.forEach((tag) => {
           const ratio = (tag.count - min) / (max - min || 1);
           const size = 0.78 + ratio * 0.6;
@@ -702,47 +633,38 @@
           el.href = "post-list.html";
           el.className = "cloud-tag";
           el.style.cssText = `font-size:${size}rem;padding:${pad};color:${tag.color};background:${tag.bg};border-color:${tag.border}`;
-          el.innerHTML = `<i class="bi bi-hash" style="font-size:.8em;opacity:.7"></i>${tag.name}<span style="font-size:.7em;opacity:.6;font-family:var(--font-mono)">${tag.count}</span>`;
+          el.innerHTML = `<i class="bi bi-hash" style="font-size:.8em;opacity:.7"></i>${tag.name}<span style="font-size:.7em;opacity:.6;font-family:var(--font-mono);margin-left:.2em">${tag.count}</span>`;
           container.appendChild(el);
         });
       }
-
-      renderCloud(tags);
-
-      document
-        .getElementById("tagSearch")
-        .addEventListener("input", function () {
-          const q = this.value.toLowerCase();
-          renderCloud(
-            q ? tags.filter((t) => t.name.toLowerCase().includes(q)) : tags,
-          );
-        });
 
       function setSort(el, type) {
         document
           .querySelectorAll(".sort-tab")
           .forEach((t) => t.classList.remove("active"));
-        el.classList.add("active");
-        let sorted = [...tags];
+        if (el) el.classList.add("active");
+        let sorted = [...TAGS];
         if (type === "count") sorted.sort((a, b) => b.count - a.count);
         else if (type === "alpha")
           sorted.sort((a, b) => a.name.localeCompare(b.name, "zh"));
-        else sorted.sort(() => Math.random() - 0.5);
+        else
+          sorted.sort(
+            () => Math.random() - 0.5,
+          ); /* recent = shuffle for demo */
         renderCloud(sorted);
       }
 
-      const obs = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((e) => {
-            if (e.isIntersecting) {
-              e.target.classList.add("visible");
-              obs.unobserve(e.target);
-            }
-          });
-        },
-        { threshold: 0.08, rootMargin: "0px 0px -30px 0px" },
-      );
-      document.querySelectorAll(".fade-up").forEach((el) => obs.observe(el));
+      const _tagSearch = document.getElementById("tagSearch");
+      if (_tagSearch) {
+        _tagSearch.addEventListener("input", function () {
+          const q = this.value.toLowerCase();
+          renderCloud(
+            q ? TAGS.filter((t) => t.name.toLowerCase().includes(q)) : TAGS,
+          );
+        });
+      }
+
+      document.addEventListener("DOMContentLoaded", () => renderCloud(TAGS));
     </script>
   </body>
 </html>

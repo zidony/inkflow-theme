@@ -63,13 +63,10 @@
             <button class="btn-nav-search" onclick="openSearch()">
               <i class="bi bi-search me-1"></i>搜索
             </button>
-            <button class="theme-toggle" id="themeToggle">
-              <i class="bi bi-moon-stars-fill" id="themeIcon"></i>
-            </button>
-            <a href="login.html" class="btn-nav-login" id="navLoginBtn"
+            <a href="login.html" class="btn-nav-login d-none" id="navLoginBtn"
               ><i class="bi bi-person me-1"></i> 登录</a
             >
-            <div class="nav-user-wrapper d-none" id="navUserWrapper">
+            <div class="nav-user-wrapper" id="navUserWrapper">
               <div class="nav-user-avatar" id="navUserAvatar">陈</div>
               <div class="nav-user-dropdown">
                 <div class="nav-user-dropdown-header">
@@ -93,6 +90,9 @@
                 >
               </div>
             </div>
+            <button class="theme-toggle" id="themeToggle" title="切换主题">
+              <i class="bi bi-moon-stars-fill" id="themeIcon"></i>
+            </button>
           </div>
         </div>
       </div>
