@@ -24,7 +24,7 @@
     <!-- NAVBAR -->
     <nav class="ink-navbar navbar navbar-expand-lg" id="mainNavbar">
       <div class="container">
-        <a class="navbar-brand" href="index.hmtl"
+        <a class="navbar-brand" href="index.html"
           >INKFLOW<span class="brand-dot"></span
         ></a>
         <button
@@ -38,7 +38,7 @@
         <div class="collapse navbar-collapse" id="navMenu">
           <ul class="navbar-nav mx-auto gap-1">
             <li class="nav-item">
-              <a class="nav-link" href="index.hmtl">首页</a>
+              <a class="nav-link" href="index.html">首页</a>
             </li>
             <li class="nav-item">
               <a class="nav-link active" href="post-list.html">文章</a>
@@ -69,32 +69,14 @@
             <a href="login.html" class="btn-nav-login" id="navLoginBtn"
               ><i class="bi bi-person me-1"></i> 登录</a
             >
-            <div
-              class="nav-user-wrapper"
-              id="navUserWrapper"
-              style="display: none"
-            >
+            <div class="nav-user-wrapper" id="navUserWrapper" class="d-none">
               <div class="nav-user-avatar" id="navUserAvatar">陈</div>
               <div class="nav-user-dropdown">
-                <div
-                  style="
-                    padding: 0.6rem 1rem 0.4rem;
-                    border-bottom: 1px solid var(--ink-border);
-                  "
-                >
-                  <div
-                    style="
-                      font-size: 0.82rem;
-                      font-weight: 600;
-                      color: var(--ink-heading);
-                    "
-                    id="navUserName"
-                  >
+                <div class="nav-user-dropdown-header">
+                  <div class="nav-user-dropdown-name" id="navUserName">
                     陈明远
                   </div>
-                  <div style="font-size: 0.75rem; color: var(--ink-muted)">
-                    个人主页
-                  </div>
+                  <div class="nav-user-dropdown-sub">个人主页</div>
                 </div>
                 <a href="profile.html" class="nav-user-dropdown-item"
                   ><i class="bi bi-person-circle"></i> 个人资料</a
@@ -122,7 +104,7 @@
         <nav aria-label="breadcrumb" class="ink-breadcrumb mb-3">
           <ol class="breadcrumb mb-0 align-items-center">
             <li class="breadcrumb-item">
-              <a href="index.hmtl"><i class="bi bi-house me-1"></i>首页</a>
+              <a href="index.html"><i class="bi bi-house me-1"></i>首页</a>
             </li>
             <li class="breadcrumb-item active">全部文章</li>
           </ol>
@@ -842,8 +824,7 @@
               <div class="sidebar-title">归档速览</div>
               <div class="d-flex flex-column gap-2">
                 <div
-                  class="d-flex justify-content-between align-items-center py-1"
-                  style="border-bottom: 1px solid var(--ink-border)"
+                  class="d-flex justify-content-between align-items-center py-1 border-bottom border-custom"
                 >
                   <span
                     style="
@@ -853,15 +834,10 @@
                     "
                     >2025 年</span
                   >
-                  <span
-                    class="tag-pill active"
-                    style="font-size: 0.72rem; padding: 0.15rem 0.55rem"
-                    >36 篇</span
-                  >
+                  <span class="tag-pill tag-sm active">36 篇</span>
                 </div>
                 <div
-                  class="d-flex justify-content-between align-items-center py-1"
-                  style="border-bottom: 1px solid var(--ink-border)"
+                  class="d-flex justify-content-between align-items-center py-1 border-bottom border-custom"
                 >
                   <span
                     style="
@@ -871,15 +847,10 @@
                     "
                     >2024 年</span
                   >
-                  <span
-                    class="tag-pill"
-                    style="font-size: 0.72rem; padding: 0.15rem 0.55rem"
-                    >52 篇</span
-                  >
+                  <span class="tag-pill tag-sm">52 篇</span>
                 </div>
                 <div
-                  class="d-flex justify-content-between align-items-center py-1"
-                  style="border-bottom: 1px solid var(--ink-border)"
+                  class="d-flex justify-content-between align-items-center py-1 border-bottom border-custom"
                 >
                   <span
                     style="
@@ -889,11 +860,7 @@
                     "
                     >2023 年</span
                   >
-                  <span
-                    class="tag-pill"
-                    style="font-size: 0.72rem; padding: 0.15rem 0.55rem"
-                    >28 篇</span
-                  >
+                  <span class="tag-pill tag-sm">28 篇</span>
                 </div>
                 <div
                   class="d-flex justify-content-between align-items-center py-1"
@@ -906,11 +873,7 @@
                     "
                     >2022 年</span
                   >
-                  <span
-                    class="tag-pill"
-                    style="font-size: 0.72rem; padding: 0.15rem 0.55rem"
-                    >12 篇</span
-                  >
+                  <span class="tag-pill tag-sm">12 篇</span>
                 </div>
               </div>
               <a
@@ -1029,7 +992,7 @@
           <div class="col-md-2">
             <div class="footer-heading">导航</div>
             <ul class="footer-links">
-              <li><a href="index.hmtl">首页</a></li>
+              <li><a href="index.html">首页</a></li>
               <li><a href="post-list.html">文章</a></li>
               <li><a href="category-list.html">分类</a></li>
               <li><a href="archive-list.html">归档</a></li>
@@ -1058,19 +1021,11 @@
           </div>
         </div>
         <hr class="footer-divider" />
-        <div
-          class="footer-bottom"
-          style="
-            display: flex;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-          "
-        >
+        <div class="footer-bottom">
           <div class="footer-copy">
             © 2025 <span>INKFLOW</span> · 保留所有权利
           </div>
-          <div style="display: flex; gap: 0.5rem">
+          <div class="footer-badges">
             <span
               style="
                 font-size: 0.72rem;
@@ -1103,8 +1058,8 @@
       <button class="search-close" onclick="closeSearch()">
         <i class="bi bi-x-lg"></i>
       </button>
-      <div style="width: 100%; max-width: 700px; padding: 0 2rem">
-        <div style="position: relative; margin-bottom: 1.5rem">
+      <div class="search-box">
+        <div class="search-input-wrap">
           <i
             class="bi bi-search"
             style="
@@ -1122,7 +1077,7 @@
             placeholder="搜索文章…"
           />
         </div>
-        <div style="display: flex; gap: 0.5rem; flex-wrap: wrap">
+        <div class="search-tips">
           <span class="search-tip">React</span
           ><span class="search-tip">TypeScript</span
           ><span class="search-tip">AI 工具</span

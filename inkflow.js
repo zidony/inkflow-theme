@@ -1,5 +1,5 @@
 /**
- * INKFLOW Blog Theme — Unified JavaScript
+ * INKFLOW Blog Theme — Unified JavaScript v2.0
  * =========================================================
  * 模块说明 (Modules):
  *
@@ -28,9 +28,13 @@
  * 23. Profile Page — Avatar Upload Preview
  * 24. Keyboard Shortcuts (Esc / Ctrl+K)
  *
- * 使用说明:
- * - 每个模块通过 initXxx() 函数封装，只有对应 DOM 存在时才执行
- * - 页面底部统一调用入口 initPage()
+ * v2.0 变更说明:
+ * - 新增 Bootstrap 变量覆盖，btn-primary 等原生类自动变为品牌绿
+ * - Login tab 改用 BS5 原生 Tab API，移除自定义 switchTab()
+ * - 密码显示切换 togglePwd() 迁移为统一的 .auth-pwd-toggle 事件绑定
+ * - 新增 initAuthTabs() 模块管理登录页 Tab 切换
+ * - Toast 改用 class 驱动（不再写 style 字符串），新增 .ink-toast CSS
+ * - 所有模块严格检查 DOM 存在性，安全可跨页复用
  * =========================================================
  */
 
@@ -49,7 +53,7 @@ function initNavbar() {
   }
 
   window.addEventListener('scroll', onScroll, { passive: true });
-  onScroll(); // 初始化状态
+  onScroll();
 }
 
 
@@ -89,7 +93,6 @@ function initBackToTop() {
   });
 }
 
-// 全局函数供内联 onclick 调用
 function scrollToTop() {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
@@ -100,17 +103,16 @@ function scrollToTop() {
    ========================================================== */
 
 function initThemeToggle() {
-  const btn  = document.getElementById('themeToggle');
+  const btn = document.getElementById('themeToggle');
   const icon = document.getElementById('themeIcon');
   if (!btn) return;
 
-  // 从 localStorage 恢复上次选择
   const savedTheme = localStorage.getItem('inkflow-theme') || 'light';
   applyTheme(savedTheme, icon);
 
   btn.addEventListener('click', () => {
     const current = document.documentElement.getAttribute('data-bs-theme') || 'light';
-    const next    = current === 'dark' ? 'light' : 'dark';
+    const next = current === 'dark' ? 'light' : 'dark';
     applyTheme(next, icon);
     localStorage.setItem('inkflow-theme', next);
     btn.style.transform = 'rotate(360deg)';
@@ -126,41 +128,33 @@ function applyTheme(theme, icon) {
 
 /* ==========================================================
    05. USER AUTH UI
-   用法:
-   - 未登录: #navLoginBtn 按钮显示 "登录"
-   - 已登录: #navUserWrapper 显示用户头像 + 下拉菜单
-   - 调用 inkflowAuth.setUser({name, initial}) 切换到已登录态
-   - 调用 inkflowAuth.logout() 切换回未登录态
    ========================================================== */
 
 const inkflowAuth = {
-  /** 登录后调用，user = { name: '陈明远', initial: '陈' } */
   setUser(user) {
-    const loginBtn  = document.getElementById('navLoginBtn');
-    const userWrap  = document.getElementById('navUserWrapper');
-    const avatar    = document.getElementById('navUserAvatar');
-    const userName  = document.getElementById('navUserName');
+    const loginBtn = document.getElementById('navLoginBtn');
+    const userWrap = document.getElementById('navUserWrapper');
+    const avatar = document.getElementById('navUserAvatar');
+    const userName = document.getElementById('navUserName');
 
-    if (loginBtn)  loginBtn.style.display  = 'none';
-    if (userWrap)  userWrap.style.display  = 'flex';
-    if (avatar)    avatar.textContent       = user.initial || user.name.charAt(0);
-    if (userName)  userName.textContent     = user.name;
+    if (loginBtn) loginBtn.style.display = 'none';
+    if (userWrap) userWrap.style.display = 'flex';
+    if (avatar) avatar.textContent = user.initial || user.name.charAt(0);
+    if (userName) userName.textContent = user.name;
 
     localStorage.setItem('inkflow-user', JSON.stringify(user));
   },
 
-  /** 登出后调用 */
   logout() {
-    const loginBtn  = document.getElementById('navLoginBtn');
-    const userWrap  = document.getElementById('navUserWrapper');
+    const loginBtn = document.getElementById('navLoginBtn');
+    const userWrap = document.getElementById('navUserWrapper');
 
-    if (loginBtn)  loginBtn.style.display  = '';
-    if (userWrap)  userWrap.style.display  = 'none';
+    if (loginBtn) loginBtn.style.display = '';
+    if (userWrap) userWrap.style.display = 'none';
 
     localStorage.removeItem('inkflow-user');
   },
 
-  /** 页面加载时从 localStorage 恢复状态 */
   restore() {
     const raw = localStorage.getItem('inkflow-user');
     if (raw) {
@@ -170,29 +164,23 @@ const inkflowAuth = {
 };
 
 function initUserAuth() {
-  // 恢复登录状态
   inkflowAuth.restore();
 
-  // 点击头像切换下拉菜单（移动端补充）
   const wrapper = document.getElementById('navUserWrapper');
-  const avatar  = document.getElementById('navUserAvatar');
+  const avatar = document.getElementById('navUserAvatar');
   if (wrapper && avatar) {
-    avatar.addEventListener('click', () => {
-      wrapper.classList.toggle('open');
-    });
-    // 点击其他地方收起
+    avatar.addEventListener('click', () => wrapper.classList.toggle('open'));
     document.addEventListener('click', (e) => {
       if (!wrapper.contains(e.target)) wrapper.classList.remove('open');
     });
   }
 
-  // 登出按钮
   const logoutBtn = document.getElementById('navLogoutBtn');
   if (logoutBtn) {
     logoutBtn.addEventListener('click', (e) => {
       e.preventDefault();
       inkflowAuth.logout();
-      window.location.href = 'index.hmtl';
+      window.location.href = 'index.html';
     });
   }
 }
@@ -205,8 +193,6 @@ function initUserAuth() {
 function initSearch() {
   const overlay = document.getElementById('searchOverlay');
   if (!overlay) return;
-
-  // 点击背景关闭
   overlay.addEventListener('click', (e) => {
     if (e.target === overlay) closeSearch();
   });
@@ -217,7 +203,6 @@ function openSearch() {
   if (!overlay) return;
   overlay.classList.add('active');
   document.body.style.overflow = 'hidden';
-  // 聚焦搜索框（兼容两种 id）
   const input = overlay.querySelector('input[type="text"]');
   if (input) setTimeout(() => input.focus(), 100);
 }
@@ -245,10 +230,7 @@ function initScrollReveal() {
         observer.unobserve(entry.target);
       }
     });
-  }, {
-    threshold: 0.08,
-    rootMargin: '0px 0px -40px 0px'
-  });
+  }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
 
   elements.forEach(el => observer.observe(el));
 }
@@ -263,13 +245,12 @@ function initCounters() {
   if (!counters.length) return;
 
   function animateCounter(el, target, suffix) {
-    const duration  = 1800;
+    const duration = 1800;
     const startTime = performance.now();
-
     function step(currentTime) {
-      const elapsed  = currentTime - startTime;
+      const elapsed = currentTime - startTime;
       const progress = Math.min(elapsed / duration, 1);
-      const eased    = 1 - Math.pow(1 - progress, 3); // ease-out cubic
+      const eased = 1 - Math.pow(1 - progress, 3);
       el.textContent = Math.floor(eased * target) + (suffix || '');
       if (progress < 1) requestAnimationFrame(step);
     }
@@ -279,7 +260,7 @@ function initCounters() {
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
-        const el     = entry.target;
+        const el = entry.target;
         const target = parseInt(el.dataset.count, 10);
         const suffix = el.dataset.suffix || '';
         animateCounter(el, target, suffix);
@@ -297,7 +278,6 @@ function initCounters() {
    ========================================================== */
 
 function initTagPills() {
-  // 同组内互斥激活（查找最近的 d-flex / flex 容器）
   document.querySelectorAll('.tag-pill').forEach(pill => {
     pill.addEventListener('click', function () {
       const group = this.closest('[class*="flex"]') || this.parentElement;
@@ -313,8 +293,8 @@ function initTagPills() {
    ========================================================== */
 
 function initViewToggle() {
-  const gridBtn  = document.getElementById('gridBtn');
-  const listBtn  = document.getElementById('listBtn');
+  const gridBtn = document.getElementById('gridBtn');
+  const listBtn = document.getElementById('listBtn');
   const gridView = document.getElementById('gridView');
   const listView = document.getElementById('listView');
   if (!gridBtn || !listBtn) return;
@@ -343,8 +323,7 @@ function initHeatmap() {
   const container = document.getElementById('heatmapGrid');
   if (!container) return;
 
-  const levels = [0, 0, 0, 1, 1, 2, 2, 3, 4]; // 权重分布
-
+  const levels = [0, 0, 0, 1, 1, 2, 2, 3, 4];
   for (let week = 0; week < 53; week++) {
     const weekEl = document.createElement('div');
     weekEl.className = 'heatmap-week';
@@ -369,7 +348,6 @@ function initArchiveTabs() {
     tab.addEventListener('click', function () {
       document.querySelectorAll('.archive-year-tab').forEach(t => t.classList.remove('active'));
       this.classList.add('active');
-      // 实际项目中这里通过 AJAX / 过滤 DOM 切换数据
     });
   });
 }
@@ -385,7 +363,7 @@ function filterAlbum(el, cat) {
 
   document.querySelectorAll('#albumGrid [data-cat]').forEach(card => {
     const visible = cat === 'all' || card.dataset.cat === cat;
-    card.style.opacity   = visible ? '1' : '.25';
+    card.style.opacity = visible ? '1' : '.25';
     card.style.transform = visible ? '' : 'scale(.96)';
   });
 }
@@ -395,15 +373,13 @@ function filterAlbum(el, cat) {
    14. ALBUM — Lightbox
    ========================================================== */
 
-// 数据由各页面内联 data 对象提供，这里仅提供 open/close 方法
 function openLightbox(key) {
   const lb = document.getElementById('lightbox');
   if (!lb) return;
 
-  // 尝试读取全局定义的 lightboxData（各页面可自定义）
   const data = (window.lightboxData && window.lightboxData[key]) || {};
-  const imgEl   = document.getElementById('lbImg');
-  const capEl   = document.getElementById('lbCaption');
+  const imgEl = document.getElementById('lbImg');
+  const capEl = document.getElementById('lbCaption');
 
   if (imgEl) {
     imgEl.style.background = data.bg || 'linear-gradient(135deg,#0a1a10,#1a5c2a)';
@@ -441,7 +417,7 @@ function filterLinks(el, cat) {
     const col = card.closest('.col-md-6, .col-12, [class*="col"]');
     if (!col) return;
     const visible = cat === 'all' || card.dataset.linkCat === cat;
-    col.style.opacity   = visible ? '1' : '.2';
+    col.style.opacity = visible ? '1' : '.2';
     col.style.transform = visible ? '' : 'scale(.97)';
   });
 }
@@ -481,8 +457,7 @@ function initTocSpy() {
    ========================================================== */
 
 function initReactions() {
-  // Floating like button
-  const likeBtn   = document.getElementById('likeBtn');
+  const likeBtn = document.getElementById('likeBtn');
   const likeCount = document.getElementById('likeCount');
   if (likeBtn && likeCount) {
     let liked = false;
@@ -555,7 +530,7 @@ function initParallax() {
 
   document.addEventListener('mousemove', (e) => {
     if (e.clientY > hero.getBoundingClientRect().bottom) return;
-    const x = (e.clientX / window.innerWidth  - 0.5) * 12;
+    const x = (e.clientX / window.innerWidth - 0.5) * 12;
     const y = (e.clientY / window.innerHeight - 0.5) * 8;
     card.style.transform = `translateY(-4px) rotateY(${x * 0.3}deg) rotateX(${-y * 0.3}deg)`;
   });
@@ -571,30 +546,16 @@ function initParallax() {
    ========================================================== */
 
 function initProfileEdit() {
-  const editBtns   = document.querySelectorAll('[data-profile-edit]');
-  const cancelBtns = document.querySelectorAll('[data-profile-cancel]');
-  const saveBtns   = document.querySelectorAll('[data-profile-save]');
-
-  editBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      const section = btn.dataset.profileEdit;
-      enableEdit(section, true);
-    });
+  document.querySelectorAll('[data-profile-edit]').forEach(btn => {
+    btn.addEventListener('click', () => enableEdit(btn.dataset.profileEdit, true));
   });
-
-  cancelBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      const section = btn.dataset.profileCancel;
-      enableEdit(section, false);
-    });
+  document.querySelectorAll('[data-profile-cancel]').forEach(btn => {
+    btn.addEventListener('click', () => enableEdit(btn.dataset.profileCancel, false));
   });
-
-  saveBtns.forEach(btn => {
+  document.querySelectorAll('[data-profile-save]').forEach(btn => {
     btn.addEventListener('click', () => {
-      const section = btn.dataset.profileSave;
-      // 这里可接入真实 API
       showToast('保存成功 ✓');
-      enableEdit(section, false);
+      enableEdit(btn.dataset.profileSave, false);
     });
   });
 }
@@ -604,8 +565,6 @@ function enableEdit(section, enable) {
   if (!container) return;
   container.querySelectorAll('.profile-input').forEach(input => {
     input.readOnly = !enable;
-    input.style.opacity = enable ? '1' : '';
-    input.style.cursor  = enable ? '' : '';
   });
   const editActions = container.querySelector('[data-edit-actions]');
   const viewActions = container.querySelector('[data-view-actions]');
@@ -619,7 +578,7 @@ function enableEdit(section, enable) {
    ========================================================== */
 
 function initAvatarUpload() {
-  const input   = document.getElementById('avatarInput');
+  const input = document.getElementById('avatarInput');
   const preview = document.getElementById('profileAvatarEl');
   if (!input || !preview) return;
 
@@ -629,7 +588,7 @@ function initAvatarUpload() {
     const reader = new FileReader();
     reader.onload = (e) => {
       preview.style.backgroundImage = `url(${e.target.result})`;
-      preview.style.backgroundSize  = 'cover';
+      preview.style.backgroundSize = 'cover';
       preview.textContent = '';
     };
     reader.readAsDataURL(file);
@@ -638,7 +597,95 @@ function initAvatarUpload() {
 
 
 /* ==========================================================
+   AUTH — Password visibility toggle
+   v2.0: 绑定到 .auth-pwd-toggle 按钮，不再用 inline onclick
+   ========================================================== */
+
+function initPwdToggle() {
+  document.querySelectorAll('.auth-pwd-toggle').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const wrap = btn.closest('.auth-input-icon-wrap');
+      const input = wrap && wrap.querySelector('input');
+      if (!input) return;
+      const isText = input.type === 'text';
+      input.type = isText ? 'password' : 'text';
+      const icon = btn.querySelector('i');
+      if (icon) icon.className = isText ? 'bi bi-eye' : 'bi bi-eye-slash';
+    });
+  });
+}
+
+
+/* ==========================================================
+   AUTH — Login page Tab switching
+   v2.0: 使用 Bootstrap Tab API，"立即注册"/"立即登录" 链接
+         通过 data-auth-switch 属性触发，无需自定义 switchTab()
+   ========================================================== */
+
+function initAuthTabs() {
+  // Tab button switching (uses .auth-tab-btn + .auth-tab-pane)
+  const tabBtns = document.querySelectorAll('.auth-tab-btn');
+  if (!tabBtns.length) return;
+
+  tabBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const target = btn.dataset.authTab;
+      // Update button states
+      tabBtns.forEach(b => b.classList.toggle('active', b === btn));
+      // Show/hide panes
+      document.querySelectorAll('.auth-tab-pane').forEach(pane => {
+        pane.style.display = pane.id === target ? '' : 'none';
+      });
+    });
+  });
+
+  // "立即注册" / "立即登录" cross-links via data-auth-switch
+  document.querySelectorAll('[data-auth-switch]').forEach(link => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      const target = link.dataset.authSwitch;
+      const btn = document.querySelector(`.auth-tab-btn[data-auth-tab="${target}"]`);
+      if (btn) btn.click();
+    });
+  });
+}
+
+
+/* ==========================================================
+   AUTH — Login form submit
+   ========================================================== */
+
+function initLoginForm() {
+  const loginBtn = document.getElementById('doLoginBtn');
+  if (!loginBtn) return;
+
+  loginBtn.addEventListener('click', () => {
+    const email = document.getElementById('loginEmail')?.value;
+    const pwd = document.getElementById('loginPassword')?.value;
+
+    if (!email || !pwd) { showToast('请填写邮箱和密码', 'error'); return; }
+
+    loginBtn.innerHTML = '<i class="bi bi-hourglass-split me-1"></i> 登录中…';
+    loginBtn.disabled = true;
+
+    setTimeout(() => {
+      inkflowAuth.setUser({ name: '陈明远', initial: '陈' });
+      showToast('登录成功，正在跳转…');
+      setTimeout(() => { window.location.href = 'index.html'; }, 800);
+    }, 1200);
+  });
+
+  const regBtn = document.getElementById('doRegisterBtn');
+  if (regBtn) {
+    regBtn.addEventListener('click', () => showToast('注册功能开发中，敬请期待'));
+  }
+}
+
+
+/* ==========================================================
    UTILITY: Toast notification
+   v2.0: 使用 CSS class 驱动，不再构建内联 style 字符串
+   CSS 规则在 inkflow.css 中定义（见 .ink-toast）
    ========================================================== */
 
 function showToast(message, type = 'success') {
@@ -647,26 +694,14 @@ function showToast(message, type = 'success') {
 
   const toast = document.createElement('div');
   toast.id = 'inkToast';
-  toast.style.cssText = `
-    position:fixed; bottom:2rem; left:50%; transform:translateX(-50%) translateY(20px);
-    background:${type === 'success' ? 'var(--ink-primary)' : '#ef4444'};
-    color:#fff; padding:.7rem 1.5rem; border-radius:99px;
-    font-size:.88rem; font-weight:600; z-index:9999;
-    box-shadow:0 4px 20px rgba(0,0,0,.2);
-    transition:all .3s; opacity:0;
-    font-family:var(--font-body);
-  `;
+  toast.className = `ink-toast ink-toast--${type}`;
   toast.textContent = message;
   document.body.appendChild(toast);
 
-  requestAnimationFrame(() => {
-    toast.style.opacity = '1';
-    toast.style.transform = 'translateX(-50%) translateY(0)';
-  });
+  requestAnimationFrame(() => toast.classList.add('ink-toast--visible'));
 
   setTimeout(() => {
-    toast.style.opacity = '0';
-    toast.style.transform = 'translateX(-50%) translateY(20px)';
+    toast.classList.remove('ink-toast--visible');
     setTimeout(() => toast.remove(), 300);
   }, 2200);
 }
@@ -678,12 +713,10 @@ function showToast(message, type = 'success') {
 
 function initKeyboard() {
   document.addEventListener('keydown', (e) => {
-    // Esc — 关闭所有 overlay
     if (e.key === 'Escape') {
       closeSearch();
       closeLightbox();
     }
-    // Ctrl / Cmd + K — 打开搜索
     if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
       e.preventDefault();
       openSearch();
@@ -694,7 +727,6 @@ function initKeyboard() {
 
 /* ==========================================================
    PAGE INIT — 统一入口
-   在 DOMContentLoaded 后调用，按需初始化各模块
    ========================================================== */
 
 function initPage() {
@@ -716,10 +748,12 @@ function initPage() {
   initParallax();
   initProfileEdit();
   initAvatarUpload();
+  initPwdToggle();
+  initAuthTabs();
+  initLoginForm();
   initKeyboard();
 }
 
-// DOM Ready
 if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', initPage);
 } else {

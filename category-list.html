@@ -16,687 +16,14 @@
       href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
       rel="stylesheet"
     />
-    <style>
-      :root {
-        --ink-primary: #0a6640;
-        --ink-primary-rgb: 10, 102, 64;
-        --ink-accent: #00c98d;
-        --ink-accent-rgb: 0, 201, 141;
-        --ink-surface: #f8faf9;
-        --ink-card: #ffffff;
-        --ink-border: #e4ede9;
-        --ink-muted: #6b8070;
-        --ink-heading: #0d1117;
-        --ink-text: #2c3e35;
-        --font-display: "Playfair Display", Georgia, serif;
-        --font-body: "DM Sans", sans-serif;
-        --font-mono: "JetBrains Mono", monospace;
-        --radius-sm: 6px;
-        --radius-md: 12px;
-        --radius-lg: 20px;
-        --radius-xl: 32px;
-        --shadow-card:
-          0 2px 20px rgba(10, 102, 64, 0.08), 0 1px 4px rgba(10, 102, 64, 0.04);
-        --shadow-hover:
-          0 8px 40px rgba(10, 102, 64, 0.16), 0 2px 8px rgba(10, 102, 64, 0.08);
-        --transition: 0.28s cubic-bezier(0.4, 0, 0.2, 1);
-      }
-      [data-bs-theme="dark"] {
-        --ink-primary: #00c98d;
-        --ink-accent: #4dffc0;
-        --ink-surface: #0d1117;
-        --ink-card: #161c22;
-        --ink-border: #212e27;
-        --ink-muted: #7aaf96;
-        --ink-heading: #f0f6f3;
-        --ink-text: #c8ddd5;
-        --shadow-card: 0 2px 20px rgba(0, 0, 0, 0.4);
-        --shadow-hover: 0 8px 40px rgba(0, 0, 0, 0.6);
-      }
-      *,
-      *::before,
-      *::after {
-        box-sizing: border-box;
-      }
-      html {
-        scroll-behavior: smooth;
-      }
-      body {
-        font-family: var(--font-body);
-        font-size: 16px;
-        line-height: 1.75;
-        color: var(--ink-text);
-        background: var(--ink-surface);
-        -webkit-font-smoothing: antialiased;
-        overflow-x: hidden;
-      }
-      h1,
-      h2,
-      h3,
-      h4,
-      h5,
-      h6 {
-        font-family: var(--font-display);
-        color: var(--ink-heading);
-        line-height: 1.2;
-      }
-      a {
-        color: var(--ink-primary);
-        text-decoration: none;
-        transition: color var(--transition);
-      }
-      a:hover {
-        color: var(--ink-accent);
-      }
-      body::before {
-        content: "";
-        position: fixed;
-        inset: 0;
-        pointer-events: none;
-        opacity: 0.025;
-        z-index: 9999;
-        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-        background-size: 200px;
-      }
-      .ink-navbar {
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        z-index: 1000;
-        transition: all var(--transition);
-        padding: 1rem 0;
-      }
-      .ink-navbar.scrolled {
-        background: rgba(var(--ink-primary-rgb), 0.97) !important;
-        backdrop-filter: blur(20px);
-        padding: 0.6rem 0;
-        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.15);
-      }
-      [data-bs-theme="dark"] .ink-navbar.scrolled {
-        background: rgba(13, 17, 23, 0.97) !important;
-      }
-      .ink-navbar .navbar-brand {
-        font-family: var(--font-display);
-        font-size: 1.5rem;
-        font-weight: 900;
-        color: #fff;
-        letter-spacing: -0.02em;
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-      }
-      .brand-dot {
-        width: 8px;
-        height: 8px;
-        background: var(--ink-accent);
-        border-radius: 50%;
-        display: inline-block;
-        animation: pulse-dot 2s ease-in-out infinite;
-      }
-      @keyframes pulse-dot {
-        0%,
-        100% {
-          transform: scale(1);
-          opacity: 1;
-        }
-        50% {
-          transform: scale(1.4);
-          opacity: 0.7;
-        }
-      }
-      .ink-navbar .nav-link {
-        color: rgba(255, 255, 255, 0.8) !important;
-        font-weight: 500;
-        font-size: 0.9rem;
-        padding: 0.4rem 0.8rem !important;
-        border-radius: 6px;
-        transition: all var(--transition);
-      }
-      .ink-navbar .nav-link:hover,
-      .ink-navbar .nav-link.active {
-        color: #fff !important;
-        background: rgba(255, 255, 255, 0.12);
-      }
-      .btn-nav-search {
-        background: rgba(255, 255, 255, 0.12);
-        border: 1px solid rgba(255, 255, 255, 0.18);
-        color: #fff;
-        border-radius: 6px;
-        padding: 0.35rem 0.7rem;
-        cursor: pointer;
-        font-size: 0.9rem;
-      }
-      .theme-toggle {
-        width: 36px;
-        height: 36px;
-        border-radius: 50%;
-        border: 1px solid rgba(255, 255, 255, 0.2);
-        background: rgba(255, 255, 255, 0.1);
-        color: #fff;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
-        transition: all var(--transition);
-      }
-      .navbar-toggler {
-        border: 1px solid rgba(255, 255, 255, 0.2);
-        padding: 0.35rem 0.65rem;
-        border-radius: 6px;
-      }
-      .navbar-toggler-icon {
-        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255,255,255,0.8%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
-      }
-      .page-hero {
-        background: linear-gradient(
-          135deg,
-          #081f12 0%,
-          #0a3320 50%,
-          #0d5c38 100%
-        );
-        padding: 7rem 0 4rem;
-        position: relative;
-        overflow: hidden;
-      }
-      .page-hero::before {
-        content: "";
-        position: absolute;
-        width: 500px;
-        height: 500px;
-        border-radius: 50%;
-        background: radial-gradient(
-          circle,
-          rgba(0, 201, 141, 0.15) 0%,
-          transparent 70%
-        );
-        top: -150px;
-        right: -80px;
-        animation: float 8s ease-in-out infinite;
-      }
-      @keyframes float {
-        0%,
-        100% {
-          transform: translateY(0);
-        }
-        50% {
-          transform: translateY(-20px);
-        }
-      }
-      .page-hero-eyebrow {
-        display: inline-flex;
-        align-items: center;
-        gap: 0.5rem;
-        background: rgba(0, 201, 141, 0.15);
-        border: 1px solid rgba(0, 201, 141, 0.3);
-        color: var(--ink-accent);
-        border-radius: 99px;
-        padding: 0.3rem 0.9rem;
-        font-size: 0.78rem;
-        font-weight: 700;
-        letter-spacing: 0.06em;
-        text-transform: uppercase;
-        margin-bottom: 1rem;
-      }
-      .page-hero-title {
-        font-size: clamp(2rem, 4vw, 3.2rem);
-        font-weight: 900;
-        color: #fff;
-        letter-spacing: -0.03em;
-        margin-bottom: 0.75rem;
-      }
-      .page-hero-sub {
-        color: rgba(255, 255, 255, 0.55);
-        font-size: 0.95rem;
-        line-height: 1.7;
-      }
-      .ink-breadcrumb .breadcrumb-item a {
-        color: rgba(255, 255, 255, 0.5);
-        font-size: 0.82rem;
-      }
-      .ink-breadcrumb .breadcrumb-item.active {
-        color: rgba(255, 255, 255, 0.8);
-        font-size: 0.82rem;
-      }
-      .ink-breadcrumb .breadcrumb-item + .breadcrumb-item::before {
-        color: rgba(255, 255, 255, 0.3);
-      }
-      /* CATEGORY HERO CARDS */
-      .cat-hero-card {
-        border-radius: var(--radius-xl);
-        overflow: hidden;
-        position: relative;
-        min-height: 280px;
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-end;
-        transition: all var(--transition);
-        cursor: pointer;
-        box-shadow: var(--shadow-card);
-      }
-      .cat-hero-card:hover {
-        transform: translateY(-6px);
-        box-shadow: var(--shadow-hover);
-      }
-      .cat-hero-card .overlay {
-        position: absolute;
-        inset: 0;
-        background: linear-gradient(
-          to top,
-          rgba(0, 0, 0, 0.85) 0%,
-          rgba(0, 0, 0, 0.2) 60%,
-          transparent 100%
-        );
-      }
-      .cat-hero-card .content {
-        position: relative;
-        z-index: 1;
-        padding: 1.75rem;
-      }
-      .cat-hero-icon {
-        width: 52px;
-        height: 52px;
-        border-radius: var(--radius-md);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 1.5rem;
-        margin-bottom: 1rem;
-        background: rgba(255, 255, 255, 0.15);
-        backdrop-filter: blur(10px);
-        border: 1px solid rgba(255, 255, 255, 0.2);
-        color: #fff;
-      }
-      .cat-hero-name {
-        font-family: var(--font-display);
-        font-size: 1.5rem;
-        font-weight: 700;
-        color: #fff;
-        margin-bottom: 0.4rem;
-      }
-      .cat-hero-desc {
-        font-size: 0.85rem;
-        color: rgba(255, 255, 255, 0.65);
-        line-height: 1.5;
-        margin-bottom: 0.9rem;
-      }
-      .cat-hero-count {
-        display: inline-flex;
-        align-items: center;
-        gap: 0.35rem;
-        background: rgba(255, 255, 255, 0.18);
-        border: 1px solid rgba(255, 255, 255, 0.25);
-        color: #fff;
-        border-radius: 99px;
-        padding: 0.22rem 0.7rem;
-        font-size: 0.75rem;
-        font-weight: 600;
-      }
-      .cat-hero-arrow {
-        position: absolute;
-        top: 1.25rem;
-        right: 1.25rem;
-        width: 36px;
-        height: 36px;
-        background: rgba(255, 255, 255, 0.15);
-        border: 1px solid rgba(255, 255, 255, 0.25);
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: #fff;
-        font-size: 1rem;
-        transition: all var(--transition);
-      }
-      .cat-hero-card:hover .cat-hero-arrow {
-        background: rgba(255, 255, 255, 0.3);
-        transform: translate(2px, -2px);
-      }
-      /* STANDARD CATEGORY CARDS */
-      .cat-std-card {
-        background: var(--ink-card);
-        border: 1px solid var(--ink-border);
-        border-radius: var(--radius-lg);
-        padding: 1.5rem;
-        transition: all var(--transition);
-        box-shadow: var(--shadow-card);
-        display: flex;
-        align-items: center;
-        gap: 1.1rem;
-        position: relative;
-        overflow: hidden;
-        cursor: pointer;
-      }
-      .cat-std-card::after {
-        content: "";
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        height: 3px;
-        transform: scaleX(0);
-        transform-origin: left;
-        transition: transform var(--transition);
-      }
-      .cat-std-card:hover {
-        transform: translateY(-3px);
-        box-shadow: var(--shadow-hover);
-      }
-      .cat-std-card:hover::after {
-        transform: scaleX(1);
-      }
-      .cat-std-icon {
-        width: 50px;
-        height: 50px;
-        border-radius: var(--radius-md);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 1.4rem;
-        flex-shrink: 0;
-      }
-      .cat-std-name {
-        font-weight: 700;
-        font-size: 1rem;
-        color: var(--ink-heading);
-        margin-bottom: 0.2rem;
-      }
-      .cat-std-desc {
-        font-size: 0.8rem;
-        color: var(--ink-muted);
-        line-height: 1.5;
-      }
-      .cat-std-count {
-        margin-left: auto;
-        font-family: var(--font-display);
-        font-size: 1.6rem;
-        font-weight: 900;
-        color: var(--ink-border);
-        flex-shrink: 0;
-      }
-      /* Recent posts in category section */
-      .cat-recent-post {
-        display: flex;
-        gap: 0.85rem;
-        padding: 0.85rem 0;
-        border-bottom: 1px solid var(--ink-border);
-      }
-      .cat-recent-post:last-child {
-        border-bottom: none;
-        padding-bottom: 0;
-      }
-      .cat-recent-post:first-child {
-        padding-top: 0;
-      }
-      .cat-post-thumb {
-        width: 60px;
-        height: 60px;
-        border-radius: var(--radius-sm);
-        flex-shrink: 0;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 1.3rem;
-      }
-      .cat-post-title {
-        font-size: 0.87rem;
-        font-weight: 600;
-        color: var(--ink-heading);
-        line-height: 1.4;
-        margin-bottom: 0.25rem;
-        transition: color var(--transition);
-      }
-      .cat-recent-post:hover .cat-post-title {
-        color: var(--ink-primary);
-      }
-      .cat-post-meta {
-        font-size: 0.75rem;
-        color: var(--ink-muted);
-      }
-      /* SEARCH BAR */
-      .cat-search-bar {
-        background: var(--ink-card);
-        border: 1px solid var(--ink-border);
-        border-radius: var(--radius-lg);
-        padding: 1.25rem 1.5rem;
-        box-shadow: var(--shadow-card);
-        margin-bottom: 2rem;
-        display: flex;
-        align-items: center;
-        gap: 1rem;
-        flex-wrap: wrap;
-      }
-      .cat-search-input-wrap {
-        position: relative;
-        flex: 1;
-        min-width: 200px;
-      }
-      .cat-search-input-wrap i {
-        position: absolute;
-        left: 0.9rem;
-        top: 50%;
-        transform: translateY(-50%);
-        color: var(--ink-muted);
-      }
-      .cat-search-input {
-        width: 100%;
-        background: var(--ink-surface);
-        border: 1px solid var(--ink-border);
-        border-radius: 6px;
-        padding: 0.6rem 0.9rem 0.6rem 2.3rem;
-        color: var(--ink-text);
-        font-size: 0.9rem;
-        font-family: var(--font-body);
-        outline: none;
-        transition: border-color var(--transition);
-      }
-      .cat-search-input:focus {
-        border-color: var(--ink-primary);
-      }
-      /* READING PROGRESS */
-      .reading-progress {
-        position: fixed;
-        top: 0;
-        left: 0;
-        height: 3px;
-        background: linear-gradient(
-          90deg,
-          var(--ink-accent),
-          var(--ink-primary)
-        );
-        z-index: 9998;
-        width: 0%;
-      }
-      .back-to-top {
-        position: fixed;
-        bottom: 2rem;
-        right: 2rem;
-        width: 44px;
-        height: 44px;
-        background: var(--ink-primary);
-        color: #fff;
-        border: none;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
-        font-size: 1.1rem;
-        box-shadow: 0 4px 20px rgba(var(--ink-primary-rgb), 0.4);
-        transition: all var(--transition);
-        opacity: 0;
-        pointer-events: none;
-        transform: translateY(10px);
-        z-index: 999;
-      }
-      .back-to-top.visible {
-        opacity: 1;
-        pointer-events: all;
-        transform: translateY(0);
-      }
-      .search-overlay {
-        position: fixed;
-        inset: 0;
-        background: rgba(7, 26, 16, 0.95);
-        backdrop-filter: blur(20px);
-        z-index: 2000;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: flex-start;
-        padding-top: 10vh;
-        opacity: 0;
-        pointer-events: none;
-        transition: opacity 0.3s ease;
-      }
-      .search-overlay.active {
-        opacity: 1;
-        pointer-events: all;
-      }
-      .search-close {
-        position: absolute;
-        top: 2rem;
-        right: 2rem;
-        background: rgba(255, 255, 255, 0.08);
-        border: 1px solid rgba(255, 255, 255, 0.12);
-        color: rgba(255, 255, 255, 0.6);
-        width: 40px;
-        height: 40px;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
-        font-size: 1.1rem;
-      }
-      .search-main-input {
-        width: 100%;
-        background: rgba(255, 255, 255, 0.08);
-        border: 1px solid rgba(255, 255, 255, 0.15);
-        border-radius: 20px;
-        padding: 1.1rem 1.25rem 1.1rem 3.5rem;
-        color: #fff;
-        font-size: 1.2rem;
-        font-family: var(--font-body);
-        outline: none;
-      }
-      .search-main-input::placeholder {
-        color: rgba(255, 255, 255, 0.3);
-      }
-      .search-tip {
-        padding: 0.35rem 0.8rem;
-        border-radius: 99px;
-        border: 1px solid rgba(255, 255, 255, 0.12);
-        color: rgba(255, 255, 255, 0.5);
-        font-size: 0.8rem;
-        cursor: pointer;
-        transition: all var(--transition);
-      }
-      .search-tip:hover {
-        border-color: var(--ink-accent);
-        color: var(--ink-accent);
-      }
-      .site-footer {
-        background: #071a10;
-        padding: 4rem 0 2rem;
-      }
-      .footer-brand {
-        font-family: var(--font-display);
-        font-size: 1.6rem;
-        font-weight: 900;
-        color: #fff;
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-        margin-bottom: 0.75rem;
-      }
-      .footer-copy {
-        font-size: 0.83rem;
-        color: rgba(255, 255, 255, 0.35);
-      }
-      .footer-copy span {
-        color: rgba(255, 255, 255, 0.55);
-      }
-      .footer-divider {
-        border-color: rgba(255, 255, 255, 0.08);
-        margin: 2.5rem 0 1.5rem;
-      }
-      .footer-links {
-        list-style: none;
-        padding: 0;
-        margin: 0;
-      }
-      .footer-links li {
-        margin-bottom: 0.6rem;
-      }
-      .footer-links a {
-        color: rgba(255, 255, 255, 0.5);
-        font-size: 0.88rem;
-        transition: color var(--transition);
-      }
-      .footer-links a:hover {
-        color: var(--ink-accent);
-      }
-      .footer-heading {
-        font-size: 0.78rem;
-        font-weight: 700;
-        text-transform: uppercase;
-        letter-spacing: 0.1em;
-        color: rgba(255, 255, 255, 0.4);
-        margin-bottom: 1rem;
-      }
-      .fade-up {
-        opacity: 0;
-        transform: translateY(24px);
-        transition:
-          opacity 0.6s ease,
-          transform 0.6s ease;
-      }
-      .fade-up.visible {
-        opacity: 1;
-        transform: translateY(0);
-      }
-      .delay-1 {
-        transition-delay: 0.1s;
-      }
-      .delay-2 {
-        transition-delay: 0.2s;
-      }
-      .delay-3 {
-        transition-delay: 0.3s;
-      }
-      .delay-4 {
-        transition-delay: 0.4s;
-      }
-      .delay-5 {
-        transition-delay: 0.5s;
-      }
-      .section-label {
-        font-size: 0.78rem;
-        font-weight: 700;
-        text-transform: uppercase;
-        letter-spacing: 0.09em;
-        color: var(--ink-muted);
-        margin-bottom: 1rem;
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-      }
-      .section-label::before {
-        content: "";
-        width: 16px;
-        height: 2px;
-        background: var(--ink-border);
-        border-radius: 99px;
-      }
-    </style>
+    <link rel="stylesheet" href="inkflow.css" />
   </head>
   <body>
     <div class="reading-progress" id="readingProgress"></div>
 
     <nav class="ink-navbar navbar navbar-expand-lg" id="mainNavbar">
       <div class="container">
-        <a class="navbar-brand" href="index.hmtl"
+        <a class="navbar-brand" href="index.html"
           >INKFLOW<span class="brand-dot"></span
         ></a>
         <button
@@ -710,7 +37,7 @@
         <div class="collapse navbar-collapse" id="navMenu">
           <ul class="navbar-nav mx-auto gap-1">
             <li class="nav-item">
-              <a class="nav-link" href="index.hmtl">首页</a>
+              <a class="nav-link" href="index.html">首页</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="post-list.html">文章</a>
@@ -738,6 +65,33 @@
             <button class="theme-toggle" id="themeToggle">
               <i class="bi bi-moon-stars-fill" id="themeIcon"></i>
             </button>
+            <a href="login.html" class="btn-nav-login" id="navLoginBtn">
+              <i class="bi bi-person me-1"></i> 登录
+            </a>
+            <div class="d-none align-items-center" id="navUserWrapper">
+              <div class="nav-user-avatar" id="navUserAvatar">陈</div>
+              <div class="nav-user-dropdown">
+                <div class="nav-user-dropdown-header">
+                  <div class="nav-user-dropdown-name" id="navUserName">
+                    陈明远
+                  </div>
+                  <div class="nav-user-dropdown-sub">个人主页</div>
+                </div>
+                <a href="profile.html" class="nav-user-dropdown-item"
+                  ><i class="bi bi-person-circle"></i> 个人资料</a
+                >
+                <a href="#" class="nav-user-dropdown-item"
+                  ><i class="bi bi-bookmark"></i> 我的收藏</a
+                >
+                <hr />
+                <a
+                  href="#"
+                  class="nav-user-dropdown-item danger"
+                  id="navLogoutBtn"
+                  ><i class="bi bi-box-arrow-right"></i> 退出登录</a
+                >
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -748,7 +102,7 @@
         <nav aria-label="breadcrumb" class="ink-breadcrumb mb-3">
           <ol class="breadcrumb mb-0">
             <li class="breadcrumb-item">
-              <a href="index.hmtl"><i class="bi bi-house me-1"></i>首页</a>
+              <a href="index.html"><i class="bi bi-house me-1"></i>首页</a>
             </li>
             <li class="breadcrumb-item active">文章分类</li>
           </ol>
@@ -850,7 +204,7 @@
             <a
               href="post-list.html"
               class="cat-std-card text-decoration-none"
-              style="--bar-color: #0891b2"
+              style="--cat-bar: #0891b2"
             >
               <div
                 class="cat-std-icon"
@@ -868,14 +222,13 @@
                 style="color: var(--ink-muted)"
               ></i>
             </a>
-            <style>
-              .col-md-6.col-lg-4:nth-child(1) .cat-std-card::after {
-                background: #0891b2;
-              }
-            </style>
           </div>
           <div class="col-md-6 col-lg-4 fade-up delay-2">
-            <a href="post-list.html" class="cat-std-card text-decoration-none">
+            <a
+              href="post-list.html"
+              class="cat-std-card text-decoration-none"
+              style="--cat-bar: #d97706"
+            >
               <div
                 class="cat-std-icon"
                 style="background: #fef9ec; color: #d97706"
@@ -896,7 +249,11 @@
             </a>
           </div>
           <div class="col-md-6 col-lg-4 fade-up delay-3">
-            <a href="post-list.html" class="cat-std-card text-decoration-none">
+            <a
+              href="post-list.html"
+              class="cat-std-card text-decoration-none"
+              style="--cat-bar: #16a34a"
+            >
               <div
                 class="cat-std-icon"
                 style="background: #ecfdf5; color: #16a34a"
@@ -915,7 +272,11 @@
             </a>
           </div>
           <div class="col-md-6 col-lg-4 fade-up delay-1">
-            <a href="post-list.html" class="cat-std-card text-decoration-none">
+            <a
+              href="post-list.html"
+              class="cat-std-card text-decoration-none"
+              style="--cat-bar: #c026d3"
+            >
               <div
                 class="cat-std-icon"
                 style="background: #fdf4ff; color: #c026d3"
@@ -934,7 +295,11 @@
             </a>
           </div>
           <div class="col-md-6 col-lg-4 fade-up delay-2">
-            <a href="post-list.html" class="cat-std-card text-decoration-none">
+            <a
+              href="post-list.html"
+              class="cat-std-card text-decoration-none"
+              style="--cat-bar: #ea580c"
+            >
               <div
                 class="cat-std-icon"
                 style="background: #fff7ed; color: #ea580c"
@@ -953,7 +318,11 @@
             </a>
           </div>
           <div class="col-md-6 col-lg-4 fade-up delay-3">
-            <a href="post-list.html" class="cat-std-card text-decoration-none">
+            <a
+              href="post-list.html"
+              class="cat-std-card text-decoration-none"
+              style="--cat-bar: #0a6640"
+            >
               <div
                 class="cat-std-icon"
                 style="background: #f0fdf4; color: #0a6640"
@@ -1352,7 +721,7 @@
           <div class="col-md-2">
             <div class="footer-heading">导航</div>
             <ul class="footer-links">
-              <li><a href="index.hmtl">首页</a></li>
+              <li><a href="index.html">首页</a></li>
               <li><a href="post-list.html">文章</a></li>
               <li><a href="archive-list.html">归档</a></li>
             </ul>
@@ -1429,91 +798,6 @@
     </button>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
-      const navbar = document.getElementById("mainNavbar");
-      window.addEventListener(
-        "scroll",
-        () => {
-          navbar.classList.toggle("scrolled", window.scrollY > 60);
-          document
-            .getElementById("backToTop")
-            .classList.toggle("visible", window.scrollY > 400);
-        },
-        { passive: true },
-      );
-      const themeToggle = document.getElementById("themeToggle"),
-        themeIcon = document.getElementById("themeIcon");
-      let isDark = false;
-      themeToggle.addEventListener("click", () => {
-        isDark = !isDark;
-        document.documentElement.setAttribute(
-          "data-bs-theme",
-          isDark ? "dark" : "light",
-        );
-        themeIcon.className = isDark
-          ? "bi bi-sun-fill"
-          : "bi bi-moon-stars-fill";
-      });
-      function openSearch() {
-        document.getElementById("searchOverlay").classList.add("active");
-        document.body.style.overflow = "hidden";
-      }
-      function closeSearch() {
-        document.getElementById("searchOverlay").classList.remove("active");
-        document.body.style.overflow = "";
-      }
-      function scrollToTop() {
-        window.scrollTo({ top: 0, behavior: "smooth" });
-      }
-      document.addEventListener("keydown", (e) => {
-        if (e.key === "Escape") closeSearch();
-        if ((e.metaKey || e.ctrlKey) && e.key === "k") {
-          e.preventDefault();
-          openSearch();
-        }
-      });
-      document.querySelectorAll(".cat-std-card").forEach((c, i) => {
-        const colors = [
-          "#0891b2",
-          "#d97706",
-          "#16a34a",
-          "#c026d3",
-          "#ea580c",
-          "#0a6640",
-        ];
-        c.style.setProperty("--b", colors[i] || colors[0]);
-        c.addEventListener(
-          "mouseenter",
-          () => c.querySelector("style") || null,
-        );
-      });
-      const obs = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((e) => {
-            if (e.isIntersecting) {
-              e.target.classList.add("visible");
-              obs.unobserve(e.target);
-            }
-          });
-        },
-        { threshold: 0.08, rootMargin: "0px 0px -30px 0px" },
-      );
-      document.querySelectorAll(".fade-up").forEach((el) => obs.observe(el));
-      // Cat card bottom bar colors
-      const catCards = document.querySelectorAll(".cat-std-card");
-      const barColors = [
-        "#0891b2",
-        "#d97706",
-        "#16a34a",
-        "#c026d3",
-        "#ea580c",
-        "#0a6640",
-      ];
-      catCards.forEach((c, i) => {
-        const style = document.createElement("style");
-        style.textContent = `.cat-std-card:nth-child(${i + 1})::after{background:${barColors[i] || "var(--ink-primary)"}}`;
-        document.head.appendChild(style);
-      });
-    </script>
+    <script src="inkflow.js"></script>
   </body>
 </html>

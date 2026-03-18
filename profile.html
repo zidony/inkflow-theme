@@ -24,7 +24,7 @@
     <!-- NAVBAR -->
     <nav class="ink-navbar navbar navbar-expand-lg" id="mainNavbar">
       <div class="container">
-        <a class="navbar-brand" href="index.hmtl"
+        <a class="navbar-brand" href="index.html"
           >INKFLOW<span class="brand-dot"></span
         ></a>
         <button
@@ -38,7 +38,7 @@
         <div class="collapse navbar-collapse" id="navMenu">
           <ul class="navbar-nav mx-auto gap-1">
             <li class="nav-item">
-              <a class="nav-link" href="index.hmtl">首页</a>
+              <a class="nav-link" href="index.html">首页</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="post-list.html">文章</a>
@@ -69,32 +69,14 @@
             <a href="login.html" class="btn-nav-login" id="navLoginBtn"
               ><i class="bi bi-person me-1"></i> 登录</a
             >
-            <div
-              class="nav-user-wrapper"
-              id="navUserWrapper"
-              style="display: none"
-            >
+            <div class="nav-user-wrapper" id="navUserWrapper" class="d-none">
               <div class="nav-user-avatar" id="navUserAvatar">陈</div>
               <div class="nav-user-dropdown">
-                <div
-                  style="
-                    padding: 0.6rem 1rem 0.4rem;
-                    border-bottom: 1px solid var(--ink-border);
-                  "
-                >
-                  <div
-                    style="
-                      font-size: 0.82rem;
-                      font-weight: 600;
-                      color: var(--ink-heading);
-                    "
-                    id="navUserName"
-                  >
+                <div class="nav-user-dropdown-header">
+                  <div class="nav-user-dropdown-name" id="navUserName">
                     陈明远
                   </div>
-                  <div style="font-size: 0.75rem; color: var(--ink-muted)">
-                    个人主页
-                  </div>
+                  <div class="nav-user-dropdown-sub">个人主页</div>
                 </div>
                 <a href="profile.html" class="nav-user-dropdown-item"
                   ><i class="bi bi-person-circle"></i> 个人资料</a
@@ -118,11 +100,11 @@
 
     <!-- PROFILE HERO -->
     <div class="profile-hero">
-      <div class="container position-relative" style="z-index: 1">
+      <div class="container position-relative">
         <nav aria-label="breadcrumb" class="ink-breadcrumb mb-4">
           <ol class="breadcrumb mb-0 align-items-center">
             <li class="breadcrumb-item">
-              <a href="index.hmtl"><i class="bi bi-house me-1"></i>首页</a>
+              <a href="index.html"><i class="bi bi-house me-1"></i>首页</a>
             </li>
             <li class="breadcrumb-item active">个人资料</li>
           </ol>
@@ -148,10 +130,10 @@
               type="file"
               id="avatarInput"
               accept="image/*"
-              style="display: none"
+              class="d-none"
             />
           </div>
-          <div style="padding-bottom: 0.5rem">
+          <div class="pb-2">
             <h1
               style="
                 font-family: var(--font-display);
@@ -193,13 +175,7 @@
               <div class="profile-section-title">数据概览</div>
               <div class="d-flex flex-column gap-2">
                 <div
-                  style="
-                    display: flex;
-                    justify-content: space-between;
-                    align-items: center;
-                    padding: 0.55rem 0;
-                    border-bottom: 1px solid var(--ink-border);
-                  "
+                  class="d-flex justify-content-between align-items-center py-2 border-bottom border-custom"
                 >
                   <span
                     style="
@@ -226,13 +202,7 @@
                   >
                 </div>
                 <div
-                  style="
-                    display: flex;
-                    justify-content: space-between;
-                    align-items: center;
-                    padding: 0.55rem 0;
-                    border-bottom: 1px solid var(--ink-border);
-                  "
+                  class="d-flex justify-content-between align-items-center py-2 border-bottom border-custom"
                 >
                   <span
                     style="
@@ -256,13 +226,7 @@
                   >
                 </div>
                 <div
-                  style="
-                    display: flex;
-                    justify-content: space-between;
-                    align-items: center;
-                    padding: 0.55rem 0;
-                    border-bottom: 1px solid var(--ink-border);
-                  "
+                  class="d-flex justify-content-between align-items-center py-2 border-bottom border-custom"
                 >
                   <span
                     style="
@@ -286,13 +250,7 @@
                   >
                 </div>
                 <div
-                  style="
-                    display: flex;
-                    justify-content: space-between;
-                    align-items: center;
-                    padding: 0.55rem 0;
-                    border-bottom: 1px solid var(--ink-border);
-                  "
+                  class="d-flex justify-content-between align-items-center py-2 border-bottom border-custom"
                 >
                   <span
                     style="
@@ -316,12 +274,7 @@
                   >
                 </div>
                 <div
-                  style="
-                    display: flex;
-                    justify-content: space-between;
-                    align-items: center;
-                    padding: 0.55rem 0;
-                  "
+                  class="d-flex justify-content-between align-items-center py-2"
                 >
                   <span
                     style="
@@ -395,7 +348,7 @@
               >
                 天连续写作
               </div>
-              <div style="display: flex; gap: 3px">
+              <div class="streak-dots">
                 <!-- Mini activity dots -->
                 <script>
                   document.write(
@@ -420,32 +373,28 @@
 
             <!-- Profile nav -->
             <div class="profile-card fade-up delay-2">
-              <div style="display: flex; flex-direction: column; gap: 0.2rem">
+              <div class="d-flex flex-column gap-1">
                 <a
                   href="#basic"
-                  class="nav-user-dropdown-item"
-                  style="border-radius: var(--radius-sm)"
+                  class="profile-nav-item"
                   onclick="scrollToSection('basic')"
                   ><i class="bi bi-person-circle"></i> 基本信息</a
                 >
                 <a
                   href="#account"
-                  class="nav-user-dropdown-item"
-                  style="border-radius: var(--radius-sm)"
+                  class="profile-nav-item"
                   onclick="scrollToSection('account')"
                   ><i class="bi bi-shield-lock"></i> 账号安全</a
                 >
                 <a
                   href="#notify"
-                  class="nav-user-dropdown-item"
-                  style="border-radius: var(--radius-sm)"
+                  class="profile-nav-item"
                   onclick="scrollToSection('notify')"
                   ><i class="bi bi-bell"></i> 通知偏好</a
                 >
                 <a
                   href="#danger"
-                  class="nav-user-dropdown-item danger"
-                  style="border-radius: var(--radius-sm)"
+                  class="profile-nav-item text-danger"
                   onclick="scrollToSection('danger')"
                   ><i class="bi bi-exclamation-triangle"></i> 危险操作</a
                 >
@@ -465,16 +414,10 @@
               <div
                 class="d-flex align-items-center justify-content-between mb-0"
               >
-                <div
-                  class="profile-section-title mb-0"
-                  style="border: none; padding: 0"
-                >
+                <div class="profile-section-title border-0 p-0 mb-0">
                   基本信息
                 </div>
-                <div
-                  data-view-actions="basic"
-                  style="display: flex; gap: 0.5rem"
-                >
+                <div data-view-actions="basic" class="d-flex gap-2">
                   <button
                     class="btn-profile-save"
                     style="padding: 0.45rem 1.1rem; font-size: 0.83rem"
@@ -483,10 +426,7 @@
                     <i class="bi bi-pencil me-1"></i> 编辑
                   </button>
                 </div>
-                <div
-                  data-edit-actions="basic"
-                  style="display: none; gap: 0.5rem"
-                >
+                <div data-edit-actions="basic" class="d-none gap-2">
                   <button
                     class="btn-profile-cancel"
                     style="padding: 0.45rem 1.1rem; font-size: 0.83rem"
@@ -521,7 +461,7 @@
                 </div>
                 <div class="col-md-6">
                   <label class="profile-label">用户名</label>
-                  <div style="position: relative">
+                  <div class="position-relative">
                     <span
                       style="
                         position: absolute;
@@ -535,10 +475,9 @@
                     >
                     <input
                       type="text"
-                      class="profile-input"
+                      class="profile-input ps-5"
                       value="chenmingyuan"
                       readonly
-                      style="padding-left: 2rem"
                     />
                   </div>
                 </div>
@@ -601,16 +540,10 @@
               <div
                 class="d-flex align-items-center justify-content-between mb-0"
               >
-                <div
-                  class="profile-section-title mb-0"
-                  style="border: none; padding: 0"
-                >
+                <div class="profile-section-title border-0 p-0 mb-0">
                   账号安全
                 </div>
-                <div
-                  data-view-actions="account"
-                  style="display: flex; gap: 0.5rem"
-                >
+                <div data-view-actions="account" class="d-flex gap-2">
                   <button
                     class="btn-profile-save"
                     style="padding: 0.45rem 1.1rem; font-size: 0.83rem"
@@ -619,10 +552,7 @@
                     <i class="bi bi-pencil me-1"></i> 修改
                   </button>
                 </div>
-                <div
-                  data-edit-actions="account"
-                  style="display: none; gap: 0.5rem"
-                >
+                <div data-edit-actions="account" class="d-none gap-2">
                   <button
                     class="btn-profile-cancel"
                     style="padding: 0.45rem 1.1rem; font-size: 0.83rem"
@@ -646,7 +576,7 @@
               <div class="row g-3">
                 <div class="col-md-6">
                   <label class="profile-label">绑定邮箱</label>
-                  <div style="position: relative">
+                  <div class="position-relative">
                     <input
                       type="email"
                       class="profile-input"
@@ -738,7 +668,7 @@
                     ></i
                     >两步验证
                   </div>
-                  <div style="font-size: 0.82rem; color: var(--ink-muted)">
+                  <div class="small text-muted">
                     通过身份验证器 App 为账号加一层保护
                   </div>
                 </div>
@@ -813,7 +743,7 @@
                     >
                       新文章发布
                     </div>
-                    <div style="font-size: 0.8rem; color: var(--ink-muted)">
+                    <div class="small text-muted">
                       有新文章发布时通过邮件通知我
                     </div>
                   </div>
@@ -856,9 +786,7 @@
                     >
                       评论回复
                     </div>
-                    <div style="font-size: 0.8rem; color: var(--ink-muted)">
-                      有人回复我的评论时通知我
-                    </div>
+                    <div class="small text-muted">有人回复我的评论时通知我</div>
                   </div>
                   <label
                     style="
@@ -899,9 +827,7 @@
                     >
                       周刊推送
                     </div>
-                    <div style="font-size: 0.8rem; color: var(--ink-muted)">
-                      每周一期精选内容摘要
-                    </div>
+                    <div class="small text-muted">每周一期精选内容摘要</div>
                   </div>
                   <label
                     style="
@@ -990,7 +916,7 @@
           <div class="col-md-2">
             <div class="footer-heading">导航</div>
             <ul class="footer-links">
-              <li><a href="index.hmtl">首页</a></li>
+              <li><a href="index.html">首页</a></li>
               <li><a href="post-list.html">文章</a></li>
               <li><a href="category-list.html">分类</a></li>
             </ul>
