@@ -107,7 +107,7 @@ function scrollToTop() {
    ========================================================== */
 
 function initThemeToggle() {
-  const btn = document.getElementById('themeToggle');
+  const btn  = document.getElementById('themeToggle');
   const icon = document.getElementById('themeIcon');
   if (!btn) return;
 
@@ -116,7 +116,7 @@ function initThemeToggle() {
 
   btn.addEventListener('click', () => {
     const current = document.documentElement.getAttribute('data-bs-theme') || 'light';
-    const next = current === 'dark' ? 'light' : 'dark';
+    const next    = current === 'dark' ? 'light' : 'dark';
     applyTheme(next, icon);
     localStorage.setItem('inkflow-theme', next);
     btn.style.transform = 'rotate(360deg)';
@@ -138,13 +138,13 @@ const inkflowAuth = {
   setUser(user) {
     const loginBtn = document.getElementById('navLoginBtn');
     const userWrap = document.getElementById('navUserWrapper');
-    const avatar = document.getElementById('navUserAvatar');
+    const avatar   = document.getElementById('navUserAvatar');
     const userName = document.getElementById('navUserName');
 
-    if (loginBtn) loginBtn.style.display = 'none';
-    if (userWrap) userWrap.style.display = 'flex';
-    if (avatar) avatar.textContent = user.initial || user.name.charAt(0);
-    if (userName) userName.textContent = user.name;
+    if (loginBtn)  loginBtn.style.display = 'none';
+    if (userWrap)  userWrap.style.display = 'flex';
+    if (avatar)    avatar.textContent      = user.initial || user.name.charAt(0);
+    if (userName)  userName.textContent    = user.name;
 
     localStorage.setItem('inkflow-user', JSON.stringify(user));
   },
@@ -153,8 +153,8 @@ const inkflowAuth = {
     const loginBtn = document.getElementById('navLoginBtn');
     const userWrap = document.getElementById('navUserWrapper');
 
-    if (loginBtn) loginBtn.style.display = '';
-    if (userWrap) userWrap.style.display = 'none';
+    if (loginBtn)  loginBtn.style.display = '';
+    if (userWrap)  userWrap.style.display = 'none';
 
     localStorage.removeItem('inkflow-user');
   },
@@ -171,7 +171,7 @@ function initUserAuth() {
   inkflowAuth.restore();
 
   const wrapper = document.getElementById('navUserWrapper');
-  const avatar = document.getElementById('navUserAvatar');
+  const avatar  = document.getElementById('navUserAvatar');
   if (wrapper && avatar) {
     avatar.addEventListener('click', () => wrapper.classList.toggle('open'));
     document.addEventListener('click', (e) => {
@@ -249,12 +249,12 @@ function initCounters() {
   if (!counters.length) return;
 
   function animateCounter(el, target, suffix) {
-    const duration = 1800;
+    const duration  = 1800;
     const startTime = performance.now();
     function step(currentTime) {
-      const elapsed = currentTime - startTime;
+      const elapsed  = currentTime - startTime;
       const progress = Math.min(elapsed / duration, 1);
-      const eased = 1 - Math.pow(1 - progress, 3);
+      const eased    = 1 - Math.pow(1 - progress, 3);
       el.textContent = Math.floor(eased * target) + (suffix || '');
       if (progress < 1) requestAnimationFrame(step);
     }
@@ -264,7 +264,7 @@ function initCounters() {
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
-        const el = entry.target;
+        const el     = entry.target;
         const target = parseInt(el.dataset.count, 10);
         const suffix = el.dataset.suffix || '';
         animateCounter(el, target, suffix);
@@ -297,8 +297,8 @@ function initTagPills() {
    ========================================================== */
 
 function initViewToggle() {
-  const gridBtn = document.getElementById('gridBtn');
-  const listBtn = document.getElementById('listBtn');
+  const gridBtn  = document.getElementById('gridBtn');
+  const listBtn  = document.getElementById('listBtn');
   const gridView = document.getElementById('gridView');
   const listView = document.getElementById('listView');
   if (!gridBtn || !listBtn) return;
@@ -392,7 +392,7 @@ function filterAlbum(el, cat) {
 
   document.querySelectorAll('#albumGrid [data-cat]').forEach(card => {
     const visible = cat === 'all' || card.dataset.cat === cat;
-    card.style.opacity = visible ? '1' : '.25';
+    card.style.opacity   = visible ? '1' : '.25';
     card.style.transform = visible ? '' : 'scale(.96)';
   });
 }
@@ -406,7 +406,7 @@ function openLightbox(key) {
   const lb = document.getElementById('lightbox');
   if (!lb) return;
 
-  const data = (window.lightboxData && window.lightboxData[key]) || {};
+  const data  = (window.lightboxData && window.lightboxData[key]) || {};
   const imgEl = document.getElementById('lbImg');
   const capEl = document.getElementById('lbCaption');
 
@@ -446,7 +446,7 @@ function filterLinks(el, cat) {
     const col = card.closest('.col-md-6, .col-12, [class*="col"]');
     if (!col) return;
     const visible = cat === 'all' || card.dataset.linkCat === cat;
-    col.style.opacity = visible ? '1' : '.2';
+    col.style.opacity   = visible ? '1' : '.2';
     col.style.transform = visible ? '' : 'scale(.97)';
   });
 }
@@ -486,7 +486,7 @@ function initTocSpy() {
    ========================================================== */
 
 function initReactions() {
-  const likeBtn = document.getElementById('likeBtn');
+  const likeBtn   = document.getElementById('likeBtn');
   const likeCount = document.getElementById('likeCount');
   if (likeBtn && likeCount) {
     let liked = false;
@@ -559,7 +559,7 @@ function initParallax() {
 
   document.addEventListener('mousemove', (e) => {
     if (e.clientY > hero.getBoundingClientRect().bottom) return;
-    const x = (e.clientX / window.innerWidth - 0.5) * 12;
+    const x = (e.clientX / window.innerWidth  - 0.5) * 12;
     const y = (e.clientY / window.innerHeight - 0.5) * 8;
     card.style.transform = `translateY(-4px) rotateY(${x * 0.3}deg) rotateX(${-y * 0.3}deg)`;
   });
@@ -607,7 +607,7 @@ function enableEdit(section, enable) {
    ========================================================== */
 
 function initAvatarUpload() {
-  const input = document.getElementById('avatarInput');
+  const input   = document.getElementById('avatarInput');
   const preview = document.getElementById('profileAvatarEl');
   if (!input || !preview) return;
 
@@ -617,7 +617,7 @@ function initAvatarUpload() {
     const reader = new FileReader();
     reader.onload = (e) => {
       preview.style.backgroundImage = `url(${e.target.result})`;
-      preview.style.backgroundSize = 'cover';
+      preview.style.backgroundSize  = 'cover';
       preview.textContent = '';
     };
     reader.readAsDataURL(file);
@@ -633,7 +633,7 @@ function initAvatarUpload() {
 function initPwdToggle() {
   document.querySelectorAll('.auth-pwd-toggle').forEach(btn => {
     btn.addEventListener('click', () => {
-      const wrap = btn.closest('.auth-input-icon-wrap');
+      const wrap  = btn.closest('.auth-input-icon-wrap');
       const input = wrap && wrap.querySelector('input');
       if (!input) return;
       const isText = input.type === 'text';
@@ -699,12 +699,12 @@ function initLoginForm() {
 
   loginBtn.addEventListener('click', () => {
     const email = document.getElementById('loginEmail')?.value;
-    const pwd = document.getElementById('loginPassword')?.value;
+    const pwd   = document.getElementById('loginPassword')?.value;
 
     if (!email || !pwd) { showToast('请填写邮箱和密码', 'error'); return; }
 
     loginBtn.innerHTML = '<i class="bi bi-hourglass-split me-1"></i> 登录中…';
-    loginBtn.disabled = true;
+    loginBtn.disabled  = true;
 
     setTimeout(() => {
       inkflowAuth.setUser({ name: '陈明远', initial: '陈' });
