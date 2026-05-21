@@ -7,6 +7,12 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css" />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="assets/css/inkflow.css" />
+<script id="inkflow-theme-check">
+  (function() {
+    var savedTheme = localStorage.getItem('inkflow-theme') || 'light';
+    document.documentElement.setAttribute('data-bs-theme', savedTheme);
+  })();
+</script>
 </head>
 <body>
 <div class="reading-progress" id="readingProgress"></div>
@@ -71,25 +77,25 @@
   <div class="float-btn" onclick="scrollToComments()" title="评论"><i class="bi bi-chat"></i></div>
 </div>
 
-<!-- ARTICLE HERO -->
-<header class="article-hero">
+<!-- PAGE HERO -->
+<div class="page-hero">
   <div class="container position-relative" style="z-index:1">
     <!-- BREADCRUMB -->
     <nav aria-label="breadcrumb" class="mb-3 ink-breadcrumb">
       <ol class="breadcrumb mb-0">
-        <li class="breadcrumb-item"><a href="index.html" style="color:rgba(255,255,255,.5)"><i class="bi bi-house me-1"></i>首页</a></li>
-        <li class="breadcrumb-item"><a href="post-list.html" style="color:rgba(255,255,255,.5)">文章</a></li>
-        <li class="breadcrumb-item" style="color:rgba(255,255,255,.8)">前端开发</li>
+        <li class="breadcrumb-item"><a href="index.html">首页</a></li>
+        <li class="breadcrumb-item"><a href="post-list.html">文章</a></li>
+        <li class="breadcrumb-item active">前端开发</li>
       </ol>
     </nav>
 
-    <div class="article-category"><i class="bi bi-cpu"></i> 技术 · 前端开发</div>
+    <div class="page-hero-eyebrow article-category"><i class="bi bi-cpu"></i> 技术 · 前端开发</div>
 
-    <h1 class="article-title">
+    <h1 class="page-hero-title article-title">
       2025 年前端开发的终极工具链：<br>从 Vite 5 到 RSC 的完整指南
     </h1>
 
-    <div class="article-meta-row">
+    <div class="page-hero-sub article-meta my-4">
       <div class="meta-author">
         <div class="meta-avatar">陈</div>
         <div>
@@ -112,11 +118,11 @@
       <span class="art-tag"><i class="bi bi-hash"></i>性能优化</span>
     </div>
   </div>
-</header>
+</div>
 
 <!-- COVER IMAGE -->
 <div class="container position-relative" style="margin-top:-2.5rem;z-index:2">
-  <div class="article-cover" style="background:linear-gradient(135deg,#081f14 0%,#0d4a28 40%,#1a7a48 80%,#0a5c38 100%)">
+  <div class="article-cover">
     <i class="bi bi-code-slash"></i>
   </div>
 </div>
@@ -567,8 +573,8 @@ export function LikeButton({ postId, initialCount }: Props) {
         </div>
 
         <!-- Newsletter -->
-        <div style="background:linear-gradient(135deg,var(--ink-primary) 0%,#052f1c 100%);border-radius:var(--radius-lg);padding:1.65rem;position:relative;overflow:hidden">
-          <div style="position:absolute;width:180px;height:180px;border-radius:50%;background:rgba(0,201,141,.12);top:-60px;right:-40px"></div>
+        <div class="sidebar-brand-card">
+          <div class="sidebar-brand-card-bg-circle"></div>
           <div style="position:relative;z-index:1">
             <div style="font-family:var(--font-display);font-size:1.1rem;font-weight:700;color:#fff;margin-bottom:.5rem"><i class="bi bi-envelope-paper me-2"></i>订阅更新</div>
             <p style="font-size:.82rem;color:rgba(255,255,255,.6);margin-bottom:1rem;line-height:1.6">每篇新文章第一时间推送到你</p>

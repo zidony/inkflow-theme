@@ -1,8 +1,8 @@
-# INKFLOW Theme
+# InkFlow Theme
 
 > 一套面向独立博客的现代化前端主题模板，基于 Bootstrap 5.3.8 构建，无需构建工具，开箱即用。
 
-![Version](https://img.shields.io/badge/version-1.9-green)
+![Version](https://img.shields.io/badge/version-2.0-green)
 ![Bootstrap](https://img.shields.io/badge/Bootstrap-5.3.8-7952b3)
 ![Bootstrap Icons](https://img.shields.io/badge/Bootstrap%20Icons-1.13.1-7952b3)
 ![License](https://img.shields.io/badge/license-CC%20BY%204.0-blue)
@@ -41,7 +41,7 @@ inkflow-theme/
 ├── login.html             # 登录/注册页
 ├── assets/
 │   ├── css/
-│   │   └── inkflow.css    # 主题全局样式（~3100 行）
+│   │   └── inkflow.css    # 主题全局样式（~3300 行）
 │   └── js/
 │       └── inkflow.js     # 主题全局脚本（~800 行）
 └── README.md
@@ -282,18 +282,19 @@ npx http-server . -p 8080
 
 ## 📋 版本历史
 
-| 版本 | 主要内容 |
-|------|---------|
-| **v1.9** |增加 assets 目录结构、Bootstrap 升级至 5.3.8、article-body 防溢出保护 |
-| v1.8 | 修复登录 Tab 切换、social-btn 居中问题（错误合并回滚）、文章正文防溢出 CSS |
-| v1.7 | 修复 navbar-collapse PC 宽度背景残留 Bug、mobile 头像下拉可点击、合并5组重复 CSS 类 |
-| v1.6 | 恢复搜索按钮、TFA toggle 改为 checkbox 实现、消除双 class 属性 |
-| v1.5 | 导航栏/页脚全站标准化、profile 页 inline style 大规模替换为 CSS class |
-| v1.4 | CSS 去重（11处重复选择器）、JS viewToggle/toggleApplyForm bug 修复、彩色标签云恢复 |
-| v1.3 | page-specific JS/CSS 抽离、profile 个人资料页新增、CSS Design Token 规范化 |
-| v1.2 | 全套 10 页面重构、外部 inkflow.css/js、Bootstrap 变量覆盖、class 驱动 Toast |
-| v1.1 | 功能补完与小修 |
-| v1.0 | 初始版本，单文件原型实现 |
+| 版本 | 别名 | 主要内容 |
+|------|------|---------|
+| **v2.0** | — | 全局内联样式组件化提取（13 个新 CSS 组件类）、FOIT 闪烁修复、index.html 长文精选结构修复、7 个页面 HTML 清理 |
+| **v1.9** | — | 文件重命名（blog-theme→index、post-detail→post-show）、assets 目录结构、Bootstrap 升级至 5.3.8、article-body 防溢出保护 |
+| v1.8 | v2.6 | 修复登录 Tab 切换、social-btn 居中问题（错误合并回滚）、文章正文防溢出 CSS |
+| v1.7 | v2.5 | 修复 navbar-collapse PC 宽度背景残留 Bug、mobile 头像下拉可点击、合并5组重复 CSS 类 |
+| v1.6 | v2.4 | 恢复搜索按钮、TFA toggle 改为 checkbox 实现、消除双 class 属性 |
+| v1.5 | v2.3 | 导航栏/页脚全站标准化、profile 页 inline style 大规模替换为 CSS class |
+| v1.4 | v2.2 | CSS 去重（11处重复选择器）、JS viewToggle/toggleApplyForm bug 修复、彩色标签云恢复 |
+| v1.3 | v2.1 | page-specific JS/CSS 抽离、profile 个人资料页新增、CSS Design Token 规范化 |
+| v1.2 | v2.0 | 全套 10 页面重构、外部 inkflow.css/js、Bootstrap 变量覆盖、class 驱动 Toast |
+| v1.1 | — | 功能补完与小修 |
+| v1.0 | — | 初始版本，单文件原型实现 |
 
 ---
 
@@ -303,9 +304,4 @@ npx http-server . -p 8080
 
 ---
 
-*INKFLOW Theme v1.9 · 基于 Bootstrap 5.3.8 构建*
-
----
-
-## 附言
-这是 Claude.ai 的 Sonnet 4.6 免费版在2026年2至3月的生成作品，秒杀一切同期其他模型的生成能力。
+*INKFLOW Theme v2.0 · 基于 Bootstrap 5.3.8 构建*

@@ -14,6 +14,12 @@
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
 
   <link rel="stylesheet" href="assets/css/inkflow.css" />
+<script id="inkflow-theme-check">
+  (function() {
+    var savedTheme = localStorage.getItem('inkflow-theme') || 'light';
+    document.documentElement.setAttribute('data-bs-theme', savedTheme);
+  })();
+</script>
 </head>
 <body>
 
@@ -459,62 +465,65 @@
         <!-- List style posts -->
         <div class="d-flex flex-column gap-3">
 
-          <!-- Post list item -->
-          <div class="post-card-row post-card flex-row align-items-stretch fade-up">
-            <div class="post-card-thumb-sm" style="background:linear-gradient(135deg,#0a1a0a,#1a4a2a)">
+          <a href="post-show.html" class="post-list-item text-decoration-none fade-up">
+            <div class="post-list-thumb" style="background:linear-gradient(135deg,#0a1a0a,#1a4a2a);color:rgba(255,255,255,.18)">
               <i class="bi bi-terminal"></i>
             </div>
-            <div class="post-card-body">
+            <div class="post-list-body">
               <div class="post-card-category"><i class="bi bi-cpu me-1"></i>CLI 工具</div>
-              <h3 class="post-card-title">打造你的终端工作流：Zsh + Tmux + Neovim 完整配置指南</h3>
-              <div class="post-card-footer" style="margin-top:auto;">
-                <div class="post-date"><i class="bi bi-calendar3 me-1"></i>2025年1月22日</div>
-                <div class="read-time"><i class="bi bi-clock"></i> 25 min</div>
+              <div class="post-list-title">打造你的终端工作流：Zsh + Tmux + Neovim 完整配置指南</div>
+              <div class="post-list-meta" style="margin-top:auto;">
+                <span class="post-date"><i class="bi bi-calendar3 me-1"></i>2025年1月22日</span>
+                <span class="meta-sep">路</span>
+                <span class="read-time"><i class="bi bi-clock me-1"></i>25 min</span>
               </div>
             </div>
-          </div>
+          </a>
 
-          <div class="post-card-row post-card flex-row align-items-stretch fade-up delay-1">
-            <div class="post-card-thumb-sm" style="background:linear-gradient(135deg,#1a0a30,#3d0f6e)">
+          <a href="post-show.html" class="post-list-item text-decoration-none fade-up delay-1">
+            <div class="post-list-thumb" style="background:linear-gradient(135deg,#1a0a30,#3d0f6e);color:rgba(255,255,255,.18)">
               <i class="bi bi-infinity"></i>
             </div>
-            <div class="post-card-body">
+            <div class="post-list-body">
               <div class="post-card-category"><i class="bi bi-gear me-1"></i>DevOps</div>
-              <h3 class="post-card-title">GitHub Actions 进阶：构建真正生产级别的 CI/CD 流水线</h3>
-              <div class="post-card-footer" style="margin-top:auto;">
-                <div class="post-date"><i class="bi bi-calendar3 me-1"></i>2025年1月15日</div>
-                <div class="read-time"><i class="bi bi-clock"></i> 19 min</div>
+              <div class="post-list-title">GitHub Actions 进阶：构建真正生产级别的 CI/CD 流水线</div>
+              <div class="post-list-meta" style="margin-top:auto;">
+                <span class="post-date"><i class="bi bi-calendar3 me-1"></i>2025年1月15日</span>
+                <span class="meta-sep">路</span>
+                <span class="read-time"><i class="bi bi-clock me-1"></i>19 min</span>
               </div>
             </div>
-          </div>
+          </a>
 
-          <div class="post-card-row post-card flex-row align-items-stretch fade-up delay-2">
-            <div class="post-card-thumb-sm" style="background:linear-gradient(135deg,#0a1e30,#0d4569)">
+          <a href="post-show.html" class="post-list-item text-decoration-none fade-up delay-2">
+            <div class="post-list-thumb" style="background:linear-gradient(135deg,#0a1e30,#0d4569);color:rgba(255,255,255,.18)">
               <i class="bi bi-layers"></i>
             </div>
-            <div class="post-card-body">
+            <div class="post-list-body">
               <div class="post-card-category"><i class="bi bi-stack me-1"></i>架构</div>
-              <h3 class="post-card-title">微服务 vs 单体架构：2025 年的再思考与选型决策框架</h3>
-              <div class="post-card-footer" style="margin-top:auto;">
-                <div class="post-date"><i class="bi bi-calendar3 me-1"></i>2025年1月8日</div>
-                <div class="read-time"><i class="bi bi-clock"></i> 16 min</div>
+              <div class="post-list-title">微服务 vs 单体架构：2025 年的再思考与选型决策框架</div>
+              <div class="post-list-meta" style="margin-top:auto;">
+                <span class="post-date"><i class="bi bi-calendar3 me-1"></i>2025年1月8日</span>
+                <span class="meta-sep">路</span>
+                <span class="read-time"><i class="bi bi-clock me-1"></i>16 min</span>
               </div>
             </div>
-          </div>
+          </a>
 
-          <div class="post-card-row post-card flex-row align-items-stretch fade-up delay-3">
-            <div class="post-card-thumb-sm" style="background:linear-gradient(135deg,#2a1500,#5c3200)">
+          <a href="post-show.html" class="post-list-item text-decoration-none fade-up delay-3">
+            <div class="post-list-thumb" style="background:linear-gradient(135deg,#2a1500,#5c3200);color:rgba(255,255,255,.18)">
               <i class="bi bi-book-half"></i>
             </div>
-            <div class="post-card-body">
+            <div class="post-list-body">
               <div class="post-card-category"><i class="bi bi-feather me-1"></i>随笔</div>
-              <h3 class="post-card-title">读《穷查理宝典》：工程师视角下的多元思维模型实践</h3>
-              <div class="post-card-footer" style="margin-top:auto;">
-                <div class="post-date"><i class="bi bi-calendar3 me-1"></i>2024年12月29日</div>
-                <div class="read-time"><i class="bi bi-clock"></i> 11 min</div>
+              <div class="post-list-title">读《穷查理宝典》：工程师视角下的多元思维模型实践</div>
+              <div class="post-list-meta" style="margin-top:auto;">
+                <span class="post-date"><i class="bi bi-calendar3 me-1"></i>2024年12月29日</span>
+                <span class="meta-sep">路</span>
+                <span class="read-time"><i class="bi bi-clock me-1"></i>11 min</span>
               </div>
             </div>
-          </div>
+          </a>
 
         </div>
       </div>

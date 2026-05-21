@@ -44,6 +44,8 @@
 
 'use strict';
 
+(function(global) {
+
 /* ==========================================================
    01. NAVBAR SCROLL EFFECT
    ========================================================== */
@@ -797,3 +799,24 @@ if (document.readyState === 'loading') {
 } else {
   initPage();
 }
+
+// Expose inline handlers to global scope
+global.scrollToTop = typeof scrollToTop !== 'undefined' ? scrollToTop : null;
+global.openSearch = typeof openSearch !== 'undefined' ? openSearch : null;
+global.closeSearch = typeof closeSearch !== 'undefined' ? closeSearch : null;
+global.openLightbox = typeof openLightbox !== 'undefined' ? openLightbox : null;
+global.closeLightbox = typeof closeLightbox !== 'undefined' ? closeLightbox : null;
+global.setYear = typeof setYear !== 'undefined' ? setYear : null;
+global.filterLinks = typeof filterLinks !== 'undefined' ? filterLinks : null;
+global.toggleLinkApplyForm = typeof toggleLinkApplyForm !== 'undefined' ? toggleLinkApplyForm : null;
+global.toggleLike = typeof toggleLike !== 'undefined' ? toggleLike : null;
+global.scrollToComments = typeof scrollToComments !== 'undefined' ? scrollToComments : null;
+global.copyCode = typeof copyCode !== 'undefined' ? copyCode : null;
+global.toggleReact = typeof toggleReact !== 'undefined' ? toggleReact : null;
+global.copyLink = typeof copyLink !== 'undefined' ? copyLink : null;
+global.scrollToSection = typeof scrollToSection !== 'undefined' ? scrollToSection : null;
+global.showToast = typeof showToast !== 'undefined' ? showToast : null;
+global.confirmDelete = typeof confirmDelete !== 'undefined' ? confirmDelete : null;
+global.setSort = typeof setSort !== 'undefined' ? setSort : null;
+
+})(window);

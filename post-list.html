@@ -7,6 +7,12 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css" />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="assets/css/inkflow.css" />
+<script id="inkflow-theme-check">
+  (function() {
+    var savedTheme = localStorage.getItem('inkflow-theme') || 'light';
+    document.documentElement.setAttribute('data-bs-theme', savedTheme);
+  })();
+</script>
 </head>
 <body>
 <div class="reading-progress" id="readingProgress"></div>
@@ -64,7 +70,7 @@
   <div class="container position-relative" style="z-index:1">
     <nav aria-label="breadcrumb" class="ink-breadcrumb mb-3">
       <ol class="breadcrumb mb-0 align-items-center">
-        <li class="breadcrumb-item"><a href="index.html"><i class="bi bi-house me-1"></i>首页</a></li>
+        <li class="breadcrumb-item"><a href="index.html">首页</a></li>
         <li class="breadcrumb-item active">全部文章</li>
       </ol>
     </nav>
@@ -259,7 +265,7 @@
             <a href="post-show.html" class="post-list-item text-decoration-none">
               <div class="post-list-thumb" style="background:linear-gradient(135deg,#081f14,#1a5c2a);color:rgba(255,255,255,.18)"><i class="bi bi-code-slash"></i></div>
               <div class="post-list-body">
-                <div class="meta-tag"><i class="bi bi-cpu me-1"></i>前端开发</div>
+                <div class="post-card-category"><i class="bi bi-cpu me-1"></i>前端开发</div>
                 <div class="post-list-title">2025 年前端开发的终极工具链：从 Vite 5 到 RSC 的完整指南</div>
                 <div class="post-list-excerpt">前端生态从未停止进化。本文带你走过现代前端工具链的每一个关键节点，探讨 Vite 5 的革命性改进与 React Server Components 实际落地经验。</div>
                 <div class="post-list-meta">
@@ -274,7 +280,7 @@
             <a href="post-show.html" class="post-list-item text-decoration-none">
               <div class="post-list-thumb" style="background:linear-gradient(135deg,#1a1040,#2d1b69);color:rgba(255,255,255,.18)"><i class="bi bi-brush"></i></div>
               <div class="post-list-body">
-                <div class="meta-tag" style="color:#7c3aed"><i class="bi bi-palette2 me-1"></i>UI/UX 设计</div>
+                <div class="post-card-category" style="color:#7c3aed"><i class="bi bi-palette2 me-1"></i>UI/UX 设计</div>
                 <div class="post-list-title">设计系统的本质：语义化 Token 体系构建实践</div>
                 <div class="post-list-excerpt">如何从 0 到 1 构建一个真正可扩展的设计系统？本文从 Token 分层策略出发，逐步拆解实现细节与工程化配置方案。</div>
                 <div class="post-list-meta">
@@ -289,7 +295,7 @@
             <a href="post-show.html" class="post-list-item text-decoration-none">
               <div class="post-list-thumb" style="background:linear-gradient(135deg,#0d3040,#0e5a6a);color:rgba(255,255,255,.18)"><i class="bi bi-robot"></i></div>
               <div class="post-list-body">
-                <div class="meta-tag" style="color:#0891b2"><i class="bi bi-robot me-1"></i>人工智能</div>
+                <div class="post-card-category" style="color:#0891b2"><i class="bi bi-robot me-1"></i>人工智能</div>
                 <div class="post-list-title">本地部署 LLM：Ollama + Open WebUI 完全配置手册</div>
                 <div class="post-list-excerpt">完整讲解如何在本地运行大语言模型，从硬件选型、模型下载到自定义 API 接口配置，一站式解决方案。</div>
                 <div class="post-list-meta">
@@ -304,7 +310,7 @@
             <a href="post-show.html" class="post-list-item text-decoration-none">
               <div class="post-list-thumb" style="background:linear-gradient(135deg,#1a2f0a,#2d5c1a);color:rgba(255,255,255,.18)"><i class="bi bi-graph-up-arrow"></i></div>
               <div class="post-list-body">
-                <div class="meta-tag" style="color:#16a34a"><i class="bi bi-rocket-takeoff me-1"></i>产品思维</div>
+                <div class="post-card-category" style="color:#16a34a"><i class="bi bi-rocket-takeoff me-1"></i>产品思维</div>
                 <div class="post-list-title">B2B SaaS 产品 PMF 验证的 6 个关键信号</div>
                 <div class="post-list-excerpt">如何在早期阶段判断你的 SaaS 产品是否找到了 Product-Market Fit？这里有 6 个可量化的信号指标，帮你做出客观判断。</div>
                 <div class="post-list-meta">
@@ -319,7 +325,7 @@
             <a href="post-show.html" class="post-list-item text-decoration-none">
               <div class="post-list-thumb" style="background:linear-gradient(135deg,#1a0a2e,#4a0d6b);color:rgba(255,255,255,.18)"><i class="bi bi-shield-lock"></i></div>
               <div class="post-list-body">
-                <div class="meta-tag" style="color:#6d28d9"><i class="bi bi-shield-check me-1"></i>Web 安全</div>
+                <div class="post-card-category" style="color:#6d28d9"><i class="bi bi-shield-check me-1"></i>Web 安全</div>
                 <div class="post-list-title">OWASP Top 10 漏洞防御清单（2025 版）完整解析</div>
                 <div class="post-list-excerpt">从 SQL 注入到 SSRF，逐一拆解最新的 OWASP Top 10 漏洞类型，并给出可立即落地的防御方案与代码示例。</div>
                 <div class="post-list-meta">
@@ -410,9 +416,9 @@
         </div>
 
         <!-- Newsletter -->
-        <div class="fade-up delay-4" style="background:linear-gradient(135deg,var(--ink-primary) 0%,#052f1c 100%);border-radius:var(--radius-lg);padding:1.75rem;position:relative;overflow:hidden">
-          <div style="position:absolute;width:180px;height:180px;border-radius:50%;background:rgba(0,201,141,.12);top:-60px;right:-40px"></div>
-          <div style="position:relative;z-index:1">
+        <div class="sidebar-brand-card fade-up delay-4">
+          <div class="sidebar-brand-card-bg-circle"></div>
+          <div class="sidebar-brand-card-content">
             <div style="font-family:var(--font-display);font-size:1.15rem;font-weight:700;color:#fff;margin-bottom:.5rem"><i class="bi bi-envelope-paper me-2"></i>订阅周刊</div>
             <p style="font-size:.83rem;color:rgba(255,255,255,.6);margin-bottom:1rem;line-height:1.6">每周精选 5 篇，直达收件箱</p>
             <input type="email" placeholder="your@email.com" style="width:100%;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);border-radius:var(--radius-sm);padding:.6rem .9rem;color:#fff;font-size:.86rem;outline:none;font-family:var(--font-body);margin-bottom:.6rem" />
