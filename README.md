@@ -2,7 +2,7 @@
 
 > 一套面向独立博客的现代化前端主题模板，基于 Bootstrap 5.3.8 构建，无需构建工具，开箱即用。
 
-![Version](https://img.shields.io/badge/version-2.0-green)
+![Version](https://img.shields.io/badge/version-2.1-green)
 ![Bootstrap](https://img.shields.io/badge/Bootstrap-5.3.8-7952b3)
 ![Bootstrap Icons](https://img.shields.io/badge/Bootstrap%20Icons-1.13.1-7952b3)
 ![License](https://img.shields.io/badge/license-CC%20BY%204.0-blue)
@@ -284,6 +284,7 @@ npx http-server . -p 8080
 
 | 版本 | 别名 | 主要内容 |
 |------|------|---------|
+| **v2.1** | — | 统一头像组件系统（.ink-avatar），11 个旧类合并为基础类 + 16 个修饰符，删除全部头像内联渐变色，友链头像统一截取首字符 |
 | **v2.0** | — | 全局内联样式组件化提取（13 个新 CSS 组件类）、FOIT 闪烁修复、index.html 长文精选结构修复、7 个页面 HTML 清理 |
 | **v1.9** | — | 文件重命名（blog-theme→index、post-detail→post-show）、assets 目录结构、Bootstrap 升级至 5.3.8、article-body 防溢出保护 |
 | v1.8 | v2.6 | 修复登录 Tab 切换、social-btn 居中问题（错误合并回滚）、文章正文防溢出 CSS |
@@ -304,4 +305,4 @@ npx http-server . -p 8080
 
 ---
 
-*INKFLOW Theme v2.0 · 基于 Bootstrap 5.3.8 构建*
+*INKFLOW Theme v2.1 · 基于 Bootstrap 5.3.8 构建*
