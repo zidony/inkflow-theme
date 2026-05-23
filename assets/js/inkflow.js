@@ -13,32 +13,26 @@
  * 08. Counter Animation (data-count)
  * 09. Tag / Filter Pills
  * 10. Post List — Grid / List View Toggle
- * 11. Archive — Heatmap Generation
+ * 11. Archive — Heatmap Generation (setYear)
  * 12. Archive — Year Tab Switching
  * 13. Album — Filter Tabs
  * 14. Album — Lightbox
- * 15. Link List — Filter & Apply Form
- * 16. Post Detail — TOC Scroll Spy
- * 17. Post Detail — Reactions & Like
+ * 15. Link List — Filter & Apply Form (toggleLinkApplyForm)
+ * 16. Post Detail — TOC IntersectionObserver Scroll Spy (⚡ High Performance)
+ * 17. Post Detail — Reactions & Like (⚡ Unified click & state handler)
  * 18. Post Detail — Copy Code Block
  * 19. Post Detail — Share / Copy Link
  * 20. Post Detail — Scroll to Comments
- * 21. Hero Card Parallax (homepage only)
+ * 21. Hero Card Parallax (⚡ GPU accelerated requestAnimationFrame)
  * 22. Profile Page — Edit Mode Toggle
  * 23. Profile Page — Avatar Upload Preview
- * 24. Keyboard Shortcuts (Esc / Ctrl+K)
- * 25. Login / Register — Auth Tabs
- * 26. Login — Password Toggle
- * 27. Login — Form Submit Handlers
+ * 24. Profile Page — Streak Mini Activity Dots (⚡ Replaces document.write)
+ * 25. Profile Page — Helpers (scrollToSection, confirmDelete)
+ * 26. Keyboard Shortcuts (Esc / Ctrl+K)
+ * 27. Login / Register — Auth Tabs
+ * 28. Login — Password Toggle
+ * 29. Login — Form Submit Handlers
  *
- * v2.2 变更说明:
- * - 修复 initViewToggle：改用 classList.toggle('d-none') 避免与 Bootstrap d-none 冲突
- * - toggleApplyForm 统一使用 linkApplyForm ID，与 link-list.html 对齐
- * - 清理所有 CSS/JS 重复定义（11 处 CSS 重复、0 处 JS 重复）
- * - 新增 post-list 缺失 CSS：img-ph hover、post-card-badge、pop-item、result-count
- * - 新增 tag-list CSS：tag-cloud-wrap、cloud-tag（恢复彩色多色标签云）
- * - tag-list.html 恢复原版彩色标签云 JS 实现
- * - archive-list.html setYear() 移入 inkflow.js，统一管理
  * =========================================================
  */
 
@@ -328,20 +322,9 @@ function initViewToggle() {
 function initHeatmap() {
   const container = document.getElementById('heatmapGrid');
   if (!container) return;
-
-  const levels = [0, 0, 0, 1, 1, 2, 2, 3, 4];
-  for (let week = 0; week < 53; week++) {
-    const weekEl = document.createElement('div');
-    weekEl.className = 'heatmap-week';
-    for (let day = 0; day < 7; day++) {
-      const dayEl = document.createElement('div');
-      dayEl.className = 'heatmap-day';
-      const lvl = levels[Math.floor(Math.random() * levels.length)];
-      if (lvl > 0) dayEl.dataset.level = lvl;
-      weekEl.appendChild(dayEl);
-    }
-    container.appendChild(weekEl);
-  }
+  
+  // 默认渲染2025年数据
+  setYear(null, '2025');
 }
 
 
@@ -358,16 +341,24 @@ function initArchiveTabs() {
   });
 }
 
-/* year-btn switching for archive heatmap — called by onclick in archive-list.html */
+/* year-btn switching for archive heatmap */
 function setYear(el, year) {
   document.querySelectorAll('.year-btn').forEach(b => b.classList.remove('active'));
-  if (el) el.classList.add('active');
-  // Re-generate heatmap with different seed per year
+  if (el) {
+    el.classList.add('active');
+  } else {
+    // 如果是通过 init 调用的，激活默认年份按钮
+    const defaultBtn = document.querySelector(`.year-btn[onclick*="'${year}'"]`);
+    if (defaultBtn) defaultBtn.classList.add('active');
+  }
+
   const grid = document.getElementById('heatmapGrid');
   if (!grid) return;
   grid.innerHTML = '';
+  
   const levels = [0, 0, 0, 1, 1, 2, 2, 3, 4];
   const seed = parseInt(year) % 100;
+  
   for (let week = 0; week < 53; week++) {
     const weekEl = document.createElement('div');
     weekEl.className = 'heatmap-week';
@@ -437,7 +428,7 @@ function initLightbox() {
 
 
 /* ==========================================================
-   15. LINK LIST — Filter Tabs
+   15. LINK LIST — Filter & Apply Form
    ========================================================== */
 
 function filterLinks(el, cat) {
@@ -453,14 +444,14 @@ function filterLinks(el, cat) {
   });
 }
 
-function toggleApplyForm() {
+function toggleLinkApplyForm() {
   const form = document.getElementById('linkApplyForm');
   if (form) form.classList.toggle('show');
 }
 
 
 /* ==========================================================
-   16. POST DETAIL — TOC Scroll Spy
+   16. POST DETAIL — TOC IntersectionObserver Scroll Spy (⚡ High Performance)
    ========================================================== */
 
 function initTocSpy() {
@@ -468,23 +459,35 @@ function initTocSpy() {
   const headings = document.querySelectorAll('h2[id], h3[id]');
   if (!tocLinks.length || !headings.length) return;
 
-  function updateTOC() {
-    let current = '';
-    headings.forEach(h => {
-      if (h.getBoundingClientRect().top < 120) current = h.id;
-    });
-    tocLinks.forEach(link => {
-      link.classList.remove('active');
-      if (link.getAttribute('href') === '#' + current) link.classList.add('active');
-    });
-  }
+  const activeClass = 'active';
+  let currentActive = null;
 
-  window.addEventListener('scroll', updateTOC, { passive: true });
+  const observerOptions = {
+    rootMargin: '-100px 0px -65% 0px',
+    threshold: 0
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const id = entry.target.getAttribute('id');
+        const targetLink = document.querySelector(`.toc-list a[href="#${id}"]`);
+        
+        if (targetLink && targetLink !== currentActive) {
+          if (currentActive) currentActive.classList.remove(activeClass);
+          targetLink.classList.add(activeClass);
+          currentActive = targetLink;
+        }
+      }
+    });
+  }, observerOptions);
+
+  headings.forEach(h => observer.observe(h));
 }
 
 
 /* ==========================================================
-   17. POST DETAIL — Reactions & Like
+   17. POST DETAIL — Reactions & Like (⚡ Unified Handler)
    ========================================================== */
 
 function initReactions() {
@@ -494,8 +497,17 @@ function initReactions() {
     let liked = false;
     likeBtn.addEventListener('click', () => {
       liked = !liked;
-      likeCount.textContent = parseInt(likeCount.textContent) + (liked ? 1 : -1);
+      likeBtn.classList.toggle('active', liked);
       likeBtn.classList.toggle('liked', liked);
+      
+      const icon = likeBtn.querySelector('i');
+      if (icon) {
+        icon.className = liked ? 'bi bi-heart-fill text-danger' : 'bi bi-heart';
+      }
+
+      const countVal = parseInt(likeCount.textContent) || 0;
+      likeCount.textContent = liked ? countVal + 1 : Math.max(0, countVal - 1);
+      
       likeBtn.style.transform = 'scale(1.25)';
       setTimeout(() => { likeBtn.style.transform = ''; }, 200);
     });
@@ -551,7 +563,7 @@ function scrollToComments() {
 
 
 /* ==========================================================
-   21. HERO CARD PARALLAX (homepage only)
+   21. HERO CARD PARALLAX (⚡ GPU Accelerated with requestAnimationFrame)
    ========================================================== */
 
 function initParallax() {
@@ -559,15 +571,45 @@ function initParallax() {
   const card = document.querySelector('.hero-card');
   if (!hero || !card) return;
 
+  // 设置 3D 渲染上下文
+  const wrapper = card.parentElement;
+  if (wrapper) {
+    wrapper.style.perspective = '1000px';
+  }
+  card.style.willChange = 'transform';
+  card.style.transition = 'transform 0.15s ease-out';
+
+  // 缓存 layout 高度以避免 mousemove 回调中触发重排
+  let heroBottom = hero.getBoundingClientRect().bottom + window.scrollY;
+  window.addEventListener('resize', () => {
+    heroBottom = hero.getBoundingClientRect().bottom + window.scrollY;
+  }, { passive: true });
+
+  let mouseX = 0;
+  let mouseY = 0;
+  let ticking = false;
+
   document.addEventListener('mousemove', (e) => {
-    if (e.clientY > hero.getBoundingClientRect().bottom) return;
-    const x = (e.clientX / window.innerWidth  - 0.5) * 12;
-    const y = (e.clientY / window.innerHeight - 0.5) * 8;
-    card.style.transform = `translateY(-4px) rotateY(${x * 0.3}deg) rotateX(${-y * 0.3}deg)`;
-  });
+    if (e.pageY > heroBottom) return;
+
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+
+    if (!ticking) {
+      requestAnimationFrame(updateParallax);
+      ticking = true;
+    }
+  }, { passive: true });
+
+  function updateParallax() {
+    const x = (mouseX / window.innerWidth  - 0.5) * 12;
+    const y = (mouseY / window.innerHeight - 0.5) * 8;
+    card.style.transform = `translate3d(0, -4px, 0) rotateY(${x * 0.3}deg) rotateX(${-y * 0.3}deg)`;
+    ticking = false;
+  }
 
   hero.addEventListener('mouseleave', () => {
-    card.style.transform = '';
+    card.style.transform = 'translate3d(0, 0, 0) rotateY(0deg) rotateX(0deg)';
   });
 }
 
@@ -628,8 +670,98 @@ function initAvatarUpload() {
 
 
 /* ==========================================================
-   AUTH — Password visibility toggle
-   v2.0: 绑定到 .auth-pwd-toggle 按钮，不再用 inline onclick
+   24. PROFILE PAGE — Streak Mini Activity Dots (⚡ Replaces document.write)
+   ========================================================== */
+
+function initProfileStreak() {
+  const container = document.getElementById('streakDots');
+  if (!container) return;
+  
+  const dotsHtml = Array.from({length: 21}, (_, i) => {
+    const active = i > 12 ? Math.random() > 0.3 : Math.random() > 0.7;
+    return `<div style="flex:1;height:8px;border-radius:2px;background:${active ? 'rgba(0,201,141,.7)' : 'rgba(255,255,255,.1)'}"></div>`;
+  }).join('');
+  
+  container.innerHTML = dotsHtml;
+}
+
+
+/* ==========================================================
+   25. PROFILE PAGE — Helpers (scrollToSection, confirmDelete)
+   ========================================================== */
+
+function scrollToSection(id) {
+  const el = document.getElementById(id);
+  if (el) {
+    el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+  return false;
+}
+
+function confirmDelete() {
+  if (confirm('确认要永久注销账号吗？此操作无法撤销，所有数据将被清除。')) {
+    showToast('账号注销申请已提交，请检查邮箱确认');
+  }
+}
+
+
+/* ==========================================================
+   26. KEYBOARD SHORTCUTS
+   ========================================================== */
+
+function initKeyboard() {
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      closeSearch();
+      closeLightbox();
+    }
+    if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+      e.preventDefault();
+      openSearch();
+    }
+  });
+}
+
+
+/* ==========================================================
+   27. LOGIN / REGISTER — Auth Tabs
+   ========================================================== */
+
+function initAuthTabs() {
+  const tabBtns = document.querySelectorAll('.auth-tab-btn');
+  if (!tabBtns.length) return;
+
+  const activeBtn = document.querySelector('.auth-tab-btn.active') || tabBtns[0];
+  const activeTarget = activeBtn?.dataset.authTab;
+  
+  document.querySelectorAll('.auth-tab-pane').forEach(pane => {
+    pane.classList.remove('d-none');
+    pane.style.display = pane.id === activeTarget ? 'block' : 'none';
+  });
+
+  tabBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const target = btn.dataset.authTab;
+      tabBtns.forEach(b => b.classList.toggle('active', b === btn));
+      document.querySelectorAll('.auth-tab-pane').forEach(pane => {
+        pane.style.display = pane.id === target ? 'block' : 'none';
+      });
+    });
+  });
+
+  document.querySelectorAll('[data-auth-switch]').forEach(link => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      const target = link.dataset.authSwitch;
+      const btn = document.querySelector(`.auth-tab-btn[data-auth-tab="${target}"]`);
+      if (btn) btn.click();
+    });
+  });
+}
+
+
+/* ==========================================================
+   28. LOGIN — Password Toggle
    ========================================================== */
 
 function initPwdToggle() {
@@ -648,51 +780,7 @@ function initPwdToggle() {
 
 
 /* ==========================================================
-   AUTH — Login page Tab switching
-   v2.0: 使用 Bootstrap Tab API，"立即注册"/"立即登录" 链接
-         通过 data-auth-switch 属性触发，无需自定义 switchTab()
-   ========================================================== */
-
-function initAuthTabs() {
-  // Tab button switching (uses .auth-tab-btn + .auth-tab-pane)
-  const tabBtns = document.querySelectorAll('.auth-tab-btn');
-  if (!tabBtns.length) return;
-
-  // 初始化：找到 active 按钮，显示对应 pane，隐藏其余
-  const activeBtn = document.querySelector('.auth-tab-btn.active') || tabBtns[0];
-  const activeTarget = activeBtn?.dataset.authTab;
-  document.querySelectorAll('.auth-tab-pane').forEach(pane => {
-    // 清除任何 d-none class，完全交由 style.display 控制
-    pane.classList.remove('d-none');
-    pane.style.display = pane.id === activeTarget ? 'block' : 'none';
-  });
-
-  tabBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      const target = btn.dataset.authTab;
-      // Update button states
-      tabBtns.forEach(b => b.classList.toggle('active', b === btn));
-      // Show/hide panes
-      document.querySelectorAll('.auth-tab-pane').forEach(pane => {
-        pane.style.display = pane.id === target ? 'block' : 'none';
-      });
-    });
-  });
-
-  // "立即注册" / "立即登录" cross-links via data-auth-switch
-  document.querySelectorAll('[data-auth-switch]').forEach(link => {
-    link.addEventListener('click', (e) => {
-      e.preventDefault();
-      const target = link.dataset.authSwitch;
-      const btn = document.querySelector(`.auth-tab-btn[data-auth-tab="${target}"]`);
-      if (btn) btn.click();
-    });
-  });
-}
-
-
-/* ==========================================================
-   AUTH — Login form submit
+   29. LOGIN — Form Submit Handlers
    ========================================================== */
 
 function initLoginForm() {
@@ -724,8 +812,6 @@ function initLoginForm() {
 
 /* ==========================================================
    UTILITY: Toast notification
-   v2.0: 使用 CSS class 驱动，不再构建内联 style 字符串
-   CSS 规则在 inkflow.css 中定义（见 .ink-toast）
    ========================================================== */
 
 function showToast(message, type = 'success') {
@@ -748,50 +834,45 @@ function showToast(message, type = 'success') {
 
 
 /* ==========================================================
-   24. KEYBOARD SHORTCUTS
+   PAGE INIT — 统一路由/节点按需探测加载重构
    ========================================================== */
 
-function initKeyboard() {
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') {
-      closeSearch();
-      closeLightbox();
-    }
-    if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
-      e.preventDefault();
-      openSearch();
-    }
-  });
-}
-
-
-/* ==========================================================
-   PAGE INIT — 统一入口
-   ========================================================== */
+const moduleRegistry = [
+  { selector: '#mainNavbar', init: initNavbar },
+  { selector: '#readingProgress', init: initReadingProgress },
+  { selector: '#backToTop', init: initBackToTop },
+  { selector: '#themeToggle', init: initThemeToggle },
+  { selector: '#navUserWrapper', init: initUserAuth },
+  { selector: '#searchOverlay', init: initSearch },
+  { selector: '.fade-up', init: initScrollReveal },
+  { selector: '[data-count]', init: initCounters },
+  { selector: '.tag-pill', init: initTagPills },
+  { selector: '#gridBtn', init: initViewToggle },
+  { selector: '#heatmapGrid', init: initHeatmap },
+  { selector: '.archive-year-tab', init: initArchiveTabs },
+  { selector: '#lightbox', init: initLightbox },
+  { selector: '.toc-list', init: initTocSpy },
+  { selector: '#likeBtn', init: initReactions },
+  { selector: '.hero-gradient', init: initParallax },
+  { selector: '[data-profile-section]', init: initProfileEdit },
+  { selector: '#avatarInput', init: initAvatarUpload },
+  { selector: '#streakDots', init: initProfileStreak },
+  { selector: '.auth-pwd-toggle', init: initPwdToggle },
+  { selector: '.auth-tab-btn', init: initAuthTabs },
+  { selector: '#doLoginBtn', init: initLoginForm },
+  { selector: 'body', init: initKeyboard }
+];
 
 function initPage() {
-  initNavbar();
-  initReadingProgress();
-  initBackToTop();
-  initThemeToggle();
-  initUserAuth();
-  initSearch();
-  initScrollReveal();
-  initCounters();
-  initTagPills();
-  initViewToggle();
-  initHeatmap();
-  initArchiveTabs();
-  initLightbox();
-  initTocSpy();
-  initReactions();
-  initParallax();
-  initProfileEdit();
-  initAvatarUpload();
-  initPwdToggle();
-  initAuthTabs();
-  initLoginForm();
-  initKeyboard();
+  moduleRegistry.forEach(({ selector, init }) => {
+    if (document.querySelector(selector)) {
+      try {
+        init();
+      } catch (err) {
+        console.error(`Module failed to init for selector [${selector}]:`, err);
+      }
+    }
+  });
 }
 
 if (document.readyState === 'loading') {
@@ -800,7 +881,7 @@ if (document.readyState === 'loading') {
   initPage();
 }
 
-// Expose inline handlers to global scope
+// Expose handlers to global scope
 global.scrollToTop = typeof scrollToTop !== 'undefined' ? scrollToTop : null;
 global.openSearch = typeof openSearch !== 'undefined' ? openSearch : null;
 global.closeSearch = typeof closeSearch !== 'undefined' ? closeSearch : null;
@@ -817,6 +898,5 @@ global.copyLink = typeof copyLink !== 'undefined' ? copyLink : null;
 global.scrollToSection = typeof scrollToSection !== 'undefined' ? scrollToSection : null;
 global.showToast = typeof showToast !== 'undefined' ? showToast : null;
 global.confirmDelete = typeof confirmDelete !== 'undefined' ? confirmDelete : null;
-global.setSort = typeof setSort !== 'undefined' ? setSort : null;
 
 })(window);

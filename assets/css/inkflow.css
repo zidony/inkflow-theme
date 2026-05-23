@@ -1,5 +1,5 @@
 /*!
- * INKFLOW Blog Theme — Unified Stylesheet v2.1
+ * INKFLOW Blog Theme — Unified Stylesheet v2.2
  * =========================================================
  * 结构说明 (Structure):
  *
@@ -174,7 +174,7 @@
   --ink-surface: #f8faf9;
   --ink-card:    #ffffff;
   --ink-border:  #e4ede9;
-  --ink-muted:   #6b8070;
+  --ink-muted:   #4e6353;
   --ink-heading: #0d1117;
   --ink-text:    #2c3e35;
 
@@ -205,7 +205,7 @@
   --ink-surface:   #0d1117;
   --ink-card:      #161c22;
   --ink-border:    #212e27;
-  --ink-muted:     #7aaf96;
+  --ink-muted:     #8ec2aa;
   --ink-heading:   #f0f6f3;
   --ink-text:      #c8ddd5;
   --shadow-card:   0 2px 20px rgba(0,0,0,.4);
