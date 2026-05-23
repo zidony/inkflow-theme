@@ -284,10 +284,11 @@ npx http-server . -p 8080
 
 | 版本 | 别名 | 主要内容 |
 |------|------|---------|
+| **v2.3** | — | 重构全局 `.u-tint-*` 通用双轨色彩组件系统，彻底去除全站所有 HTML 中硬编码的内联背景渐变色与样式，实现 100% 动态色彩上下文解耦 |
 | **v2.2** | — | 设计系统 WCAG 2.1 AA 对齐，重构 TOC 滚动高亮为 IntersectionObserver 观察者模式，优化主页 Parallax GPU 硬件加速，100% 收归 HTML 页内脚本，去除 document.write() 并完善全站 A11y 与 JSON-LD SEO 语义数据 |
 | **v2.1** | — | 统一头像组件系统（.ink-avatar），11 个旧类合并为基础类 + 16 个修饰符，删除全部头像内联渐变色，友链头像统一截取首字符 |
 | **v2.0** | — | 全局内联样式组件化提取（13 个新 CSS 组件类）、FOIT 闪烁修复、index.html 长文精选结构修复、7 个页面 HTML 清理 |
-| **v1.9** | — | 文件重命名（blog-theme→index、post-detail→post-show）、assets 目录结构、Bootstrap 升级至 5.3.8、article-body 防溢出保护 |
+| **v1.9** | — | 静态文件重命名（blog-theme→index、post-detail→post-show）、assets 目录结构、Bootstrap 升级至 5.3.8、article-body 防溢出保护 |
 | v1.8 | v2.6 | 修复登录 Tab 切换、social-btn 居中问题（错误合并回滚）、文章正文防溢出 CSS |
 | v1.7 | v2.5 | 修复 navbar-collapse PC 宽度背景残留 Bug、mobile 头像下拉可点击、合并5组重复 CSS 类 |
 | v1.6 | v2.4 | 恢复搜索按钮、TFA toggle 改为 checkbox 实现、消除双 class 属性 |
@@ -306,4 +307,4 @@ npx http-server . -p 8080
 
 ---
 
-*INKFLOW Theme v2.2 · 基于 Bootstrap 5.3.8 构建*
+*INKFLOW Theme v2.3 · 基于 Bootstrap 5.3.8 构建*

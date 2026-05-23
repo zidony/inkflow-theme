@@ -189,7 +189,7 @@
 
           <p>过去，当项目规模超过 1000 个模块时，HMR 响应时间会随着模块数增加而线性增长。Vite 5 通过引入<strong>懒加载模块图</strong>机制，将 HMR 复杂度从 O(n) 降低到了接近 O(1)。</p>
 
-          <div class="article-img" style="background:linear-gradient(135deg,#0a1820,#0d3a60);height:260px">
+          <div class="article-img u-tint-blue" style="height:260px">
             <i class="bi bi-bar-chart-line-fill" style="font-size:4rem"></i>
           </div>
           <div class="img-caption">图 1：Vite 4 与 Vite 5 在不同项目规模下的 HMR 响应时间对比</div>
@@ -436,8 +436,8 @@ export function LikeButton({ postId, initialCount }: Props) {
         <h2 class="section-title" style="font-size:1.4rem">相关文章</h2>
         <div class="row g-3 mb-5">
           <div class="col-md-4">
-            <a href="post-show.html" class="related-post">
-              <div class="related-post-img" style="background:linear-gradient(135deg,#0d3040,#0e5a6a)"><i class="bi bi-robot" style="font-size:2.2rem"></i></div>
+            <a href="post-show.html" class="related-post u-tint-cyan">
+              <div class="related-post-img"><i class="bi bi-robot" style="font-size:2.2rem"></i></div>
               <div class="related-post-body">
                 <div class="related-post-cat"><i class="bi bi-robot me-1"></i>AI</div>
                 <div class="related-post-title">本地部署 LLM：Ollama + Open WebUI 完全配置</div>
@@ -445,8 +445,8 @@ export function LikeButton({ postId, initialCount }: Props) {
             </a>
           </div>
           <div class="col-md-4">
-            <a href="post-show.html" class="related-post">
-              <div class="related-post-img" style="background:linear-gradient(135deg,#1a0a2e,#4a0d6b)"><i class="bi bi-shield-lock" style="font-size:2.2rem"></i></div>
+            <a href="post-show.html" class="related-post u-tint-purple">
+              <div class="related-post-img"><i class="bi bi-shield-lock" style="font-size:2.2rem"></i></div>
               <div class="related-post-body">
                 <div class="related-post-cat"><i class="bi bi-shield-check me-1"></i>安全</div>
                 <div class="related-post-title">OWASP Top 10 漏洞防御清单（2025 版）</div>
@@ -454,8 +454,8 @@ export function LikeButton({ postId, initialCount }: Props) {
             </a>
           </div>
           <div class="col-md-4">
-            <a href="post-show.html" class="related-post">
-              <div class="related-post-img" style="background:linear-gradient(135deg,#0a1a30,#173a60)"><i class="bi bi-database" style="font-size:2.2rem"></i></div>
+            <a href="post-show.html" class="related-post u-tint-blue">
+              <div class="related-post-img"><i class="bi bi-database" style="font-size:2.2rem"></i></div>
               <div class="related-post-body">
                 <div class="related-post-cat"><i class="bi bi-server me-1"></i>后端</div>
                 <div class="related-post-title">PostgreSQL 性能调优：从慢查询到毫秒级响应</div>
@@ -615,7 +615,7 @@ export function LikeButton({ postId, initialCount }: Props) {
             <div style="font-family:var(--font-display);font-size:1.1rem;font-weight:700;color:#fff;margin-bottom:.5rem"><i class="bi bi-envelope-paper me-2"></i>订阅更新</div>
             <p style="font-size:.82rem;color:rgba(255,255,255,.6);margin-bottom:1rem;line-height:1.6">每篇新文章第一时间推送到你</p>
             <input type="email" placeholder="your@email.com" style="width:100%;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);border-radius:var(--radius-sm);padding:.6rem .9rem;color:#fff;font-size:.86rem;outline:none;font-family:var(--font-body);margin-bottom:.6rem" />
-            <button style="width:100%;background:linear-gradient(135deg,var(--ink-accent),#00a876);border:none;color:#fff;padding:.65rem;border-radius:var(--radius-sm);font-weight:600;font-size:.88rem;cursor:pointer;font-family:var(--font-body)">
+            <button class="btn-subscribe">
               <i class="bi bi-send-fill me-1"></i> 订阅
             </button>
           </div>

@@ -1,5 +1,5 @@
 /**
- * INKFLOW Blog Theme — Unified JavaScript v2.2
+ * INKFLOW Blog Theme — Unified JavaScript v2.3
  * =========================================================
  * 模块说明 (Modules):
  *
