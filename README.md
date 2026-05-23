@@ -2,7 +2,7 @@
 
 > 一套面向独立博客的现代化前端主题模板，基于 Bootstrap 5.3.8 构建，无需构建工具，开箱即用。
 
-![Version](https://img.shields.io/badge/version-2.2-green)
+![Version](https://img.shields.io/badge/version-2.4-green)
 ![Bootstrap](https://img.shields.io/badge/Bootstrap-5.3.8-7952b3)
 ![Bootstrap Icons](https://img.shields.io/badge/Bootstrap%20Icons-1.13.1-7952b3)
 ![License](https://img.shields.io/badge/license-CC%20BY%204.0-blue)
@@ -284,6 +284,7 @@ npx http-server . -p 8080
 
 | 版本 | 别名 | 主要内容 |
 |------|------|---------|
+| **v2.4** | — | 深度 CSS 架构重构：引入 Logical Grouping 规范对全站 2400 行 CSS 进行格式化压缩，完全清理死代码 (Dead Code)，中文化注释全部重构为符合国际前端标准的专业英文注释，重构动态标签云融合 CSS 变量。 |
 | **v2.3** | — | 重构全局 `.u-tint-*` 通用双轨色彩组件系统，彻底去除全站所有 HTML 中硬编码的内联背景渐变色与样式，实现 100% 动态色彩上下文解耦 |
 | **v2.2** | — | 设计系统 WCAG 2.1 AA 对齐，重构 TOC 滚动高亮为 IntersectionObserver 观察者模式，优化主页 Parallax GPU 硬件加速，100% 收归 HTML 页内脚本，去除 document.write() 并完善全站 A11y 与 JSON-LD SEO 语义数据 |
 | **v2.1** | — | 统一头像组件系统（.ink-avatar），11 个旧类合并为基础类 + 16 个修饰符，删除全部头像内联渐变色，友链头像统一截取首字符 |
@@ -307,4 +308,4 @@ npx http-server . -p 8080
 
 ---
 
-*INKFLOW Theme v2.3 · 基于 Bootstrap 5.3.8 构建*
+*INKFLOW Theme v2.4 · 基于 Bootstrap 5.3.8 构建*

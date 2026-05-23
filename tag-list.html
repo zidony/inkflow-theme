@@ -315,9 +315,9 @@ function renderCloud(list) {
     const pad   = `${0.3 + ratio * 0.15}rem ${0.7 + ratio * 0.3}rem`;
     const el    = document.createElement('a');
     el.href      = 'post-list.html';
-    el.className = 'cloud-tag';
-    el.style.cssText = `font-size:${size}rem;padding:${pad};color:${tag.color};background:${tag.bg};border-color:${tag.border}`;
-    el.innerHTML = `<i class="bi bi-hash" style="font-size:.8em;opacity:.7"></i>${tag.name}<span style="font-size:.7em;opacity:.6;font-family:var(--font-mono);margin-left:.2em">${tag.count}</span>`;
+    el.className = 'tag-cloud-item';
+    el.style.cssText = `--tag-color:${tag.color}; --tag-bg:${tag.bg}; --tag-border:${tag.border}; font-size:${size}rem; padding:${pad};`;
+    el.innerHTML = `<i class="bi bi-hash" style="font-size:.8em;opacity:.7"></i>${tag.name}<span class="tag-count">${tag.count}</span>`;
     container.appendChild(el);
   });
 }
