@@ -1,5 +1,5 @@
 /*!
- * INKFLOW Blog Theme — Unified Stylesheet v2.4
+ * INKFLOW Blog Theme — Unified Stylesheet v2.5
  * =========================================================
  * TABLE OF CONTENTS
  *
@@ -49,6 +49,17 @@
    ========================================================== */
 
 :root {
+  /* Z-Index Scale */
+  --z-elevated:    10;
+  --z-floating:    100;
+  --z-fab:         999;
+  --z-nav:         1000;
+  --z-dropdown:    1100;
+  --z-offcanvas:   2000;
+  --z-modal:       3000;
+  --z-loader:      9998;
+  --z-toast:       9999;
+
   /* Primary */
   --bs-primary:            #0a6640;
   --bs-primary-rgb:        10, 102, 64;
@@ -188,7 +199,7 @@ code {
    ========================================================== */
 
 body::before {
-  position: fixed; z-index: 9999;
+  position: fixed; z-index: var(--z-toast);
   inset: 0; opacity: .025; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); background-size: 200px;
   content: ''; pointer-events: none;
 }
@@ -207,7 +218,7 @@ body::before {
    ========================================================== */
 
 .ink-navbar {
-  position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+  position: fixed; top: 0; left: 0; right: 0; z-index: var(--z-nav);
   padding: 1rem 0;
   transition: all var(--transition);
 }
@@ -280,7 +291,7 @@ body::before {
 
 /* User dropdown menu */
 .nav-user-dropdown {
-  position: absolute; top: calc(100% + 10px); right: 0; z-index: 1100;
+  position: absolute; top: calc(100% + 10px); right: 0; z-index: var(--z-dropdown);
   width: 200px; border: 1px solid var(--ink-border); border-radius: var(--radius-md); padding: .5rem 0;
   background: var(--ink-card); box-shadow: var(--shadow-hover); opacity: 0;
   pointer-events: none; transform: translateY(-8px); transition: all var(--transition);
@@ -479,7 +490,7 @@ body::before {
 
 /* Floating badge on hero card */
 .hero-float-badge {
-  position: absolute; top: -20px; right: -10px; z-index: 10;
+  position: absolute; top: -20px; right: -10px; z-index: var(--z-elevated);
   border: 1px solid rgba(0,201,141,.3); border-radius: var(--radius-md); padding: .8rem 1rem;
   background: linear-gradient(135deg, #0d5c38, #0a3320); font-size: .75rem; color: rgba(255,255,255,.8); font-weight: 500; white-space: nowrap;
   transform: rotate(3deg);
@@ -784,17 +795,13 @@ body::before {
 }
 .btn-subscribe:hover { transform: translateY(-1px); box-shadow: 0 4px 15px rgba(0,201,141,.4); }
 
-/* Author profile card (sidebar) */
-.author-profile-card {
-  position: relative;
-  border: 1px solid var(--ink-border); border-radius: var(--radius-xl); padding: 2.5rem; overflow: hidden;
-  background: var(--ink-card); text-align: center; box-shadow: var(--shadow-card);
+/* Author profile card */
+.sidebar-card.author-card {
+  border-radius: var(--radius-xl); padding: 2.5rem; text-align: center; overflow: hidden; position: relative;
 }
-.author-profile-card::before {
-  position: absolute; top: 0; left: 0; right: 0;
-  height: 80px;
+.sidebar-card.author-card::before {
+  position: absolute; top: 0; left: 0; right: 0; height: 80px; content: '';
   background: linear-gradient(135deg, var(--ink-primary), #0d5c38);
-  content: '';
 }
 .author-name-lg {
   margin-bottom: .3rem;
@@ -1034,7 +1041,7 @@ body::before {
 
 /* Lightbox */
 .lightbox {
-  position: fixed; z-index: 3000; display: flex; align-items: center; justify-content: center;
+  position: fixed; z-index: var(--z-modal); display: flex; align-items: center; justify-content: center;
   inset: 0; background: rgba(0,0,0,.94); opacity: 0;
   pointer-events: none; transition: opacity .3s;
 }
@@ -1412,11 +1419,12 @@ body::before {
 
 /* Floating side actions */
 .floating-actions {
-  position: fixed; left: 1.5rem; top: 50%; display: flex; flex-direction: column; gap: .6rem; z-index: 100;
+  position: fixed; left: 1.5rem; top: 50%; display: flex; flex-direction: column; gap: .6rem; z-index: var(--z-floating);
   transform: translateY(-50%);
 }
 @media (max-width: 1200px) { .floating-actions { display: none; } }
 .float-btn {
+  will-change: transform; transform: translateZ(0);
   display: flex; align-items: center; justify-content: center; position: relative;
   width: 42px; height: 42px; border-radius: 50%; border: 1px solid var(--ink-border);
   background: var(--ink-card); color: var(--ink-muted); font-size: 1rem; box-shadow: var(--shadow-card);
@@ -1626,9 +1634,10 @@ body:has(.auth-page) { overflow: hidden; }
   background: radial-gradient(circle, rgba(0,201,141,.15) 0%, transparent 70%);
   content: ''; animation: float 8s ease-in-out infinite;
 }
-.profile-card {
-  border: 1px solid var(--ink-border); border-radius: var(--radius-xl); padding: 2.5rem; margin-bottom: 1.5rem;
-  background: var(--tint-gradient, var(--ink-card)); box-shadow: var(--shadow-card);
+/* .profile-card inherits from .sidebar-card */
+.sidebar-card.profile-card {
+  border-radius: var(--radius-xl); padding: 2.5rem;
+  background: var(--tint-gradient, var(--ink-card));
 }
 .profile-avatar-wrap { position: relative; display: inline-block; }
 .profile-avatar-edit {
@@ -1792,7 +1801,7 @@ body:has(.auth-page) { overflow: hidden; }
    ========================================================== */
 
 .search-overlay {
-  position: fixed; z-index: 2000; display: flex; flex-direction: column; align-items: center; justify-content: flex-start;
+  position: fixed; z-index: var(--z-offcanvas); display: flex; flex-direction: column; align-items: center; justify-content: flex-start;
   padding-top: 10vh;
   inset: 0; background: rgba(7,26,16,.95); backdrop-filter: blur(20px); opacity: 0;
   pointer-events: none; transition: opacity .3s ease;
@@ -1832,7 +1841,7 @@ body:has(.auth-page) { overflow: hidden; }
    ========================================================== */
 
 .back-to-top {
-  position: fixed; bottom: 2rem; right: 2rem; display: flex; align-items: center; justify-content: center; z-index: 999;
+  position: fixed; bottom: 2rem; right: 2rem; display: flex; align-items: center; justify-content: center; z-index: var(--z-fab);
   width: 44px; height: 44px; border: none; border-radius: 50%;
   background: var(--ink-primary); color: #fff; font-size: 1.1rem; box-shadow: 0 4px 20px rgba(var(--ink-primary-rgb),.4); opacity: 0;
   cursor: pointer; transition: all var(--transition); pointer-events: none; transform: translateY(10px);
@@ -1845,7 +1854,7 @@ body:has(.auth-page) { overflow: hidden; }
    ========================================================== */
 
 .reading-progress {
-  position: fixed; top: 0; left: 0; z-index: 9998;
+  position: fixed; top: 0; left: 0; z-index: var(--z-loader);
   height: 3px; width: 0%;
   background: linear-gradient(90deg, var(--ink-accent), var(--ink-primary));
   transition: width .1s linear;
@@ -2078,7 +2087,7 @@ body:has(.auth-page) { overflow: hidden; }
    ========================================================== */
 
 .ink-toast {
-  position: fixed; bottom: 2rem; left: 50%; z-index: 9999;
+  position: fixed; bottom: 2rem; left: 50%; z-index: var(--z-toast);
   padding: .7rem 1.5rem; border-radius: 99px;
   font-size: .88rem; font-weight: 600; box-shadow: 0 4px 20px rgba(0,0,0,.2); opacity: 0; font-family: var(--font-body); white-space: nowrap;
   transform: translateX(-50%) translateY(20px); transition: opacity .3s, transform .3s; pointer-events: none;
