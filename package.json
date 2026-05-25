@@ -6,9 +6,9 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "release": "python scripts/release.py",
-    "lint": "eslint src/js/**/*.js",
-    "format": "prettier --write \"src/**/*.{css,js}\""
+    "release": "npm run build && python scripts/release.py",
+    "lint": "eslint src/assets/js/**/*.js",
+    "format": "prettier --write \"src/**/*.{css,js,html}\""
   },
   "devDependencies": {
     "eslint": "^8.57.0",

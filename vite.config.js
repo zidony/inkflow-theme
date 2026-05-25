@@ -1,25 +1,40 @@
 import { defineConfig } from 'vite';
 import { resolve } from 'path';
 
+const srcDir = resolve(__dirname, 'src');
+
 export default defineConfig({
+  root: srcDir,
   base: './',
   build: {
     rollupOptions: {
       input: {
-        main: resolve(__dirname, 'index.html'),
-        album: resolve(__dirname, 'album-list.html'),
-        archive: resolve(__dirname, 'archive-list.html'),
-        category: resolve(__dirname, 'category-list.html'),
-        link: resolve(__dirname, 'link-list.html'),
-        login: resolve(__dirname, 'login.html'),
-        postList: resolve(__dirname, 'post-list.html'),
-        postShow: resolve(__dirname, 'post-show.html'),
-        profile: resolve(__dirname, 'profile.html'),
-        tagList: resolve(__dirname, 'tag-list.html')
+        main: resolve(srcDir, 'index.html'),
+        postList: resolve(srcDir, 'post-list.html'),
+        postShow: resolve(srcDir, 'post-show.html'),
+        categoryList: resolve(srcDir, 'category-list.html'),
+        tagList: resolve(srcDir, 'tag-list.html'),
+        archiveList: resolve(srcDir, 'archive-list.html'),
+        albumList: resolve(srcDir, 'album-list.html'),
+        linkList: resolve(srcDir, 'link-list.html'),
+        profile: resolve(srcDir, 'profile.html'),
+        login: resolve(srcDir, 'login.html')
+      },
+      output: {
+        manualChunks: () => 'inkflow',
+        entryFileNames: 'assets/js/inkflow.js',
+        chunkFileNames: 'assets/js/inkflow.js',
+        assetFileNames: (assetInfo) => {
+          if (assetInfo.name && assetInfo.name.endsWith('.css')) {
+            return 'assets/css/inkflow.css';
+          }
+          return 'assets/[ext]/[name]-[hash][extname]';
+        }
       }
     },
-    outDir: 'dist',
+    outDir: resolve(__dirname, 'dist'),
     emptyOutDir: true,
-    assetsDir: 'assets'
+    assetsDir: 'assets',
+    cssCodeSplit: false
   }
 });
