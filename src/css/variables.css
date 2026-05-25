@@ -1,0 +1,128 @@
+/*!
+ * INKFLOW Blog Theme — Unified Stylesheet v2.5
+ * =========================================================
+ * TABLE OF CONTENTS
+ *
+ * 1. VARIABLES & TOKENS
+ *    00. Bootstrap Variable Overrides
+ *    01. CSS Custom Properties
+ * 2. BASE & RESETS
+ *    02. Base Reset & Typography
+ *    03. Noise Texture Overlay
+ *    04. Scrollbar
+ * 3. LAYOUT & NAVIGATION
+ *    05. Navbar (Shared)
+ *    06. Page Hero (Inner Pages)
+ *    07. Homepage Hero
+ *    08. Section Common
+ * 4. COMPONENTS (CARDS)
+ *    09. Post Card (Grid & List)
+ *    10. Featured Post Card
+ *    11. Category Card
+ *    12. Sidebar Card
+ * 5. COMPONENTS (MODULES)
+ *    13. Tag Pills & Filter Tabs
+ *    14. Filter Bar
+ *    15. Archive Elements
+ *    16. Album Lightbox
+ *    17. Link List
+ *    18. Post Detail (Article Body & TOC)
+ *    19. Post Detail (Reactions, Share)
+ *    20. Auth (Login & Profile)
+ *    21. Footer
+ * 6. ANIMATIONS & EFFECTS
+ *    22. Search Overlay
+ *    23. Back to Top
+ *    24. Reading Progress
+ *    25. Pagination
+ *    26. Scroll Reveal
+ * 7. UTILITIES
+ *    27. Flex, Spacing & Helpers
+ *    28. Responsive
+ * =========================================================
+ */
+
+/* ==========================================================
+   00. BOOTSTRAP VARIABLE OVERRIDES
+   Map Bootstrap native variables (--bs-*) to INKFLOW brand colors,
+   allowing standard classes like .btn-primary to inherit the theme automatically.
+   ========================================================== */
+
+:root {
+  /* Z-Index Scale */
+  --z-elevated:    10;
+  --z-floating:    100;
+  --z-fab:         999;
+  --z-nav:         1000;
+  --z-dropdown:    1100;
+  --z-offcanvas:   2000;
+  --z-modal:       3000;
+  --z-loader:      9998;
+  --z-toast:       9999;
+
+  /* Primary */
+  --bs-primary:            #0a6640;
+  --bs-primary-rgb:        10, 102, 64;
+
+  /* Link */
+  --bs-link-color:         #0a6640;
+  --bs-link-color-rgb:     10, 102, 64;
+  --bs-link-hover-color:   #00c98d;
+
+  /* Border radius — Align with INKFLOW radius tokens */
+  --bs-border-radius:      12px;
+  --bs-border-radius-sm:   6px;
+  --bs-border-radius-lg:   20px;
+  --bs-border-radius-xl:   32px;
+  --bs-border-radius-pill: 99px;
+
+  /* Form focus ring */
+  --bs-focus-ring-color:   rgba(10, 102, 64, .25);
+
+  /* Body */ --bs-body-font-family: 'DM Sans', 'PingFang SC', 'Microsoft YaHei', sans-serif; --bs-body-font-size: 16px; --bs-body-line-height: 1.75; }
+
+/* Dark mode BS overrides */
+[data-bs-theme="dark"] {
+  --bs-primary: #00c98d; --bs-primary-rgb: 0, 201, 141; --bs-link-color: #00c98d; --bs-link-hover-color: #4dffc0;
+}
+
+/* btn-primary gradient overlay (overrides BS default solid color) */
+.btn-primary {
+  border-color: transparent;
+  background: linear-gradient(135deg, #00c98d, #0a6640); font-weight: 600; letter-spacing: .02em;
+  transition: all .28s cubic-bezier(.4,0,.2,1);
+}
+.btn-primary:hover,
+.btn-primary:focus {
+  border-color: transparent;
+  background: linear-gradient(135deg, #00c98d, #084f32); box-shadow: 0 6px 20px rgba(0,201,141,.35);
+  transform: translateY(-1px);
+}
+.btn-primary:active { transform: none; }
+
+/* btn-outline-primary overrides */
+.btn-outline-primary { color: #0a6640; border-color: #0a6640; }
+.btn-outline-primary:hover { background: #0a6640; border-color: #0a6640; }
+[data-bs-theme="dark"] .btn-outline-primary { color: #00c98d; border-color: #00c98d; }
+[data-bs-theme="dark"] .btn-outline-primary:hover { background: #00c98d; color: #0d1117; }
+
+/* form-control focus ring */
+.form-control:focus,
+.form-select:focus { border-color: #0a6640; box-shadow: 0 0 0 .25rem rgba(10,102,64,.18); }
+[data-bs-theme="dark"] .form-control:focus,
+[data-bs-theme="dark"] .form-select:focus { border-color: #00c98d; box-shadow: 0 0 0 .25rem rgba(0,201,141,.18); }
+
+/* nav-pills / nav-tabs brand color */
+.nav-pills .nav-link.active,
+.nav-pills .show > .nav-link { background-color: #0a6640; }
+[data-bs-theme="dark"] .nav-pills .nav-link.active { background-color: #00c98d; color: #0d1117; }
+.nav-tabs .nav-link.active { color: #0a6640; border-bottom-color: #0a6640; }
+
+/* Badge */
+.badge.bg-primary { background-color: #0a6640 !important; }
+
+/* Progress bar */
+.progress-bar { background-color: #0a6640; }
+
+/* Checkbox / Radio accent */
+.form-check-input:checked { background-color: #0a6640; border-color: #0a6640; }

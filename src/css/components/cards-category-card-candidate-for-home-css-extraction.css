@@ -1,0 +1,41 @@
+/* CARDS — CATEGORY CARD (Candidate for home.css extraction) */
+.category-card {
+  display: flex; flex-direction: column; align-items: flex-start; gap: .75rem; position: relative;
+  border: 1px solid var(--ink-border); border-radius: var(--radius-lg); padding: 1.75rem; overflow: hidden;
+  background: var(--ink-card); box-shadow: var(--shadow-card);
+  transition: all var(--transition); cursor: pointer;
+}
+.category-card::after {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  height: 3px;
+  transform-origin: left;
+  content: ''; transform: scaleX(0); transition: transform var(--transition);
+}
+.category-card:hover::after { transform: scaleX(1); }
+.category-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-hover); }
+
+/* u-tint-* integration for category cards */
+.category-card::after { background: var(--tint-color, var(--ink-primary)) !important; }
+
+/* .ink-icon — Light theme universal icon container (consolidates cat-icon / cat-std-icon / ink-icon-box)
+   Example: <div class="ink-icon ink-rounded-md ink-icon-md u-tint-green"> */
+.ink-icon,
+.cat-icon,    /* Legacy alias */
+.cat-std-icon /* Legacy alias */ {
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; background: var(--tint-bg-soft, var(--ink-border)) !important; color: var(--tint-color, var(--ink-primary)) !important;
+  transition: all var(--transition);
+}
+
+[data-bs-theme="dark"] .ink-icon,
+[data-bs-theme="dark"] .cat-icon,
+[data-bs-theme="dark"] .cat-std-icon { background: rgba(var(--tint-color-rgb, 120, 120, 120), 0.15) !important; }
+.cat-name  { font-weight: 700; font-size: .95rem; color: var(--ink-heading); }
+.cat-count { font-size: .8rem; color: var(--ink-muted); }
+.cat-arrow {
+  align-self: center;
+  margin-left: auto;
+  color: var(--ink-muted);
+  transition: transform var(--transition);
+}
+.category-card:hover .cat-arrow { transform: translateX(4px); color: var(--ink-primary); }

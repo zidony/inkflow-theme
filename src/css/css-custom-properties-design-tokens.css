@@ -1,0 +1,38 @@
+/* CSS CUSTOM PROPERTIES (Design Tokens) */
+:root {
+  /* Brand colours */
+  --ink-primary:      #0a6640;
+  --ink-primary-rgb:  10, 102, 64;
+  --ink-accent:       #00c98d;
+  --ink-accent-rgb:   0, 201, 141;
+
+  /* Surface colours */
+  --ink-dark:    #0d1117;
+  --ink-surface: #f8faf9;
+  --ink-card:    #ffffff;
+  --ink-border:  #e4ede9;
+  --ink-muted:   #4e6353;
+  --ink-heading: #0d1117;
+  --ink-text:    #2c3e35;
+
+  /* Typography */
+  --font-display: 'Playfair Display', Georgia, serif;
+  --font-body:    'DM Sans', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  --font-mono:    'JetBrains Mono', monospace;
+
+  /* Spacing / Radius */
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --radius-xl: 32px;
+
+  /* Shadows */
+  --shadow-card:  0 2px 20px rgba(10,102,64,.08),  0 1px 4px rgba(10,102,64,.04);
+  --shadow-hover: 0 8px 40px rgba(10,102,64,.16),  0 2px 8px rgba(10,102,64,.08);
+
+  /* Transitions */ --transition: .28s cubic-bezier(.4,0,.2,1); }
+
+/* Dark mode overrides */
+[data-bs-theme="dark"] {
+  --ink-primary: #00c98d; --ink-accent: #4dffc0; --ink-dark: #f0f6f3; --ink-surface: #0d1117; --ink-card: #161c22; --ink-border: #212e27; --ink-muted: #8ec2aa; --ink-heading: #f0f6f3; --ink-text: #c8ddd5; --shadow-card: 0 2px 20px rgba(0,0,0,.4); --shadow-hover: 0 8px 40px rgba(0,0,0,.6);
+}

@@ -1,0 +1,22 @@
+/* TAG LIST — Page-specific Components */
+/* Tag cloud item (large clickable pill with count) */
+.tag-cloud-item {
+  display: inline-flex; align-items: center; gap: .4rem;
+  padding: .45rem 1rem; border-radius: 99px; border: 1px solid var(--tag-border, var(--ink-border));
+  font-size: .85rem; font-weight: 600; color: var(--tag-color, var(--ink-text)); background: var(--tag-bg, var(--ink-card)); box-shadow: var(--shadow-card); text-decoration: none;
+  transition: all var(--transition); cursor: pointer;
+}
+.tag-cloud-item:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-hover);
+  /* slightly enhance hover state using same tag variables but darker */ filter: brightness(1.05); }
+.tag-cloud-item .tag-count {
+  border: 1px solid var(--ink-border); border-radius: 99px; padding: .05rem .45rem;
+  font-family: var(--font-mono); font-size: .72rem; background: var(--ink-surface); color: var(--ink-muted);
+  transition: all var(--transition);
+}
+.tag-cloud-item:hover .tag-count { background: var(--tag-color, var(--ink-primary)); border-color: transparent; color: #fff; }
+
+/* Tag size variants */
+.tag-cloud-item.tag-lg { font-size: 1rem; padding: .55rem 1.25rem; }
+.tag-cloud-item.tag-sm { font-size: .75rem; padding: .3rem .75rem; }

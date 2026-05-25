@@ -1,0 +1,9 @@
+/* BACK TO TOP */
+.back-to-top {
+  position: fixed; bottom: 2rem; right: 2rem; display: flex; align-items: center; justify-content: center; z-index: var(--z-fab);
+  width: 44px; height: 44px; border: none; border-radius: 50%;
+  background: var(--ink-primary); color: #fff; font-size: 1.1rem; box-shadow: 0 4px 20px rgba(var(--ink-primary-rgb),.4); opacity: 0;
+  cursor: pointer; transition: all var(--transition); pointer-events: none; transform: translateY(10px);
+}
+.back-to-top.visible { opacity: 1; pointer-events: all; transform: translateY(0); }
+.back-to-top:hover   { transform: translateY(-3px); box-shadow: 0 8px 25px rgba(var(--ink-primary-rgb),.5); }

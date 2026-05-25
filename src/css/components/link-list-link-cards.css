@@ -1,0 +1,70 @@
+/* LINK LIST — Link Cards */
+.link-card {
+  display: flex; align-items: center; gap: 1.1rem; position: relative;
+  border: 1px solid var(--ink-border); border-radius: var(--radius-lg); padding: 1.4rem 1.5rem; overflow: hidden;
+  background: var(--ink-card); box-shadow: var(--shadow-card); text-decoration: none;
+  transition: all var(--transition);
+}
+.link-card::before {
+  position: absolute;
+  inset: 0; background: linear-gradient(135deg, rgba(var(--tint-color-rgb, var(--ink-primary-rgb)),.04), transparent); opacity: 0;
+  content: ''; transition: opacity var(--transition);
+}
+.link-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-hover); border-color: rgba(var(--tint-color-rgb, var(--ink-primary-rgb)),.25); }
+.link-card:hover::before { opacity: 1; }
+.link-info { flex: 1; min-width: 0; }
+.link-name {
+  margin-bottom: .2rem; overflow: hidden;
+  font-weight: 700; font-size: .97rem; color: var(--ink-heading); white-space: nowrap; text-overflow: ellipsis;
+  transition: color var(--transition);
+}
+.link-card:hover .link-name { color: var(--tint-color, var(--ink-primary)); }
+.link-desc  {
+  display: -webkit-box;
+  overflow: hidden;
+  font-size: .82rem; color: var(--ink-muted); line-height: 1.5; -webkit-line-clamp: 2; -webkit-box-orient: vertical;
+}
+.link-url   {
+  margin-top: .3rem; overflow: hidden;
+  font-size: .75rem; color: var(--ink-muted); font-family: var(--font-mono); white-space: nowrap; text-overflow: ellipsis; opacity: .7;
+}
+.link-arrow {
+  color: var(--ink-border); font-size: 1rem; flex-shrink: 0;
+  transition: all var(--transition);
+}
+.link-card:hover .link-arrow { color: var(--tint-color, var(--ink-primary)); transform: translate(3px,-3px); }
+
+/* Featured link card */
+.link-featured {
+  display: flex; align-items: flex-start; gap: 1.5rem; position: relative;
+  border: 1px solid var(--ink-border); border-radius: var(--radius-xl); padding: 2rem; overflow: hidden;
+  background: var(--ink-card); box-shadow: var(--shadow-card); text-decoration: none;
+  transition: all var(--transition);
+}
+.link-featured::after {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  height: 3px;
+  background: var(--tint-gradient, linear-gradient(90deg, var(--ink-accent), var(--ink-primary))); transform-origin: left;
+  content: ''; transform: scaleX(0); transition: transform var(--transition);
+}
+.link-featured:hover { transform: translateY(-4px); box-shadow: var(--shadow-hover); border-color: var(--tint-border-soft, rgba(var(--ink-primary-rgb),.2)); }
+.link-featured:hover::after { transform: scaleX(1); }
+.link-featured-name {
+  margin-bottom: .35rem;
+  font-family: var(--font-display); font-weight: 700; font-size: 1.15rem; color: var(--ink-heading);
+  transition: color var(--transition);
+}
+.link-featured:hover .link-featured-name { color: var(--tint-color, var(--ink-primary)); }
+.link-featured-desc {
+  margin-bottom: .6rem;
+  font-size: .88rem; color: var(--ink-muted); line-height: 1.65;
+}
+.link-featured-meta, .tl-meta {
+  display: flex; align-items: center; gap: .75rem; flex-wrap: wrap;
+}
+.link-meta-item {
+  display: flex; align-items: center; gap: .3rem;
+  font-size: .75rem; color: var(--ink-muted);
+}
+
+/* link-apply-card — dark gradient version in v2.1 section */

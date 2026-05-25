@@ -1,0 +1,21 @@
+/* TAG PILLS & FILTER TABS */
+.tag-pill {
+  display: inline-flex; align-items: center; gap: .3rem;
+  padding: .28rem .75rem; border-radius: 99px; border: 1px solid var(--ink-border);
+  font-size: .75rem; font-weight: 600; color: var(--ink-muted); background: var(--ink-card); white-space: nowrap;
+  transition: all var(--transition); cursor: pointer;
+}
+.tag-pill:hover  { border-color: var(--ink-primary); color: var(--ink-primary); background: rgba(var(--ink-primary-rgb),.06); }
+.tag-pill.active { background: var(--ink-primary); border-color: var(--ink-primary); color: #fff; }
+
+/* Filter tabs */
+.filter-tab {
+  padding: .38rem .9rem; border-radius: 99px; border: 1px solid var(--ink-border);
+  font-size: .8rem; font-weight: 600; color: var(--ink-muted); background: var(--ink-card); white-space: nowrap;
+  cursor: pointer; transition: all var(--transition);
+}
+.filter-tab.active, .filter-tab:hover { background: var(--ink-primary); border-color: var(--ink-primary); color: #fff; }
+.filter-tabs, .year-nav {
+  display: flex; gap: .5rem; flex-wrap: wrap;
+  margin-bottom: 2rem;
+}

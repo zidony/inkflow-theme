@@ -1,0 +1,21 @@
+/* BASE RESET & TYPOGRAPHY */
+*, *::before, *::after { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  overflow-x: hidden;
+  font-family: var(--font-body); font-size: 16px; line-height: 1.75; color: var(--ink-text); background: var(--ink-surface); -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4, h5, h6 { font-family: var(--font-display); color: var(--ink-heading); line-height: 1.2; }
+
+a { color: var(--ink-primary); text-decoration: none; transition: color var(--transition); }
+a:hover { color: var(--ink-accent); }
+
+::selection { background: rgba(var(--ink-accent-rgb), .25); }
+
+code {
+  padding: .15em .45em; border-radius: 4px;
+  font-family: var(--font-mono); background: rgba(var(--ink-primary-rgb), .08); color: var(--ink-primary); font-size: .88em;
+}

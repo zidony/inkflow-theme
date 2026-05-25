@@ -1,0 +1,44 @@
+/* FILTER BAR (post-list page) */
+.filter-bar {
+  border: 1px solid var(--ink-border); border-radius: var(--radius-lg); padding: 1.25rem 1.5rem; margin-bottom: 2rem;
+  background: var(--ink-card); box-shadow: var(--shadow-card);
+}
+.filter-search-wrap { position: relative; }
+.filter-search-wrap i {
+  position: absolute; left: .9rem; top: 50%;
+  color: var(--ink-muted); font-size: .95rem;
+  transform: translateY(-50%);
+}
+.filter-search-input {
+  width: 100%; border: 1px solid var(--ink-border); border-radius: var(--radius-sm); padding: .6rem .9rem .6rem 2.4rem; outline: none;
+  background: var(--ink-surface); color: var(--ink-text); font-size: .9rem; font-family: var(--font-body);
+  transition: border-color var(--transition);
+}
+.filter-search-input:focus { border-color: var(--ink-primary); }
+.filter-search-input::placeholder { color: var(--ink-muted); }
+
+/* Horizontally scrolling tag group — prevents wrapping */
+.filter-tags-scroll {
+  display: flex; gap: .5rem; flex-wrap: nowrap;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch; scrollbar-width: none;
+}
+.filter-tags-scroll::-webkit-scrollbar { display: none; }
+
+/* Sort select */
+.sort-select {
+  border: 1px solid var(--ink-border); border-radius: var(--radius-sm); padding: .5rem .8rem; outline: none;
+  background: var(--ink-surface); color: var(--ink-text); font-size: .85rem; font-family: var(--font-body); flex-shrink: 0;
+  cursor: pointer; transition: border-color var(--transition);
+}
+.sort-select:focus { border-color: var(--ink-primary); }
+
+/* View toggle */
+.view-toggle { display: flex; gap: .3rem; }
+.view-btn {
+  display: flex; align-items: center; justify-content: center;
+  width: 34px; height: 34px; border: 1px solid var(--ink-border); border-radius: var(--radius-sm);
+  background: var(--ink-surface); color: var(--ink-muted); font-size: 1rem;
+  cursor: pointer; transition: all var(--transition);
+}
+.view-btn.active, .view-btn:hover { background: var(--ink-primary); border-color: var(--ink-primary); color: #fff; }
