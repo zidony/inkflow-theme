@@ -1,7 +1,6 @@
 /* CARDS — SIDEBAR CARD */
 .sidebar-card {
-  border: 1px solid var(--ink-border); border-radius: var(--radius-lg); padding: 1.75rem; margin-bottom: 1.5rem;
-  background: var(--ink-card); box-shadow: var(--shadow-card);
+  padding: 1.75rem; margin-bottom: 1.5rem;
 }
 .sidebar-title {
   display: flex; align-items: center; gap: .5rem;

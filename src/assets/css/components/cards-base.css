@@ -1,0 +1,27 @@
+/* CARDS — BASE FOUNDATION */
+
+.ink-card {
+  background: var(--ink-card);
+  border: 1px solid var(--ink-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+  overflow: hidden;
+  transition: box-shadow var(--transition), transform var(--transition), border-color var(--transition);
+}
+
+.ink-card-xl {
+  border-radius: var(--radius-xl);
+}
+
+.ink-card-shadow {
+  box-shadow: var(--shadow-card);
+}
+
+.ink-card-hover {
+  cursor: pointer;
+}
+.ink-card-hover:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-hover);
+  border-color: rgba(var(--ink-primary-rgb), 0.3);
+}

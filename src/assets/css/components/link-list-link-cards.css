@@ -1,16 +1,14 @@
 /* LINK LIST — Link Cards */
 .link-card {
   display: flex; align-items: center; gap: 1.1rem; position: relative;
-  border: 1px solid var(--ink-border); border-radius: var(--radius-lg); padding: 1.4rem 1.5rem; overflow: hidden;
-  background: var(--ink-card); box-shadow: var(--shadow-card); text-decoration: none;
-  transition: all var(--transition);
+  padding: 1.4rem 1.5rem; text-decoration: none;
 }
 .link-card::before {
   position: absolute;
   inset: 0; background: linear-gradient(135deg, rgba(var(--tint-color-rgb, var(--ink-primary-rgb)),.04), transparent); opacity: 0;
   content: ''; transition: opacity var(--transition);
 }
-.link-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-hover); border-color: rgba(var(--tint-color-rgb, var(--ink-primary-rgb)),.25); }
+.link-card:hover { border-color: rgba(var(--tint-color-rgb, var(--ink-primary-rgb)),.25); }
 .link-card:hover::before { opacity: 1; }
 .link-info { flex: 1; min-width: 0; }
 .link-name {
@@ -37,9 +35,7 @@
 /* Featured link card */
 .link-featured {
   display: flex; align-items: flex-start; gap: 1.5rem; position: relative;
-  border: 1px solid var(--ink-border); border-radius: var(--radius-xl); padding: 2rem; overflow: hidden;
-  background: var(--ink-card); box-shadow: var(--shadow-card); text-decoration: none;
-  transition: all var(--transition);
+  padding: 2rem; text-decoration: none;
 }
 .link-featured::after {
   position: absolute; bottom: 0; left: 0; right: 0;
@@ -47,7 +43,7 @@
   background: var(--tint-gradient, linear-gradient(90deg, var(--ink-accent), var(--ink-primary))); transform-origin: left;
   content: ''; transform: scaleX(0); transition: transform var(--transition);
 }
-.link-featured:hover { transform: translateY(-4px); box-shadow: var(--shadow-hover); border-color: var(--tint-border-soft, rgba(var(--ink-primary-rgb),.2)); }
+.link-featured:hover { border-color: var(--tint-border-soft, rgba(var(--ink-primary-rgb),.2)); }
 .link-featured:hover::after { transform: scaleX(1); }
 .link-featured-name {
   margin-bottom: .35rem;

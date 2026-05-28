@@ -2,11 +2,8 @@
 /* --- Grid card --- */
 .post-card {
   display: flex; flex-direction: column;
-  border: 1px solid var(--ink-border); border-radius: var(--radius-lg); overflow: hidden; height: 100%;
-  background: var(--ink-card); box-shadow: var(--shadow-card);
-  transition: all var(--transition);
+  height: 100%;
 }
-.post-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-hover); }
 .post-card-image {
   position: relative;
   height: 190px; overflow: hidden;
@@ -49,11 +46,7 @@
 /* --- List card --- */
 .post-list-item {
   display: flex; align-items: stretch;
-  border: 1px solid var(--ink-border); border-radius: var(--radius-lg); overflow: hidden;
-  background: var(--ink-card); box-shadow: var(--shadow-card);
-  transition: all var(--transition);
 }
-.post-list-item:hover { transform: translateY(-3px); box-shadow: var(--shadow-hover); }
 .post-list-thumb {
   display: flex; align-items: center; justify-content: center;
   width: 160px; min-width: 160px;

@@ -33,8 +33,17 @@ export default defineConfig({
         login: resolve(srcDir, 'login.html')
       },
       output: {
-        manualChunks: {
-          'main': ['./src/assets/js/main.js']
+        manualChunks(id) {
+          const normalizedId = id.replace(/\\/g, '/');
+          const dynamicModules = ['archive', 'album', 'post', 'parallax', 'page-profile', 'page-login', 'links'];
+          const filename = normalizedId.split('/').pop().replace('.js', '');
+
+          if (dynamicModules.includes(filename)) {
+            return filename;
+          }
+          if (normalizedId.includes('.js') || normalizedId.includes('vite/modulepreload-polyfill')) {
+            return 'inkflow';
+          }
         },
         entryFileNames: 'assets/js/[name].js',
         chunkFileNames: 'assets/js/[name].js',
