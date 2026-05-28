@@ -53,7 +53,7 @@
 /* stat-item / stat-num / stat-label — defined in Section 08 (Hero Stats) */
 
 /* --- ALBUM LIST: Photo masonry --- */
-.masonry-section { margin-top: 4rem; }
+.masonry-section { /* margin-top stripped to HTML mt-5 */ }
 /* .masonry-header merged into .auth-top-nav above */
 .masonry-title   { font-family: var(--font-display); font-size: 1.5rem; font-weight: 700; }
 
@@ -155,24 +155,7 @@
 }
 
 /* --- LINK LIST: Apply card (link-apply-* namespace) --- */
-.link-apply-card {
-  position: relative;
-  border-radius: var(--radius-xl); padding: 2.5rem; overflow: hidden; margin-top: 3rem;
-  background: linear-gradient(135deg, var(--ink-primary) 0%, #052f1c 100%);
-}
-.link-apply-card::before {
-  position: absolute; top: -80px; right: -60px;
-  width: 250px; height: 250px; border-radius: 50%;
-  background: rgba(0,201,141,.12);
-  content: '';
-}
-.link-apply-card::after {
-  position: absolute; bottom: -50px; left: -40px;
-  width: 180px; height: 180px; border-radius: 50%;
-  background: rgba(0,201,141,.08);
-  content: '';
-}
-.link-apply-card-body { position: relative; z-index: 1; }
+
 .link-apply-title     {
   margin-bottom: .75rem;
   font-family: var(--font-display); font-size: 1.6rem; font-weight: 700; color: #fff;
@@ -230,7 +213,7 @@
 /* meta-author — merged into Section 09 */
 
 /* --- POST DETAIL: comment-section --- */
-.comment-section { margin-top: 3rem; }
+.comment-section { /* margin-top stripped to HTML mt-5 */ }
 
 /* --- POST DETAIL: pop-link (popular posts in sidebar) --- */
 .pop-link {

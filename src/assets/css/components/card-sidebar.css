@@ -1,6 +1,6 @@
 /* CARDS — SIDEBAR CARD */
 .sidebar-card {
-  padding: 1.75rem; margin-bottom: 1.5rem;
+  padding: 1.75rem; /* margin-bottom stripped to HTML mb-4 */
 }
 .sidebar-title {
   display: flex; align-items: center; gap: .5rem;

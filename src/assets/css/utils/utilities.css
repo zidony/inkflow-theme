@@ -1,7 +1,7 @@
 /* UTILITIES */
 /* Flexbox Helpers */
-.flex-y-center { display: flex; align-items: center; }
-.flex-between-center { display: flex; align-items: center; justify-content: space-between; }
+
+
 .text-accent          { color: var(--ink-accent); }
 .text-primary-custom  { color: var(--ink-primary); }
 .bg-surface           { background: var(--ink-surface); }

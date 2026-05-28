@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="zh-CN" data-bs-theme="light">
 <head>
   <title>INKFLOW - 友情链接</title>
@@ -57,7 +57,7 @@
 
 <!-- PAGE HERO -->
 <div class="page-hero">
-  <div class="container position-relative" style="z-index:1">
+  <div class="container position-relative z-1">
     <nav aria-label="breadcrumb" class="ink-breadcrumb mb-3"><ol class="breadcrumb mb-0">
       <li class="breadcrumb-item"><a href="index.html">首页</a></li>
       <li class="breadcrumb-item active">友情链接</li>
@@ -98,9 +98,9 @@
             <a href="#" target="_blank" class="ink-card ink-card-hover link-featured u-tint-purple">
               <div class="ink-avatar ink-avatar-xl ink-avatar-rounded-lg">阮</div>
               <div class="link-info">
-                <div class="ink-card ink-card-hover link-featured-name">阮一峰的网络日志</div>
-                <div class="ink-card ink-card-hover link-featured-desc">每周科技爱好者周刊，分享前沿技术动态与深度思考，是我坚持阅读时间最长的博客。</div>
-                <div class="ink-card ink-card-hover link-featured-meta">
+                <div class="link-featured-name">阮一峰的网络日志</div>
+                <div class="link-featured-desc">每周科技爱好者周刊，分享前沿技术动态与深度思考，是我坚持阅读时间最长的博客。</div>
+                <div class="link-featured-meta">
                   <span class="link-meta-item"><i class="bi bi-globe2"></i>ruanyifeng.com</span>
                   <span class="link-meta-item"><i class="bi bi-calendar3"></i>每周更新</span>
                   <span class="link-meta-item" style="color:var(--ink-accent)"><i class="bi bi-star-fill"></i>强烈推荐</span>
@@ -113,9 +113,9 @@
             <a href="#" target="_blank" class="ink-card ink-card-hover link-featured u-tint-cyan">
               <div class="ink-avatar ink-avatar-xl ink-avatar-rounded-lg">掘</div>
               <div class="link-info">
-                <div class="ink-card ink-card-hover link-featured-name">稀土掘金</div>
-                <div class="ink-card ink-card-hover link-featured-desc">中文开发者社区中内容质量最高的平台，前端、后端、AI 均有大量高质量原创文章。</div>
-                <div class="ink-card ink-card-hover link-featured-meta">
+                <div class="link-featured-name">稀土掘金</div>
+                <div class="link-featured-desc">中文开发者社区中内容质量最高的平台，前端、后端、AI 均有大量高质量原创文章。</div>
+                <div class="link-featured-meta">
                   <span class="link-meta-item"><i class="bi bi-globe2"></i>juejin.cn</span>
                   <span class="link-meta-item"><i class="bi bi-people-fill"></i>百万开发者</span>
                   <span class="link-meta-item" style="color:var(--ink-accent)"><i class="bi bi-star-fill"></i>强烈推荐</span>
@@ -128,9 +128,9 @@
             <a href="#" target="_blank" class="ink-card ink-card-hover link-featured u-tint-pink">
               <div class="ink-avatar ink-avatar-xl ink-avatar-rounded-lg">D</div>
               <div class="link-info">
-                <div class="ink-card ink-card-hover link-featured-name">Dribbble</div>
-                <div class="ink-card ink-card-hover link-featured-desc">全球顶级 UI/UX 设计师的作品聚集地，是我寻找设计灵感与色彩搭配参考的首选。</div>
-                <div class="ink-card ink-card-hover link-featured-meta">
+                <div class="link-featured-name">Dribbble</div>
+                <div class="link-featured-desc">全球顶级 UI/UX 设计师的作品聚集地，是我寻找设计灵感与色彩搭配参考的首选。</div>
+                <div class="link-featured-meta">
                   <span class="link-meta-item"><i class="bi bi-globe2"></i>dribbble.com</span>
                   <span class="link-meta-item"><i class="bi bi-palette2"></i>设计灵感</span>
                   <span class="link-meta-item" style="color:var(--ink-accent)"><i class="bi bi-star-fill"></i>强烈推荐</span>
@@ -143,9 +143,9 @@
             <a href="#" target="_blank" class="ink-card ink-card-hover link-featured u-tint-blue">
               <div class="ink-avatar ink-avatar-xl ink-avatar-rounded-lg">M</div>
               <div class="link-info">
-                <div class="ink-card ink-card-hover link-featured-name">MDN Web Docs</div>
-                <div class="ink-card ink-card-hover link-featured-desc">Mozilla 维护的 Web 开发权威文档，JavaScript、CSS、HTML 的最终参考答案永远在这里。</div>
-                <div class="ink-card ink-card-hover link-featured-meta">
+                <div class="link-featured-name">MDN Web Docs</div>
+                <div class="link-featured-desc">Mozilla 维护的 Web 开发权威文档，JavaScript、CSS、HTML 的最终参考答案永远在这里。</div>
+                <div class="link-featured-meta">
                   <span class="link-meta-item"><i class="bi bi-globe2"></i>developer.mozilla.org</span>
                   <span class="link-meta-item" style="color:var(--ink-accent)"><i class="bi bi-star-fill"></i>强烈推荐</span>
                 </div>
@@ -157,7 +157,7 @@
 
         <!-- BLOG LINKS -->
         <div class="section-divider fade-up">
-          <div class="section-divider-title"><i class="bi bi-journal-richtext" style="color:var(--ink-primary)"></i> 个人博客</div>
+          <div class="section-divider-title"><i class="bi bi-journal-richtext" class="u-text-primary"></i> 个人博客</div>
           <div class="section-divider-line"></div>
           <div class="section-divider-count">8 个</div>
         </div>
@@ -315,8 +315,8 @@
         </div>
 
         <!-- APPLY CARD -->
-        <div class="link-apply-card fade-up">
-          <div class="link-apply-card-body">
+        <div class="ink-card ink-card-shadow ink-bg-brand p-4 p-md-5 mt-5 fade-up" style="border-radius: var(--radius-xl);">
+          <div class="position-relative z-1">
             <div class="row align-items-center g-4">
               <div class="col-md-7">
                 <div class="link-apply-title">申请友情链接</div>
@@ -354,14 +354,14 @@
       <div class="col-lg-4">
 
         <!-- Stats -->
-        <div class="ink-card ink-card-shadow sidebar-card fade-up delay-1">
+        <div class="ink-card ink-card-shadow sidebar-card mb-4 fade-up delay-1">
           <div class="sidebar-title">
             <span class="sidebar-accent-bar"></span>
             链接统计
           </div>
           <div class="d-flex flex-column gap-2">
             <div class="d-flex justify-content-between align-items-center py-2 border-bottom border-custom">
-              <span style="font-size:.88rem;color:var(--ink-heading);display:flex;align-items:center;gap:.4rem"><i class="bi bi-journal-richtext" style="color:var(--ink-primary)"></i>个人博客</span>
+              <span style="font-size:.88rem;color:var(--ink-heading);display:flex;align-items:center;gap:.4rem"><i class="bi bi-journal-richtext" class="u-text-primary"></i>个人博客</span>
               <span style="font-family:var(--font-mono);font-size:.85rem;font-weight:600;color:var(--ink-primary)">8</span>
             </div>
             <div class="d-flex justify-content-between align-items-center py-2 border-bottom border-custom">
@@ -384,7 +384,7 @@
         </div>
 
         <!-- My info card (for exchange) -->
-        <div class="ink-card ink-card-shadow sidebar-card fade-up delay-2">
+        <div class="ink-card ink-card-shadow sidebar-card mb-4 fade-up delay-2">
           <div class="sidebar-title">
             <span class="sidebar-accent-bar"></span>
             本站信息
@@ -392,7 +392,7 @@
           <div style="display:flex;flex-direction:column;gap:.85rem">
             <div>
               <div style="font-size:.72rem;text-transform:uppercase;letter-spacing:.07em;color:var(--ink-muted);font-weight:600;margin-bottom:.25rem">博客名称</div>
-              <div style="font-family:var(--font-display);font-weight:700;font-size:1rem;color:var(--ink-heading)">INKFLOW</div>
+              <div class="archive-stat-header">INKFLOW</div>
             </div>
             <div>
               <div style="font-size:.72rem;text-transform:uppercase;letter-spacing:.07em;color:var(--ink-muted);font-weight:600;margin-bottom:.25rem">博客地址</div>
@@ -413,7 +413,7 @@
         </div>
 
         <!-- Recently added -->
-        <div class="ink-card ink-card-shadow sidebar-card fade-up delay-3">
+        <div class="ink-card ink-card-shadow sidebar-card mb-4 fade-up delay-3">
           <div class="sidebar-title">
             <span class="sidebar-accent-bar"></span>
             最近新增
