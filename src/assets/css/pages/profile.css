@@ -34,14 +34,10 @@
   background: linear-gradient(to bottom, var(--ink-accent), var(--ink-primary));
   content: '';
 }
-.profile-input {
-  width: 100%; border: 1.5px solid var(--ink-border); border-radius: var(--radius-md); padding: .7rem 1rem; outline: none;
-  background: var(--ink-surface); color: var(--ink-text); font-size: .92rem; font-family: var(--font-body);
-  transition: border-color var(--transition), box-shadow var(--transition);
-}
-.profile-input:focus { border-color: var(--ink-primary); box-shadow: 0 0 0 3px rgba(var(--ink-primary-rgb),.1); }
-.profile-input::placeholder { color: var(--ink-muted); }
-.profile-input:read-only { opacity: .6; cursor: not-allowed; }
+
+
+
+
 .profile-label {
   display: block;
   margin-bottom: .4rem;

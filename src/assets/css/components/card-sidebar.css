@@ -58,13 +58,9 @@
   font-size: .85rem; color: rgba(255,255,255,.65); line-height: 1.6;
 }
 .ink-brand-form { position: relative; z-index: 1; }
-.ink-brand-input {
-  width: 100%; border: 1px solid rgba(255,255,255,.2); border-radius: var(--radius-sm); padding: .65rem 1rem; margin-bottom: .75rem; outline: none;
-  background: rgba(255,255,255,.12); color: #fff; font-size: .88rem; font-family: var(--font-body);
-  transition: border-color var(--transition);
-}
-.ink-brand-input::placeholder { color: rgba(255,255,255,.4); }
-.ink-brand-input:focus { border-color: rgba(0,201,141,.6); }
+
+
+
 
 
 

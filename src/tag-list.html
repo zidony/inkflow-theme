@@ -78,9 +78,9 @@
     </div>
 
     <!-- SEARCH -->
-    <div class="tag-search-wrap fade-up delay-1">
+    <div class="ink-input-wrap has-icon-left fade-up delay-1 mb-4">
       <i class="bi bi-search"></i>
-      <input type="text" class="tag-search-input" placeholder="搜索标签…" id="tagSearch" />
+      <input type="text" class="ink-input ink-input-white" placeholder="搜索标签…" id="tagSearch" />
     </div>
 
     <!-- SORT TABS -->
@@ -252,10 +252,7 @@
   </div>
 </footer>
 
-<div class="search-overlay" id="searchOverlay">
-  <button class="search-close" onclick="closeSearch()"><i class="bi bi-x-lg"></i></button>
-  <div class="search-box">
-    <div class="search-input-wrap"><i class="bi bi-search" style="position:absolute;left:1.25rem;top:50%;transform:translateY(-50%);color:rgba(255,255,255,.4);font-size:1.3rem"></i><input type="text" class="search-main-input" placeholder="搜索文章…" /></div>
+{{> search }}
     <div class="search-tips"><span class="search-tip">JavaScript</span><span class="search-tip">React</span><span class="search-tip">TypeScript</span></div>
   </div>
 </div>

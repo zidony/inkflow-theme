@@ -1,0 +1,100 @@
+/* --- Input System (.ink-input) --- */
+
+.ink-input {
+  width: 100%;
+  padding: 0.7rem 1rem;
+  font-size: 0.92rem;
+  font-family: var(--font-body);
+  border-radius: var(--radius-md);
+  outline: none;
+  transition: border-color var(--transition), box-shadow var(--transition);
+}
+
+.ink-input::placeholder {
+  color: var(--ink-muted);
+}
+
+.ink-input:read-only,
+.ink-input:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* --- Sizes --- */
+.ink-input-sm {
+  padding: 0.65rem 1rem;
+  font-size: 0.88rem;
+  border-radius: var(--radius-sm);
+}
+
+.ink-input-lg {
+  padding: 1.1rem 1.25rem;
+  font-size: 1.2rem;
+  border-radius: var(--radius-lg);
+}
+
+/* --- Variants --- */
+
+/* 1. White (Card background with standard border) */
+.ink-input-white {
+  background: var(--ink-card);
+  color: var(--ink-text);
+  border: 1.5px solid var(--ink-border);
+}
+.ink-input-white:focus {
+  border-color: var(--ink-primary);
+  box-shadow: 0 0 0 3px rgba(var(--ink-primary-rgb), 0.12);
+}
+
+/* 2. Gray (Surface background with standard border) */
+.ink-input-gray {
+  background: var(--ink-surface);
+  color: var(--ink-text);
+  border: 1.5px solid var(--ink-border);
+}
+.ink-input-gray:focus {
+  border-color: var(--ink-primary);
+  box-shadow: 0 0 0 3px rgba(var(--ink-primary-rgb), 0.1);
+}
+
+/* 3. Ghost (Transparent with white border) */
+.ink-input-ghost {
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+.ink-input-ghost::placeholder {
+  color: rgba(255, 255, 255, 0.4);
+}
+.ink-input-ghost:focus {
+  border-color: rgba(0, 201, 141, 0.5);
+}
+
+/* --- Icon Wrappers --- */
+.ink-input-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.ink-input-wrap > i.bi {
+  position: absolute;
+  pointer-events: none;
+  color: var(--ink-muted);
+}
+.ink-input-wrap.has-icon-left > i.bi {
+  left: 0.9rem;
+}
+.ink-input-wrap.has-icon-left .ink-input {
+  padding-left: 2.75rem;
+}
+.ink-input-wrap.has-icon-left .ink-input-lg {
+  padding-left: 3.5rem;
+}
+/* specifically for the transparent search overlay icon */
+.ink-input-wrap.has-icon-left .ink-input-ghost ~ i.bi {
+  color: rgba(255, 255, 255, 0.4);
+}
+/* For password toggle */
+.ink-input.has-toggle {
+  padding-right: 3rem;
+}

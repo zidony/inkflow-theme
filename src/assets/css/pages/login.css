@@ -75,20 +75,12 @@ body:has(.auth-page) { overflow: hidden; }
   margin-bottom: .45rem;
   font-size: .83rem; font-weight: 600; color: var(--ink-heading);
 }
-.auth-input {
-  width: 100%; border: 1.5px solid var(--ink-border); border-radius: var(--radius-md); padding: .75rem 1rem; outline: none;
-  background: var(--ink-card); color: var(--ink-text); font-size: .95rem; font-family: var(--font-body);
-  transition: border-color var(--transition), box-shadow var(--transition);
-}
-.auth-input:focus { border-color: var(--ink-primary); box-shadow: 0 0 0 3px rgba(var(--ink-primary-rgb), .12); }
-.auth-input::placeholder { color: var(--ink-muted); }
-.auth-input-icon-wrap { position: relative; }
-.auth-input-icon-wrap .auth-input { padding-left: 2.75rem; }
-.auth-input-icon-wrap > i {
-  position: absolute; left: .9rem; top: 50%;
-  color: var(--ink-muted); font-size: 1rem;
-  transform: translateY(-50%);
-}
+
+
+
+
+
+
 
 /* Password toggle button */
 .auth-pwd-toggle {
@@ -98,7 +90,7 @@ body:has(.auth-page) { overflow: hidden; }
   transform: translateY(-50%); cursor: pointer; transition: color var(--transition);
 }
 .auth-pwd-toggle:hover { color: var(--ink-primary); }
-.auth-input-icon-wrap .auth-input.has-toggle { padding-right: 3rem; }
+
 .auth-options {
   display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: .5rem;
   margin-bottom: .75rem;

@@ -86,15 +86,7 @@
   border: 1px solid var(--ink-border); border-radius: var(--radius-lg); padding: 1.25rem 1.5rem; margin-bottom: 2rem;
   background: var(--ink-card); box-shadow: var(--shadow-card);
 }
-.cat-search-input-wrap { position: relative; flex: 1; min-width: 200px; }
-.cat-search-input-wrap i {
-  position: absolute; left: .9rem; top: 50%;
-  color: var(--ink-muted);
-  transform: translateY(-50%);
-}
-.cat-search-input {
-  width: 100%; border: 1px solid var(--ink-border); border-radius: var(--radius-sm); padding: .6rem .9rem .6rem 2.3rem; outline: none;
-  background: var(--ink-surface); color: var(--ink-text); font-size: .9rem; font-family: var(--font-body);
-  transition: border-color var(--transition);
-}
-.cat-search-input:focus { border-color: var(--ink-primary); }
+
+
+
+

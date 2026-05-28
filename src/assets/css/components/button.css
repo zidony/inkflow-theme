@@ -78,7 +78,7 @@
 
 /* 4. White (Card background with standard border) */
 .ink-btn-white {
-  background: var(--ink-surface);
+  background: var(--ink-card);
   border: 1.5px solid var(--ink-border);
   color: var(--ink-heading);
 }
