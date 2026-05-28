@@ -47,18 +47,10 @@
   margin-bottom: .4rem;
   font-size: .82rem; font-weight: 600; color: var(--ink-heading);
 }
-.btn-profile-save {
-  border: none; padding: .7rem 2rem; border-radius: var(--radius-md);
-  background: linear-gradient(135deg, var(--ink-accent), #00a876); color: #fff; font-weight: 600; font-size: .92rem; font-family: var(--font-body);
-  cursor: pointer; transition: all var(--transition);
-}
-.btn-profile-save:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(0,201,141,.35); }
-.btn-profile-cancel {
-  border: 1.5px solid var(--ink-border); padding: .7rem 1.5rem; border-radius: var(--radius-md);
-  background: var(--ink-surface); color: var(--ink-muted); font-weight: 600; font-size: .92rem; font-family: var(--font-body);
-  cursor: pointer; transition: all var(--transition);
-}
-.btn-profile-cancel:hover { border-color: var(--ink-muted); color: var(--ink-heading); }
+
+
+
+
 
 /* Stats row on profile */
 .profile-stats { display: flex; gap: 1.5rem; flex-wrap: wrap; }
@@ -79,12 +71,8 @@
   border: 1px solid rgba(239,68,68,.2); border-radius: var(--radius-lg); padding: 1.5rem;
   background: rgba(239,68,68,.04);
 }
-.btn-danger {
-  border: 1.5px solid rgba(239,68,68,.4); padding: .6rem 1.4rem; border-radius: var(--radius-md);
-  background: transparent; color: #ef4444; font-weight: 600; font-size: .88rem; font-family: var(--font-body);
-  cursor: pointer; transition: all var(--transition);
-}
-.btn-danger:hover { background: rgba(239,68,68,.07); border-color: #ef4444; }
+
+
 
 /* Profile sidebar nav */
 .profile-nav-item {

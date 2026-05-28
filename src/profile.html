@@ -31,7 +31,7 @@
         <button class="btn-nav-search" onclick="openSearch()">
           <i class="bi bi-search me-1"></i> 搜索
         </button>
-        <a href="login.html" class="btn-nav-login d-none" id="navLoginBtn">
+        <a href="login.html" class="ink-btn ink-btn-soft ink-btn-sm d-none" id="navLoginBtn">
           <i class="bi bi-person me-1"></i> 登录
         </a>
         <div class="nav-user-wrapper" id="navUserWrapper">
@@ -154,13 +154,13 @@
           <div class="d-flex align-items-center justify-content-between mb-0">
             <div class="profile-section-title border-0 p-0 mb-0">基本信息</div>
             <div data-view-actions="basic" class="d-flex gap-2">
-              <button class="btn-profile-save btn-sm-profile" data-profile-edit="basic">
+              <button class="ink-btn ink-btn-soft ink-btn-sm" data-profile-edit="basic">
                 <i class="bi bi-pencil me-1"></i> 编辑
               </button>
             </div>
             <div data-edit-actions="basic" class="d-none gap-2">
-              <button class="btn-profile-cancel btn-sm-profile" data-profile-cancel="basic">取消</button>
-              <button class="btn-profile-save btn-sm-profile" data-profile-save="basic">
+              <button class="ink-btn ink-btn-white ink-btn-sm" data-profile-cancel="basic">取消</button>
+              <button class="ink-btn ink-btn-soft ink-btn-sm" data-profile-save="basic">
                 <i class="bi bi-check-lg me-1"></i> 保存
               </button>
             </div>
@@ -207,13 +207,13 @@
           <div class="d-flex align-items-center justify-content-between mb-0">
             <div class="profile-section-title border-0 p-0 mb-0">账号安全</div>
             <div data-view-actions="account" class="d-flex gap-2">
-              <button class="btn-profile-save btn-sm-profile" data-profile-edit="account">
+              <button class="ink-btn ink-btn-soft ink-btn-sm" data-profile-edit="account">
                 <i class="bi bi-pencil me-1"></i> 修改
               </button>
             </div>
             <div data-edit-actions="account" class="d-none gap-2">
-              <button class="btn-profile-cancel btn-sm-profile" data-profile-cancel="account">取消</button>
-              <button class="btn-profile-save btn-sm-profile" data-profile-save="account">
+              <button class="ink-btn ink-btn-white ink-btn-sm" data-profile-cancel="account">取消</button>
+              <button class="ink-btn ink-btn-soft ink-btn-sm" data-profile-save="account">
                 <i class="bi bi-check-lg me-1"></i> 保存
               </button>
             </div>
@@ -301,7 +301,7 @@
             </div>
           </div>
           <div class="mt-3">
-            <button class="btn-profile-save" onclick="showToast('通知设置已保存 ✓')">
+            <button class="ink-btn ink-btn-soft" onclick="showToast('通知设置已保存 ✓')">
               <i class="bi bi-check-lg me-1"></i> 保存偏好
             </button>
           </div>
@@ -317,7 +317,7 @@
               <div class="fw-semibold mb-1">注销账号</div>
               <div class="text-muted small">永久删除账号及所有数据，此操作不可撤销</div>
             </div>
-            <button class="btn-danger" onclick="confirmDelete()">
+            <button class="ink-btn ink-btn-danger" onclick="confirmDelete()">
               <i class="bi bi-trash me-1"></i> 注销账号
             </button>
           </div>

@@ -61,12 +61,8 @@
 .theme-toggle:hover { background: rgba(255,255,255,.2); transform: rotate(20deg); }
 
 /* Login button */
-.btn-nav-login {
-  border: none; border-radius: var(--radius-sm); padding: .35rem .9rem;
-  background: linear-gradient(135deg, var(--ink-accent), #00a876); color: #fff; font-size: .85rem; font-weight: 600; font-family: var(--font-body); white-space: nowrap;
-  cursor: pointer; transition: all var(--transition);
-}
-.btn-nav-login:hover { transform: translateY(-1px); box-shadow: 0 4px 14px rgba(0,201,141,.4); color: #fff; }
+
+
 
 /* User avatar (logged-in state) */
 .nav-user-wrapper .ink-avatar:hover { border-color: var(--ink-accent); transform: scale(1.08); }

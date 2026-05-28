@@ -7,6 +7,7 @@
 
 /* 2. Global Components / Layout */
 @import "./navbar.css";
+@import "./components/button.css";
 @import "./components/footer.css";
 @import "./components/search-overlay.css";
 @import "./back-to-top.css";

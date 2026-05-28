@@ -114,12 +114,8 @@
 }
 .comment-textarea:focus { border-color: var(--ink-primary); }
 .comment-textarea::placeholder { color: var(--ink-muted); }
-.btn-comment {
-  border: none; padding: .7rem 1.6rem; border-radius: var(--radius-md);
-  background: linear-gradient(135deg, var(--ink-accent), #00a876); color: #fff; font-weight: 600; font-size: .9rem; font-family: var(--font-body);
-  cursor: pointer; transition: all var(--transition);
-}
-.btn-comment:hover { transform: translateY(-1px); box-shadow: 0 4px 15px rgba(0,201,141,.35); }
+
+
 .comment-item {
   border: 1px solid var(--ink-border); border-radius: var(--radius-lg); padding: 1.35rem; margin-bottom: 1rem;
   background: var(--ink-card); box-shadow: var(--shadow-card);

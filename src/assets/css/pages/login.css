@@ -111,12 +111,8 @@ body:has(.auth-page) { overflow: hidden; }
 .auth-remember input { accent-color: var(--ink-primary); }
 .auth-forgot { font-size: .85rem; color: var(--ink-primary); }
 .auth-forgot:hover { color: var(--ink-accent); }
-.btn-auth {
-  width: 100%; border: none; padding: .75rem; border-radius: var(--radius-md);
-  background: linear-gradient(135deg, var(--ink-accent), #00a876); color: #fff; font-weight: 700; font-size: 1rem; font-family: var(--font-body); letter-spacing: .02em;
-  cursor: pointer; transition: all var(--transition);
-}
-.btn-auth:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(0,201,141,.4); }
+
+
 .auth-divider {
   display: flex; align-items: center; gap: 1rem;
   margin: 1rem 0;
@@ -128,13 +124,8 @@ body:has(.auth-page) { overflow: hidden; }
   background: var(--ink-border);
   content: '';
 }
-.btn-auth-social {
-  display: flex; align-items: center; justify-content: center; gap: .6rem;
-  width: 100%; border: 1.5px solid var(--ink-border); padding: .75rem; border-radius: var(--radius-md); margin-bottom: .75rem;
-  background: var(--ink-card); color: var(--ink-heading); font-weight: 600; font-size: .9rem; font-family: var(--font-body);
-  cursor: pointer; transition: all var(--transition);
-}
-.btn-auth-social:hover { border-color: var(--ink-primary); background: rgba(var(--ink-primary-rgb),.04); color: var(--ink-primary); }
+
+
 .auth-switch {
   margin-top: 1rem;
   text-align: center; font-size: .88rem; color: var(--ink-muted);

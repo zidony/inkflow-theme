@@ -30,7 +30,7 @@
         <button class="btn-nav-search" onclick="openSearch()">
           <i class="bi bi-search me-1"></i> 搜索
         </button>
-        <a href="login.html" class="btn-nav-login" id="navLoginBtn">
+        <a href="login.html" class="ink-btn ink-btn-soft ink-btn-sm" id="navLoginBtn">
           <i class="bi bi-person me-1"></i> 登录
         </a>
         <div class="nav-user-wrapper d-none" id="navUserWrapper">
@@ -437,7 +437,7 @@ export function LikeButton({ postId, initialCount }: Props) {
             <textarea class="comment-textarea" placeholder="写下你的想法…支持 Markdown 语法"></textarea>
             <div class="d-flex align-items-center justify-content-between mt-2">
               <span style="font-size:.78rem;color:var(--ink-muted)"><i class="bi bi-markdown me-1"></i>支持 Markdown</span>
-              <button class="btn-comment"><i class="bi bi-send me-1"></i> 发布评论</button>
+              <button class="ink-btn ink-btn-soft"><i class="bi bi-send me-1"></i> 发布评论</button>
             </div>
           </div>
 
@@ -596,7 +596,7 @@ export function LikeButton({ postId, initialCount }: Props) {
           <p class="ink-brand-sub">每周精选 5 篇文章，直达收件箱，不骚扰，只分享。</p>
           <div class="ink-brand-form">
             <input type="email" class="ink-brand-input" placeholder="your@email.com" />
-            <button class="btn-subscribe">
+            <button class="ink-btn ink-btn-soft w-100">
               <i class="bi bi-send-fill me-1"></i> 立即订阅
             </button>
           </div>

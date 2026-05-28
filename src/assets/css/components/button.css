@@ -1,0 +1,121 @@
+/* --- Button System (.ink-btn) --- */
+
+.ink-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  font-family: var(--font-body);
+  border-radius: var(--radius-md);
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all var(--transition);
+  outline: none;
+  line-height: 1.5;
+}
+
+.ink-btn:disabled, .ink-btn.disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* --- Sizes --- */
+.ink-btn-sm {
+  padding: 0.35rem 0.9rem;
+  font-size: 0.85rem;
+  border-radius: var(--radius-sm);
+}
+
+.ink-btn-lg {
+  padding: 0.85rem 2rem;
+  font-size: 0.95rem;
+}
+
+/* --- Variants --- */
+
+/* 1. Primary (Solid Dark) */
+.ink-btn-primary {
+  background: var(--ink-primary);
+  color: #fff;
+}
+.ink-btn-primary:hover {
+  background: var(--ink-accent);
+  color: #fff;
+}
+
+/* 2. Soft (Gradient Accent/Primary) */
+.ink-btn-soft {
+  background: linear-gradient(135deg, var(--ink-accent), #00a876);
+  color: #fff;
+}
+.ink-btn-soft:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 15px rgba(0, 201, 141, 0.4);
+  color: #fff;
+}
+.ink-btn-soft.ink-btn-lg:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(0, 201, 141, 0.5);
+}
+
+/* 3. Ghost (Transparent with light border) */
+.ink-btn-ghost {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  color: rgba(255, 255, 255, 0.85);
+  font-weight: 500;
+}
+.ink-btn-ghost:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.45);
+  color: #fff;
+}
+
+/* 4. White (Card background with standard border) */
+.ink-btn-white {
+  background: var(--ink-surface);
+  border: 1.5px solid var(--ink-border);
+  color: var(--ink-heading);
+}
+.ink-btn-white:hover {
+  border-color: var(--ink-primary);
+  background: rgba(var(--ink-primary-rgb), 0.04);
+  color: var(--ink-primary);
+}
+
+/* 5. Ghost Soft (Transparent with faint border) */
+.ink-btn-ghost-soft {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: rgba(255, 255, 255, 0.7);
+}
+.ink-btn-ghost-soft:hover {
+  background: rgba(255, 255, 255, 0.15);
+  color: #fff;
+}
+
+/* 6. Subtle (Primary tinted background) */
+.ink-btn-subtle {
+  background: rgba(var(--ink-primary-rgb), 0.08);
+  border: 1px solid rgba(var(--ink-primary-rgb), 0.2);
+  color: var(--ink-primary);
+}
+.ink-btn-subtle:hover {
+  background: rgba(var(--ink-primary-rgb), 0.15);
+}
+
+/* Danger */
+.ink-btn-danger {
+  background: transparent;
+  border: 1.5px solid var(--ink-border);
+  color: #ef4444;
+}
+.ink-btn-danger:hover {
+  background: rgba(239, 68, 68, 0.07);
+  border-color: #ef4444;
+}

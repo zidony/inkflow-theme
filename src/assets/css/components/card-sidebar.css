@@ -65,13 +65,8 @@
 }
 .ink-brand-input::placeholder { color: rgba(255,255,255,.4); }
 .ink-brand-input:focus { border-color: rgba(0,201,141,.6); }
-.btn-subscribe {
-  display: flex; align-items: center; justify-content: center; gap: .4rem;
-  width: 100%; border: none; padding: .7rem; border-radius: var(--radius-sm);
-  background: linear-gradient(135deg, var(--ink-accent), #00a876); color: #fff; font-weight: 600; font-size: .9rem; font-family: var(--font-body);
-  cursor: pointer; transition: all var(--transition);
-}
-.btn-subscribe:hover { transform: translateY(-1px); box-shadow: 0 4px 15px rgba(0,201,141,.4); }
+
+
 
 /* Author profile card */
 .sidebar-card.author-card {
