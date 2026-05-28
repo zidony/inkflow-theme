@@ -1,4 +1,4 @@
-import { showToast } from './utils.js';
+import { showToast } from '../core/utils.js';
 
 function initAuthTabs() {
   const tabBtns = document.querySelectorAll('.auth-tab-btn');

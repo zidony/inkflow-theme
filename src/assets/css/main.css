@@ -1,34 +1,47 @@
-@import "./variables.css";
-@import "./css-custom-properties-design-tokens.css";
-@import "./base-reset-typography.css";
-@import "./noise-texture-overlay.css";
+/* 1. Base / Variables / Resets */
+@import "./base/variables.css";
+@import "./base/design-tokens.css";
+@import "./base/reset-typography.css";
 @import "./scrollbar.css";
+@import "./noise-texture-overlay.css";
+
+/* 2. Global Components / Layout */
 @import "./navbar.css";
-@import "./page-hero-inner-pages.css";
-@import "./homepage-hero-candidate-for-home-css-extraction.css";
-@import "./section-common.css";
-@import "./components/cards-base.css";
-@import "./components/cards-post-card-grid-list.css";
-@import "./components/cards-featured-post-card-candidate-for-home-css-extraction.css";
-@import "./components/cards-category-card-candidate-for-home-css-extraction.css";
-@import "./components/cards-sidebar-card.css";
-@import "./components/tag-pills-filter-tabs.css";
-@import "./components/filter-bar-post-list-page.css";
-@import "./archive-heatmap-timeline.css";
-@import "./components/album-grid-masonry-lightbox.css";
-@import "./components/link-list-link-cards.css";
-@import "./components/post-detail-article-body-toc.css";
-@import "./components/post-detail-reactions-share-author-card-prev-next.css";
-@import "./components/auth-login-page.css";
-@import "./components/auth-profile-page.css";
 @import "./components/footer.css";
 @import "./components/search-overlay.css";
 @import "./back-to-top.css";
-@import "./reading-progress-bar.css";
-@import "./components/pagination.css";
 @import "./scroll-reveal-animation.css";
-@import "./category-list-page-specific-components.css";
-@import "./tag-list-page-specific-components.css";
-@import "./utilities.css";
+@import "./reading-progress-bar.css";
+
+/* 3. Section Commons */
+@import "./components/section-common.css";
+
+/* 4. Cards Architecture (OOCSS) */
+@import "./components/card-base.css";
+@import "./components/card-post.css";
+@import "./components/card-featured.css";
+@import "./components/card-category.css";
+@import "./components/card-sidebar.css";
+@import "./components/card-link.css";
+
+/* 5. UI Elements */
+@import "./components/tag-pills-filter-tabs.css";
+@import "./components/filter-bar-post-list-page.css";
+@import "./components/album-grid-masonry-lightbox.css";
+@import "./components/pagination.css";
+
+/* 6. Page Specific Styles */
+@import "./pages/home.css";
+@import "./pages/inner-hero.css";
+@import "./pages/archive.css";
+@import "./components/post-detail.css";
+@import "./components/post-footer.css";
+@import "./pages/login.css";
+@import "./pages/profile.css";
+@import "./pages/category.css";
+@import "./pages/tag.css";
+
+/* 7. Utilities (Highest Specificity) */
+@import "./utils/utilities.css";
 @import "./responsive.css";
-@import "./utilities-additions.css";
+@import "./utils/utilities-additions.css";

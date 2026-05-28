@@ -1,4 +1,4 @@
-import { showToast } from './utils.js';
+import { showToast } from '../core/utils.js';
 
 function initProfileEdit() {
   document.querySelectorAll('[data-profile-edit]').forEach(btn => {

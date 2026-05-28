@@ -1,10 +1,19 @@
-import './components/utils.js'; // Attach showToast
+import './core/utils.js'; // Attach showToast
 import { initNavbar } from './components/navbar.js';
-import { initThemeToggle } from './components/theme.js';
+import { initThemeToggle } from './core/theme.js';
 import { initUserAuth } from './components/auth.js';
 import { initSearch } from './components/search.js';
-import { initScrollReveal, initCounters } from './components/animations.js';
-import { initBackToTop, initTagPills, initViewToggle, initKeyboard } from './components/global.js';
+import { initScrollReveal, initCounters } from './core/animations.js';
+import { initBackToTop, initTagPills, initViewToggle, initKeyboard } from './core/global.js';
+
+// Import page-specific scripts for single bundling
+import * as ArchiveModule from './pages/archive.js';
+import * as AlbumModule from './pages/album.js';
+import * as PostModule from './pages/post.js';
+import * as ParallaxModule from './pages/parallax.js';
+import * as ProfileModule from './pages/profile.js';
+import * as LoginModule from './pages/login.js';
+import './pages/links.js'; // Binds to window internally
 
 // Static global initialization
 const staticModules = [
@@ -20,29 +29,28 @@ const staticModules = [
   { selector: 'body', init: initKeyboard }
 ];
 
-// Dynamic imports map
-const dynamicModules = [
-  { selector: '#heatmapGrid', load: () => import('./components/archive.js').then(m => { m.initHeatmap(); m.initArchiveTabs(); }) },
-  { selector: '#lightbox', load: () => import('./components/album.js').then(m => m.initLightbox()) },
-  { selector: '.toc-list', load: () => import('./components/post.js').then(m => { m.initTocSpy(); m.initReadingProgress(); m.initReactions(); }) },
-  { selector: '.hero-gradient', load: () => import('./components/parallax.js').then(m => m.initParallax()) },
-  { selector: '[data-profile-section]', load: () => import('./components/page-profile.js').then(m => { m.initProfileEdit(); m.initAvatarUpload(); m.initProfileStreak(); }) },
-  { selector: '.auth-tab-btn', load: () => import('./components/page-login.js').then(m => { m.initAuthTabs(); m.initPwdToggle(); m.initLoginForm(); }) },
-  { selector: '#linkApplyForm', load: () => import('./components/links.js') } // filterLinks and toggleLinkApplyForm are bound to window inside
+// Page-specific initialization (synchronous now, but conditionally executed based on DOM)
+const pageModules = [
+  { selector: '#heatmapGrid', init: () => { ArchiveModule.initHeatmap(); ArchiveModule.initArchiveTabs(); } },
+  { selector: '#lightbox', init: () => AlbumModule.initLightbox() },
+  { selector: '.toc-list', init: () => { PostModule.initTocSpy(); PostModule.initReadingProgress(); PostModule.initReactions(); } },
+  { selector: '.hero-gradient', init: () => ParallaxModule.initParallax() },
+  { selector: '[data-profile-section]', init: () => { ProfileModule.initProfileEdit(); ProfileModule.initAvatarUpload(); ProfileModule.initProfileStreak(); } },
+  { selector: '.auth-tab-btn', init: () => { LoginModule.initAuthTabs(); LoginModule.initPwdToggle(); LoginModule.initLoginForm(); } }
 ];
 
 function initPage() {
-  // 1. Run static modules
+  // 1. Run global UI modules
   staticModules.forEach(({ selector, init }) => {
     if (document.querySelector(selector)) {
       try { init(); } catch (err) { console.error(err); }
     }
   });
 
-  // 2. Load dynamic modules
-  dynamicModules.forEach(({ selector, load }) => {
+  // 2. Run page-specific modules (conditionally)
+  pageModules.forEach(({ selector, init }) => {
     if (document.querySelector(selector)) {
-      load().catch(err => console.error(`Failed to load dynamic module for ${selector}:`, err));
+      try { init(); } catch (err) { console.error(`Failed to init page module for ${selector}:`, err); }
     }
   });
 }

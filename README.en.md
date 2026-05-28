@@ -2,7 +2,7 @@
 
 > A modern frontend theme template tailored for independent blogs, fully embracing Vite engineering, out-of-the-box ready.
 
-![Version](https://img.shields.io/badge/version-3.0.0-green)
+![Version](https://img.shields.io/badge/version-3.1.0-green)
 ![Bootstrap](https://img.shields.io/badge/Bootstrap-5.3.8-7952b3)
 ![Bootstrap Icons](https://img.shields.io/badge/Bootstrap%20Icons-1.13.1-7952b3)
 ![License](https://img.shields.io/badge/license-CC%20BY%204.0-blue)
@@ -261,6 +261,7 @@ Modify the Google Fonts link in the `<head>` of HTML files, and update variables
 
 | Version | Key Updates |
 |---------|-------------|
+| **v3.1.0** | **Deep Layering & Single-Bundle Build Strategy**: Deeply reorganized all CSS files and directories using standard ITCSS architecture; modularized JS responsibilities (`core`, `components`, `pages`); rewrote Vite config and internal dynamic imports to bundle all frontend assets into a single `inkflow.js` and `inkflow.css` (zero-config plug-and-play integration); disabled production minification and introduced Prettier for auto-formatting. |
 | **v3.0.0** | **Leap-forward Frontend Engineering Refactor**: Introduced Vite foundation and development HMR; deeply modularized the 120KB monolithic CSS into multiple components under `src/css`; rewrote entry points and build flows; added Python-based automated release script and GitHub Actions automated deployment pipelines. Fully aligned with international commercial theme architectures. |
 | **v2.5** | Extreme performance & architecture optimization: eliminated FOIT, established a global Z-Index variable system, configured GPU hardware acceleration for animation components, normalized `profile-card` HTML tree structure. |
 | **v2.4** | Deep CSS architecture refactor: introduced Logical Grouping formatting for 2400 lines of CSS, completely removed dead code, refactored Chinese comments to international standard English comments, refactored dynamic tag cloud to integrate CSS variables. |
@@ -287,4 +288,4 @@ This theme is released under the [CC BY 4.0](https://creativecommons.org/license
 
 ---
 
-*INKFLOW Theme v3.0.0 · Built with Vite & Bootstrap 5.3.8*
+*INKFLOW Theme · Built with Vite & Bootstrap 5.3.8*

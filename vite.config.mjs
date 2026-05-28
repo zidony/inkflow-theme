@@ -19,6 +19,7 @@ export default defineConfig({
     }), */
   ],
   build: {
+    minify: false,
     rollupOptions: {
       input: {
         index: resolve(srcDir, 'index.html'),
@@ -34,14 +35,7 @@ export default defineConfig({
       },
       output: {
         manualChunks(id) {
-          const normalizedId = id.replace(/\\/g, '/');
-          const dynamicModules = ['archive', 'album', 'post', 'parallax', 'page-profile', 'page-login', 'links'];
-          const filename = normalizedId.split('/').pop().replace('.js', '');
-
-          if (dynamicModules.includes(filename)) {
-            return filename;
-          }
-          if (normalizedId.includes('.js') || normalizedId.includes('vite/modulepreload-polyfill')) {
+          if (id.includes('.js') || id.includes('vite/modulepreload-polyfill')) {
             return 'inkflow';
           }
         },
