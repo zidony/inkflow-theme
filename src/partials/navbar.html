@@ -1,0 +1,46 @@
+<nav class="ink-navbar navbar navbar-expand-lg" id="mainNavbar">
+  <div class="container">
+    <a class="navbar-brand" href="index.html">
+      INKFLOW<span class="brand-dot"></span>
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu" aria-label="展开或收起导航菜单">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navMenu">
+      <ul class="navbar-nav mx-auto gap-1">
+        <li class="nav-item"><a class="nav-link active" href="index.html">首页</a></li>
+        <li class="nav-item"><a class="nav-link" href="category-list.html">分类</a></li>
+        <li class="nav-item"><a class="nav-link" href="tag-list.html">标签</a></li>
+        <li class="nav-item"><a class="nav-link" href="archive-list.html">归档</a></li>
+        <li class="nav-item"><a class="nav-link" href="album-list.html">相册</a></li>
+        <li class="nav-item"><a class="nav-link" href="link-list.html">链接</a></li>
+        <li class="nav-item"><a class="nav-link" href="post-show.html">关于</a></li>
+      </ul>
+      <div class="d-flex align-items-center gap-2">
+        <button class="btn-nav-search" onclick="openSearch()">
+          <i class="bi bi-search me-1"></i> 搜索
+        </button>
+        <a href="login.html" class="btn-nav-login" id="navLoginBtn">
+          <i class="bi bi-person me-1"></i> 登录
+        </a>
+        <div class="nav-user-wrapper d-none" id="navUserWrapper">
+          <div class="ink-avatar ink-avatar-sm" id="navUserAvatar">陈</div>
+          <div class="nav-user-dropdown">
+            <div class="nav-user-dropdown-header">
+              <div class="nav-user-dropdown-name" id="navUserName">陈明远</div>
+              <div class="nav-user-dropdown-sub">个人主页</div>
+            </div>
+            <a href="profile.html" class="nav-user-dropdown-item"><i class="bi bi-person-circle"></i> 个人资料</a>
+            <a href="#" class="nav-user-dropdown-item"><i class="bi bi-bookmark"></i> 我的收藏</a>
+            <a href="#" class="nav-user-dropdown-item"><i class="bi bi-gear"></i> 账号设置</a>
+            <hr>
+            <a href="#" class="nav-user-dropdown-item danger" id="navLogoutBtn"><i class="bi bi-box-arrow-right"></i> 退出登录</a>
+          </div>
+        </div>
+        <button class="theme-toggle" id="themeToggle" title="切换主题" aria-label="切换深色与浅色主题">
+          <i class="bi bi-moon-stars-fill" id="themeIcon"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+</nav>

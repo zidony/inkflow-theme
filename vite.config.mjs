@@ -1,4 +1,7 @@
 import { defineConfig } from 'vite';
+import handlebars from 'vite-plugin-handlebars';
+import purgecss from 'vite-plugin-purgecss';
+
 import { resolve } from 'path';
 
 const srcDir = resolve(__dirname, 'src');
@@ -6,10 +9,19 @@ const srcDir = resolve(__dirname, 'src');
 export default defineConfig({
   root: srcDir,
   base: './',
+
+  plugins: [
+    handlebars({
+      partialDirectory: resolve(srcDir, 'partials'),
+    }),
+    /* purgecss({
+      safelist: ['scrolled', 'open', 'active', 'visible', 'ink-toast--visible', 'show', 'liked', 'd-none', 'danger', 'success', 'error', 'ink-toast--success', 'ink-toast--error'],
+    }), */
+  ],
   build: {
     rollupOptions: {
       input: {
-        main: resolve(srcDir, 'index.html'),
+        index: resolve(srcDir, 'index.html'),
         postList: resolve(srcDir, 'post-list.html'),
         postShow: resolve(srcDir, 'post-show.html'),
         categoryList: resolve(srcDir, 'category-list.html'),
@@ -21,9 +33,11 @@ export default defineConfig({
         login: resolve(srcDir, 'login.html')
       },
       output: {
-        manualChunks: () => 'inkflow',
-        entryFileNames: 'assets/js/inkflow.js',
-        chunkFileNames: 'assets/js/inkflow.js',
+        manualChunks: {
+          'main': ['./src/assets/js/main.js']
+        },
+        entryFileNames: 'assets/js/[name].js',
+        chunkFileNames: 'assets/js/[name].js',
         assetFileNames: (assetInfo) => {
           if (assetInfo.name && assetInfo.name.endsWith('.css')) {
             return 'assets/css/inkflow.css';

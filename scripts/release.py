@@ -37,16 +37,18 @@ def release():
     print(f"Creating ZIP archive: releases/{zip_filename}...")
 
     with zipfile.ZipFile(zip_path, "w", zipfile.ZIP_DEFLATED) as zip_file:
+        # Add files under a top-level folder named after the zip (without extension)
+        top_folder = f"{name}-v{version}"  # e.g., inkflow-theme-v3.0.0
         for root, dirs, files in os.walk(dist_dir):
             for file in files:
                 file_abs_path = os.path.join(root, file)
                 rel_path = os.path.relpath(file_abs_path, dist_dir)
-                zip_file.write(file_abs_path, rel_path)
-
+                zip_file.write(file_abs_path, os.path.join(top_folder, rel_path))
+        # Add README files inside the top-level folder as well
         for file in os.listdir(root_dir):
             if file.lower().startswith("readme") and file.lower().endswith(".md"):
                 readme_path = os.path.join(root_dir, file)
-                zip_file.write(readme_path, file)
+                zip_file.write(readme_path, os.path.join(top_folder, file))
                 print(f"Added to ZIP: {file}")
 
     print(f"=== Success! Package created: releases/{zip_filename} ===")

@@ -22,14 +22,14 @@
 }
 .popular-post-item:last-child { border-bottom: none; padding-bottom: 0; }
 .popular-post-item:first-child { padding-top: 0; }
-.popular-post-item:hover .popular-post-title { color: var(--ink-primary); }
+.popular-post-item:hover .popular-post-title { color: var(--bs-link-hover-color); }
 .popular-rank {
   min-width: 28px; padding-top: 2px;
   font-family: var(--font-display); font-size: 1.5rem; font-weight: 900; color: var(--ink-border); line-height: 1;
 }
 .popular-post-title {
   margin-bottom: .3rem;
-  font-size: .88rem; font-weight: 600; color: var(--ink-heading); line-height: 1.4;
+  font-size: .88rem; font-weight: 600; color: var(--bs-link-color); line-height: 1.4;
   transition: color var(--transition);
 }
 .popular-post-meta { font-size: .75rem; color: var(--ink-muted); }
