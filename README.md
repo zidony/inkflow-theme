@@ -249,6 +249,7 @@ npm run release
 
 | 版本 | 主要内容 |
 |------|---------|
+| **v3.2.0** | **零依赖架构升级与组件化大满贯**：彻底拔除 Python 打包依赖，自研 Node.js 原生底层 ZIP 构建脚本；完成全站 `ink-input` 与 `ink-btn` 表单体系的终极组件化与样式大一统；优化自动化发布流水线。 |
 | **v3.1.0** | **深度分层与单文件构建策略**：采用标准 ITCSS 架构深度重组所有 CSS 文件与目录；模块化拆分 JS 职责（`core`, `components`, `pages`）；改写 Vite 配置与内部动态导入，实现全量前端资产打包为唯一的 `inkflow.js` 与 `inkflow.css`（零配置插件式集成）；关闭生产环境构建压缩并引入 Prettier 自动格式化机制。 |
 | **v3.0.0** | **跨越式前端工程化重构**：引入 Vite 基座与开发 HMR 热更新；将 120KB 单体 CSS 深度模块化拆分为 `src/css` 多个组件；重写入口与构建流；新增基于 Python 的自动发版脚本与 GitHub Actions 全自动部署流水线。全面走向国际标准化商用主题架构。 |
 | **v2.5** | 极致性能与架构优化：全面消除 FOIT（全站 HTML 注入 `preconnect`），建立全局 Z-Index 变量体系消灭 Magic Number，为动画组件配置 GPU 硬件加速 (`translateZ(0)`)，并统一 `profile-card` HTML 树结构实现组件归一化。 |

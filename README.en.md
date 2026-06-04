@@ -261,6 +261,7 @@ Modify the Google Fonts link in the `<head>` of HTML files, and update variables
 
 | Version | Key Updates |
 |---------|-------------|
+| **v3.2.0** | **Zero-Dependency Architecture & Componentization Milestone**: Completely removed Python packaging dependencies by writing a custom Node.js native zero-dependency ZIP build script; finalized the global componentization and style unification of the `.ink-input` and `.ink-btn` systems; optimized the automated release pipeline. |
 | **v3.1.0** | **Deep Layering & Single-Bundle Build Strategy**: Deeply reorganized all CSS files and directories using standard ITCSS architecture; modularized JS responsibilities (`core`, `components`, `pages`); rewrote Vite config and internal dynamic imports to bundle all frontend assets into a single `inkflow.js` and `inkflow.css` (zero-config plug-and-play integration); disabled production minification and introduced Prettier for auto-formatting. |
 | **v3.0.0** | **Leap-forward Frontend Engineering Refactor**: Introduced Vite foundation and development HMR; deeply modularized the 120KB monolithic CSS into multiple components under `src/css`; rewrote entry points and build flows; added Python-based automated release script and GitHub Actions automated deployment pipelines. Fully aligned with international commercial theme architectures. |
 | **v2.5** | Extreme performance & architecture optimization: eliminated FOIT, established a global Z-Index variable system, configured GPU hardware acceleration for animation components, normalized `profile-card` HTML tree structure. |
