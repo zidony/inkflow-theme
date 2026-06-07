@@ -23,8 +23,14 @@ function enableEdit(section, enable) {
   });
   const editActions = container.querySelector('[data-edit-actions]');
   const viewActions = container.querySelector('[data-view-actions]');
-  if (editActions) editActions.style.display = enable ? 'flex' : 'none';
-  if (viewActions) viewActions.style.display = enable ? 'none' : 'flex';
+  if (editActions) {
+    editActions.classList.toggle('d-none', !enable);
+    editActions.classList.toggle('d-flex', enable);
+  }
+  if (viewActions) {
+    viewActions.classList.toggle('d-none', enable);
+    viewActions.classList.toggle('d-flex', !enable);
+  }
 }
 
 function initAvatarUpload() {

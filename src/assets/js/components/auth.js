@@ -5,8 +5,11 @@ const inkflowAuth = {
     const avatar   = document.getElementById('navUserAvatar');
     const userName = document.getElementById('navUserName');
 
-    if (loginBtn)  loginBtn.style.display = 'none';
-    if (userWrap)  userWrap.style.display = 'flex';
+    if (loginBtn) loginBtn.classList.add('d-none');
+    if (userWrap) {
+      userWrap.classList.remove('d-none');
+      userWrap.classList.add('d-flex');
+    }
     if (avatar)    avatar.textContent      = user.initial || user.name.charAt(0);
     if (userName)  userName.textContent    = user.name;
 
@@ -21,8 +24,11 @@ const inkflowAuth = {
     const loginBtn = document.getElementById('navLoginBtn');
     const userWrap = document.getElementById('navUserWrapper');
 
-    if (loginBtn)  loginBtn.style.display = '';
-    if (userWrap)  userWrap.style.display = 'none';
+    if (loginBtn) loginBtn.classList.remove('d-none');
+    if (userWrap) {
+      userWrap.classList.add('d-none');
+      userWrap.classList.remove('d-flex', 'open');
+    }
 
     try {
       localStorage.removeItem('inkflow-user');

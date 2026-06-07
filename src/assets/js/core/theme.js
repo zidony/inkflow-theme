@@ -20,8 +20,8 @@ function initThemeToggle() {
     } catch (e) {
       // Theme still applies for the current page even when storage is blocked.
     }
-    btn.style.transform = 'rotate(360deg)';
-    setTimeout(() => { btn.style.transform = ''; }, 400);
+    btn.classList.add('is-spinning');
+    setTimeout(() => { btn.classList.remove('is-spinning'); }, 400);
   });
 }
 

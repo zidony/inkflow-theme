@@ -4,8 +4,7 @@ function filterAlbum(el, cat) {
 
   document.querySelectorAll('#albumGrid [data-cat]').forEach(card => {
     const visible = cat === 'all' || card.dataset.cat === cat;
-    card.style.opacity   = visible ? '1' : '.25';
-    card.style.transform = visible ? '' : 'scale(.96)';
+    card.classList.toggle('is-filtered-out', !visible);
   });
 }
 
@@ -19,19 +18,19 @@ function openLightbox(key) {
 
   if (imgEl) {
     imgEl.style.background = data.bg || 'linear-gradient(135deg,#0a1a10,#1a5c2a)';
-    imgEl.innerHTML = `<i class="bi ${data.icon || 'bi-image'}" style="font-size:6rem;color:rgba(255,255,255,.15)"></i>`;
+    imgEl.innerHTML = `<i class="bi ${data.icon || 'bi-image'} u-lightbox-active-icon"></i>`;
   }
   if (capEl) capEl.textContent = data.caption || data.cap || '';
 
   lb.classList.add('active');
-  document.body.style.overflow = 'hidden';
+  document.body.classList.add('is-scroll-locked');
 }
 
 function closeLightbox(e) {
   if (e && e.target !== document.getElementById('lightbox') && !e.target.closest('.lb-close')) return;
   const lb = document.getElementById('lightbox');
   if (lb) lb.classList.remove('active');
-  document.body.style.overflow = '';
+  document.body.classList.remove('is-scroll-locked');
 }
 
 function initLightbox() {

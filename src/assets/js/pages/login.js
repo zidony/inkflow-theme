@@ -9,8 +9,7 @@ function initAuthTabs() {
   const activeTarget = activeBtn?.dataset.authTab;
   
   document.querySelectorAll('.auth-tab-pane').forEach(pane => {
-    pane.classList.remove('d-none');
-    pane.style.display = pane.id === activeTarget ? 'block' : 'none';
+    pane.classList.toggle('d-none', pane.id !== activeTarget);
   });
 
   tabBtns.forEach(btn => {
@@ -18,7 +17,7 @@ function initAuthTabs() {
       const target = btn.dataset.authTab;
       tabBtns.forEach(b => b.classList.toggle('active', b === btn));
       document.querySelectorAll('.auth-tab-pane').forEach(pane => {
-        pane.style.display = pane.id === target ? 'block' : 'none';
+        pane.classList.toggle('d-none', pane.id !== target);
       });
     });
   });

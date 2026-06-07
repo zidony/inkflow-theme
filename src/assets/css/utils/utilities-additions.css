@@ -1,4 +1,15 @@
 /* UTILITIES ADDITIONS */
+body.is-scroll-locked { overflow: hidden; }
+.is-filtered-out {
+  opacity: .25;
+  transform: scale(.96);
+}
+.link-filter-item.is-filtered-out {
+  opacity: .2;
+  transform: scale(.97);
+}
+.is-pressed { transform: scale(1.25); }
+.theme-toggle.is-spinning { transform: rotate(360deg); }
 .bg-grad-1 { background: linear-gradient(135deg, #081f14, #1a5c2a) !important; }
 .bg-grad-2 { background: linear-gradient(135deg, #1a1040, #2d1b69) !important; }
 .bg-grad-3 { background: linear-gradient(135deg, #0d3040, #0e5a6a) !important; }
@@ -230,6 +241,10 @@
 .u-lightbox-placeholder-icon {
   color: rgba(255,255,255,.15);
   font-size: 5rem;
+}
+.u-lightbox-active-icon {
+  color: rgba(255,255,255,.15);
+  font-size: 6rem;
 }
 .u-year-label {
   color: var(--ink-heading);

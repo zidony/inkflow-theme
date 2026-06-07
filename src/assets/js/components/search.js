@@ -23,7 +23,7 @@ function openSearch() {
   const overlay = document.getElementById('searchOverlay');
   if (!overlay) return;
   overlay.classList.add('active');
-  document.body.style.overflow = 'hidden';
+  document.body.classList.add('is-scroll-locked');
   const input = overlay.querySelector('input[type="text"]');
   if (input) setTimeout(() => input.focus(), 100);
 }
@@ -32,7 +32,7 @@ function closeSearch() {
   const overlay = document.getElementById('searchOverlay');
   if (!overlay) return;
   overlay.classList.remove('active');
-  document.body.style.overflow = '';
+  document.body.classList.remove('is-scroll-locked');
 }
 export { closeSearch, initSearch, openSearch };
 

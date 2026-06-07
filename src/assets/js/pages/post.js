@@ -61,8 +61,8 @@ function initReactions() {
       const countVal = parseInt(likeCount.textContent) || 0;
       likeCount.textContent = liked ? countVal + 1 : Math.max(0, countVal - 1);
       
-      likeBtn.style.transform = 'scale(1.25)';
-      setTimeout(() => { likeBtn.style.transform = ''; }, 200);
+      likeBtn.classList.add('is-pressed');
+      setTimeout(() => { likeBtn.classList.remove('is-pressed'); }, 200);
     });
   }
 }

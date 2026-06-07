@@ -6,8 +6,8 @@ function filterLinks(el, cat) {
     const col = card.closest('.col-md-6, .col-12, [class*="col"]');
     if (!col) return;
     const visible = cat === 'all' || card.dataset.linkCat === cat;
-    col.style.opacity   = visible ? '1' : '.2';
-    col.style.transform = visible ? '' : 'scale(.97)';
+    col.classList.add('link-filter-item');
+    col.classList.toggle('is-filtered-out', !visible);
   });
 }
 
