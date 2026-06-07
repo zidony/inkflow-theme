@@ -151,7 +151,11 @@
 /* --- 3. Text Color Utilities --- */
 .u-text-primary { color: var(--ink-primary) !important; }
 .u-text-accent { color: var(--ink-accent) !important; }
+.u-text-muted { color: var(--ink-muted) !important; }
+.u-text-heading { color: var(--ink-heading) !important; }
+.u-text-white { color: #fff !important; }
 .u-text-purple { color: #7c3aed !important; }
+.u-text-violet { color: #9333ea !important; }
 .u-text-orange { color: #d97706 !important; }
 .u-text-cyan { color: #0891b2 !important; }
 .u-text-pink { color: #c026d3 !important; }
@@ -179,3 +183,66 @@
 .u-heat-low { background: rgba(var(--ink-primary-rgb), .2); }
 .u-heat-mid { background: rgba(var(--ink-primary-rgb), .5); }
 .u-heat-high { background: var(--ink-primary); }
+
+.u-text-sm-muted { color: var(--ink-muted); font-size: .85rem; }
+.u-text-xs-muted { color: var(--ink-muted); font-size: .75rem; }
+.u-text-2xs-muted { color: var(--ink-muted); font-size: .72rem; }
+.u-label-muted {
+  color: var(--ink-muted);
+  font-size: .72rem;
+  font-weight: 600;
+  letter-spacing: .07em;
+  margin-bottom: .25rem;
+  text-transform: uppercase;
+}
+.u-label-muted-spaced { margin-bottom: .4rem; }
+.u-inline-label {
+  display: flex;
+  align-items: center;
+  gap: .4rem;
+  color: var(--ink-heading);
+  font-size: .88rem;
+}
+.u-mono-value {
+  color: var(--ink-primary);
+  font-family: var(--font-mono);
+  font-size: .85rem;
+  font-weight: 600;
+}
+.u-card-frame {
+  overflow: hidden;
+  border: 1px solid var(--ink-border);
+  border-radius: var(--radius-lg);
+  background: var(--ink-card);
+  box-shadow: var(--shadow-card);
+}
+.u-soft-white-chip {
+  background: rgba(255,255,255,.15);
+  color: #fff;
+}
+.u-flex-between-center {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.u-flex-column-gap-sm {
+  display: flex;
+  flex-direction: column;
+  gap: .75rem;
+}
+.u-flex-column-gap-md {
+  display: flex;
+  flex-direction: column;
+  gap: .85rem;
+}
+.u-link-row {
+  display: flex;
+  align-items: center;
+  gap: .75rem;
+  text-decoration: none;
+}
+.u-link-row-title {
+  color: var(--ink-heading);
+  font-size: .86rem;
+  font-weight: 600;
+}
