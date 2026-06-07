@@ -34,16 +34,21 @@ function initLinksPage() {
   const root = document.querySelector('[data-link-filter]')?.closest('.container') || document.body;
   if (!initOnce(root, 'links')) return;
 
-  document.querySelectorAll('[data-link-filter]').forEach(tab => {
-    tab.addEventListener('click', () => filterLinks(tab, tab.dataset.linkFilter));
-  });
+  root.addEventListener('click', (e) => {
+    const filterTab = e.target.closest('[data-link-filter]');
+    if (filterTab) {
+      filterLinks(filterTab, filterTab.dataset.linkFilter);
+      return;
+    }
 
-  document.querySelectorAll('[data-toggle-link-apply]').forEach(btn => {
-    btn.addEventListener('click', toggleLinkApplyForm);
-  });
+    if (e.target.closest('[data-toggle-link-apply]')) {
+      toggleLinkApplyForm();
+      return;
+    }
 
-  document.querySelectorAll('[data-copy-site-info]').forEach(btn => {
-    btn.addEventListener('click', copySiteInfo);
+    if (e.target.closest('[data-copy-site-info]')) {
+      copySiteInfo();
+    }
   });
 }
 

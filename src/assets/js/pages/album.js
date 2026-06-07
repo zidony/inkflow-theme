@@ -104,21 +104,23 @@ function initLightbox() {
   const lb = document.getElementById('lightbox');
   if (!lb || !initOnce(lb, 'lightbox')) return;
 
-  document.querySelectorAll('[data-album-filter]').forEach(tab => {
-    tab.addEventListener('click', () => filterAlbum(tab, tab.dataset.albumFilter));
-  });
+  document.addEventListener('click', (e) => {
+    const filterTab = e.target.closest('[data-album-filter]');
+    if (filterTab) {
+      filterAlbum(filterTab, filterTab.dataset.albumFilter);
+      return;
+    }
 
-  document.querySelectorAll('[data-lightbox-key]').forEach(trigger => {
-    trigger.addEventListener('click', (e) => {
+    const lightboxTrigger = e.target.closest('[data-lightbox-key]');
+    if (lightboxTrigger) {
       e.preventDefault();
-      openLightbox(trigger.dataset.lightboxKey);
-    });
-  });
+      openLightbox(lightboxTrigger.dataset.lightboxKey);
+      return;
+    }
 
-  document.querySelectorAll('[data-lightbox-close]').forEach(trigger => {
-    trigger.addEventListener('click', closeLightbox);
+    if (e.target === lb || e.target.closest('[data-lightbox-close]')) {
+      closeLightbox(e);
+    }
   });
-
-  lb.addEventListener('click', closeLightbox);
 }
 export { closeLightbox, initLightbox };
