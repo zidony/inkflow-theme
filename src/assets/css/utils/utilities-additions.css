@@ -1,4 +1,9 @@
 /* UTILITIES ADDITIONS */
+:where(a, button, input, select, textarea, [role="button"], [tabindex]:not([tabindex="-1"]), .filter-tab, .tag-pill):focus-visible {
+  outline: 2px solid var(--ink-accent);
+  outline-offset: 3px;
+  box-shadow: 0 0 0 4px rgba(var(--ink-primary-rgb), .18);
+}
 body.is-scroll-locked { overflow: hidden; }
 .is-filtered-out {
   opacity: .25;

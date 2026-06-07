@@ -112,7 +112,7 @@
 
           <p>升级到 Vite 5 的方式非常简单，大多数项目几乎无需修改配置：</p>
 
-          <pre><button type="button" class="copy-btn" data-copy-code aria-label="复制 bash 代码"><i class="bi bi-clipboard me-1"></i>复制</button><div class="code-lang">bash</div><code># 升级 Vite 和相关插件
+          <pre><button type="button" class="copy-btn" data-copy-code aria-label="复制 bash 代码"><i class="bi bi-clipboard me-1" aria-hidden="true"></i>复制</button><div class="code-lang">bash</div><code># 升级 Vite 和相关插件
 npm install vite@5 @vitejs/plugin-react@4 --save-dev
 
 # 如果你使用 Vue
@@ -120,7 +120,7 @@ npm install vite@5 @vitejs/plugin-vue@5 --save-dev</code></pre>
 
           <p>以下是一份经过我在多个生产项目中优化验证的 <code>vite.config.ts</code> 配置：</p>
 
-          <pre><button type="button" class="copy-btn" data-copy-code aria-label="复制 TypeScript 代码"><i class="bi bi-clipboard me-1"></i>复制</button><div class="code-lang">typescript</div><code>import { defineConfig } from 'vite'
+          <pre><button type="button" class="copy-btn" data-copy-code aria-label="复制 TypeScript 代码"><i class="bi bi-clipboard me-1" aria-hidden="true"></i>复制</button><div class="code-lang">typescript</div><code>import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import { visualizer } from 'rollup-plugin-visualizer'
 
@@ -188,7 +188,7 @@ export default defineConfig({
 
           <p>而使用 RSC 之后，数据获取发生在服务端，客户端直接接收已经包含数据的 HTML——省去了至少一个网络往返。</p>
 
-          <pre><button type="button" class="copy-btn" data-copy-code aria-label="复制 TSX 代码"><i class="bi bi-clipboard me-1"></i>复制</button><div class="code-lang">tsx</div><code>// ✅ Server Component: 数据获取发生在服务端
+          <pre><button type="button" class="copy-btn" data-copy-code aria-label="复制 TSX 代码"><i class="bi bi-clipboard me-1" aria-hidden="true"></i>复制</button><div class="code-lang">tsx</div><code>// ✅ Server Component: 数据获取发生在服务端
 // app/blog/[slug]/page.tsx
 async function BlogPost({ params }: { params: { slug: string } }) {
   // 这段代码运行在服务器上，直接查询数据库
@@ -319,7 +319,7 @@ export function LikeButton({ postId, initialCount }: Props) {
           <span class="share-label"><i class="bi bi-share me-1"></i>分享这篇文章</span>
           <button type="button" class="share-btn twitter"><i class="bi bi-twitter-x"></i> Twitter</button>
           <button type="button" class="share-btn wechat"><i class="bi bi-wechat"></i> 微信</button>
-          <button type="button" class="share-btn link-copy" data-copy-link aria-label="复制文章链接"><i class="bi bi-link-45deg"></i> 复制链接</button>
+          <button type="button" class="share-btn link-copy" data-copy-link aria-label="复制文章链接"><i class="bi bi-link-45deg" aria-hidden="true"></i> 复制链接</button>
         </div>
 
         <!-- AUTHOR CARD -->
