@@ -1,4 +1,3 @@
-import './core/utils.js'; // Attach showToast
 import { initNavbar } from './components/navbar.js';
 import { initThemeToggle } from './core/theme.js';
 import { initUserAuth } from './components/auth.js';

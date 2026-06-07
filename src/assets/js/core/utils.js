@@ -15,5 +15,3 @@ export function showToast(message, type = 'success') {
     setTimeout(() => toast.remove(), 300);
   }, 2200);
 }
-
-window.showToast = showToast;
