@@ -8,7 +8,8 @@
     "preview": "vite preview",
     "release": "npm run build && node scripts/release.mjs",
     "lint": "eslint src/assets/js/**/*.js",
-    "check": "npm run lint && npm run build",
+    "quality": "node scripts/quality-check.mjs",
+    "check": "npm run lint && npm run quality && npm run build",
     "format": "prettier --write \"src/**/*.{css,js,html}\""
   },
   "devDependencies": {
