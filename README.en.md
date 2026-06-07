@@ -80,7 +80,7 @@ inkflow-theme/
 
 ### CSS Variables (Design Tokens)
 
-From v3.0, all theme configurations are centralized in `src/css/variables.css`, drastically reducing maintenance costs:
+From v3.0, all theme configurations are centralized in `src/assets/css/base/variables.css`, drastically reducing maintenance costs:
 
 ```css
 /* Primary Colors */
@@ -204,7 +204,10 @@ npm run dev
 # Build optimized production code (Outputs highly compressed CSS/JS to dist/)
 npm run build
 
-# Pre-release quality check: ESLint + production build
+# Static quality scan: blocks inline style/event, duplicate class, mojibake, custom window globals, etc.
+npm run quality
+
+# Full pre-release check: ESLint + static quality scan + production build
 npm run check
 
 # One-click automated release (Generates a clean zip archive in root, filtering out source code)
@@ -214,31 +217,19 @@ npm run release
 ### Deploy to Static Platforms
 
 Because `vite.config.mjs` is configured with `base: './'`, you can directly host the generated `dist/` directory on any static platform (GitHub Pages / Vercel / Netlify).
-**Highly Recommended:** We have pre-configured `.github/workflows/deploy.yml`. You only need to push code to the repository's `main` branch, and GitHub will automatically deploy your site online!
+**Highly Recommended:** `.github/workflows/ci.yml`, `.github/workflows/deploy.yml`, and `.github/workflows/release.yml` are pre-configured. Pull requests and pushes run `npm run check` plus `npm audit`, and deployment/release jobs pass through the same quality gate first.
 
 ---
 
 ## 🔧 JS Module Instructions
 
-`src/js/main.js` is organized by module numbers. Key functions include:
+The frontend entry is `src/assets/js/inkflow.js`, with modules split by responsibility into `core`, `components`, and `pages`:
 
-| Module | Function | Description |
-|--------|----------|-------------|
-| 01 | `initNavbar()` | Scroll listener, adds `.scrolled` background |
-| 02 | `initReadingProgress()` | Top reading progress bar |
-| 03 | `initBackToTop()` | Back to top button |
-| 04 | `inkflowAuth` | User login state management (localStorage) |
-| 05 | `initUserAuth()` | Avatar dropdown menu toggle |
-| 06 | `openSearch() / closeSearch()` | Global search overlay |
-| 07 | `initScrollReveal()` | IntersectionObserver scroll entrance animations |
-| 08 | `initTheme()` | Light/Dark theme toggle + persistence |
-| 09 | `initViewToggle()` | Post list view (card/list) toggle |
-| 10 | `initTOC()` | Table of Contents scroll spy highlighting |
-| 11 | `initCodeCopy()` | One-click copy for code blocks |
-| 12 | `initHeatmap() / setYear()` | Activity heatmap rendering |
-| 13 | `initAuthTabs()` | Login/Register Tab toggle |
-| 14 | `initLoginForm()` | Login form submission logic |
-| 15 | `showToast()` | Toast notification popups |
+| Directory | Description |
+|-----------|-------------|
+| `core/` | Theme switching, scroll animation, shared utilities, keyboard shortcuts, clipboard fallback, and other foundation behavior |
+| `components/` | Cross-page components such as navbar, search overlay, and user auth state |
+| `pages/` | Page-level interactions for archive, album, post detail, profile, login, tag cloud, and links pages |
 
 ---
 
@@ -246,7 +237,7 @@ Because `vite.config.mjs` is configured with `base: './'`, you can directly host
 
 ### Change Brand Colors
 
-Edit the CSS variables at the top of `src/css/variables.css`:
+Edit the CSS variables at the top of `src/assets/css/base/variables.css`:
 
 ```css
 :root {
@@ -257,7 +248,7 @@ Edit the CSS variables at the top of `src/css/variables.css`:
 
 ### Replace Fonts
 
-Modify the Google Fonts link in the `<head>` of HTML files, and update variables in `src/css/variables.css`:
+Modify the Google Fonts link in the `<head>` of HTML files, and update variables in `src/assets/css/base/variables.css`:
 
 ```css
 --font-display: 'Your Heading Font', serif;

@@ -80,7 +80,7 @@ inkflow-theme/
 
 ### CSS 变量（Design Tokens）
 
-从 v3.0 起，所有主题配置集中于 `src/css/variables.css`，大幅简化了维护成本：
+从 v3.0 起，所有主题配置集中于 `src/assets/css/base/variables.css`，大幅简化了维护成本：
 
 ```css
 /* 主色 */
@@ -216,7 +216,10 @@ npm run dev
 # 构建优化过的生产级代码 (极致压缩的 CSS/JS 输出到 dist/)
 npm run build
 
-# 发版前质量检查：ESLint + 生产构建
+# 静态质量扫描：阻断 inline style/event、重复 class、乱码、自定义 window 全局等回归
+npm run quality
+
+# 发版前完整检查：ESLint + 静态质量扫描 + 生产构建
 npm run check
 
 # 一键自动化发版 (提取 dist 生成无源码污染的 zip 压缩包)
@@ -226,31 +229,19 @@ npm run release
 ### 部署到静态平台
 
 因为项目中配置了 `vite.config.mjs` 的 `base: './'`，您可以直接将生成的 `dist/` 目录上传至任意静态平台（GitHub Pages / Vercel / Netlify）。
-**强烈建议：** 我们已配置好 `.github/workflows/deploy.yml`，只需向仓库 `main` 分支 push 代码，GitHub 即可全自动将页面部署上线。
+**强烈建议：** 我们已配置好 `.github/workflows/ci.yml`、`.github/workflows/deploy.yml` 与 `.github/workflows/release.yml`。PR / push 会自动运行 `npm run check` 与 `npm audit`，部署和发版流程也会先通过同一套质量门禁。
 
 ---
 
 ## 🔧 JS 模块说明
 
-`src/js/main.js` 按模块编号组织，主要功能如下：
+前端脚本入口为 `src/assets/js/inkflow.js`，并按职责拆分为 `core`、`components`、`pages` 三层：
 
-| 模块 | 函数 | 说明 |
-|------|------|------|
-| 01 | `initNavbar()` | 滚动监听，添加 `.scrolled` 背景 |
-| 02 | `initReadingProgress()` | 顶部阅读进度条 |
-| 03 | `initBackToTop()` | 回到顶部按钮 |
-| 04 | `inkflowAuth` | 用户登录状态管理（localStorage）|
-| 05 | `initUserAuth()` | 头像下拉菜单 toggle |
-| 06 | `openSearch() / closeSearch()` | 全站搜索浮层 |
-| 07 | `initScrollReveal()` | IntersectionObserver 滚动入场动画 |
-| 08 | `initTheme()` | 明暗主题切换 + 持久化 |
-| 09 | `initViewToggle()` | 文章列表视图（卡片/列表）切换 |
-| 10 | `initTOC()` | 文章目录滚动高亮 |
-| 11 | `initCodeCopy()` | 代码块一键复制 |
-| 12 | `initHeatmap() / setYear()` | 活跃度热力图渲染 |
-| 13 | `initAuthTabs()` | 登录/注册 Tab 切换 |
-| 14 | `initLoginForm()` | 登录表单提交逻辑 |
-| 15 | `showToast()` | Toast 提示通知 |
+| 目录 | 说明 |
+|------|------|
+| `core/` | 主题切换、滚动动画、通用工具、键盘快捷键、质量更高的复制兜底等基础能力 |
+| `components/` | 导航栏、搜索弹层、登录状态等跨页面组件 |
+| `pages/` | 归档、相册、文章详情、个人资料、登录、标签云、友链等页面级交互 |
 
 ---
 
