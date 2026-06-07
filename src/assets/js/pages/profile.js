@@ -47,8 +47,8 @@ function initAvatarUpload() {
     if (!file) return;
     const reader = new FileReader();
     reader.onload = (e) => {
-      preview.style.backgroundImage = `url(${e.target.result})`;
-      preview.style.backgroundSize  = 'cover';
+      preview.style.setProperty('--avatar-image', `url(${e.target.result})`);
+      preview.classList.add('profile-avatar-has-image');
       preview.textContent = '';
     };
     reader.readAsDataURL(file);

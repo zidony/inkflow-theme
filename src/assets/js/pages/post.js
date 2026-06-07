@@ -6,7 +6,7 @@ function initReadingProgress() {
     const doc = document.documentElement;
     const scrollHeight = doc.scrollHeight - doc.clientHeight;
     const pct = scrollHeight > 0 ? (window.scrollY / scrollHeight) * 100 : 0;
-    bar.style.width = pct + '%';
+    bar.style.setProperty('--reading-progress', `${pct}%`);
   }
 
   window.addEventListener('scroll', updateProgress, { passive: true });

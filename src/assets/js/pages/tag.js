@@ -46,8 +46,8 @@ function renderCloud(list) {
     el.style.setProperty('--tag-color', tag.color);
     el.style.setProperty('--tag-bg', tag.bg);
     el.style.setProperty('--tag-border', tag.border);
-    el.style.fontSize = `${size}rem`;
-    el.style.padding = pad;
+    el.style.setProperty('--tag-size', `${size}rem`);
+    el.style.setProperty('--tag-padding', pad);
 
     icon.className = 'bi bi-hash tag-cloud-hash';
     count.className = 'tag-count';

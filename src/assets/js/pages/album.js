@@ -82,7 +82,7 @@ function openLightbox(key) {
   const capEl = document.getElementById('lbCaption');
 
   if (imgEl) {
-    imgEl.style.background = data.bg || 'linear-gradient(135deg,#0a1a10,#1a5c2a)';
+    imgEl.style.setProperty('--lightbox-bg', data.bg || 'linear-gradient(135deg,#0a1a10,#1a5c2a)');
     imgEl.innerHTML = `<i class="bi ${data.icon || 'bi-image'} u-lightbox-active-icon"></i>`;
   }
   if (capEl) capEl.textContent = data.caption || data.cap || '';

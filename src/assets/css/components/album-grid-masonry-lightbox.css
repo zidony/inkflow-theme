@@ -119,7 +119,7 @@
 .lb-img {
   display: flex; align-items: center; justify-content: center;
   width: 100%; border-radius: var(--radius-lg); min-height: 420px;
-  font-size: 7rem; color: rgba(255,255,255,.15); background: var(--tint-gradient, linear-gradient(135deg, #1f2937, #111827)) !important;
+  font-size: 7rem; color: rgba(255,255,255,.15); background: var(--lightbox-bg, var(--tint-gradient, linear-gradient(135deg, #1f2937, #111827))) !important;
 }
 .lb-caption {
   margin-top: 1rem;

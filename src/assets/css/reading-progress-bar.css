@@ -1,7 +1,7 @@
 /* READING PROGRESS BAR */
 .reading-progress {
   position: fixed; top: 0; left: 0; z-index: var(--z-loader);
-  height: 3px; width: 0%;
+  height: 3px; width: var(--reading-progress, 0%);
   background: linear-gradient(90deg, var(--ink-accent), var(--ink-primary));
   transition: width .1s linear;
 }

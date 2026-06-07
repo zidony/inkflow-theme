@@ -3,13 +3,7 @@ function initParallax() {
   const card = document.querySelector('.hero-card');
   if (!hero || !card) return;
 
-  // 设置 3D 渲染上下文
-  const wrapper = card.parentElement;
-  if (wrapper) {
-    wrapper.style.perspective = '1000px';
-  }
-  card.style.willChange = 'transform';
-  card.style.transition = 'transform 0.15s ease-out';
+  card.classList.add('is-parallax-ready');
 
   // 缓存 layout 高度以避免 mousemove 回调中触发重排
   let heroBottom = hero.getBoundingClientRect().bottom + window.scrollY;

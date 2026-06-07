@@ -17,6 +17,11 @@
   background: var(--tint-gradient, var(--ink-card));
 }
 .profile-avatar-wrap { position: relative; display: inline-block; }
+.profile-avatar-has-image {
+  background-image: var(--avatar-image);
+  background-position: center;
+  background-size: cover;
+}
 .profile-avatar-edit {
   position: absolute; bottom: 2px; right: 2px; display: flex; align-items: center; justify-content: center;
   width: 28px; height: 28px; border-radius: 50%; border: 2px solid var(--ink-card);
