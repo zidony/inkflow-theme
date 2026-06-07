@@ -16,15 +16,14 @@ function initBackToTop() {
 }
 
 function initTagPills() {
-  const root = document.querySelector('.tag-pill')?.parentElement;
-  if (!root || !initOnce(root, 'tagPills')) return;
+  if (!document.querySelector('.tag-pill') || !initOnce(document.documentElement, 'tagPills')) return;
 
-  document.querySelectorAll('.tag-pill').forEach(pill => {
-    pill.addEventListener('click', function () {
-      const group = this.closest('[class*="flex"]') || this.parentElement;
-      if (group) group.querySelectorAll('.tag-pill').forEach(p => p.classList.remove('active'));
-      this.classList.add('active');
-    });
+  document.addEventListener('click', (e) => {
+    const pill = e.target.closest('.tag-pill');
+    if (!pill) return;
+    const group = pill.closest('[class*="flex"]') || pill.parentElement;
+    if (group) group.querySelectorAll('.tag-pill').forEach(p => p.classList.remove('active'));
+    pill.classList.add('active');
   });
 }
 

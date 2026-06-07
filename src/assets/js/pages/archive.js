@@ -12,15 +12,16 @@ function initArchiveTabs() {
   const root = document.querySelector('[data-archive-year], .archive-year-tab')?.parentElement;
   if (!root || !initOnce(root, 'archiveTabs')) return;
 
-  document.querySelectorAll('[data-archive-year], .archive-year-tab').forEach(tab => {
-    tab.addEventListener('click', function () {
-      const year = this.dataset.archiveYear;
-      if (year) setYear(this, year);
-      else {
-        document.querySelectorAll('.archive-year-tab').forEach(t => t.classList.remove('active'));
-        this.classList.add('active');
-      }
-    });
+  document.addEventListener('click', (e) => {
+    const tab = e.target.closest('[data-archive-year], .archive-year-tab');
+    if (!tab) return;
+
+    const year = tab.dataset.archiveYear;
+    if (year) setYear(tab, year);
+    else {
+      document.querySelectorAll('.archive-year-tab').forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+    }
   });
 }
 

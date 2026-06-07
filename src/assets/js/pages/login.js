@@ -6,30 +6,30 @@ function initAuthTabs() {
   const root = document.querySelector('.auth-card');
   if (!tabBtns.length || !initOnce(root || tabBtns[0], 'authTabs')) return;
 
+  const activateTab = (target) => {
+    tabBtns.forEach(btn => {
+      btn.classList.toggle('active', btn.dataset.authTab === target);
+    });
+    document.querySelectorAll('.auth-tab-pane').forEach(pane => {
+      pane.classList.toggle('d-none', pane.id !== target);
+    });
+  };
+
   const activeBtn = document.querySelector('.auth-tab-btn.active') || tabBtns[0];
-  const activeTarget = activeBtn?.dataset.authTab;
-  
-  document.querySelectorAll('.auth-tab-pane').forEach(pane => {
-    pane.classList.toggle('d-none', pane.id !== activeTarget);
-  });
+  activateTab(activeBtn?.dataset.authTab);
 
-  tabBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      const target = btn.dataset.authTab;
-      tabBtns.forEach(b => b.classList.toggle('active', b === btn));
-      document.querySelectorAll('.auth-tab-pane').forEach(pane => {
-        pane.classList.toggle('d-none', pane.id !== target);
-      });
-    });
-  });
+  (root || document).addEventListener('click', (e) => {
+    const tabBtn = e.target.closest('.auth-tab-btn');
+    if (tabBtn) {
+      activateTab(tabBtn.dataset.authTab);
+      return;
+    }
 
-  document.querySelectorAll('[data-auth-switch]').forEach(link => {
-    link.addEventListener('click', (e) => {
+    const switchLink = e.target.closest('[data-auth-switch]');
+    if (switchLink) {
       e.preventDefault();
-      const target = link.dataset.authSwitch;
-      const btn = document.querySelector(`.auth-tab-btn[data-auth-tab="${target}"]`);
-      if (btn) btn.click();
-    });
+      activateTab(switchLink.dataset.authSwitch);
+    }
   });
 }
 
@@ -37,16 +37,17 @@ function initPwdToggle() {
   const root = document.querySelector('.auth-card');
   if (!initOnce(root || document.body, 'passwordToggle')) return;
 
-  document.querySelectorAll('.auth-pwd-toggle').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const wrap  = btn.closest('.auth-input-icon-wrap');
-      const input = wrap && wrap.querySelector('input');
-      if (!input) return;
-      const isText = input.type === 'text';
-      input.type = isText ? 'password' : 'text';
-      const icon = btn.querySelector('i');
-      if (icon) icon.className = isText ? 'bi bi-eye' : 'bi bi-eye-slash';
-    });
+  (root || document).addEventListener('click', (e) => {
+    const btn = e.target.closest('.auth-pwd-toggle');
+    if (!btn) return;
+
+    const wrap  = btn.closest('.auth-input-icon-wrap');
+    const input = wrap && wrap.querySelector('input');
+    if (!input) return;
+    const isText = input.type === 'text';
+    input.type = isText ? 'password' : 'text';
+    const icon = btn.querySelector('i');
+    if (icon) icon.className = isText ? 'bi bi-eye' : 'bi bi-eye-slash';
   });
 }
 
@@ -54,7 +55,14 @@ function initLoginForm() {
   const loginBtn = document.getElementById('doLoginBtn');
   if (!loginBtn || !initOnce(loginBtn, 'loginForm')) return;
 
-  loginBtn.addEventListener('click', () => {
+  document.addEventListener('click', (e) => {
+    if (e.target.closest('#doRegisterBtn')) {
+      showToast('注册功能开发中，敬请期待');
+      return;
+    }
+
+    if (!e.target.closest('#doLoginBtn')) return;
+
     const email = document.getElementById('loginEmail')?.value;
     const pwd   = document.getElementById('loginPassword')?.value;
 
@@ -69,11 +77,6 @@ function initLoginForm() {
       setTimeout(() => { window.location.href = 'index.html'; }, 800);
     }, 1200);
   });
-
-  const regBtn = document.getElementById('doRegisterBtn');
-  if (regBtn) {
-    regBtn.addEventListener('click', () => showToast('注册功能开发中，敬请期待'));
-  }
 }
 
 export { initAuthTabs, initPwdToggle, initLoginForm };

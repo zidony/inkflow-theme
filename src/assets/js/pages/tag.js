@@ -76,8 +76,9 @@ function initTagCloud() {
   const container = document.getElementById('tagCloudInner');
   if (!container || !initOnce(container, 'tagCloud')) return;
 
-  document.querySelectorAll('[data-tag-sort]').forEach(tab => {
-    tab.addEventListener('click', () => sortTags(tab.dataset.tagSort, tab));
+  document.addEventListener('click', (e) => {
+    const tab = e.target.closest('[data-tag-sort]');
+    if (tab) sortTags(tab.dataset.tagSort, tab);
   });
 
   const tagSearch = document.getElementById('tagSearch');
