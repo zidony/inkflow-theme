@@ -1,9 +1,10 @@
 import { closeSearch, openSearch } from '../components/search.js';
 import { closeLightbox } from '../pages/album.js';
+import { initOnce } from './utils.js';
 
 function initBackToTop() {
   const btn = document.getElementById('backToTop');
-  if (!btn) return;
+  if (!btn || !initOnce(btn, 'backToTop')) return;
 
   window.addEventListener('scroll', () => {
     btn.classList.toggle('visible', window.scrollY > 400);
@@ -15,6 +16,9 @@ function initBackToTop() {
 }
 
 function initTagPills() {
+  const root = document.querySelector('.tag-pill')?.parentElement;
+  if (!root || !initOnce(root, 'tagPills')) return;
+
   document.querySelectorAll('.tag-pill').forEach(pill => {
     pill.addEventListener('click', function () {
       const group = this.closest('[class*="flex"]') || this.parentElement;
@@ -29,7 +33,7 @@ function initViewToggle() {
   const listBtn  = document.getElementById('listBtn');
   const gridView = document.getElementById('gridView');
   const listView = document.getElementById('listView');
-  if (!gridBtn || !listBtn) return;
+  if (!gridBtn || !listBtn || !initOnce(gridBtn, 'viewToggle')) return;
 
   gridBtn.addEventListener('click', () => {
     gridBtn.classList.add('active');
@@ -47,6 +51,8 @@ function initViewToggle() {
 }
 
 function initKeyboard() {
+  if (!initOnce(document.documentElement, 'keyboard')) return;
+
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
       closeSearch();

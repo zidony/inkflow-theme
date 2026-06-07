@@ -1,7 +1,9 @@
+import { initOnce } from '../core/utils.js';
+
 function initParallax() {
   const hero = document.querySelector('.hero-gradient');
   const card = document.querySelector('.hero-card');
-  if (!hero || !card) return;
+  if (!hero || !card || !initOnce(hero, 'parallax')) return;
 
   card.classList.add('is-parallax-ready');
 

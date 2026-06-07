@@ -1,3 +1,5 @@
+import { initOnce } from '../core/utils.js';
+
 const TAGS = [
   { name: 'JavaScript', count: 24, color: '#f7df1e', bg: 'rgba(247,223,30,.12)', border: 'rgba(247,223,30,.3)' },
   { name: 'React', count: 18, color: '#61dafb', bg: 'rgba(97,218,251,.12)', border: 'rgba(97,218,251,.3)' },
@@ -71,6 +73,9 @@ function sortTags(type, activeTab) {
 }
 
 function initTagCloud() {
+  const container = document.getElementById('tagCloudInner');
+  if (!container || !initOnce(container, 'tagCloud')) return;
+
   document.querySelectorAll('[data-tag-sort]').forEach(tab => {
     tab.addEventListener('click', () => sortTags(tab.dataset.tagSort, tab));
   });

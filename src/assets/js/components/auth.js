@@ -1,3 +1,5 @@
+import { initOnce } from '../core/utils.js';
+
 const inkflowAuth = {
   setUser(user) {
     const loginBtn = document.getElementById('navLoginBtn');
@@ -51,6 +53,9 @@ const inkflowAuth = {
 };
 
 function initUserAuth() {
+  const root = document.getElementById('navUserWrapper') || document.body;
+  if (!initOnce(root, 'userAuth')) return;
+
   inkflowAuth.restore();
 
   const wrapper = document.getElementById('navUserWrapper');

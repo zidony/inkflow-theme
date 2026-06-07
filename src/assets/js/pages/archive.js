@@ -1,12 +1,17 @@
+import { initOnce } from '../core/utils.js';
+
 function initHeatmap() {
   const container = document.getElementById('heatmapGrid');
-  if (!container) return;
+  if (!container || !initOnce(container, 'heatmap')) return;
   
   // 默认渲染2025年数据
   setYear(null, '2025');
 }
 
 function initArchiveTabs() {
+  const root = document.querySelector('[data-archive-year], .archive-year-tab')?.parentElement;
+  if (!root || !initOnce(root, 'archiveTabs')) return;
+
   document.querySelectorAll('[data-archive-year], .archive-year-tab').forEach(tab => {
     tab.addEventListener('click', function () {
       const year = this.dataset.archiveYear;

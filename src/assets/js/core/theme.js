@@ -1,7 +1,9 @@
+import { initOnce } from './utils.js';
+
 function initThemeToggle() {
   const btn  = document.getElementById('themeToggle');
   const icon = document.getElementById('themeIcon');
-  if (!btn) return;
+  if (!btn || !initOnce(btn, 'themeToggle')) return;
 
   let savedTheme = 'light';
   try {

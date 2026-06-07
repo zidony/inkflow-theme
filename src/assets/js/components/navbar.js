@@ -1,6 +1,8 @@
+import { initOnce } from '../core/utils.js';
+
 function initNavbar() {
   const navbar = document.getElementById('mainNavbar');
-  if (!navbar) return;
+  if (!navbar || !initOnce(navbar, 'navbar')) return;
 
   const currentPage = window.location.pathname.split('/').pop() || 'index.html';
   navbar.querySelectorAll('[data-nav-page]').forEach(link => {
