@@ -155,3 +155,27 @@
 .u-text-orange { color: #d97706 !important; }
 .u-text-cyan { color: #0891b2 !important; }
 .u-text-pink { color: #c026d3 !important; }
+
+/* --- 4. Demo Layout Utilities --- */
+.u-h-full { height: 100%; }
+.u-min-h-280 { min-height: 280px; }
+.u-h-160 { height: 160px; }
+.u-h-170 { height: 170px; }
+.u-h-180 { height: 180px; }
+.u-h-190 { height: 190px; }
+.u-h-200 { height: 200px; }
+.u-h-220 { height: 220px; }
+.u-h-240 { height: 240px; }
+.u-h-260 { height: 260px; }
+.u-h-280 { height: 280px; }
+.u-h-300 { height: 300px; }
+.u-h-320 { height: 320px; }
+.u-w-23 { width: 23%; }
+.u-w-54 { width: 54%; }
+.u-w-69 { width: 69%; }
+.u-w-100 { width: 100%; }
+
+.u-heat-empty { background: var(--ink-border); }
+.u-heat-low { background: rgba(var(--ink-primary-rgb), .2); }
+.u-heat-mid { background: rgba(var(--ink-primary-rgb), .5); }
+.u-heat-high { background: var(--ink-primary); }

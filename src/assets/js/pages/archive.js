@@ -7,10 +7,14 @@ function initHeatmap() {
 }
 
 function initArchiveTabs() {
-  document.querySelectorAll('.archive-year-tab').forEach(tab => {
+  document.querySelectorAll('[data-archive-year], .archive-year-tab').forEach(tab => {
     tab.addEventListener('click', function () {
-      document.querySelectorAll('.archive-year-tab').forEach(t => t.classList.remove('active'));
-      this.classList.add('active');
+      const year = this.dataset.archiveYear;
+      if (year) setYear(this, year);
+      else {
+        document.querySelectorAll('.archive-year-tab').forEach(t => t.classList.remove('active'));
+        this.classList.add('active');
+      }
     });
   });
 }
@@ -22,7 +26,7 @@ function setYear(el, year) {
     el.classList.add('active');
   } else {
     // 如果是通过 init 调用的，激活默认年份按钮
-    const defaultBtn = document.querySelector(`.year-btn[onclick*="'${year}'"]`);
+    const defaultBtn = document.querySelector(`.year-btn[data-archive-year="${year}"]`);
     if (defaultBtn) defaultBtn.classList.add('active');
   }
 

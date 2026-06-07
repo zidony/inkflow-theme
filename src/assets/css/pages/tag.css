@@ -10,6 +10,10 @@
   transform: translateY(-2px);
   box-shadow: var(--shadow-hover);
   /* slightly enhance hover state using same tag variables but darker */ filter: brightness(1.05); }
+.tag-cloud-hash {
+  font-size: .8em;
+  opacity: .7;
+}
 .tag-cloud-item .tag-count {
   border: 1px solid var(--ink-border); border-radius: 99px; padding: .05rem .45rem;
   font-family: var(--font-mono); font-size: .72rem; background: var(--ink-surface); color: var(--ink-muted);

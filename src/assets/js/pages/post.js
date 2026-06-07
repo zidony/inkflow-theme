@@ -67,6 +67,24 @@ function initReactions() {
   }
 }
 
+function initPostActions() {
+  document.querySelectorAll('[data-toggle-react]').forEach(btn => {
+    btn.addEventListener('click', () => toggleReact(btn));
+  });
+
+  document.querySelectorAll('[data-copy-code]').forEach(btn => {
+    btn.addEventListener('click', () => copyCode(btn));
+  });
+
+  document.querySelectorAll('[data-copy-link]').forEach(btn => {
+    btn.addEventListener('click', copyLink);
+  });
+
+  document.querySelectorAll('[data-scroll-comments]').forEach(btn => {
+    btn.addEventListener('click', scrollToComments);
+  });
+}
+
 function toggleReact(el) {
   el.classList.toggle('active');
   const span = el.querySelector('.count');
@@ -98,7 +116,7 @@ function scrollToComments() {
   const comments = document.getElementById('comments');
   if (comments) comments.scrollIntoView({ behavior: 'smooth' });
 }
-export { initReadingProgress, initTocSpy, initReactions };
+export { initReadingProgress, initTocSpy, initReactions, initPostActions };
 
 // Expose to global scope for inline HTML handlers
 window.toggleReact = toggleReact;

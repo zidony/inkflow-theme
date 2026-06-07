@@ -32,10 +32,10 @@
             <div class="archive-stat-header"><i class="bi bi-calendar3 me-2 u-text-primary"></i>2025 年写作活跃度</div>
             <div class="archive-stat-heat-row">
               少
-              <div class="archive-stat-heat-dot" style="background:var(--ink-border)"></div>
-              <div class="archive-stat-heat-dot" style="background:rgba(var(--ink-primary-rgb),.2)"></div>
-              <div class="archive-stat-heat-dot" style="background:rgba(var(--ink-primary-rgb),.5)"></div>
-              <div class="archive-stat-heat-dot" style="background:var(--ink-primary)"></div>
+              <div class="archive-stat-heat-dot u-heat-empty"></div>
+              <div class="archive-stat-heat-dot u-heat-low"></div>
+              <div class="archive-stat-heat-dot u-heat-mid"></div>
+              <div class="archive-stat-heat-dot u-heat-high"></div>
               多
             </div>
           </div>
@@ -45,10 +45,10 @@
 
         <!-- YEAR TABS -->
         <div class="year-nav fade-up delay-1">
-          <button type="button" class="year-btn active" onclick="setYear(this,'2025')">2025</button>
-          <button type="button" class="year-btn" onclick="setYear(this,'2024')">2024</button>
-          <button type="button" class="year-btn" onclick="setYear(this,'2023')">2023</button>
-          <button type="button" class="year-btn" onclick="setYear(this,'2022')">2022</button>
+          <button type="button" class="year-btn active" data-archive-year="2025">2025</button>
+          <button type="button" class="year-btn" data-archive-year="2024">2024</button>
+          <button type="button" class="year-btn" data-archive-year="2023">2023</button>
+          <button type="button" class="year-btn" data-archive-year="2022">2022</button>
           <span class="ms-auto align-self-center" style="font-size:.82rem;color:var(--ink-muted)">共 <strong class="u-text-heading">36</strong> 篇</span>
         </div>
 
@@ -177,10 +177,10 @@
         <div class="ink-card ink-card-shadow sidebar-card mb-4 fade-up delay-1">
           <div class="sidebar-title">各年产量</div>
           <div>
-            <div class="year-stat"><div class="year-stat-label">2025</div><div class="year-stat-bar-wrap"><div class="year-stat-bar" style="width:69%" id="bar2025"></div></div><div class="year-stat-num">36 篇</div></div>
-            <div class="year-stat"><div class="year-stat-label">2024</div><div class="year-stat-bar-wrap"><div class="year-stat-bar" style="width:100%" id="bar2024"></div></div><div class="year-stat-num">52 篇</div></div>
-            <div class="year-stat"><div class="year-stat-label">2023</div><div class="year-stat-bar-wrap"><div class="year-stat-bar" style="width:54%" id="bar2023"></div></div><div class="year-stat-num">28 篇</div></div>
-            <div class="year-stat"><div class="year-stat-label">2022</div><div class="year-stat-bar-wrap"><div class="year-stat-bar" style="width:23%" id="bar2022"></div></div><div class="year-stat-num">12 篇</div></div>
+            <div class="year-stat"><div class="year-stat-label">2025</div><div class="year-stat-bar-wrap"><div class="year-stat-bar u-w-69" id="bar2025"></div></div><div class="year-stat-num">36 篇</div></div>
+            <div class="year-stat"><div class="year-stat-label">2024</div><div class="year-stat-bar-wrap"><div class="year-stat-bar u-w-100" id="bar2024"></div></div><div class="year-stat-num">52 篇</div></div>
+            <div class="year-stat"><div class="year-stat-label">2023</div><div class="year-stat-bar-wrap"><div class="year-stat-bar u-w-54" id="bar2023"></div></div><div class="year-stat-num">28 篇</div></div>
+            <div class="year-stat"><div class="year-stat-label">2022</div><div class="year-stat-bar-wrap"><div class="year-stat-bar u-w-23" id="bar2022"></div></div><div class="year-stat-num">12 篇</div></div>
           </div>
         </div>
 

@@ -15,16 +15,16 @@
     <i class="bi bi-heart"></i>
     <span class="float-count" id="likeCount">248</span>
   </button>
-  <button type="button" class="float-btn" onclick="openSearch()" aria-label="搜索" title="搜索">
+  <button type="button" class="float-btn" data-open-search aria-label="搜索" title="搜索">
     <i class="bi bi-search"></i>
   </button>
-  <button type="button" class="float-btn" onclick="copyLink()" aria-label="分享" title="分享">
+  <button type="button" class="float-btn" data-copy-link aria-label="分享" title="分享">
     <i class="bi bi-share"></i>
   </button>
   <button type="button" class="float-btn" aria-label="书签" title="书签">
     <i class="bi bi-bookmark"></i>
   </button>
-  <button type="button" class="float-btn" onclick="scrollToComments()" aria-label="评论" title="评论">
+  <button type="button" class="float-btn" data-scroll-comments aria-label="评论" title="评论">
     <i class="bi bi-chat"></i>
   </button>
 </div>
@@ -112,7 +112,7 @@
 
           <p>升级到 Vite 5 的方式非常简单，大多数项目几乎无需修改配置：</p>
 
-          <pre><div class="copy-btn" onclick="copyCode(this)"><i class="bi bi-clipboard me-1"></i>复制</div><div class="code-lang">bash</div><code># 升级 Vite 和相关插件
+          <pre><div class="copy-btn" data-copy-code><i class="bi bi-clipboard me-1"></i>复制</div><div class="code-lang">bash</div><code># 升级 Vite 和相关插件
 npm install vite@5 @vitejs/plugin-react@4 --save-dev
 
 # 如果你使用 Vue
@@ -120,7 +120,7 @@ npm install vite@5 @vitejs/plugin-vue@5 --save-dev</code></pre>
 
           <p>以下是一份经过我在多个生产项目中优化验证的 <code>vite.config.ts</code> 配置：</p>
 
-          <pre><div class="copy-btn" onclick="copyCode(this)"><i class="bi bi-clipboard me-1"></i>复制</div><div class="code-lang">typescript</div><code>import { defineConfig } from 'vite'
+          <pre><div class="copy-btn" data-copy-code><i class="bi bi-clipboard me-1"></i>复制</div><div class="code-lang">typescript</div><code>import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import { visualizer } from 'rollup-plugin-visualizer'
 
@@ -188,7 +188,7 @@ export default defineConfig({
 
           <p>而使用 RSC 之后，数据获取发生在服务端，客户端直接接收已经包含数据的 HTML——省去了至少一个网络往返。</p>
 
-          <pre><div class="copy-btn" onclick="copyCode(this)"><i class="bi bi-clipboard me-1"></i>复制</div><div class="code-lang">tsx</div><code>// ✅ Server Component: 数据获取发生在服务端
+          <pre><div class="copy-btn" data-copy-code><i class="bi bi-clipboard me-1"></i>复制</div><div class="code-lang">tsx</div><code>// ✅ Server Component: 数据获取发生在服务端
 // app/blog/[slug]/page.tsx
 async function BlogPost({ params }: { params: { slug: string } }) {
   // 这段代码运行在服务器上，直接查询数据库
@@ -300,13 +300,13 @@ export function LikeButton({ postId, initialCount }: Props) {
 
         <!-- REACTION BAR -->
         <div class="reaction-bar">
-          <button type="button" class="reaction-btn active" id="reactLike" onclick="toggleReact(this)">
+          <button type="button" class="reaction-btn active" id="reactLike" data-toggle-react>
             <i class="bi bi-hand-thumbs-up-fill"></i> 很有帮助 <span class="count">186</span>
           </button>
-          <button type="button" class="reaction-btn" onclick="toggleReact(this)">
+          <button type="button" class="reaction-btn" data-toggle-react>
             <i class="bi bi-fire"></i> 涨知识了 <span class="count">94</span>
           </button>
-          <button type="button" class="reaction-btn" onclick="toggleReact(this)">
+          <button type="button" class="reaction-btn" data-toggle-react>
             <i class="bi bi-bookmark-heart"></i> 已收藏 <span class="count">248</span>
           </button>
           <span style="margin-left:auto;font-size:.82rem;color:var(--ink-muted)">
@@ -319,7 +319,7 @@ export function LikeButton({ postId, initialCount }: Props) {
           <span class="share-label"><i class="bi bi-share me-1"></i>分享这篇文章</span>
           <button type="button" class="share-btn twitter"><i class="bi bi-twitter-x"></i> Twitter</button>
           <button type="button" class="share-btn wechat"><i class="bi bi-wechat"></i> 微信</button>
-          <button type="button" class="share-btn link-copy" onclick="copyLink()"><i class="bi bi-link-45deg"></i> 复制链接</button>
+          <button type="button" class="share-btn link-copy" data-copy-link><i class="bi bi-link-45deg"></i> 复制链接</button>
         </div>
 
         <!-- AUTHOR CARD -->
@@ -479,7 +479,7 @@ export function LikeButton({ postId, initialCount }: Props) {
 
         <!-- TOC -->
         <div class="ink-card ink-card-shadow sidebar-card mb-4" style="position: sticky; top: 80px;">
-          <div class="sidebar-title"><i class="bi bi-list-nested" class="u-text-primary"></i> 目录</div>
+          <div class="sidebar-title"><i class="bi bi-list-nested u-text-primary"></i> 目录</div>
           <ul class="toc-list">
             <li><a href="#vite5" class="active">Vite 5：不只是更快</a></li>
             <li><a href="#rsc" class="">React Server Components</a></li>

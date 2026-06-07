@@ -36,18 +36,18 @@
 
     <!-- FILTER TABS -->
     <div class="filter-tabs fade-up delay-1">
-      <span class="filter-tab active" onclick="filterAlbum(this,'all')">全部</span>
-      <span class="filter-tab" onclick="filterAlbum(this,'travel')">旅行</span>
-      <span class="filter-tab" onclick="filterAlbum(this,'city')">城市</span>
-      <span class="filter-tab" onclick="filterAlbum(this,'nature')">自然</span>
-      <span class="filter-tab" onclick="filterAlbum(this,'life')">生活</span>
-      <span class="filter-tab" onclick="filterAlbum(this,'arch')">建筑</span>
+      <span class="filter-tab active" data-album-filter="all">全部</span>
+      <span class="filter-tab" data-album-filter="travel">旅行</span>
+      <span class="filter-tab" data-album-filter="city">城市</span>
+      <span class="filter-tab" data-album-filter="nature">自然</span>
+      <span class="filter-tab" data-album-filter="life">生活</span>
+      <span class="filter-tab" data-album-filter="arch">建筑</span>
     </div>
 
     <!-- FEATURED: 2 large hero albums -->
     <div class="row g-4 mb-4">
       <div class="col-md-7 fade-up delay-1">
-        <a href="#" class="album-hero u-tint-green" onclick="openLightbox('kyoto');return false;">
+        <a href="#" class="album-hero u-tint-green" data-lightbox-key="kyoto">
           <div class="album-hero-img">
             <i class="bi bi-tree-fill"></i>
           </div>
@@ -66,8 +66,8 @@
         </a>
       </div>
       <div class="col-md-5 fade-up delay-2">
-        <a href="#" class="album-hero u-tint-cyan" style="height:100%" onclick="openLightbox('shanghai');return false;">
-          <div class="album-hero-img" style="height:100%;min-height:280px">
+        <a href="#" class="album-hero u-tint-cyan u-h-full" data-lightbox-key="shanghai">
+          <div class="album-hero-img u-h-full u-min-h-280">
             <i class="bi bi-buildings-fill"></i>
           </div>
           <div class="album-hero-overlay"></div>
@@ -89,7 +89,7 @@
     <div class="row g-3 mb-5" id="albumGrid">
 
       <div class="col-6 col-md-4 col-lg-3 fade-up delay-1" data-cat="travel">
-        <a href="#" class="ink-card ink-card-hover album-card u-tint-pink" onclick="openLightbox('yunnan');return false;">
+        <a href="#" class="ink-card ink-card-hover album-card u-tint-pink" data-lightbox-key="yunnan">
           <div class="album-card-img-wrap">
             <div class="album-card-img"><i class="bi bi-flower1"></i></div>
             <div class="album-card-hover">
@@ -106,7 +106,7 @@
       </div>
 
       <div class="col-6 col-md-4 col-lg-3 fade-up delay-2" data-cat="nature">
-        <a href="#" class="ink-card ink-card-hover album-card u-tint-green" onclick="openLightbox('zhangjiajie');return false;">
+        <a href="#" class="ink-card ink-card-hover album-card u-tint-green" data-lightbox-key="zhangjiajie">
           <div class="album-card-img-wrap">
             <div class="album-card-img"><i class="bi bi-cloud-fog2-fill"></i></div>
             <div class="album-card-hover">
@@ -123,7 +123,7 @@
       </div>
 
       <div class="col-6 col-md-4 col-lg-3 fade-up delay-3" data-cat="city">
-        <a href="#" class="ink-card ink-card-hover album-card u-tint-purple" onclick="openLightbox('tokyo');return false;">
+        <a href="#" class="ink-card ink-card-hover album-card u-tint-purple" data-lightbox-key="tokyo">
           <div class="album-card-img-wrap">
             <div class="album-card-img"><i class="bi bi-lamp-fill"></i></div>
             <div class="album-card-hover">
@@ -140,7 +140,7 @@
       </div>
 
       <div class="col-6 col-md-4 col-lg-3 fade-up delay-4" data-cat="arch">
-        <a href="#" class="ink-card ink-card-hover album-card u-tint-amber" onclick="openLightbox('beijing');return false;">
+        <a href="#" class="ink-card ink-card-hover album-card u-tint-amber" data-lightbox-key="beijing">
           <div class="album-card-img-wrap">
             <div class="album-card-img"><i class="bi bi-bank2"></i></div>
             <div class="album-card-hover">
@@ -157,7 +157,7 @@
       </div>
 
       <div class="col-6 col-md-4 col-lg-3 fade-up delay-1" data-cat="life">
-        <a href="#" class="ink-card ink-card-hover album-card u-tint-blue" onclick="openLightbox('daily');return false;">
+        <a href="#" class="ink-card ink-card-hover album-card u-tint-blue" data-lightbox-key="daily">
           <div class="album-card-img-wrap">
             <div class="album-card-img"><i class="bi bi-cup-hot-fill"></i></div>
             <div class="album-card-hover">
@@ -174,7 +174,7 @@
       </div>
 
       <div class="col-6 col-md-4 col-lg-3 fade-up delay-2" data-cat="nature">
-        <a href="#" class="ink-card ink-card-hover album-card u-tint-cyan" onclick="openLightbox('sea');return false;">
+        <a href="#" class="ink-card ink-card-hover album-card u-tint-cyan" data-lightbox-key="sea">
           <div class="album-card-img-wrap">
             <div class="album-card-img"><i class="bi bi-water"></i></div>
             <div class="album-card-hover">
@@ -191,7 +191,7 @@
       </div>
 
       <div class="col-6 col-md-4 col-lg-3 fade-up delay-3" data-cat="travel">
-        <a href="#" class="ink-card ink-card-hover album-card u-tint-orange" onclick="openLightbox('dunhuang');return false;">
+        <a href="#" class="ink-card ink-card-hover album-card u-tint-orange" data-lightbox-key="dunhuang">
           <div class="album-card-img-wrap">
             <div class="album-card-img"><i class="bi bi-sunrise-fill"></i></div>
             <div class="album-card-hover">
@@ -208,7 +208,7 @@
       </div>
 
       <div class="col-6 col-md-4 col-lg-3 fade-up delay-4" data-cat="city">
-        <a href="#" class="ink-card ink-card-hover album-card u-tint-green" onclick="openLightbox('chengdu');return false;">
+        <a href="#" class="ink-card ink-card-hover album-card u-tint-green" data-lightbox-key="chengdu">
           <div class="album-card-img-wrap">
             <div class="album-card-img"><i class="bi bi-emoji-smile-fill"></i></div>
             <div class="album-card-hover">
@@ -234,63 +234,63 @@
       </div>
       <div class="photo-masonry" id="photoMasonry">
 
-        <div class="photo-item u-tint-green" onclick="openLightbox('p1')">
-          <div class="photo-ph" style="height:200px"><i class="bi bi-tree"></i></div>
+        <div class="photo-item u-tint-green" data-lightbox-key="p1">
+          <div class="photo-ph u-h-200"><i class="bi bi-tree"></i></div>
           <div class="photo-item-overlay"><i class="bi bi-zoom-in"></i><span>查看大图</span></div>
         </div>
 
-        <div class="photo-item u-tint-blue" onclick="openLightbox('p2')">
-          <div class="photo-ph" style="height:280px"><i class="bi bi-buildings"></i></div>
+        <div class="photo-item u-tint-blue" data-lightbox-key="p2">
+          <div class="photo-ph u-h-280"><i class="bi bi-buildings"></i></div>
           <div class="photo-item-overlay"><i class="bi bi-zoom-in"></i><span>查看大图</span></div>
         </div>
 
-        <div class="photo-item u-tint-pink" onclick="openLightbox('p3')">
-          <div class="photo-ph" style="height:160px"><i class="bi bi-flower2"></i></div>
+        <div class="photo-item u-tint-pink" data-lightbox-key="p3">
+          <div class="photo-ph u-h-160"><i class="bi bi-flower2"></i></div>
           <div class="photo-item-overlay"><i class="bi bi-zoom-in"></i><span>查看大图</span></div>
         </div>
 
-        <div class="photo-item u-tint-amber" onclick="openLightbox('p4')">
-          <div class="photo-ph" style="height:320px"><i class="bi bi-sunrise"></i></div>
+        <div class="photo-item u-tint-amber" data-lightbox-key="p4">
+          <div class="photo-ph u-h-320"><i class="bi bi-sunrise"></i></div>
           <div class="photo-item-overlay"><i class="bi bi-zoom-in"></i><span>查看大图</span></div>
         </div>
 
-        <div class="photo-item u-tint-purple" onclick="openLightbox('p5')">
-          <div class="photo-ph" style="height:220px"><i class="bi bi-lamp"></i></div>
+        <div class="photo-item u-tint-purple" data-lightbox-key="p5">
+          <div class="photo-ph u-h-220"><i class="bi bi-lamp"></i></div>
           <div class="photo-item-overlay"><i class="bi bi-zoom-in"></i><span>查看大图</span></div>
         </div>
 
-        <div class="photo-item u-tint-blue" onclick="openLightbox('p6')">
-          <div class="photo-ph" style="height:180px"><i class="bi bi-water"></i></div>
+        <div class="photo-item u-tint-blue" data-lightbox-key="p6">
+          <div class="photo-ph u-h-180"><i class="bi bi-water"></i></div>
           <div class="photo-item-overlay"><i class="bi bi-zoom-in"></i><span>查看大图</span></div>
         </div>
 
-        <div class="photo-item u-tint-green" onclick="openLightbox('p7')">
-          <div class="photo-ph" style="height:260px"><i class="bi bi-cloud-fog2"></i></div>
+        <div class="photo-item u-tint-green" data-lightbox-key="p7">
+          <div class="photo-ph u-h-260"><i class="bi bi-cloud-fog2"></i></div>
           <div class="photo-item-overlay"><i class="bi bi-zoom-in"></i><span>查看大图</span></div>
         </div>
 
-        <div class="photo-item u-tint-red" onclick="openLightbox('p8')">
-          <div class="photo-ph" style="height:190px"><i class="bi bi-moon-stars"></i></div>
+        <div class="photo-item u-tint-red" data-lightbox-key="p8">
+          <div class="photo-ph u-h-190"><i class="bi bi-moon-stars"></i></div>
           <div class="photo-item-overlay"><i class="bi bi-zoom-in"></i><span>查看大图</span></div>
         </div>
 
-        <div class="photo-item u-tint-blue" onclick="openLightbox('p9')">
-          <div class="photo-ph" style="height:240px"><i class="bi bi-cup-hot"></i></div>
+        <div class="photo-item u-tint-blue" data-lightbox-key="p9">
+          <div class="photo-ph u-h-240"><i class="bi bi-cup-hot"></i></div>
           <div class="photo-item-overlay"><i class="bi bi-zoom-in"></i><span>查看大图</span></div>
         </div>
 
-        <div class="photo-item u-tint-orange" onclick="openLightbox('p10')">
-          <div class="photo-ph" style="height:200px"><i class="bi bi-bank"></i></div>
+        <div class="photo-item u-tint-orange" data-lightbox-key="p10">
+          <div class="photo-ph u-h-200"><i class="bi bi-bank"></i></div>
           <div class="photo-item-overlay"><i class="bi bi-zoom-in"></i><span>查看大图</span></div>
         </div>
 
-        <div class="photo-item u-tint-cyan" onclick="openLightbox('p11')">
-          <div class="photo-ph" style="height:300px"><i class="bi bi-stars"></i></div>
+        <div class="photo-item u-tint-cyan" data-lightbox-key="p11">
+          <div class="photo-ph u-h-300"><i class="bi bi-stars"></i></div>
           <div class="photo-item-overlay"><i class="bi bi-zoom-in"></i><span>查看大图</span></div>
         </div>
 
-        <div class="photo-item u-tint-green" onclick="openLightbox('p12')">
-          <div class="photo-ph" style="height:170px"><i class="bi bi-tree-fill"></i></div>
+        <div class="photo-item u-tint-green" data-lightbox-key="p12">
+          <div class="photo-ph u-h-170"><i class="bi bi-tree-fill"></i></div>
           <div class="photo-item-overlay"><i class="bi bi-zoom-in"></i><span>查看大图</span></div>
         </div>
 
@@ -301,9 +301,9 @@
 </main>
 
 <!-- LIGHTBOX -->
-<div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
+<div class="lightbox" id="lightbox" data-lightbox-close>
   <div class="lb-inner" id="lbInner">
-    <button type="button" class="lb-close" onclick="closeLightbox()"><i class="bi bi-x-lg"></i></button>
+    <button type="button" class="lb-close" data-lightbox-close><i class="bi bi-x-lg"></i></button>
     <div class="lb-img" id="lbImg">
       <i class="bi bi-image" style="font-size:5rem;color:rgba(255,255,255,.15)"></i>
     </div>

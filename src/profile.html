@@ -23,7 +23,7 @@
     <div class="d-flex align-items-end gap-4 flex-wrap">
       <div class="profile-avatar-wrap">
         <div class="ink-avatar ink-avatar-xxl" style="box-shadow: var(--shadow-card)" id="profileAvatarEl">陈</div>
-        <div class="profile-avatar-edit" onclick="document.getElementById('avatarInput').click()" title="更换头像">
+        <div class="profile-avatar-edit" data-avatar-trigger title="更换头像">
           <i class="bi bi-camera"></i>
         </div>
         <input type="file" id="avatarInput" accept="image/*" class="d-none" />
@@ -53,7 +53,7 @@
           <div class="profile-section-title">数据概览</div>
           <div class="d-flex flex-column gap-2">
             <div class="d-flex justify-content-between align-items-center py-2 border-bottom border-custom">
-              <span class="profile-stat-label"><i class="bi bi-file-text" class="u-text-primary"></i>发布文章</span>
+              <span class="profile-stat-label"><i class="bi bi-file-text u-text-primary"></i>发布文章</span>
               <span class="profile-stat-value">128</span>
             </div>
             <div class="d-flex justify-content-between align-items-center py-2 border-bottom border-custom">
@@ -91,10 +91,10 @@
         <!-- Profile nav -->
         <div class="ink-card ink-card-xl ink-card-shadow profile-card fade-up delay-2">
           <div class="d-flex flex-column gap-1">
-            <a href="#basic"    class="profile-nav-item" onclick="scrollToSection('basic')"><i class="bi bi-person-circle"></i> 基本信息</a>
-            <a href="#account"  class="profile-nav-item" onclick="scrollToSection('account')"><i class="bi bi-shield-lock"></i> 账号安全</a>
-            <a href="#notify"   class="profile-nav-item" onclick="scrollToSection('notify')"><i class="bi bi-bell"></i> 通知偏好</a>
-            <a href="#danger"   class="profile-nav-item text-danger" onclick="scrollToSection('danger')"><i class="bi bi-exclamation-triangle"></i> 危险操作</a>
+            <a href="#basic"    class="profile-nav-item" data-scroll-section="basic"><i class="bi bi-person-circle"></i> 基本信息</a>
+            <a href="#account"  class="profile-nav-item" data-scroll-section="account"><i class="bi bi-shield-lock"></i> 账号安全</a>
+            <a href="#notify"   class="profile-nav-item" data-scroll-section="notify"><i class="bi bi-bell"></i> 通知偏好</a>
+            <a href="#danger"   class="profile-nav-item text-danger" data-scroll-section="danger"><i class="bi bi-exclamation-triangle"></i> 危险操作</a>
           </div>
         </div>
 
@@ -203,7 +203,7 @@
           <!-- 2FA row -->
           <div class="profile-notify-row mt-3">
             <div>
-              <div class="profile-notify-title"><i class="bi bi-shield-check me-2" class="u-text-primary"></i>两步验证</div>
+              <div class="profile-notify-title"><i class="bi bi-shield-check me-2 u-text-primary"></i>两步验证</div>
               <div class="profile-notify-sub">通过身份验证器 App 为账号加一层保护</div>
             </div>
             <div class="d-flex align-items-center gap-2">
@@ -255,7 +255,7 @@
             </div>
           </div>
           <div class="mt-3">
-            <button type="button" class="ink-btn ink-btn-soft" onclick="showToast('通知设置已保存 ✓')">
+            <button type="button" class="ink-btn ink-btn-soft" data-save-notify>
               <i class="bi bi-check-lg me-1"></i> 保存偏好
             </button>
           </div>
@@ -271,7 +271,7 @@
               <div class="fw-semibold mb-1">注销账号</div>
               <div class="text-muted small">永久删除账号及所有数据，此操作不可撤销</div>
             </div>
-            <button type="button" class="ink-btn ink-btn-danger" onclick="confirmDelete()">
+            <button type="button" class="ink-btn ink-btn-danger" data-confirm-delete>
               <i class="bi bi-trash me-1"></i> 注销账号
             </button>
           </div>

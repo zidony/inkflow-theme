@@ -32,6 +32,10 @@ function initAvatarUpload() {
   const preview = document.getElementById('profileAvatarEl');
   if (!input || !preview) return;
 
+  document.querySelectorAll('[data-avatar-trigger]').forEach(btn => {
+    btn.addEventListener('click', () => input.click());
+  });
+
   input.addEventListener('change', () => {
     const file = input.files[0];
     if (!file) return;
@@ -42,6 +46,23 @@ function initAvatarUpload() {
       preview.textContent = '';
     };
     reader.readAsDataURL(file);
+  });
+}
+
+function initProfileActions() {
+  document.querySelectorAll('[data-scroll-section]').forEach(link => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      scrollToSection(link.dataset.scrollSection);
+    });
+  });
+
+  document.querySelectorAll('[data-save-notify]').forEach(btn => {
+    btn.addEventListener('click', () => showToast('通知设置已保存 ✓'));
+  });
+
+  document.querySelectorAll('[data-confirm-delete]').forEach(btn => {
+    btn.addEventListener('click', confirmDelete);
   });
 }
 
@@ -70,7 +91,7 @@ function confirmDelete() {
     showToast('账号注销申请已提交，请检查邮箱确认');
   }
 }
-export { initProfileEdit, initAvatarUpload, initProfileStreak };
+export { initProfileEdit, initAvatarUpload, initProfileStreak, initProfileActions };
 
 // Expose to global scope for inline HTML handlers
 window.scrollToSection = scrollToSection;

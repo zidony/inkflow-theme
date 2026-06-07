@@ -37,6 +37,22 @@ function closeLightbox(e) {
 function initLightbox() {
   const lb = document.getElementById('lightbox');
   if (!lb) return;
+
+  document.querySelectorAll('[data-album-filter]').forEach(tab => {
+    tab.addEventListener('click', () => filterAlbum(tab, tab.dataset.albumFilter));
+  });
+
+  document.querySelectorAll('[data-lightbox-key]').forEach(trigger => {
+    trigger.addEventListener('click', (e) => {
+      e.preventDefault();
+      openLightbox(trigger.dataset.lightboxKey);
+    });
+  });
+
+  document.querySelectorAll('[data-lightbox-close]').forEach(trigger => {
+    trigger.addEventListener('click', closeLightbox);
+  });
+
   lb.addEventListener('click', closeLightbox);
 }
 export { initLightbox };
