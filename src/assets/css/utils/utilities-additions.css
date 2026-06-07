@@ -187,6 +187,12 @@
 .u-text-sm-muted { color: var(--ink-muted); font-size: .85rem; }
 .u-text-xs-muted { color: var(--ink-muted); font-size: .75rem; }
 .u-text-2xs-muted { color: var(--ink-muted); font-size: .72rem; }
+.u-text-xxs-muted { color: var(--ink-muted); font-size: .78rem; }
+.u-faded-on-dark {
+  color: rgba(255,255,255,.35);
+  font-size: .82rem;
+  letter-spacing: .03em;
+}
 .u-label-muted {
   color: var(--ink-muted);
   font-size: .72rem;
@@ -216,6 +222,31 @@
   background: var(--ink-card);
   box-shadow: var(--shadow-card);
 }
+.u-card-section-head { padding: 1rem 1.4rem; }
+.u-card-section-foot { padding: .75rem 1.4rem 1.1rem; }
+.u-post-card-thumb-sm { height: 140px; }
+.u-shadow-card { box-shadow: var(--shadow-card); }
+.u-resize-none { resize: none; }
+.u-lightbox-placeholder-icon {
+  color: rgba(255,255,255,.15);
+  font-size: 5rem;
+}
+.u-year-label {
+  color: var(--ink-heading);
+  font-size: .88rem;
+  font-weight: 500;
+}
+.u-link-primary-sm,
+.u-link-primary-strong,
+.u-link-purple-strong,
+.u-link-cyan-strong {
+  font-size: .83rem;
+  font-weight: 600;
+}
+.u-link-primary-sm { color: var(--ink-primary); font-size: .84rem; }
+.u-link-primary-strong { color: var(--ink-primary); }
+.u-link-purple-strong { color: #7c3aed; }
+.u-link-cyan-strong { color: #0891b2; }
 .u-soft-white-chip {
   background: rgba(255,255,255,.15);
   color: #fff;
