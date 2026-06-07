@@ -26,8 +26,8 @@ jobs:
       - name: Install Dependencies
         run: npm ci
 
-      - name: Build Web Assets
-        run: npm run build
+      - name: Run Project Checks
+        run: npm run check
 
       - name: Package Release ZIP
         run: node scripts/release.mjs
