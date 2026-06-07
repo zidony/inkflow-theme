@@ -2,7 +2,7 @@
 
 > A modern frontend theme template tailored for independent blogs, fully embracing Vite engineering, out-of-the-box ready.
 
-![Version](https://img.shields.io/badge/version-3.2.0-green)
+![Version](https://img.shields.io/badge/version-3.2.1-green)
 ![Bootstrap](https://img.shields.io/badge/Bootstrap-5.3.8-7952b3)
 ![Bootstrap Icons](https://img.shields.io/badge/Bootstrap%20Icons-1.13.1-7952b3)
 ![License](https://img.shields.io/badge/license-CC%20BY%204.0-blue)
@@ -270,6 +270,7 @@ Modify the Google Fonts link in the `<head>` of HTML files, and update variables
 
 | Version | Key Updates |
 |---------|-------------|
+| **v3.2.1** | **Production Quality Patch**: Fixed module-scope runtime errors in login and search shortcuts; normalized shared partial usage; migrated page-level inline handlers into modular JS; restored corrupted Chinese text on the links page; upgraded Vite to 8.0.16 with a clean npm audit; enabled production minification and added `npm run check` for pre-release validation. |
 | **v3.2.0** | **Zero-Dependency Architecture & Componentization Milestone**: Completely removed Python packaging dependencies by writing a custom Node.js native zero-dependency ZIP build script; finalized the global componentization and style unification of the `.ink-input` and `.ink-btn` systems; optimized the automated release pipeline. |
 | **v3.1.0** | **Deep Layering & Single-Bundle Build Strategy**: Deeply reorganized all CSS files and directories using standard ITCSS architecture; modularized JS responsibilities (`core`, `components`, `pages`); rewrote Vite config and internal dynamic imports to bundle all frontend assets into a single `inkflow.js` and `inkflow.css` (zero-config plug-and-play integration); disabled production minification and introduced Prettier for auto-formatting. |
 | **v3.0.0** | **Leap-forward Frontend Engineering Refactor**: Introduced Vite foundation and development HMR; deeply modularized the 120KB monolithic CSS into multiple components under `src/css`; rewrote entry points and build flows; added Python-based automated release script and GitHub Actions automated deployment pipelines. Fully aligned with international commercial theme architectures. |
