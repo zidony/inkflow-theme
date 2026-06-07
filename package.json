@@ -6,10 +6,11 @@
     "dev": "vite",
     "build": "vite build && prettier --write \"dist/**/*.{html,css,js}\"",
     "preview": "vite preview",
-    "release": "npm run build && node scripts/release.mjs",
+    "release": "npm run check && node scripts/release.mjs",
     "lint": "eslint src/assets/js/**/*.js",
     "quality": "node scripts/quality-check.mjs",
-    "check": "npm run lint && npm run quality && npm run build",
+    "version:check": "node scripts/version-check.mjs",
+    "check": "npm run lint && npm run quality && npm run version:check && npm run build",
     "format": "prettier --write \"src/**/*.{css,js,html}\""
   },
   "devDependencies": {
