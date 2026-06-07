@@ -109,15 +109,21 @@ function copyCode(btn) {
   if (!code) return;
 
   const orig = btn.innerHTML;
+  const origAriaLabel = btn.getAttribute('aria-label') || '复制代码';
   copyText(code.textContent)
     .then(() => {
       btn.innerHTML = '<i class="bi bi-check-lg me-1"></i>已复制';
+      btn.setAttribute('aria-label', '代码已复制');
     })
     .catch(() => {
       btn.innerHTML = '<i class="bi bi-exclamation-triangle me-1"></i>复制失败';
+      btn.setAttribute('aria-label', '代码复制失败');
     })
     .finally(() => {
-      setTimeout(() => { btn.innerHTML = orig; }, 1500);
+      setTimeout(() => {
+        btn.innerHTML = orig;
+        btn.setAttribute('aria-label', origAriaLabel);
+      }, 1500);
     });
 }
 
@@ -125,15 +131,21 @@ function copyLink() {
   const btn = document.querySelector('.share-btn.link-copy');
   if (!btn) return;
   const orig = btn.innerHTML;
+  const origAriaLabel = btn.getAttribute('aria-label') || '复制文章链接';
   copyText(window.location.href)
     .then(() => {
       btn.innerHTML = '<i class="bi bi-check-lg me-1"></i> 已复制';
+      btn.setAttribute('aria-label', '文章链接已复制');
     })
     .catch(() => {
       btn.innerHTML = '<i class="bi bi-exclamation-triangle me-1"></i> 复制失败';
+      btn.setAttribute('aria-label', '文章链接复制失败');
     })
     .finally(() => {
-      setTimeout(() => { btn.innerHTML = orig; }, 1500);
+      setTimeout(() => {
+        btn.innerHTML = orig;
+        btn.setAttribute('aria-label', origAriaLabel);
+      }, 1500);
     });
 }
 

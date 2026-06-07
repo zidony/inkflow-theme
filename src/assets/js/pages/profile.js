@@ -90,8 +90,13 @@ function initProfileActions() {
   const tfaSwitch = document.getElementById('tfaSwitch');
   const tfaLabel = document.getElementById('tfaLabel');
   if (tfaSwitch && tfaLabel) {
-    tfaSwitch.addEventListener('change', () => {
+    const syncTfaState = () => {
       tfaLabel.textContent = tfaSwitch.checked ? '已开启' : '未开启';
+      tfaSwitch.setAttribute('aria-checked', tfaSwitch.checked ? 'true' : 'false');
+    };
+    syncTfaState();
+    tfaSwitch.addEventListener('change', () => {
+      syncTfaState();
     });
   }
 }

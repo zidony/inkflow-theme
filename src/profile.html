@@ -203,13 +203,13 @@
           <!-- 2FA row -->
           <div class="profile-notify-row mt-3">
             <div>
-              <div class="profile-notify-title"><i class="bi bi-shield-check me-2 u-text-primary"></i>两步验证</div>
+              <div class="profile-notify-title" id="tfaTitle"><i class="bi bi-shield-check me-2 u-text-primary"></i>两步验证</div>
               <div class="profile-notify-sub">通过身份验证器 App 为账号加一层保护</div>
             </div>
             <div class="d-flex align-items-center gap-2">
               <span class="profile-notify-sub" id="tfaLabel">未开启</span>
               <label class="notify-label-wrap mb-0">
-                <input type="checkbox" id="tfaSwitch" class="notify-toggle" />
+                <input type="checkbox" id="tfaSwitch" class="notify-toggle" role="switch" aria-checked="false" aria-labelledby="tfaTitle tfaLabel" />
                 <span class="notify-slider"></span>
               </label>
             </div>

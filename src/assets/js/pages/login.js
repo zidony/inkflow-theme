@@ -9,9 +9,12 @@ function initAuthTabs() {
   const activateTab = (target) => {
     tabBtns.forEach(btn => {
       btn.classList.toggle('active', btn.dataset.authTab === target);
+      btn.setAttribute('aria-selected', btn.dataset.authTab === target ? 'true' : 'false');
     });
     document.querySelectorAll('.auth-tab-pane').forEach(pane => {
-      pane.classList.toggle('d-none', pane.id !== target);
+      const isActive = pane.id === target;
+      pane.classList.toggle('d-none', !isActive);
+      pane.hidden = !isActive;
     });
   };
 
@@ -30,6 +33,18 @@ function initAuthTabs() {
       e.preventDefault();
       activateTab(switchLink.dataset.authSwitch);
     }
+  });
+
+  (root || document).addEventListener('keydown', (e) => {
+    const current = e.target.closest('.auth-tab-btn');
+    if (!current || (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight')) return;
+    e.preventDefault();
+    const tabs = [...tabBtns];
+    const currentIndex = tabs.indexOf(current);
+    const dir = e.key === 'ArrowRight' ? 1 : -1;
+    const next = tabs[(currentIndex + dir + tabs.length) % tabs.length];
+    next.focus();
+    activateTab(next.dataset.authTab);
   });
 }
 

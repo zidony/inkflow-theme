@@ -41,13 +41,13 @@
     </div>
 
     <!-- Tab switcher (v2.0: .auth-tab-btn 替代 inline style + switchTab()) -->
-    <div class="auth-tab-switcher">
-      <button type="button" class="auth-tab-btn active" data-auth-tab="loginForm">登录</button>
-      <button type="button" class="auth-tab-btn" data-auth-tab="registerForm">注册</button>
+    <div class="auth-tab-switcher" role="tablist" aria-label="认证方式">
+      <button type="button" class="auth-tab-btn active" id="loginTab" role="tab" aria-selected="true" aria-controls="loginForm" data-auth-tab="loginForm">登录</button>
+      <button type="button" class="auth-tab-btn" id="registerTab" role="tab" aria-selected="false" aria-controls="registerForm" data-auth-tab="registerForm">注册</button>
     </div>
 
     <!-- LOGIN FORM -->
-    <div class="auth-tab-pane" id="loginForm">
+    <div class="auth-tab-pane" id="loginForm" role="tabpanel" aria-labelledby="loginTab">
       <div class="auth-form-title">欢迎回来</div>
       <div class="auth-form-sub">登录你的 INKFLOW 账号，继续探索</div>
 
@@ -93,12 +93,12 @@
       </button>
 
       <div class="auth-switch">
-        还没有账号？<a href="#" data-auth-switch="registerForm">立即注册</a>
+        还没有账号？<a href="#" aria-controls="registerForm" data-auth-switch="registerForm">立即注册</a>
       </div>
     </div>
 
     <!-- REGISTER FORM -->
-    <div class="auth-tab-pane d-none" id="registerForm">
+    <div class="auth-tab-pane d-none" id="registerForm" role="tabpanel" aria-labelledby="registerTab" hidden>
       <div class="auth-form-title">创建账号</div>
       <div class="auth-form-sub">加入 INKFLOW 社区，开始你的阅读旅程</div>
 
@@ -151,7 +151,7 @@
       </button>
 
       <div class="auth-switch">
-        已有账号？<a href="#" data-auth-switch="loginForm">立即登录</a>
+        已有账号？<a href="#" aria-controls="loginForm" data-auth-switch="loginForm">立即登录</a>
       </div>
     </div>
 
