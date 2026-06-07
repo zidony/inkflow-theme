@@ -23,6 +23,10 @@
   width: 100%; height: 420px; border-radius: var(--radius-xl); overflow: hidden; margin-top: -2.5rem;
   font-size: 6rem; color: rgba(255,255,255,.12); box-shadow: 0 20px 60px rgba(0,0,0,.25);
 }
+.article-cover-shell {
+  margin-top: -2.5rem;
+  z-index: 2;
+}
 
 /* Article body typography */
 .article-body {

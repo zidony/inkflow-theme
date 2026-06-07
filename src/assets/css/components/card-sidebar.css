@@ -2,6 +2,10 @@
 .sidebar-card {
   padding: 1.75rem; /* margin-bottom stripped to HTML mb-4 */
 }
+.sidebar-card-sticky {
+  position: sticky;
+  top: 80px;
+}
 .sidebar-title {
   display: flex; align-items: center; gap: .5rem;
   margin-bottom: 1.25rem; padding-bottom: .75rem; border-bottom: 2px solid var(--ink-border);
@@ -32,6 +36,18 @@
   transition: color var(--transition);
 }
 .popular-post-meta { font-size: .75rem; color: var(--ink-muted); }
+.sidebar-reading-meta-wrap {
+  margin-top: 1.1rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--ink-border);
+}
+.sidebar-reading-meta {
+  display: flex;
+  align-items: center;
+  gap: .4rem;
+  color: var(--ink-muted);
+  font-size: .75rem;
+}
 
 /* Ink Brand Skin Modifier */
 .ink-bg-brand {

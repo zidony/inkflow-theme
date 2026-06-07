@@ -64,6 +64,14 @@ function initProfileActions() {
   document.querySelectorAll('[data-confirm-delete]').forEach(btn => {
     btn.addEventListener('click', confirmDelete);
   });
+
+  const tfaSwitch = document.getElementById('tfaSwitch');
+  const tfaLabel = document.getElementById('tfaLabel');
+  if (tfaSwitch && tfaLabel) {
+    tfaSwitch.addEventListener('change', () => {
+      tfaLabel.textContent = tfaSwitch.checked ? '已开启' : '未开启';
+    });
+  }
 }
 
 function initProfileStreak() {
@@ -72,7 +80,7 @@ function initProfileStreak() {
   
   const dotsHtml = Array.from({length: 21}, (_, i) => {
     const active = i > 12 ? Math.random() > 0.3 : Math.random() > 0.7;
-    return `<div style="flex:1;height:8px;border-radius:2px;background:${active ? 'rgba(0,201,141,.7)' : 'rgba(255,255,255,.1)'}"></div>`;
+    return `<div class="streak-dot${active ? ' active' : ''}"></div>`;
   }).join('');
   
   container.innerHTML = dotsHtml;
@@ -92,7 +100,3 @@ function confirmDelete() {
   }
 }
 export { initProfileEdit, initAvatarUpload, initProfileStreak, initProfileActions };
-
-// Expose to global scope for inline HTML handlers
-window.scrollToSection = scrollToSection;
-window.confirmDelete = confirmDelete;

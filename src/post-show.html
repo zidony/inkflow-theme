@@ -73,7 +73,7 @@
 </div>
 
 <!-- COVER IMAGE -->
-<div class="container position-relative" style="margin-top:-2.5rem;z-index:2">
+<div class="container position-relative article-cover-shell">
   <div class="article-cover mb-4">
     <i class="bi bi-code-slash"></i>
   </div>
@@ -105,8 +105,8 @@
 
           <p>过去，当项目规模超过 1000 个模块时，HMR 响应时间会随着模块数增加而线性增长。Vite 5 通过引入<strong>懒加载模块图</strong>机制，将 HMR 复杂度从 O(n) 降低到了接近 O(1)。</p>
 
-          <div class="article-img u-tint-blue" style="height:260px">
-            <i class="bi bi-bar-chart-line-fill" style="font-size:4rem"></i>
+          <div class="article-img u-tint-blue u-h-260">
+            <i class="bi bi-bar-chart-line-fill"></i>
           </div>
           <div class="img-caption">图 1：Vite 4 与 Vite 5 在不同项目规模下的 HMR 响应时间对比</div>
 
@@ -309,7 +309,7 @@ export function LikeButton({ postId, initialCount }: Props) {
           <button type="button" class="reaction-btn" data-toggle-react>
             <i class="bi bi-bookmark-heart"></i> 已收藏 <span class="count">248</span>
           </button>
-          <span style="margin-left:auto;font-size:.82rem;color:var(--ink-muted)">
+          <span class="reaction-read-count">
             <i class="bi bi-eye me-1"></i> 3,240 次阅读
           </span>
         </div>
@@ -349,11 +349,11 @@ export function LikeButton({ postId, initialCount }: Props) {
         </div>
 
         <!-- RELATED POSTS -->
-        <h2 class="section-title" style="font-size:1.4rem">相关文章</h2>
+        <h2 class="section-title section-title-sm">相关文章</h2>
         <div class="row g-3 mb-5">
           <div class="col-md-4">
             <a href="post-show.html" class="related-post u-tint-cyan">
-              <div class="related-post-img"><i class="bi bi-robot" style="font-size:2.2rem"></i></div>
+              <div class="related-post-img"><i class="bi bi-robot related-post-icon"></i></div>
               <div class="related-post-body">
                 <div class="related-post-cat"><i class="bi bi-robot me-1"></i>AI</div>
                 <div class="related-post-title">本地部署 LLM：Ollama + Open WebUI 完全配置</div>
@@ -362,7 +362,7 @@ export function LikeButton({ postId, initialCount }: Props) {
           </div>
           <div class="col-md-4">
             <a href="post-show.html" class="related-post u-tint-purple">
-              <div class="related-post-img"><i class="bi bi-shield-lock" style="font-size:2.2rem"></i></div>
+              <div class="related-post-img"><i class="bi bi-shield-lock related-post-icon"></i></div>
               <div class="related-post-body">
                 <div class="related-post-cat"><i class="bi bi-shield-check me-1"></i>安全</div>
                 <div class="related-post-title">OWASP Top 10 漏洞防御清单（2025 版）</div>
@@ -371,7 +371,7 @@ export function LikeButton({ postId, initialCount }: Props) {
           </div>
           <div class="col-md-4">
             <a href="post-show.html" class="related-post u-tint-blue">
-              <div class="related-post-img"><i class="bi bi-database" style="font-size:2.2rem"></i></div>
+              <div class="related-post-img"><i class="bi bi-database related-post-icon"></i></div>
               <div class="related-post-body">
                 <div class="related-post-cat"><i class="bi bi-server me-1"></i>后端</div>
                 <div class="related-post-title">PostgreSQL 性能调优：从慢查询到毫秒级响应</div>
@@ -382,7 +382,7 @@ export function LikeButton({ postId, initialCount }: Props) {
 
         <!-- COMMENTS -->
         <div class="comment-section mt-5" id="comments">
-          <h2 style="font-family:var(--font-display);font-size:1.4rem;font-weight:700;margin-bottom:1.5rem">
+          <h2 class="section-heading-sm">
             24 条评论
           </h2>
 
@@ -390,7 +390,7 @@ export function LikeButton({ postId, initialCount }: Props) {
           <div class="comment-input-wrap">
             <textarea class="ink-input ink-input-gray" placeholder="写下你的想法…支持 Markdown 语法"></textarea>
             <div class="d-flex align-items-center justify-content-between mt-2">
-              <span style="font-size:.78rem;color:var(--ink-muted)"><i class="bi bi-markdown me-1"></i>支持 Markdown</span>
+              <span class="u-text-xxs-muted"><i class="bi bi-markdown me-1"></i>支持 Markdown</span>
               <button type="button" class="ink-btn ink-btn-soft"><i class="bi bi-send me-1"></i> 发布评论</button>
             </div>
           </div>
@@ -401,7 +401,7 @@ export function LikeButton({ postId, initialCount }: Props) {
             <div class="comment-item">
               <div class="d-flex align-items-start gap-3">
                 <div class="ink-avatar ink-av-blue">张</div>
-                <div style="flex:1">
+                <div class="u-flex-1">
                   <div class="d-flex align-items-center justify-content-between flex-wrap gap-1">
                     <span class="comment-author">张小明</span>
                     <span class="comment-time">2小时前</span>
@@ -418,7 +418,7 @@ export function LikeButton({ postId, initialCount }: Props) {
             <div class="comment-item">
               <div class="d-flex align-items-start gap-3">
                 <div class="ink-avatar ink-av-purple">李</div>
-                <div style="flex:1">
+                <div class="u-flex-1">
                   <div class="d-flex align-items-center justify-content-between flex-wrap gap-1">
                     <span class="comment-author">李思远</span>
                     <span class="comment-time">5小时前</span>
@@ -429,13 +429,13 @@ export function LikeButton({ postId, initialCount }: Props) {
                     <button type="button" class="comment-action"><i class="bi bi-reply"></i> 回复</button>
                   </div>
                   <!-- Author reply -->
-                  <div class="comment-item mt-3" style="background:rgba(var(--ink-primary-rgb),.04);border-left:3px solid var(--ink-primary)">
+                  <div class="comment-item comment-item-author-reply mt-3">
                     <div class="d-flex align-items-start gap-3">
                       <div class="ink-avatar ink-avatar-sm">陈</div>
-                      <div style="flex:1">
+                      <div class="u-flex-1">
                         <div class="d-flex align-items-center gap-2 flex-wrap">
                           <span class="comment-author">陈明远</span>
-                          <span style="font-size:.7rem;background:rgba(var(--ink-primary-rgb),.1);color:var(--ink-primary);border-radius:99px;padding:.1rem .5rem;font-weight:600">作者</span>
+                          <span class="comment-author-badge">作者</span>
                           <span class="comment-time">4小时前</span>
                         </div>
                         <div class="comment-text">很好的问题！Next.js 推荐的方案是在 <code>middleware.ts</code> 做统一的认证检查，再配合 <code>auth()</code> 辅助函数在需要的 Server Component 里二次验证。推荐看一下 NextAuth v5 的官方文档，有完整的 App Router 集成方案。</div>
@@ -449,7 +449,7 @@ export function LikeButton({ postId, initialCount }: Props) {
             <div class="comment-item">
               <div class="d-flex align-items-start gap-3">
                 <div class="ink-avatar ink-av-amber">王</div>
-                <div style="flex:1">
+                <div class="u-flex-1">
                   <div class="d-flex align-items-center justify-content-between flex-wrap gap-1">
                     <span class="comment-author">王大壮</span>
                     <span class="comment-time">1天前</span>
@@ -466,7 +466,7 @@ export function LikeButton({ postId, initialCount }: Props) {
           </div>
 
           <div class="text-center mt-4">
-            <button type="button" style="background:var(--ink-card);border:1px solid var(--ink-border);color:var(--ink-muted);border-radius:var(--radius-md);padding:.7rem 1.75rem;font-size:.88rem;font-weight:600;cursor:pointer;font-family:var(--font-body);transition:all var(--transition)" onmouseover="this.style.borderColor='var(--ink-primary)';this.style.color='var(--ink-primary)'" onmouseout="this.style.borderColor='var(--ink-border)';this.style.color='var(--ink-muted)'">
+            <button type="button" class="comment-load-more">
               <i class="bi bi-plus-circle me-1"></i> 加载更多评论（21 条）
             </button>
           </div>
@@ -478,7 +478,7 @@ export function LikeButton({ postId, initialCount }: Props) {
       <div class="col-lg-4">
 
         <!-- TOC -->
-        <div class="ink-card ink-card-shadow sidebar-card mb-4" style="position: sticky; top: 80px;">
+        <div class="ink-card ink-card-shadow sidebar-card sidebar-card-sticky mb-4">
           <div class="sidebar-title"><i class="bi bi-list-nested u-text-primary"></i> 目录</div>
           <ul class="toc-list">
             <li><a href="#vite5" class="active">Vite 5：不只是更快</a></li>
@@ -487,8 +487,8 @@ export function LikeButton({ postId, initialCount }: Props) {
             <li><a href="#toolchain" class="">完整工具链总结</a></li>
             <li><a href="#conclusion" class="">结语</a></li>
           </ul>
-          <div style="margin-top:1.1rem;padding-top:1rem;border-top:1px solid var(--ink-border)">
-            <div style="font-size:.75rem;color:var(--ink-muted);display:flex;align-items:center;gap:.4rem"><i class="bi bi-clock"></i> 约 18 分钟阅读</div>
+          <div class="sidebar-reading-meta-wrap">
+            <div class="sidebar-reading-meta"><i class="bi bi-clock"></i> 约 18 分钟阅读</div>
           </div>
         </div>
 

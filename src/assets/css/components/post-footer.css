@@ -11,6 +11,11 @@
 }
 .reaction-btn:hover, .reaction-btn.active { border-color: var(--ink-primary); color: var(--ink-primary); background: rgba(var(--ink-primary-rgb),.07); }
 .reaction-btn .count { font-family: var(--font-mono); font-size: .8rem; }
+.reaction-read-count {
+  margin-left: auto;
+  color: var(--ink-muted);
+  font-size: .82rem;
+}
 .share-bar {
   display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;
   border: 1px solid var(--ink-border); border-radius: var(--radius-lg); padding: 1.25rem 1.5rem; margin: 2.5rem 0;
@@ -91,6 +96,7 @@
   transition: transform .5s cubic-bezier(.4,0,.2,1);
 }
 .related-post:hover .related-post-img { transform: scale(1.06); }
+.related-post-icon { font-size: 2.2rem; }
 .related-post-body { padding: 1.1rem 1.2rem; }
 .related-post-cat   {
   margin-bottom: .4rem;
@@ -116,7 +122,19 @@
   border: 1px solid var(--ink-border); border-radius: var(--radius-lg); padding: 1.35rem; margin-bottom: 1rem;
   background: var(--ink-card); box-shadow: var(--shadow-card);
 }
+.comment-item-author-reply {
+  border-left: 3px solid var(--ink-primary);
+  background: rgba(var(--ink-primary-rgb),.04);
+}
 .comment-author  { font-weight: 600; font-size: .9rem; color: var(--ink-heading); }
+.comment-author-badge {
+  border-radius: 99px;
+  padding: .1rem .5rem;
+  background: rgba(var(--ink-primary-rgb),.1);
+  color: var(--ink-primary);
+  font-size: .7rem;
+  font-weight: 600;
+}
 .comment-time    { font-size: .76rem; color: var(--ink-muted); }
 .comment-text    {
   margin-top: .5rem;
@@ -130,6 +148,22 @@
   cursor: pointer; transition: color var(--transition);
 }
 .comment-action:hover { color: var(--ink-primary); }
+.comment-load-more {
+  border: 1px solid var(--ink-border);
+  border-radius: var(--radius-md);
+  padding: .7rem 1.75rem;
+  background: var(--ink-card);
+  color: var(--ink-muted);
+  font-family: var(--font-body);
+  font-size: .88rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition);
+}
+.comment-load-more:hover {
+  border-color: var(--ink-primary);
+  color: var(--ink-primary);
+}
 
 /* Floating side actions */
 .floating-actions {
