@@ -1,9 +1,17 @@
 <div class="search-overlay" id="searchOverlay">
-  <button class="search-close" aria-label="关闭搜索" onclick="closeSearch()">
+  <button class="search-close" type="button" aria-label="关闭搜索" data-close-search>
     <i class="bi bi-x-lg"></i>
   </button>
   <div class="search-box">
     <div class="ink-input-wrap has-icon-left mb-4">
-      <i class="bi bi-search" style="font-size:1.3rem; color:rgba(255,255,255,.4);"></i>
+      <i class="bi bi-search search-input-icon"></i>
       <input type="text" class="ink-input ink-input-ghost ink-input-lg" id="searchInput" placeholder="搜索文章、标签、主题……" />
     </div>
+    <div class="search-tips">
+      <span class="search-tip">Vite</span>
+      <span class="search-tip">JavaScript</span>
+      <span class="search-tip">设计系统</span>
+      <span class="search-tip">AI</span>
+    </div>
+  </div>
+</div>

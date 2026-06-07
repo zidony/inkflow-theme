@@ -3,14 +3,23 @@ function initThemeToggle() {
   const icon = document.getElementById('themeIcon');
   if (!btn) return;
 
-  const savedTheme = localStorage.getItem('inkflow-theme') || 'light';
+  let savedTheme = 'light';
+  try {
+    savedTheme = localStorage.getItem('inkflow-theme') || 'light';
+  } catch (e) {
+    savedTheme = 'light';
+  }
   applyTheme(savedTheme, icon);
 
   btn.addEventListener('click', () => {
     const current = document.documentElement.getAttribute('data-bs-theme') || 'light';
     const next    = current === 'dark' ? 'light' : 'dark';
     applyTheme(next, icon);
-    localStorage.setItem('inkflow-theme', next);
+    try {
+      localStorage.setItem('inkflow-theme', next);
+    } catch (e) {
+      // Theme still applies for the current page even when storage is blocked.
+    }
     btn.style.transform = 'rotate(360deg)';
     setTimeout(() => { btn.style.transform = ''; }, 400);
   });

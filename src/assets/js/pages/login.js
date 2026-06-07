@@ -1,4 +1,5 @@
 import { showToast } from '../core/utils.js';
+import { inkflowAuth } from '../components/auth.js';
 
 function initAuthTabs() {
   const tabBtns = document.querySelectorAll('.auth-tab-btn');

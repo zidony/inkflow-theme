@@ -8,53 +8,7 @@
 
 <div class="reading-progress" id="readingProgress"></div>
 
-<!-- NAVBAR -->
-<nav class="ink-navbar navbar navbar-expand-lg" id="mainNavbar">
-  <div class="container">
-    <a class="navbar-brand" href="index.html">
-      INKFLOW<span class="brand-dot"></span>
-    </a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navMenu">
-      <ul class="navbar-nav mx-auto gap-1">
-        <li class="nav-item"><a class="nav-link" href="index.html">首页</a></li>
-        <li class="nav-item"><a class="nav-link" href="category-list.html">分类</a></li>
-        <li class="nav-item"><a class="nav-link" href="tag-list.html">标签</a></li>
-        <li class="nav-item"><a class="nav-link" href="archive-list.html">归档</a></li>
-        <li class="nav-item"><a class="nav-link" href="album-list.html">相册</a></li>
-        <li class="nav-item"><a class="nav-link" href="link-list.html">链接</a></li>
-        <li class="nav-item"><a class="nav-link" href="post-show.html">关于</a></li>
-      </ul>
-      <div class="d-flex align-items-center gap-2">
-        <button class="btn-nav-search" onclick="openSearch()">
-          <i class="bi bi-search me-1"></i> 搜索
-        </button>
-        <a href="login.html" class="ink-btn ink-btn-soft ink-btn-sm d-none" id="navLoginBtn">
-          <i class="bi bi-person me-1"></i> 登录
-        </a>
-        <div class="nav-user-wrapper" id="navUserWrapper">
-          <div class="ink-avatar ink-avatar-sm" id="navUserAvatar">陈</div>
-          <div class="nav-user-dropdown">
-            <div class="nav-user-dropdown-header">
-              <div class="nav-user-dropdown-name" id="navUserName">陈明远</div>
-              <div class="nav-user-dropdown-sub">个人主页</div>
-            </div>
-            <a href="profile.html" class="nav-user-dropdown-item"><i class="bi bi-person-circle"></i> 个人资料</a>
-            <a href="#" class="nav-user-dropdown-item"><i class="bi bi-bookmark"></i> 我的收藏</a>
-            <a href="#" class="nav-user-dropdown-item"><i class="bi bi-gear"></i> 账号设置</a>
-            <hr>
-            <a href="#" class="nav-user-dropdown-item danger" id="navLogoutBtn"><i class="bi bi-box-arrow-right"></i> 退出登录</a>
-          </div>
-        </div>
-        <button class="theme-toggle" id="themeToggle" title="切换主题">
-          <i class="bi bi-moon-stars-fill" id="themeIcon"></i>
-        </button>
-      </div>
-    </div>
-  </div>
-</nav>
+{{> navbar }}
 
 <!-- PROFILE HERO -->
 <div class="profile-hero">
@@ -154,13 +108,13 @@
           <div class="d-flex align-items-center justify-content-between mb-0">
             <div class="profile-section-title border-0 p-0 mb-0">基本信息</div>
             <div data-view-actions="basic" class="d-flex gap-2">
-              <button class="ink-btn ink-btn-soft ink-btn-sm" data-profile-edit="basic">
+              <button type="button" class="ink-btn ink-btn-soft ink-btn-sm" data-profile-edit="basic">
                 <i class="bi bi-pencil me-1"></i> 编辑
               </button>
             </div>
             <div data-edit-actions="basic" class="d-none gap-2">
-              <button class="ink-btn ink-btn-white ink-btn-sm" data-profile-cancel="basic">取消</button>
-              <button class="ink-btn ink-btn-soft ink-btn-sm" data-profile-save="basic">
+              <button type="button" class="ink-btn ink-btn-white ink-btn-sm" data-profile-cancel="basic">取消</button>
+              <button type="button" class="ink-btn ink-btn-soft ink-btn-sm" data-profile-save="basic">
                 <i class="bi bi-check-lg me-1"></i> 保存
               </button>
             </div>
@@ -207,13 +161,13 @@
           <div class="d-flex align-items-center justify-content-between mb-0">
             <div class="profile-section-title border-0 p-0 mb-0">账号安全</div>
             <div data-view-actions="account" class="d-flex gap-2">
-              <button class="ink-btn ink-btn-soft ink-btn-sm" data-profile-edit="account">
+              <button type="button" class="ink-btn ink-btn-soft ink-btn-sm" data-profile-edit="account">
                 <i class="bi bi-pencil me-1"></i> 修改
               </button>
             </div>
             <div data-edit-actions="account" class="d-none gap-2">
-              <button class="ink-btn ink-btn-white ink-btn-sm" data-profile-cancel="account">取消</button>
-              <button class="ink-btn ink-btn-soft ink-btn-sm" data-profile-save="account">
+              <button type="button" class="ink-btn ink-btn-white ink-btn-sm" data-profile-cancel="account">取消</button>
+              <button type="button" class="ink-btn ink-btn-soft ink-btn-sm" data-profile-save="account">
                 <i class="bi bi-check-lg me-1"></i> 保存
               </button>
             </div>
@@ -301,7 +255,7 @@
             </div>
           </div>
           <div class="mt-3">
-            <button class="ink-btn ink-btn-soft" onclick="showToast('通知设置已保存 ✓')">
+            <button type="button" class="ink-btn ink-btn-soft" onclick="showToast('通知设置已保存 ✓')">
               <i class="bi bi-check-lg me-1"></i> 保存偏好
             </button>
           </div>
@@ -317,7 +271,7 @@
               <div class="fw-semibold mb-1">注销账号</div>
               <div class="text-muted small">永久删除账号及所有数据，此操作不可撤销</div>
             </div>
-            <button class="ink-btn ink-btn-danger" onclick="confirmDelete()">
+            <button type="button" class="ink-btn ink-btn-danger" onclick="confirmDelete()">
               <i class="bi bi-trash me-1"></i> 注销账号
             </button>
           </div>
@@ -329,87 +283,11 @@
 </main>
 
 <!-- FOOTER -->
-<footer class="site-footer">
-  <div class="container">
-    <div class="row g-5">
-      <div class="col-lg-4">
-        <div class="footer-brand">INKFLOW<span class="brand-dot"></span></div>
-        <p class="footer-tagline">一个关于技术、设计与人文的独立博客。这里是我数字世界的根据地。</p>
-        <div class="d-flex gap-2">
-          <div class="social-btn-footer" title="Twitter / X"><i class="bi bi-twitter-x"></i></div>
-          <div class="social-btn-footer" title="GitHub"><i class="bi bi-github"></i></div>
-          <div class="social-btn-footer" title="LinkedIn"><i class="bi bi-linkedin"></i></div>
-          <div class="social-btn-footer" title="RSS"><i class="bi bi-rss-fill"></i></div>
-        </div>
-      </div>
-      <div class="col-6 col-md-3 col-lg-2">
-        <div class="footer-heading">内容分类</div>
-        <ul class="footer-links">
-          <li><a href="post-list.html"><i class="bi bi-cpu"></i> 技术开发</a></li>
-          <li><a href="post-list.html"><i class="bi bi-palette2"></i> UI 设计</a></li>
-          <li><a href="post-list.html"><i class="bi bi-rocket-takeoff"></i> 产品思维</a></li>
-          <li><a href="post-list.html"><i class="bi bi-robot"></i> AI 探索</a></li>
-          <li><a href="post-list.html"><i class="bi bi-feather"></i> 生活随笔</a></li>
-        </ul>
-      </div>
-      <div class="col-6 col-md-3 col-lg-2">
-        <div class="footer-heading">快速链接</div>
-        <ul class="footer-links">
-          <li><a href="index.html"><i class="bi bi-house"></i> 首页</a></li>
-          <li><a href="category-list.html"><i class="bi bi-grid"></i> 分类</a></li>
-          <li><a href="tag-list.html"><i class="bi bi-tags"></i> 标签</a></li>
-          <li><a href="archive-list.html"><i class="bi bi-archive"></i> 归档</a></li>
-          <li><a href="post-show.html"><i class="bi bi-person-circle"></i> 关于</a></li>
-        </ul>
-      </div>
-      <div class="col-md-6 col-lg-4">
-        <div class="footer-heading">最新动态</div>
-        <div class="d-flex flex-column gap-3">
-          <div class="footer-recent-item">
-            <div class="footer-recent-title">2025 年前端开发的终极工具链</div>
-            <div class="footer-recent-meta">2月28日 · 18 分钟</div>
-          </div>
-          <div class="footer-recent-item">
-            <div class="footer-recent-title">本地部署 LLM：Ollama + Open WebUI</div>
-            <div class="footer-recent-meta">2月15日 · 15 分钟</div>
-          </div>
-          <div class="footer-recent-item border-0 pb-0">
-            <div class="footer-recent-title">设计系统的本质：语义化 Token 体系</div>
-            <div class="footer-recent-meta">2月20日 · 12 分钟</div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <hr class="footer-divider" />
-    <div class="footer-bottom">
-      <div class="footer-copy">
-        © 2025 <span>INKFLOW</span> · 陈明远 · 保留所有权利
-      </div>
-      <div class="footer-badges">
-        <span class="footer-badge">BS v5.3</span>
-        <span class="footer-badge">BI v1.13</span>
-        <span class="footer-badge">CC BY 4.0</span>
-      </div>
-    </div>
-  </div>
-</footer>
 
-<!-- SEARCH OVERLAY -->
-<div class="search-overlay" id="searchOverlay">
-  <button class="search-close" onclick="closeSearch()"><i class="bi bi-x-lg"></i></button>
-  <div class="search-box">
-    <div class="search-input-wrap">
-      <i class="bi bi-search"></i>
-      <input type="text" class="ink-input ink-input-ghost ink-input-lg" placeholder="搜索文章…" />
-    </div>
-    <div class="search-tips">
-      <span class="search-tip">Vite 5</span><span class="search-tip">React</span><span class="search-tip">设计系统</span>
-    </div>
-  </div>
-</div>
-<button class="back-to-top" id="backToTop"><i class="bi bi-chevron-up"></i></button>
+{{> footer }}
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
-<script type="module" src="/assets/js/inkflow.js"></script>
+{{> search }}
+{{> back-to-top }}
+{{> scripts }}
 </body>
 </html>

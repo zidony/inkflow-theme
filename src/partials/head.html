@@ -4,7 +4,12 @@
   <!-- 1. Theme Check (Run instantly to prevent Flash of Unstyled Content) -->
   <script id="inkflow-theme-check">
     (function() {
-      var savedTheme = localStorage.getItem('inkflow-theme') || 'light';
+      var savedTheme = 'light';
+      try {
+        savedTheme = localStorage.getItem('inkflow-theme') || 'light';
+      } catch (e) {
+        savedTheme = 'light';
+      }
       document.documentElement.setAttribute('data-bs-theme', savedTheme);
     })();
   </script>

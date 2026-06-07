@@ -2,7 +2,7 @@
 
 > A modern frontend theme template tailored for independent blogs, fully embracing Vite engineering, out-of-the-box ready.
 
-![Version](https://img.shields.io/badge/version-3.1.0-green)
+![Version](https://img.shields.io/badge/version-3.2.0-green)
 ![Bootstrap](https://img.shields.io/badge/Bootstrap-5.3.8-7952b3)
 ![Bootstrap Icons](https://img.shields.io/badge/Bootstrap%20Icons-1.13.1-7952b3)
 ![License](https://img.shields.io/badge/license-CC%20BY%204.0-blue)
@@ -18,7 +18,7 @@
 
 ---
 
-## ✨ Core Philosophy (v3.0 Modern Engineering Architecture)
+## ✨ Core Philosophy (v3.2 Production Engineering Architecture)
 
 INKFLOW uses "flowing ink" as its visual metaphor, pursuing a **content-first, restrained yet refined** design language. The primary color is a deep forest green (`#0a6640`), paired with the Playfair Display serif font for headings and DM Sans sans-serif for body text, striking a balance between technical precision and humanistic elegance.
 
@@ -45,14 +45,20 @@ inkflow-theme/
 ├── profile.html           # User Profile
 ├── login.html             # Login/Register
 ├── src/                   # (v3.0 New) Modern modular source directory
-│   ├── css/
-│   │   ├── main.css       # Main stylesheet entry
-│   │   ├── variables.css  # Theme variables & Bootstrap overrides
-│   │   └── components/    # BEM componentized CSS split directory
-│   └── js/
-│       └── main.js        # Modern ES Module script entry
+│   ├── assets/
+│   │   ├── css/
+│   │   │   ├── main.css   # Main stylesheet entry
+│   │   │   ├── base/      # Design tokens, Bootstrap overrides, typography
+│   │   │   ├── components/# BEM component styles
+│   │   │   └── pages/     # Page-level styles
+│   │   └── js/
+│   │       ├── inkflow.js # Modern ES Module script entry
+│   │       ├── core/      # Global primitives
+│   │       ├── components/# Reusable component behavior
+│   │       └── pages/     # Page-level behavior
+│   └── partials/          # Shared head/navbar/footer/search/scripts fragments
 ├── dist/                  # (v3.0 New) Production build output (for deployment)
-└── vite.config.js         # (v3.0 New) Vite engineering configuration
+└── vite.config.mjs        # Vite engineering configuration
 ```
 
 ---
@@ -61,7 +67,7 @@ inkflow-theme/
 
 | Dependency | Version | Purpose |
 |------------|---------|---------|
-| [Vite](https://vitejs.dev/) | 5.4.x | v3.0 New underlying build tool |
+| [Vite](https://vitejs.dev/) | 8.0.x | Underlying build tool |
 | [Bootstrap](https://getbootstrap.com/) | 5.3.8 | Responsive grid, base components |
 | [Bootstrap Icons](https://icons.getbootstrap.com/) | 1.13.1 | Sitewide iconography |
 | [Playfair Display](https://fonts.google.com/specimen/Playfair+Display) | Google Fonts | Heading font |
@@ -198,13 +204,16 @@ npm run dev
 # Build optimized production code (Outputs highly compressed CSS/JS to dist/)
 npm run build
 
+# Pre-release quality check: ESLint + production build
+npm run check
+
 # One-click automated release (Generates a clean zip archive in root, filtering out source code)
 npm run release
 ```
 
 ### Deploy to Static Platforms
 
-Because `vite.config.js` is configured with `base: './'`, you can directly host the generated `dist/` directory on any static platform (GitHub Pages / Vercel / Netlify).
+Because `vite.config.mjs` is configured with `base: './'`, you can directly host the generated `dist/` directory on any static platform (GitHub Pages / Vercel / Netlify).
 **Highly Recommended:** We have pre-configured `.github/workflows/deploy.yml`. You only need to push code to the repository's `main` branch, and GitHub will automatically deploy your site online!
 
 ---

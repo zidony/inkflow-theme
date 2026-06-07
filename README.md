@@ -2,7 +2,7 @@
 
 > 一套面向独立博客的现代化前端主题模板，全面拥抱 Vite 工程化，开箱即用。
 
-![Version](https://img.shields.io/badge/version-3.1.0-green)
+![Version](https://img.shields.io/badge/version-3.2.0-green)
 ![Bootstrap](https://img.shields.io/badge/Bootstrap-5.3.8-7952b3)
 ![Bootstrap Icons](https://img.shields.io/badge/Bootstrap%20Icons-1.13.1-7952b3)
 ![License](https://img.shields.io/badge/license-CC%20BY%204.0-blue)
@@ -18,7 +18,7 @@
 
 ---
 
-## ✨ 核心理念 (v3.1 现代工程化架构)
+## ✨ 核心理念 (v3.2 生产工程化架构)
 
 INKFLOW 以「墨水流动」为意象，追求**内容优先、克制而精致**的视觉语言。主色调采用深林绿（`#0a6640`），搭配 Playfair Display 衬线标题字体与 DM Sans 无衬线正文字体，在技术感与人文气质之间取得平衡。
 
@@ -45,14 +45,20 @@ inkflow-theme/
 ├── profile.html           # 个人资料页
 ├── login.html             # 登录/注册页
 ├── src/                   # v3.0 新增：现代模块化源码目录
-│   ├── css/
-│   │   ├── main.css       # 样式主入口
-│   │   ├── variables.css  # 主题变量与 Bootstrap 覆盖
-│   │   └── components/    # BEM 组件化样式拆分目录
-│   └── js/
-│       └── main.js        # 现代 ES Module 脚本入口
+│   ├── assets/
+│   │   ├── css/
+│   │   │   ├── main.css   # 样式主入口
+│   │   │   ├── base/      # 设计变量、Bootstrap 覆盖与基础排版
+│   │   │   ├── components/# BEM 组件化样式
+│   │   │   └── pages/     # 页面级样式
+│   │   └── js/
+│   │       ├── inkflow.js # 现代 ES Module 脚本入口
+│   │       ├── core/      # 全局基础能力
+│   │       ├── components/# 可复用组件行为
+│   │       └── pages/     # 页面级行为
+│   └── partials/          # head/navbar/footer/search/scripts 等公共片段
 ├── dist/                  # v3.0 新增：生产构建输出目录 (部署用)
-└── vite.config.js         # v3.0 新增：Vite 工程化配置
+└── vite.config.mjs        # Vite 工程化配置
 ```
 
 ---
@@ -61,7 +67,7 @@ inkflow-theme/
 
 | 依赖 | 版本 | 用途 |
 |------|------|------|
-| [Vite](https://vitejs.dev/) | 5.4.x | v3.0 新增底层构建基座 |
+| [Vite](https://vitejs.dev/) | 8.0.x | 底层构建基座 |
 | [Bootstrap](https://getbootstrap.com/) | 5.3.8 | 响应式栅格、组件基础 |
 | [Bootstrap Icons](https://icons.getbootstrap.com/) | 1.13.1 | 全站图标 |
 | [Playfair Display](https://fonts.google.com/specimen/Playfair+Display) | Google Fonts | 标题字体 |
@@ -210,13 +216,16 @@ npm run dev
 # 构建优化过的生产级代码 (极致压缩的 CSS/JS 输出到 dist/)
 npm run build
 
+# 发版前质量检查：ESLint + 生产构建
+npm run check
+
 # 一键自动化发版 (提取 dist 生成无源码污染的 zip 压缩包)
 npm run release
 ```
 
 ### 部署到静态平台
 
-因为项目中配置了 `vite.config.js` 的 `base: './'`，您可以直接将生成的 `dist/` 目录上传至任意静态平台（GitHub Pages / Vercel / Netlify）。
+因为项目中配置了 `vite.config.mjs` 的 `base: './'`，您可以直接将生成的 `dist/` 目录上传至任意静态平台（GitHub Pages / Vercel / Netlify）。
 **强烈建议：** 我们已配置好 `.github/workflows/deploy.yml`，只需向仓库 `main` 分支 push 代码，GitHub 即可全自动将页面部署上线。
 
 ---

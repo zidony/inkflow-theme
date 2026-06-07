@@ -10,7 +10,11 @@ const inkflowAuth = {
     if (avatar)    avatar.textContent      = user.initial || user.name.charAt(0);
     if (userName)  userName.textContent    = user.name;
 
-    localStorage.setItem('inkflow-user', JSON.stringify(user));
+    try {
+      localStorage.setItem('inkflow-user', JSON.stringify(user));
+    } catch (e) {
+      // Storage may be unavailable in restricted browser contexts.
+    }
   },
 
   logout() {
@@ -20,11 +24,20 @@ const inkflowAuth = {
     if (loginBtn)  loginBtn.style.display = '';
     if (userWrap)  userWrap.style.display = 'none';
 
-    localStorage.removeItem('inkflow-user');
+    try {
+      localStorage.removeItem('inkflow-user');
+    } catch (e) {
+      // Ignore storage failures; the visible UI has already been reset.
+    }
   },
 
   restore() {
-    const raw = localStorage.getItem('inkflow-user');
+    let raw = null;
+    try {
+      raw = localStorage.getItem('inkflow-user');
+    } catch (e) {
+      return;
+    }
     if (raw) {
       try { this.setUser(JSON.parse(raw)); } catch (e) { /* ignore */ }
     }
@@ -52,4 +65,4 @@ function initUserAuth() {
     });
   }
 }
-export { initUserAuth };
+export { inkflowAuth, initUserAuth };

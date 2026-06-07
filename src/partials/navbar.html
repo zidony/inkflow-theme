@@ -8,16 +8,16 @@
     </button>
     <div class="collapse navbar-collapse" id="navMenu">
       <ul class="navbar-nav mx-auto gap-1">
-        <li class="nav-item"><a class="nav-link active" href="index.html">首页</a></li>
-        <li class="nav-item"><a class="nav-link" href="category-list.html">分类</a></li>
-        <li class="nav-item"><a class="nav-link" href="tag-list.html">标签</a></li>
-        <li class="nav-item"><a class="nav-link" href="archive-list.html">归档</a></li>
-        <li class="nav-item"><a class="nav-link" href="album-list.html">相册</a></li>
-        <li class="nav-item"><a class="nav-link" href="link-list.html">链接</a></li>
-        <li class="nav-item"><a class="nav-link" href="post-show.html">关于</a></li>
+        <li class="nav-item"><a class="nav-link" href="index.html" data-nav-page="index.html">首页</a></li>
+        <li class="nav-item"><a class="nav-link" href="category-list.html" data-nav-page="category-list.html">分类</a></li>
+        <li class="nav-item"><a class="nav-link" href="tag-list.html" data-nav-page="tag-list.html">标签</a></li>
+        <li class="nav-item"><a class="nav-link" href="archive-list.html" data-nav-page="archive-list.html">归档</a></li>
+        <li class="nav-item"><a class="nav-link" href="album-list.html" data-nav-page="album-list.html">相册</a></li>
+        <li class="nav-item"><a class="nav-link" href="link-list.html" data-nav-page="link-list.html">链接</a></li>
+        <li class="nav-item"><a class="nav-link" href="post-show.html" data-nav-page="post-show.html">关于</a></li>
       </ul>
       <div class="d-flex align-items-center gap-2">
-        <button class="btn-nav-search" onclick="openSearch()">
+        <button class="btn-nav-search" type="button" data-open-search>
           <i class="bi bi-search me-1"></i>搜索
         </button>
         <a href="login.html" class="ink-btn ink-btn-soft ink-btn-sm py-2" id="navLoginBtn">
@@ -37,7 +37,7 @@
             <a href="#" class="nav-user-dropdown-item danger" id="navLogoutBtn"><i class="bi bi-box-arrow-right"></i> 退出登录</a>
           </div>
         </div>
-        <button class="theme-toggle" id="themeToggle" title="切换主题" aria-label="切换深色与浅色主题">
+        <button class="theme-toggle" id="themeToggle" type="button" title="切换主题" aria-label="切换深色与浅色主题">
           <i class="bi bi-moon-stars-fill" id="themeIcon"></i>
         </button>
       </div>

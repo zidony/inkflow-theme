@@ -19,7 +19,8 @@ export default defineConfig({
     }), */
   ],
   build: {
-    minify: false,
+    minify: 'esbuild',
+    cssMinify: true,
     rollupOptions: {
       input: {
         index: resolve(srcDir, 'index.html'),

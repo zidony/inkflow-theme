@@ -50,12 +50,12 @@ function initViewToggle() {
 function initKeyboard() {
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
-      closeSearch();
-      closeLightbox();
+      window.closeSearch?.();
+      window.closeLightbox?.();
     }
     if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
       e.preventDefault();
-      openSearch();
+      window.openSearch?.();
     }
   });
 }
