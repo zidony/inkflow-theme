@@ -1,11 +1,12 @@
-<div class="search-overlay" id="searchOverlay">
-  <button class="search-close" type="button" aria-label="关闭搜索" data-close-search>
+<div class="search-overlay" id="searchOverlay" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="searchTitle">
+  <button class="search-close" type="button" aria-label="关闭搜索" aria-controls="searchOverlay" data-close-search>
     <i class="bi bi-x-lg"></i>
   </button>
   <div class="search-box">
+    <h2 class="visually-hidden" id="searchTitle">站内搜索</h2>
     <div class="ink-input-wrap has-icon-left mb-4">
       <i class="bi bi-search search-input-icon"></i>
-      <input type="text" class="ink-input ink-input-ghost ink-input-lg" id="searchInput" placeholder="搜索文章、标签、主题……" />
+      <input type="text" class="ink-input ink-input-ghost ink-input-lg" id="searchInput" aria-label="搜索文章、标签、主题" placeholder="搜索文章、标签、主题……" />
     </div>
     <div class="search-tips">
       <span class="search-tip">Vite</span>

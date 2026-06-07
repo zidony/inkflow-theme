@@ -1,5 +1,7 @@
 import { initOnce } from '../core/utils.js';
 
+let lightboxLastFocused = null;
+
 const LIGHTBOX_DATA = {
   kyoto: {
     icon: 'bi-tree-fill',
@@ -78,6 +80,7 @@ function filterAlbum(el, cat) {
 function openLightbox(key) {
   const lb = document.getElementById('lightbox');
   if (!lb) return;
+  lightboxLastFocused = document.activeElement instanceof HTMLElement ? document.activeElement : null;
 
   const data  = LIGHTBOX_DATA[key] || {};
   const imgEl = document.getElementById('lbImg');
@@ -90,14 +93,21 @@ function openLightbox(key) {
   if (capEl) capEl.textContent = data.caption || data.cap || '';
 
   lb.classList.add('active');
+  lb.setAttribute('aria-hidden', 'false');
   document.body.classList.add('is-scroll-locked');
+  lb.querySelector('.lb-close')?.focus();
 }
 
 function closeLightbox(e) {
   if (e && e.target !== document.getElementById('lightbox') && !e.target.closest('.lb-close')) return;
   const lb = document.getElementById('lightbox');
-  if (lb) lb.classList.remove('active');
+  const wasActive = lb?.classList.contains('active');
+  if (lb) {
+    lb.classList.remove('active');
+    lb.setAttribute('aria-hidden', 'true');
+  }
   document.body.classList.remove('is-scroll-locked');
+  if (wasActive && lightboxLastFocused?.isConnected) lightboxLastFocused.focus();
 }
 
 function initLightbox() {
@@ -121,6 +131,14 @@ function initLightbox() {
     if (e.target === lb || e.target.closest('[data-lightbox-close]')) {
       closeLightbox(e);
     }
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key !== 'Enter' && e.key !== ' ') return;
+    const lightboxTrigger = e.target.closest('[data-lightbox-key]');
+    if (!lightboxTrigger) return;
+    e.preventDefault();
+    openLightbox(lightboxTrigger.dataset.lightboxKey);
   });
 }
 export { closeLightbox, initLightbox };
