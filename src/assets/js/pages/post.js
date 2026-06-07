@@ -71,23 +71,30 @@ function initReactions() {
 }
 
 function initPostActions() {
-  const article = document.getElementById('articleBody') || document.body;
-  if (!initOnce(article, 'postActions')) return;
+  const root = document.querySelector('#comments')?.closest('.col-lg-8') || document.body;
+  if (!initOnce(root, 'postActions')) return;
 
-  document.querySelectorAll('[data-toggle-react]').forEach(btn => {
-    btn.addEventListener('click', () => toggleReact(btn));
-  });
+  document.addEventListener('click', (e) => {
+    const reactBtn = e.target.closest('[data-toggle-react]');
+    if (reactBtn) {
+      toggleReact(reactBtn);
+      return;
+    }
 
-  document.querySelectorAll('[data-copy-code]').forEach(btn => {
-    btn.addEventListener('click', () => copyCode(btn));
-  });
+    const copyCodeBtn = e.target.closest('[data-copy-code]');
+    if (copyCodeBtn) {
+      copyCode(copyCodeBtn);
+      return;
+    }
 
-  document.querySelectorAll('[data-copy-link]').forEach(btn => {
-    btn.addEventListener('click', copyLink);
-  });
+    if (e.target.closest('[data-copy-link]')) {
+      copyLink();
+      return;
+    }
 
-  document.querySelectorAll('[data-scroll-comments]').forEach(btn => {
-    btn.addEventListener('click', scrollToComments);
+    if (e.target.closest('[data-scroll-comments]')) {
+      scrollToComments();
+    }
   });
 }
 

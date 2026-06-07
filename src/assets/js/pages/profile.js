@@ -4,17 +4,24 @@ function initProfileEdit() {
   const root = document.querySelector('[data-profile-section]');
   if (!initOnce(root || document.body, 'profileEdit')) return;
 
-  document.querySelectorAll('[data-profile-edit]').forEach(btn => {
-    btn.addEventListener('click', () => enableEdit(btn.dataset.profileEdit, true));
-  });
-  document.querySelectorAll('[data-profile-cancel]').forEach(btn => {
-    btn.addEventListener('click', () => enableEdit(btn.dataset.profileCancel, false));
-  });
-  document.querySelectorAll('[data-profile-save]').forEach(btn => {
-    btn.addEventListener('click', () => {
+  document.addEventListener('click', (e) => {
+    const editBtn = e.target.closest('[data-profile-edit]');
+    if (editBtn) {
+      enableEdit(editBtn.dataset.profileEdit, true);
+      return;
+    }
+
+    const cancelBtn = e.target.closest('[data-profile-cancel]');
+    if (cancelBtn) {
+      enableEdit(cancelBtn.dataset.profileCancel, false);
+      return;
+    }
+
+    const saveBtn = e.target.closest('[data-profile-save]');
+    if (saveBtn) {
       showToast('保存成功 ✓');
-      enableEdit(btn.dataset.profileSave, false);
-    });
+      enableEdit(saveBtn.dataset.profileSave, false);
+    }
   });
 }
 
@@ -41,8 +48,8 @@ function initAvatarUpload() {
   const preview = document.getElementById('profileAvatarEl');
   if (!input || !preview || !initOnce(input, 'avatarUpload')) return;
 
-  document.querySelectorAll('[data-avatar-trigger]').forEach(btn => {
-    btn.addEventListener('click', () => input.click());
+  document.addEventListener('click', (e) => {
+    if (e.target.closest('[data-avatar-trigger]')) input.click();
   });
 
   input.addEventListener('change', () => {
@@ -62,19 +69,22 @@ function initProfileActions() {
   const root = document.querySelector('[data-profile-section]');
   if (!initOnce(root || document.body, 'profileActions')) return;
 
-  document.querySelectorAll('[data-scroll-section]').forEach(link => {
-    link.addEventListener('click', (e) => {
+  document.addEventListener('click', (e) => {
+    const sectionLink = e.target.closest('[data-scroll-section]');
+    if (sectionLink) {
       e.preventDefault();
-      scrollToSection(link.dataset.scrollSection);
-    });
-  });
+      scrollToSection(sectionLink.dataset.scrollSection);
+      return;
+    }
 
-  document.querySelectorAll('[data-save-notify]').forEach(btn => {
-    btn.addEventListener('click', () => showToast('通知设置已保存 ✓'));
-  });
+    if (e.target.closest('[data-save-notify]')) {
+      showToast('通知设置已保存 ✓');
+      return;
+    }
 
-  document.querySelectorAll('[data-confirm-delete]').forEach(btn => {
-    btn.addEventListener('click', confirmDelete);
+    if (e.target.closest('[data-confirm-delete]')) {
+      confirmDelete();
+    }
   });
 
   const tfaSwitch = document.getElementById('tfaSwitch');
