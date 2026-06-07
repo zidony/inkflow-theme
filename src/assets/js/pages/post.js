@@ -1,3 +1,5 @@
+import { copyText } from '../core/utils.js';
+
 function initReadingProgress() {
   const bar = document.getElementById('readingProgress');
   if (!bar) return;
@@ -95,21 +97,33 @@ function copyCode(btn) {
   const code = btn.closest('pre')?.querySelector('code');
   if (!code) return;
 
-  navigator.clipboard.writeText(code.textContent).then(() => {
-    const orig = btn.innerHTML;
-    btn.innerHTML = '<i class="bi bi-check-lg me-1"></i>已复制';
-    setTimeout(() => { btn.innerHTML = orig; }, 1500);
-  });
+  const orig = btn.innerHTML;
+  copyText(code.textContent)
+    .then(() => {
+      btn.innerHTML = '<i class="bi bi-check-lg me-1"></i>已复制';
+    })
+    .catch(() => {
+      btn.innerHTML = '<i class="bi bi-exclamation-triangle me-1"></i>复制失败';
+    })
+    .finally(() => {
+      setTimeout(() => { btn.innerHTML = orig; }, 1500);
+    });
 }
 
 function copyLink() {
-  navigator.clipboard.writeText(window.location.href).then(() => {
-    const btn = document.querySelector('.share-btn.link-copy');
-    if (!btn) return;
-    const orig = btn.innerHTML;
-    btn.innerHTML = '<i class="bi bi-check-lg me-1"></i> 已复制';
-    setTimeout(() => { btn.innerHTML = orig; }, 1500);
-  });
+  const btn = document.querySelector('.share-btn.link-copy');
+  if (!btn) return;
+  const orig = btn.innerHTML;
+  copyText(window.location.href)
+    .then(() => {
+      btn.innerHTML = '<i class="bi bi-check-lg me-1"></i> 已复制';
+    })
+    .catch(() => {
+      btn.innerHTML = '<i class="bi bi-exclamation-triangle me-1"></i> 复制失败';
+    })
+    .finally(() => {
+      setTimeout(() => { btn.innerHTML = orig; }, 1500);
+    });
 }
 
 function scrollToComments() {

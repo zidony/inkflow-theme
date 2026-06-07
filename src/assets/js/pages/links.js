@@ -1,4 +1,4 @@
-import { showToast } from '../core/utils.js';
+import { copyText, showToast } from '../core/utils.js';
 
 function filterLinks(el, cat) {
   document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
@@ -25,9 +25,9 @@ function copySiteInfo() {
     '介绍：关于技术、设计与人文的独立博客',
   ].join('\n');
 
-  navigator.clipboard?.writeText(text).then(() => {
-    showToast('站点信息已复制');
-  });
+  copyText(text)
+    .then(() => showToast('站点信息已复制'))
+    .catch(() => showToast('复制失败，请手动复制', 'error'));
 }
 
 function initLinksPage() {

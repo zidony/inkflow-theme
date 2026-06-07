@@ -15,3 +15,29 @@ export function showToast(message, type = 'success') {
     setTimeout(() => toast.remove(), 300);
   }, 2200);
 }
+
+export async function copyText(text) {
+  if (navigator.clipboard?.writeText) {
+    try {
+      await navigator.clipboard.writeText(text);
+      return;
+    } catch (e) {
+      // Fall back for insecure contexts or denied clipboard permissions.
+    }
+  }
+
+  const textarea = document.createElement('textarea');
+  textarea.value = text;
+  textarea.setAttribute('readonly', '');
+  textarea.className = 'visually-hidden';
+  document.body.appendChild(textarea);
+  textarea.select();
+
+  try {
+    if (!document.execCommand('copy')) {
+      throw new Error('Clipboard copy command failed');
+    }
+  } finally {
+    textarea.remove();
+  }
+}

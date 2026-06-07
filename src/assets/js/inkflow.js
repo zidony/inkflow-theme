@@ -42,6 +42,9 @@ const pageModules = [
 ];
 
 function initPage() {
+  if (document.documentElement.dataset.inkflowInitialized === 'true') return;
+  document.documentElement.dataset.inkflowInitialized = 'true';
+
   // 1. Run global UI modules
   staticModules.forEach(({ selector, init }) => {
     if (document.querySelector(selector)) {
