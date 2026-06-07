@@ -1,8 +1,8 @@
-import { copyText } from '../core/utils.js';
+import { copyText, initOnce } from '../core/utils.js';
 
 function initReadingProgress() {
   const bar = document.getElementById('readingProgress');
-  if (!bar) return;
+  if (!bar || !initOnce(bar, 'readingProgress')) return;
 
   function updateProgress() {
     const doc = document.documentElement;
@@ -17,7 +17,8 @@ function initReadingProgress() {
 function initTocSpy() {
   const tocLinks = document.querySelectorAll('.toc-list a');
   const headings = document.querySelectorAll('h2[id], h3[id]');
-  if (!tocLinks.length || !headings.length) return;
+  const tocRoot = document.querySelector('.toc-list');
+  if (!tocLinks.length || !headings.length || !initOnce(tocRoot, 'tocSpy')) return;
 
   const activeClass = 'active';
   let currentActive = null;
@@ -48,7 +49,7 @@ function initTocSpy() {
 function initReactions() {
   const likeBtn   = document.getElementById('likeBtn');
   const likeCount = document.getElementById('likeCount');
-  if (likeBtn && likeCount) {
+  if (likeBtn && likeCount && initOnce(likeBtn, 'reactionLike')) {
     let liked = false;
     likeBtn.addEventListener('click', () => {
       liked = !liked;
@@ -70,6 +71,9 @@ function initReactions() {
 }
 
 function initPostActions() {
+  const article = document.getElementById('articleBody') || document.body;
+  if (!initOnce(article, 'postActions')) return;
+
   document.querySelectorAll('[data-toggle-react]').forEach(btn => {
     btn.addEventListener('click', () => toggleReact(btn));
   });

@@ -1,3 +1,5 @@
+import { initOnce } from '../core/utils.js';
+
 const LIGHTBOX_DATA = {
   kyoto: {
     icon: 'bi-tree-fill',
@@ -100,7 +102,7 @@ function closeLightbox(e) {
 
 function initLightbox() {
   const lb = document.getElementById('lightbox');
-  if (!lb) return;
+  if (!lb || !initOnce(lb, 'lightbox')) return;
 
   document.querySelectorAll('[data-album-filter]').forEach(tab => {
     tab.addEventListener('click', () => filterAlbum(tab, tab.dataset.albumFilter));

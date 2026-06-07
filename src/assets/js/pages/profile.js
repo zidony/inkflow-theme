@@ -1,6 +1,9 @@
-import { showToast } from '../core/utils.js';
+import { initOnce, showToast } from '../core/utils.js';
 
 function initProfileEdit() {
+  const root = document.querySelector('[data-profile-section]');
+  if (!initOnce(root || document.body, 'profileEdit')) return;
+
   document.querySelectorAll('[data-profile-edit]').forEach(btn => {
     btn.addEventListener('click', () => enableEdit(btn.dataset.profileEdit, true));
   });
@@ -36,7 +39,7 @@ function enableEdit(section, enable) {
 function initAvatarUpload() {
   const input   = document.getElementById('avatarInput');
   const preview = document.getElementById('profileAvatarEl');
-  if (!input || !preview) return;
+  if (!input || !preview || !initOnce(input, 'avatarUpload')) return;
 
   document.querySelectorAll('[data-avatar-trigger]').forEach(btn => {
     btn.addEventListener('click', () => input.click());
@@ -56,6 +59,9 @@ function initAvatarUpload() {
 }
 
 function initProfileActions() {
+  const root = document.querySelector('[data-profile-section]');
+  if (!initOnce(root || document.body, 'profileActions')) return;
+
   document.querySelectorAll('[data-scroll-section]').forEach(link => {
     link.addEventListener('click', (e) => {
       e.preventDefault();

@@ -1,5 +1,9 @@
+import { initOnce } from '../core/utils.js';
+
 function initSearch() {
   const overlay = document.getElementById('searchOverlay');
+  if (!overlay || !initOnce(overlay, 'search')) return;
+
   document.querySelectorAll('[data-open-search]').forEach(btn => {
     btn.addEventListener('click', openSearch);
   });
@@ -12,11 +16,9 @@ function initSearch() {
       if (input) input.value = tip.textContent.trim();
     });
   });
-  if (overlay) {
-    overlay.addEventListener('click', (e) => {
-      if (e.target === overlay) closeSearch();
-    });
-  }
+  overlay.addEventListener('click', (e) => {
+    if (e.target === overlay) closeSearch();
+  });
 }
 
 function openSearch() {

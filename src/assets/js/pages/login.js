@@ -1,9 +1,10 @@
-import { showToast } from '../core/utils.js';
+import { initOnce, showToast } from '../core/utils.js';
 import { inkflowAuth } from '../components/auth.js';
 
 function initAuthTabs() {
   const tabBtns = document.querySelectorAll('.auth-tab-btn');
-  if (!tabBtns.length) return;
+  const root = document.querySelector('.auth-card');
+  if (!tabBtns.length || !initOnce(root || tabBtns[0], 'authTabs')) return;
 
   const activeBtn = document.querySelector('.auth-tab-btn.active') || tabBtns[0];
   const activeTarget = activeBtn?.dataset.authTab;
@@ -33,6 +34,9 @@ function initAuthTabs() {
 }
 
 function initPwdToggle() {
+  const root = document.querySelector('.auth-card');
+  if (!initOnce(root || document.body, 'passwordToggle')) return;
+
   document.querySelectorAll('.auth-pwd-toggle').forEach(btn => {
     btn.addEventListener('click', () => {
       const wrap  = btn.closest('.auth-input-icon-wrap');
@@ -48,7 +52,7 @@ function initPwdToggle() {
 
 function initLoginForm() {
   const loginBtn = document.getElementById('doLoginBtn');
-  if (!loginBtn) return;
+  if (!loginBtn || !initOnce(loginBtn, 'loginForm')) return;
 
   loginBtn.addEventListener('click', () => {
     const email = document.getElementById('loginEmail')?.value;

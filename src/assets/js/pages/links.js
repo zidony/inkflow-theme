@@ -1,4 +1,4 @@
-import { copyText, showToast } from '../core/utils.js';
+import { copyText, initOnce, showToast } from '../core/utils.js';
 
 function filterLinks(el, cat) {
   document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
@@ -31,6 +31,9 @@ function copySiteInfo() {
 }
 
 function initLinksPage() {
+  const root = document.querySelector('[data-link-filter]')?.closest('.container') || document.body;
+  if (!initOnce(root, 'links')) return;
+
   document.querySelectorAll('[data-link-filter]').forEach(tab => {
     tab.addEventListener('click', () => filterLinks(tab, tab.dataset.linkFilter));
   });

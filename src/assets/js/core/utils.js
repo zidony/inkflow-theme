@@ -41,3 +41,12 @@ export async function copyText(text) {
     textarea.remove();
   }
 }
+
+export function initOnce(target, key) {
+  if (!target) return false;
+  const normalizedKey = key.replace(/[^a-zA-Z0-9]/g, '');
+  const flag = `inkflow${normalizedKey}Initialized`;
+  if (target.dataset[flag] === 'true') return false;
+  target.dataset[flag] = 'true';
+  return true;
+}
