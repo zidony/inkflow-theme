@@ -52,6 +52,3 @@ function setYear(el, year) {
   }
 }
 export { initHeatmap, initArchiveTabs };
-
-// Expose to global scope for inline HTML handlers
-window.setYear = setYear;

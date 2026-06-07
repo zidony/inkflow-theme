@@ -117,9 +117,3 @@ function scrollToComments() {
   if (comments) comments.scrollIntoView({ behavior: 'smooth' });
 }
 export { initReadingProgress, initTocSpy, initReactions, initPostActions };
-
-// Expose to global scope for inline HTML handlers
-window.toggleReact = toggleReact;
-window.copyCode = copyCode;
-window.copyLink = copyLink;
-window.scrollToComments = scrollToComments;

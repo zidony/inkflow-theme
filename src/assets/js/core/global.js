@@ -1,3 +1,6 @@
+import { closeSearch, openSearch } from '../components/search.js';
+import { closeLightbox } from '../pages/album.js';
+
 function initBackToTop() {
   const btn = document.getElementById('backToTop');
   if (!btn) return;
@@ -9,10 +12,6 @@ function initBackToTop() {
   btn.addEventListener('click', () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   });
-}
-
-function scrollToTop() {
-  window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 function initTagPills() {
@@ -50,16 +49,13 @@ function initViewToggle() {
 function initKeyboard() {
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
-      window.closeSearch?.();
-      window.closeLightbox?.();
+      closeSearch();
+      closeLightbox();
     }
     if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
       e.preventDefault();
-      window.openSearch?.();
+      openSearch();
     }
   });
 }
 export { initBackToTop, initTagPills, initViewToggle, initKeyboard };
-
-// Expose to global scope for inline HTML handlers
-window.scrollToTop = scrollToTop;

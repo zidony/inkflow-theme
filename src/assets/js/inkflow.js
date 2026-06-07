@@ -14,7 +14,7 @@ import * as ParallaxModule from './pages/parallax.js';
 import * as ProfileModule from './pages/profile.js';
 import * as LoginModule from './pages/login.js';
 import * as TagModule from './pages/tag.js';
-import './pages/links.js'; // Binds to window internally
+import * as LinksModule from './pages/links.js';
 
 // Static global initialization
 const staticModules = [
@@ -38,7 +38,8 @@ const pageModules = [
   { selector: '.hero-gradient', init: () => ParallaxModule.initParallax() },
   { selector: '[data-profile-section]', init: () => { ProfileModule.initProfileEdit(); ProfileModule.initAvatarUpload(); ProfileModule.initProfileStreak(); ProfileModule.initProfileActions(); } },
   { selector: '.auth-tab-btn', init: () => { LoginModule.initAuthTabs(); LoginModule.initPwdToggle(); LoginModule.initLoginForm(); } },
-  { selector: '#tagCloudInner', init: () => TagModule.initTagCloud() }
+  { selector: '#tagCloudInner', init: () => TagModule.initTagCloud() },
+  { selector: '[data-link-filter]', init: () => LinksModule.initLinksPage() }
 ];
 
 function initPage() {

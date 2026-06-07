@@ -1,3 +1,5 @@
+import { showToast } from '../core/utils.js';
+
 function filterLinks(el, cat) {
   document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
   el.classList.add('active');
@@ -24,7 +26,7 @@ function copySiteInfo() {
   ].join('\n');
 
   navigator.clipboard?.writeText(text).then(() => {
-    window.showToast?.('站点信息已复制');
+    showToast('站点信息已复制');
   });
 }
 
@@ -42,12 +44,4 @@ function initLinksPage() {
   });
 }
 
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', initLinksPage);
-} else {
-  initLinksPage();
-}
-
-// Expose to global scope for inline HTML handlers
-window.filterLinks = filterLinks;
-window.toggleLinkApplyForm = toggleLinkApplyForm;
+export { initLinksPage };

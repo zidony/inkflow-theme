@@ -35,7 +35,3 @@ function closeSearch() {
   document.body.classList.remove('is-scroll-locked');
 }
 export { closeSearch, initSearch, openSearch };
-
-// Expose to global scope for inline HTML handlers
-window.openSearch = openSearch;
-window.closeSearch = closeSearch;

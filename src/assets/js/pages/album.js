@@ -54,9 +54,4 @@ function initLightbox() {
 
   lb.addEventListener('click', closeLightbox);
 }
-export { initLightbox };
-
-// Expose to global scope for inline HTML handlers
-window.filterAlbum = filterAlbum;
-window.openLightbox = openLightbox;
-window.closeLightbox = closeLightbox;
+export { closeLightbox, initLightbox };
