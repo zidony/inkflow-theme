@@ -101,10 +101,10 @@ function checkFormControls(file, source, issues) {
 }
 
 function checkAuthLabels(file, source, issues) {
-  for (const match of source.matchAll(/<label\b[^>]*\bclass=["'][^"']*\bauth-label\b[^"']*["'][^>]*>/gi)) {
+  for (const match of source.matchAll(/<label\b[^>]*\bclass=["'][^"']*\b(?:auth-label|profile-label)\b[^"']*["'][^>]*>/gi)) {
     const tag = match[0];
     if (!getAttribute(tag, 'for')) {
-      addIssue(issues, file, 'auth label is missing for attribute');
+      addIssue(issues, file, 'form label is missing for attribute');
     }
   }
 }

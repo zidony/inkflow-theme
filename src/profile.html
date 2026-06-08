@@ -127,35 +127,35 @@
 
           <div class="row g-3">
             <div class="col-md-6">
-              <label class="profile-label">姓名 <span class="text-danger">*</span></label>
-              <input type="text" class="ink-input ink-input-gray" value="陈明远" readonly aria-label="姓名" />
+              <label class="profile-label" for="profileName">姓名 <span class="text-danger">*</span></label>
+              <input type="text" class="ink-input ink-input-gray profile-input" id="profileName" value="陈明远" readonly aria-label="姓名" />
             </div>
             <div class="col-md-6">
-              <label class="profile-label">用户名</label>
+              <label class="profile-label" for="profileUsername">用户名</label>
               <div class="ink-input-wrap has-icon-left">
                 <i class="bi bi-at fs-5" aria-hidden="true"></i>
-                <input type="text" class="ink-input ink-input-gray" value="chenmingyuan" readonly aria-label="用户名" />
+                <input type="text" class="ink-input ink-input-gray profile-input" id="profileUsername" value="chenmingyuan" readonly aria-label="用户名" />
               </div>
             </div>
             <div class="col-md-6">
-              <label class="profile-label">职位 / 身份</label>
-              <input type="text" class="ink-input ink-input-gray" value="全栈工程师 · 产品思考者" readonly aria-label="职位或身份" />
+              <label class="profile-label" for="profileTitle">职位 / 身份</label>
+              <input type="text" class="ink-input ink-input-gray profile-input" id="profileTitle" value="全栈工程师 · 产品思考者" readonly aria-label="职位或身份" />
             </div>
             <div class="col-md-6">
-              <label class="profile-label">所在城市</label>
-              <input type="text" class="ink-input ink-input-gray" value="上海，中国" readonly aria-label="所在城市" />
+              <label class="profile-label" for="profileCity">所在城市</label>
+              <input type="text" class="ink-input ink-input-gray profile-input" id="profileCity" value="上海，中国" readonly aria-label="所在城市" />
             </div>
             <div class="col-12">
-              <label class="profile-label">个人简介</label>
-              <textarea class="ink-input ink-input-gray u-resize-none" rows="3" readonly aria-label="个人简介">专注于 Web 技术与 AI 应用的探索者，相信好的技术文章能改变一个开发者的职业轨迹。在 INKFLOW 写作已有 4 年，累计发布 128 篇原创文章。</textarea>
+              <label class="profile-label" for="profileBio">个人简介</label>
+              <textarea class="ink-input ink-input-gray profile-input u-resize-none" id="profileBio" rows="3" readonly aria-label="个人简介">专注于 Web 技术与 AI 应用的探索者，相信好的技术文章能改变一个开发者的职业轨迹。在 INKFLOW 写作已有 4 年，累计发布 128 篇原创文章。</textarea>
             </div>
             <div class="col-md-6">
-              <label class="profile-label">个人网站</label>
-              <input type="url" class="ink-input ink-input-gray" value="https://inkflow.dev" readonly aria-label="个人网站" />
+              <label class="profile-label" for="profileWebsite">个人网站</label>
+              <input type="url" class="ink-input ink-input-gray profile-input" id="profileWebsite" value="https://inkflow.dev" readonly aria-label="个人网站" />
             </div>
             <div class="col-md-6">
-              <label class="profile-label">GitHub</label>
-              <input type="text" class="ink-input ink-input-gray" value="github.com/chenmingyuan" readonly aria-label="GitHub" />
+              <label class="profile-label" for="profileGithub">GitHub</label>
+              <input type="text" class="ink-input ink-input-gray profile-input" id="profileGithub" value="github.com/chenmingyuan" readonly aria-label="GitHub" />
             </div>
           </div>
         </div>
@@ -180,27 +180,27 @@
 
           <div class="row g-3">
             <div class="col-md-6">
-              <label class="profile-label">绑定邮箱</label>
+              <label class="profile-label" for="profileEmail">绑定邮箱</label>
               <div class="position-relative">
-                <input type="email" class="ink-input ink-input-gray" value="chen@inkflow.dev" readonly aria-label="绑定邮箱" />
+                <input type="email" class="ink-input ink-input-gray profile-input" id="profileEmail" value="chen@inkflow.dev" readonly aria-label="绑定邮箱" />
                 <span class="profile-verified-badge">已验证</span>
               </div>
             </div>
             <div class="col-md-6">
-              <label class="profile-label">手机号码</label>
-              <input type="tel" class="ink-input ink-input-gray" value="138 **** 8888" readonly aria-label="手机号码" />
+              <label class="profile-label" for="profilePhone">手机号码</label>
+              <input type="tel" class="ink-input ink-input-gray profile-input" id="profilePhone" value="138 **** 8888" readonly aria-label="手机号码" />
             </div>
             <div class="col-12">
-              <label class="profile-label">当前密码</label>
-              <input type="password" class="ink-input ink-input-gray" placeholder="输入当前密码以修改" readonly aria-label="当前密码" />
+              <label class="profile-label" for="profileCurrentPassword">当前密码</label>
+              <input type="password" class="ink-input ink-input-gray profile-input" id="profileCurrentPassword" placeholder="输入当前密码以修改" readonly aria-label="当前密码" autocomplete="current-password" />
             </div>
             <div class="col-md-6">
-              <label class="profile-label">新密码</label>
-              <input type="password" class="ink-input ink-input-gray" placeholder="至少 8 位，包含字母和数字" readonly aria-label="新密码" />
+              <label class="profile-label" for="profileNewPassword">新密码</label>
+              <input type="password" class="ink-input ink-input-gray profile-input" id="profileNewPassword" placeholder="至少 8 位，包含字母和数字" readonly aria-label="新密码" autocomplete="new-password" />
             </div>
             <div class="col-md-6">
-              <label class="profile-label">确认新密码</label>
-              <input type="password" class="ink-input ink-input-gray" placeholder="再次输入新密码" readonly aria-label="确认新密码" />
+              <label class="profile-label" for="profileConfirmPassword">确认新密码</label>
+              <input type="password" class="ink-input ink-input-gray profile-input" id="profileConfirmPassword" placeholder="再次输入新密码" readonly aria-label="确认新密码" autocomplete="new-password" />
             </div>
           </div>
 

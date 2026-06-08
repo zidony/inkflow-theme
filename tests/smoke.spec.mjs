@@ -129,6 +129,19 @@ test('profile avatar rejects unsupported files', async ({ page }) => {
   });
 });
 
+test('profile edit controls toggle readonly fields', async ({ page }) => {
+  await expectNoConsoleErrors(page, async () => {
+    await gotoPage(page, '/profile.html');
+    const nameInput = page.locator('#profileName');
+
+    await expect(nameInput).toHaveAttribute('readonly', '');
+    await page.locator('[data-profile-edit="basic"]').click();
+    await expect(nameInput).not.toHaveAttribute('readonly', '');
+    await page.locator('[data-profile-cancel="basic"]').click();
+    await expect(nameInput).toHaveAttribute('readonly', '');
+  });
+});
+
 test('filter and sort controls use button semantics', async ({ page }) => {
   await expectNoConsoleErrors(page, async () => {
     await gotoPage(page, '/album-list.html');
