@@ -27,6 +27,21 @@ const TAGS = [
   { name: '随笔', count: 11, color: '#84cc16', bg: 'rgba(132,204,22,.12)', border: 'rgba(132,204,22,.3)' },
 ];
 
+const TAG_RECENCY = {
+  React: '2025-02-28',
+  JavaScript: '2025-02-20',
+  设计系统: '2025-02-20',
+  Docker: '2025-02-15',
+  'AI / LLM': '2025-02-15',
+  TypeScript: '2025-02-10',
+  CSS: '2025-01-30',
+  'Node.js': '2025-01-25',
+  Python: '2025-01-18',
+  PostgreSQL: '2025-01-12',
+  DevOps: '2025-01-08',
+  Git: '2025-01-05',
+};
+
 function renderCloud(list) {
   const container = document.getElementById('tagCloudInner');
   if (!container) return;
@@ -67,6 +82,7 @@ function sortTags(type, activeTab) {
   const sorted = [...TAGS];
   if (type === 'count') sorted.sort((a, b) => b.count - a.count);
   else if (type === 'alpha') sorted.sort((a, b) => a.name.localeCompare(b.name, 'zh'));
+  else if (type === 'recent') sorted.sort((a, b) => (TAG_RECENCY[b.name] || '').localeCompare(TAG_RECENCY[a.name] || ''));
 
   renderCloud(sorted);
 }
