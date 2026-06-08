@@ -236,6 +236,7 @@ test('filter and sort controls use button semantics', async ({ page }) => {
     await expect(page.locator('button[data-tag-sort="alpha"]')).toHaveClass(/active/);
     await page.locator('button[data-tag-sort="recent"]').click();
     await expect(page.locator('#tagCloudInner .tag-cloud-item').first()).toContainText('React');
+    await expect(page.locator('#tagCloudInner .tag-cloud-hash').first()).toHaveAttribute('aria-hidden', 'true');
   });
 });
 

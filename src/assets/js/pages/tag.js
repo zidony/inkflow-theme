@@ -67,6 +67,7 @@ function renderCloud(list) {
     el.style.setProperty('--tag-padding', pad);
 
     icon.className = 'bi bi-hash tag-cloud-hash';
+    icon.setAttribute('aria-hidden', 'true');
     count.className = 'tag-count';
     count.textContent = tag.count;
 
