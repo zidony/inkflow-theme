@@ -7,6 +7,8 @@ const STREAK_PATTERN = [
   true, false, true, true, false, true, true,
   true, false, true, true, true, false, true
 ];
+let accountDeleteModal;
+let accountDeleteModalFallbackBackdrop;
 
 function initProfileEdit() {
   const root = document.querySelector('[data-profile-section]');
@@ -30,6 +32,12 @@ function initProfileEdit() {
       showToast('保存成功 ✓');
       enableEdit(saveBtn.dataset.profileSave, false);
     }
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key !== 'Escape') return;
+    const modalEl = document.getElementById('accountDeleteModal');
+    if (modalEl?.classList.contains('show')) hideDeleteModal();
   });
 }
 
@@ -107,8 +115,18 @@ function initProfileActions() {
       return;
     }
 
+    if (e.target.closest('#accountDeleteModal [data-bs-dismiss="modal"]')) {
+      hideDeleteModal();
+      return;
+    }
+
     if (e.target.closest('[data-confirm-delete]')) {
       confirmDelete();
+      return;
+    }
+
+    if (e.target.closest('[data-confirm-delete-submit]')) {
+      submitDeleteRequest();
     }
   });
 
@@ -148,8 +166,62 @@ function scrollToSection(id) {
 }
 
 function confirmDelete() {
-  if (confirm('确认要永久注销账号吗？此操作无法撤销，所有数据将被清除。')) {
-    showToast('账号注销申请已提交，请检查邮箱确认');
+  const modalEl = document.getElementById('accountDeleteModal');
+  const Modal = globalThis.bootstrap?.Modal;
+  if (!modalEl || !Modal) {
+    showDeleteModalFallback(modalEl);
+    return;
   }
+
+  accountDeleteModal = accountDeleteModal || Modal.getOrCreateInstance(modalEl);
+  accountDeleteModal.show();
+}
+
+function submitDeleteRequest() {
+  hideDeleteModal();
+  showToast('账号注销申请已提交，请检查邮箱确认');
+}
+
+function hideDeleteModal() {
+  if (accountDeleteModal) {
+    accountDeleteModal.hide();
+    return;
+  }
+
+  const modalEl = document.getElementById('accountDeleteModal');
+  hideDeleteModalFallback(modalEl);
+}
+
+function showDeleteModalFallback(modalEl) {
+  if (!modalEl) {
+    showToast('请接入账号注销确认流程', 'error');
+    return;
+  }
+
+  modalEl.classList.add('show');
+  modalEl.removeAttribute('aria-hidden');
+  modalEl.setAttribute('aria-modal', 'true');
+  modalEl.setAttribute('role', 'dialog');
+  modalEl.style.display = 'block';
+  document.body.classList.add('modal-open');
+
+  accountDeleteModalFallbackBackdrop?.remove();
+  accountDeleteModalFallbackBackdrop = document.createElement('div');
+  accountDeleteModalFallbackBackdrop.className = 'modal-backdrop fade show';
+  document.body.appendChild(accountDeleteModalFallbackBackdrop);
+  modalEl.querySelector('[data-confirm-delete-submit]')?.focus();
+}
+
+function hideDeleteModalFallback(modalEl) {
+  if (!modalEl) return;
+
+  modalEl.classList.remove('show');
+  modalEl.setAttribute('aria-hidden', 'true');
+  modalEl.removeAttribute('aria-modal');
+  modalEl.removeAttribute('role');
+  modalEl.style.display = '';
+  document.body.classList.remove('modal-open');
+  accountDeleteModalFallbackBackdrop?.remove();
+  accountDeleteModalFallbackBackdrop = null;
 }
 export { initProfileEdit, initAvatarUpload, initProfileStreak, initProfileActions };

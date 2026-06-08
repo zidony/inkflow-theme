@@ -164,6 +164,9 @@ function checkJs(file, source, issues) {
     addIssue(issues, file, 'non-deterministic Math.random() usage');
   }
 
+  const nativeBlockingDialogs = source.match(/\b(?:alert|confirm|prompt)\s*\(/g) || [];
+  if (nativeBlockingDialogs.length) addIssue(issues, file, `${nativeBlockingDialogs.length} native blocking dialog call(s)`);
+
   const inlineStyleTemplates = source.match(/style\s*=\s*["'`]|style=\\["'`]/g) || [];
   if (inlineStyleTemplates.length) addIssue(issues, file, `${inlineStyleTemplates.length} generated inline style string(s)`);
 }

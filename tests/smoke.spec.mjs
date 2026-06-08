@@ -207,3 +207,23 @@ test('toast messages expose live region semantics', async ({ page }) => {
     await expect(errorToast).toHaveAttribute('aria-live', 'assertive');
   });
 });
+
+test('profile danger action uses themed confirmation modal', async ({ page }) => {
+  await expectNoConsoleErrors(page, async () => {
+    await gotoPage(page, '/profile.html');
+    const modal = page.locator('#accountDeleteModal');
+    const deleteButton = page.locator('[data-confirm-delete]');
+
+    await deleteButton.click();
+    await expect(modal).toHaveClass(/show/);
+    await expect(modal).toHaveAttribute('aria-modal', 'true');
+
+    await modal.locator('[data-bs-dismiss="modal"]').last().click();
+    await expect(modal).not.toHaveClass(/show/);
+
+    await deleteButton.click();
+    await modal.locator('[data-confirm-delete-submit]').click();
+    await expect(modal).not.toHaveClass(/show/);
+    await expect(page.locator('#inkToast')).toContainText('账号注销申请已提交，请检查邮箱确认');
+  });
+});

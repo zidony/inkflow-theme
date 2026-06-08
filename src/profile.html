@@ -285,6 +285,24 @@
   </div>
 </main>
 
+<div class="modal fade" id="accountDeleteModal" tabindex="-1" aria-labelledby="accountDeleteModalTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title fs-5" id="accountDeleteModalTitle">确认注销账号</h2>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="关闭"></button>
+      </div>
+      <div class="modal-body">
+        永久删除账号及所有数据，此操作不可撤销。请确认你已经完成必要的数据备份。
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="ink-btn ink-btn-white" data-bs-dismiss="modal">取消</button>
+        <button type="button" class="ink-btn ink-btn-danger" data-confirm-delete-submit>确认注销</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- FOOTER -->
 
 {{> footer }}
