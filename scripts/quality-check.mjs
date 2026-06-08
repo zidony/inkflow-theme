@@ -47,6 +47,10 @@ function getAttribute(tag, name) {
   return tag.match(new RegExp(`\\b${name}=["']([^"']+)["']`, 'i'))?.[1] || '';
 }
 
+function getFileName(file) {
+  return relative(file).split('/').pop();
+}
+
 function checkCdnIntegrity(file, source, issues) {
   for (const match of source.matchAll(/<(?:link|script)\b[^>]*(?:href|src)=["']https:\/\/cdn\.jsdelivr\.net\/[^"']+["'][^>]*>/gi)) {
     const tag = match[0];
@@ -69,6 +73,7 @@ function checkTextEncoding(file, source, issues) {
 
 function checkHtml(file, source, issues) {
   checkTextEncoding(file, source, issues);
+  const localIds = new Set([...source.matchAll(/\bid=["']([^"']+)["']/gi)].map(match => match[1]));
 
   const inlineStyles = source.match(/<[^>]+\sstyle\s*=/gi) || [];
   if (inlineStyles.length) addIssue(issues, file, `${inlineStyles.length} inline style attribute(s)`);
@@ -104,6 +109,15 @@ function checkHtml(file, source, issues) {
 
     if (href === '#') {
       addIssue(issues, file, 'unexpected placeholder href="#" link');
+    }
+
+    const samePageAnchor = href.match(/^#([^#?]+)$/)?.[1];
+    const fileAnchor = href.match(/^([^#?]+\.html)#([^#?]+)$/);
+    if (samePageAnchor && !localIds.has(samePageAnchor)) {
+      addIssue(issues, file, `missing local anchor target "${samePageAnchor}"`);
+    }
+    if (fileAnchor && fileAnchor[1] === getFileName(file) && !localIds.has(fileAnchor[2])) {
+      addIssue(issues, file, `missing local anchor target "${fileAnchor[2]}"`);
     }
 
     if (getAttribute(tag, 'target') !== '_blank') continue;
