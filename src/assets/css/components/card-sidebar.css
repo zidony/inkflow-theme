@@ -102,7 +102,7 @@
   display: flex; align-items: center; justify-content: center;
   width: 36px; height: 36px; border-radius: 50%; border: 1px solid var(--ink-border);
   background: var(--ink-surface); color: var(--ink-muted); font-size: 1rem;
-  transition: all var(--transition); cursor: pointer;
+  text-decoration: none; transition: all var(--transition); cursor: pointer;
 }
 .social-btn:hover { border-color: var(--ink-primary); color: var(--ink-primary); background: rgba(var(--ink-primary-rgb), .06); }
 

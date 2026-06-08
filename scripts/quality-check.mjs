@@ -100,6 +100,9 @@ function checkHtml(file, source, issues) {
   const roleButtonElements = source.match(/<(?!button\b)[a-z0-9-]+\b[^>]*\brole=["']button["']/gi) || [];
   if (roleButtonElements.length) addIssue(issues, file, `${roleButtonElements.length} non-native role="button" element(s)`);
 
+  const nonAnchorSocialButtons = source.match(/<(?!a\b)[a-z0-9-]+\b[^>]*\bclass=["'][^"']*\bsocial-btn\b(?!-footer\b)[^"']*["'][^>]*>/gi) || [];
+  if (nonAnchorSocialButtons.length) addIssue(issues, file, `${nonAnchorSocialButtons.length} non-anchor author social button(s)`);
+
   const nonButtonAvatarTriggers = source.match(/<(?!button\b)[a-z0-9-]+\b[^>]*\bdata-avatar-trigger\b/gi) || [];
   if (nonButtonAvatarTriggers.length) addIssue(issues, file, `${nonButtonAvatarTriggers.length} non-button avatar trigger(s)`);
 

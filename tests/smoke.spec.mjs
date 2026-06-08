@@ -122,6 +122,21 @@ test('mobile navbar toggler exposes collapse state', async ({ page }) => {
   });
 });
 
+test('author social icons are accessible links', async ({ page }) => {
+  await expectNoConsoleErrors(page, async () => {
+    await gotoPage(page, '/index.html');
+    const homeSocialLinks = page.locator('.author-social a.social-btn');
+    await expect(homeSocialLinks).toHaveCount(5);
+    await expect(homeSocialLinks.first()).toHaveAttribute('aria-label', 'Twitter / X');
+    await expect(homeSocialLinks.nth(0)).toHaveAttribute('rel', /noopener/);
+
+    await gotoPage(page, '/post-show.html');
+    const postSocialLinks = page.locator('.social-row a.social-btn');
+    await expect(postSocialLinks).toHaveCount(4);
+    await expect(postSocialLinks.nth(3)).toHaveAttribute('href', /mailto:/);
+  });
+});
+
 test('search overlay opens and closes', async ({ page }) => {
   await expectNoConsoleErrors(page, async () => {
     await gotoPage(page, '/index.html');
