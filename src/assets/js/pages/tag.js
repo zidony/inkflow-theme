@@ -67,7 +67,6 @@ function sortTags(type, activeTab) {
   const sorted = [...TAGS];
   if (type === 'count') sorted.sort((a, b) => b.count - a.count);
   else if (type === 'alpha') sorted.sort((a, b) => a.name.localeCompare(b.name, 'zh'));
-  else sorted.sort(() => Math.random() - 0.5);
 
   renderCloud(sorted);
 }

@@ -154,6 +154,10 @@ function checkJs(file, source, issues) {
   const unsafeSelectorTemplates = source.match(/querySelector(?:All)?\(`[^`]*\$\{(?!escapeCssString\()/g) || [];
   if (unsafeSelectorTemplates.length) addIssue(issues, file, `${unsafeSelectorTemplates.length} unescaped dynamic selector template(s)`);
 
+  if (source.includes('Math.random(')) {
+    addIssue(issues, file, 'non-deterministic Math.random() usage');
+  }
+
   const inlineStyleTemplates = source.match(/style\s*=\s*["'`]|style=\\["'`]/g) || [];
   if (inlineStyleTemplates.length) addIssue(issues, file, `${inlineStyleTemplates.length} generated inline style string(s)`);
 }

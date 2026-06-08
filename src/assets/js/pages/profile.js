@@ -2,6 +2,11 @@ import { escapeCssString, initOnce, showToast } from '../core/utils.js';
 
 const AVATAR_MAX_BYTES = 2 * 1024 * 1024;
 const AVATAR_ALLOWED_TYPES = new Set(['image/png', 'image/jpeg', 'image/webp', 'image/gif']);
+const STREAK_PATTERN = [
+  false, true, false, true, false, false, true,
+  true, false, true, true, false, true, true,
+  true, false, true, true, true, false, true
+];
 
 function initProfileEdit() {
   const root = document.querySelector('[data-profile-section]');
@@ -125,8 +130,7 @@ function initProfileStreak() {
   const container = document.getElementById('streakDots');
   if (!container) return;
 
-  const dots = Array.from({length: 21}, (_, i) => {
-    const active = i > 12 ? Math.random() > 0.3 : Math.random() > 0.7;
+  const dots = STREAK_PATTERN.map((active) => {
     const dot = document.createElement('div');
     dot.className = `streak-dot${active ? ' active' : ''}`;
     return dot;
