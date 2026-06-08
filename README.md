@@ -2,7 +2,7 @@
 
 > 一套面向独立博客的现代化前端主题模板，全面拥抱 Vite 工程化，开箱即用。
 
-![Version](https://img.shields.io/badge/version-3.2.4-green)
+![Version](https://img.shields.io/badge/version-3.2.5-green)
 ![Bootstrap](https://img.shields.io/badge/Bootstrap-5.3.8-7952b3)
 ![Bootstrap Icons](https://img.shields.io/badge/Bootstrap%20Icons-1.13.1-7952b3)
 ![License](https://img.shields.io/badge/license-CC%20BY%204.0-blue)
@@ -253,6 +253,7 @@ InkFlow Theme 是静态前端主题模板，登录、评论、订阅、点赞、
 
 | 版本 | 主要内容 |
 |------|---------|
+| **v3.2.5** | **表单、导航与页面控件可访问性补丁版**：为分页、友链申请表单、移动端导航、登录表单与个人资料编辑补齐状态反馈、标签关联和 ARIA 同步；修复个人资料编辑字段不可编辑问题；为标签页新增最近排序逻辑；扩展质量门禁与 Playwright smoke 覆盖，确保这些交互持续可验证。 |
 | **v3.2.4** | **Overlay 与演示交互可访问性补丁版**：为隐藏态搜索层与相册 lightbox 增加 `inert`，防止键盘误入不可见内容；为搜索层、lightbox 与账号注销 modal 补齐焦点循环和关闭后的焦点恢复；为相册 lightbox、评论操作等演示按钮补充统一反馈；完善文章书签按钮的 `aria-pressed` 状态、图标和标签同步；扩展相关质量门禁与 smoke 覆盖。 |
 | **v3.2.3** | **可访问性交互补丁版**：完善用户菜单按钮标签与 Escape 关闭；为 toast 增加 live region 语义；用主题化确认弹窗替换原生 `confirm()` 并提供无 Bootstrap JS 降级；将搜索建议与交互型标签胶囊改为原生 button 控件；新增阻塞弹窗、非语义搜索提示与标签胶囊质量门禁；扩展 Playwright smoke 覆盖。 |
 | **v3.2.2** | **可访问性与生产边界增强版**：补齐交互控件 ARIA 状态同步；将筛选、相册、头像等自定义交互改为原生按钮语义；强化头像上传校验；为演示按钮提供统一集成反馈；新增本地锚点、动态 selector、HTML 注入、随机性等质量门禁；稳定 Playwright smoke 测试。 |

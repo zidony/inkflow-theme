@@ -1,6 +1,6 @@
 {
   "name": "inkflow-theme",
-  "version": "3.2.4",
+  "version": "3.2.5",
   "description": "Inkflow Blog Theme Template",
   "scripts": {
     "dev": "vite",
