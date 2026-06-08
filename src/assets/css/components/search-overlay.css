@@ -25,6 +25,7 @@
 .search-close:hover { background: rgba(255,255,255,.15); color: #fff; }
 .search-tips { display: flex; gap: .5rem; flex-wrap: wrap; }
 .search-tip {
+  appearance: none; background: transparent;
   padding: .35rem .8rem; border-radius: 99px; border: 1px solid rgba(255,255,255,.12);
   color: rgba(255,255,255,.5); font-size: .8rem;
   cursor: pointer; transition: all var(--transition);

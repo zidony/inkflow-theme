@@ -87,6 +87,9 @@ function checkHtml(file, source, issues) {
   const nonSemanticInteractiveSpans = source.match(/<span\b[^>]*\bdata-(?:album-filter|link-filter|tag-sort)=/gi) || [];
   if (nonSemanticInteractiveSpans.length) addIssue(issues, file, `${nonSemanticInteractiveSpans.length} non-semantic interactive span(s)`);
 
+  const nonSemanticSearchTips = source.match(/<span\b[^>]*\bclass=["'][^"']*\bsearch-tip\b/gi) || [];
+  if (nonSemanticSearchTips.length) addIssue(issues, file, `${nonSemanticSearchTips.length} non-semantic search tip span(s)`);
+
   const roleButtonElements = source.match(/<(?!button\b)[a-z0-9-]+\b[^>]*\brole=["']button["']/gi) || [];
   if (roleButtonElements.length) addIssue(issues, file, `${roleButtonElements.length} non-native role="button" element(s)`);
 

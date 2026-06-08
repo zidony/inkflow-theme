@@ -67,6 +67,9 @@ test('search overlay opens and closes', async ({ page }) => {
     await page.getByRole('button', { name: /搜索/ }).click();
     await expect(overlay).toHaveClass(/active/);
     await expect(overlay).toHaveAttribute('aria-hidden', 'false');
+    await page.getByRole('button', { name: 'JavaScript' }).focus();
+    await page.keyboard.press('Enter');
+    await expect(page.locator('#searchInput')).toHaveValue('JavaScript');
     await page.getByRole('button', { name: '关闭搜索' }).click();
     await expect(overlay).not.toHaveClass(/active/);
     await expect(overlay).toHaveAttribute('aria-hidden', 'true');
