@@ -213,6 +213,7 @@ test('profile edit controls toggle readonly fields', async ({ page }) => {
     await gotoPage(page, '/profile.html');
     const nameInput = page.locator('#profileName');
 
+    await expect(page.locator('#streakDots')).toHaveAttribute('aria-hidden', 'true');
     await expect(nameInput).toHaveAttribute('readonly', '');
     await page.locator('[data-profile-edit="basic"]').click();
     await expect(nameInput).not.toHaveAttribute('readonly', '');
