@@ -92,3 +92,17 @@ test('login tabs switch panels', async ({ page }) => {
     await expect(page.locator('#registerForm')).toBeHidden();
   });
 });
+
+test('profile avatar rejects unsupported files', async ({ page }) => {
+  await expectNoConsoleErrors(page, async () => {
+    await page.goto('/profile.html', { waitUntil: 'domcontentloaded' });
+    await page.locator('#avatarInput').setInputFiles({
+      name: 'avatar.svg',
+      mimeType: 'image/svg+xml',
+      buffer: Buffer.from('<svg xmlns="http://www.w3.org/2000/svg"></svg>')
+    });
+
+    await expect(page.locator('#profileAvatarEl')).not.toHaveClass(/profile-avatar-has-image/);
+    await expect(page.locator('#inkToast')).toContainText('请选择 PNG、JPG、WebP 或 GIF 图片');
+  });
+});

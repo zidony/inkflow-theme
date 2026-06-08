@@ -1,5 +1,8 @@
 import { escapeCssString, initOnce, showToast } from '../core/utils.js';
 
+const AVATAR_MAX_BYTES = 2 * 1024 * 1024;
+const AVATAR_ALLOWED_TYPES = new Set(['image/png', 'image/jpeg', 'image/webp', 'image/gif']);
+
 function initProfileEdit() {
   const root = document.querySelector('[data-profile-section]');
   if (!initOnce(root || document.body, 'profileEdit')) return;
@@ -55,11 +58,28 @@ function initAvatarUpload() {
   input.addEventListener('change', () => {
     const file = input.files[0];
     if (!file) return;
+
+    if (!AVATAR_ALLOWED_TYPES.has(file.type)) {
+      showToast('请选择 PNG、JPG、WebP 或 GIF 图片', 'error');
+      input.value = '';
+      return;
+    }
+
+    if (file.size > AVATAR_MAX_BYTES) {
+      showToast('头像图片不能超过 2MB', 'error');
+      input.value = '';
+      return;
+    }
+
     const reader = new FileReader();
     reader.onload = (e) => {
       preview.style.setProperty('--avatar-image', `url(${e.target.result})`);
       preview.classList.add('profile-avatar-has-image');
       preview.textContent = '';
+    };
+    reader.onerror = () => {
+      showToast('头像读取失败，请重新选择图片', 'error');
+      input.value = '';
     };
     reader.readAsDataURL(file);
   });
