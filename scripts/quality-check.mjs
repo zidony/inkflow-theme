@@ -60,7 +60,16 @@ function checkCdnIntegrity(file, source, issues) {
   }
 }
 
+function checkTextEncoding(file, source, issues) {
+  const mojibakePattern = /\uFFFD|\u951f|\u9366|\u95c1|\u6fb6\u5db6/;
+  if (mojibakePattern.test(source)) {
+    addIssue(issues, file, 'possible mojibake or replacement character');
+  }
+}
+
 function checkHtml(file, source, issues) {
+  checkTextEncoding(file, source, issues);
+
   const inlineStyles = source.match(/<[^>]+\sstyle\s*=/gi) || [];
   if (inlineStyles.length) addIssue(issues, file, `${inlineStyles.length} inline style attribute(s)`);
 
@@ -69,10 +78,6 @@ function checkHtml(file, source, issues) {
 
   const duplicateClassAttrs = source.match(/<[^>]*\sclass="[^"]*"[^>]*\sclass="[^"]*"[^>]*>/gi) || [];
   if (duplicateClassAttrs.length) addIssue(issues, file, `${duplicateClassAttrs.length} duplicate class attribute(s)`);
-
-  if (/[�]|[鍙嬫儏閾炬帴灞曪紑棣栭〉]/.test(source)) {
-    addIssue(issues, file, 'possible mojibake or replacement character');
-  }
 
   for (const match of source.matchAll(/<a\b[^>]*>/gi)) {
     const tag = match[0];
@@ -98,6 +103,8 @@ function checkHtml(file, source, issues) {
 }
 
 function checkJs(file, source, issues) {
+  checkTextEncoding(file, source, issues);
+
   const customGlobalPattern = new RegExp(`window\\.(${bannedWindowGlobals.join('|')})\\b`, 'g');
   const customGlobals = source.match(customGlobalPattern) || [];
   if (customGlobals.length) addIssue(issues, file, `${customGlobals.length} banned custom window global reference(s)`);

@@ -56,3 +56,5 @@ temp/
 *.zip
 __pycache__/
 scratch/
+test-results/
+test_out/
