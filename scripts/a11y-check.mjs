@@ -72,6 +72,9 @@ function checkButtons(file, source, issues) {
     if (!hasAccessibleName(attrs, content)) {
       addIssue(issues, file, 'button is missing an accessible name');
     }
+    if (/\btitle\s*=/.test(attrs) && !/\b(?:aria-label|aria-labelledby)\s*=/.test(attrs) && stripTags(content).length === 0) {
+      addIssue(issues, file, 'icon-only button with title is missing aria-label');
+    }
   }
 }
 
