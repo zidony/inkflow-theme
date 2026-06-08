@@ -1,4 +1,4 @@
-import { escapeCssString, initOnce, showToast } from '../core/utils.js';
+import { escapeCssString, initOnce, showToast, trapFocus } from '../core/utils.js';
 
 const AVATAR_MAX_BYTES = 2 * 1024 * 1024;
 const AVATAR_ALLOWED_TYPES = new Set(['image/png', 'image/jpeg', 'image/webp', 'image/gif']);
@@ -9,6 +9,7 @@ const STREAK_PATTERN = [
 ];
 let accountDeleteModal;
 let accountDeleteModalFallbackBackdrop;
+let accountDeleteLastFocused = null;
 
 function initProfileEdit() {
   const root = document.querySelector('[data-profile-section]');
@@ -35,9 +36,13 @@ function initProfileEdit() {
   });
 
   document.addEventListener('keydown', (e) => {
-    if (e.key !== 'Escape') return;
     const modalEl = document.getElementById('accountDeleteModal');
-    if (modalEl?.classList.contains('show')) hideDeleteModal();
+    if (!modalEl?.classList.contains('show')) return;
+    if (e.key === 'Escape') {
+      hideDeleteModal();
+      return;
+    }
+    trapFocus(modalEl, e);
   });
 }
 
@@ -142,6 +147,8 @@ function initProfileActions() {
       syncTfaState();
     });
   }
+
+  document.getElementById('accountDeleteModal')?.addEventListener('hidden.bs.modal', restoreDeleteModalFocus);
 }
 
 function initProfileStreak() {
@@ -168,6 +175,7 @@ function scrollToSection(id) {
 function confirmDelete() {
   const modalEl = document.getElementById('accountDeleteModal');
   const Modal = globalThis.bootstrap?.Modal;
+  accountDeleteLastFocused = document.activeElement instanceof HTMLElement ? document.activeElement : null;
   if (!modalEl || !Modal) {
     showDeleteModalFallback(modalEl);
     return;
@@ -223,5 +231,11 @@ function hideDeleteModalFallback(modalEl) {
   document.body.classList.remove('modal-open');
   accountDeleteModalFallbackBackdrop?.remove();
   accountDeleteModalFallbackBackdrop = null;
+  restoreDeleteModalFocus();
+}
+
+function restoreDeleteModalFocus() {
+  if (accountDeleteLastFocused?.isConnected) accountDeleteLastFocused.focus();
+  accountDeleteLastFocused = null;
 }
 export { initProfileEdit, initAvatarUpload, initProfileStreak, initProfileActions };

@@ -232,9 +232,13 @@ test('profile danger action uses themed confirmation modal', async ({ page }) =>
     await deleteButton.click();
     await expect(modal).toHaveClass(/show/);
     await expect(modal).toHaveAttribute('aria-modal', 'true');
+    await modal.getByRole('button', { name: '关闭' }).focus();
+    await page.keyboard.press('Shift+Tab');
+    await expect(modal.locator('[data-confirm-delete-submit]')).toBeFocused();
 
     await modal.locator('[data-bs-dismiss="modal"]').last().click();
     await expect(modal).not.toHaveClass(/show/);
+    await expect(deleteButton).toBeFocused();
 
     await deleteButton.click();
     await modal.locator('[data-confirm-delete-submit]').click();
