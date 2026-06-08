@@ -33,6 +33,7 @@ function openSearch() {
   if (!overlay) return;
   searchLastFocused = document.activeElement instanceof HTMLElement ? document.activeElement : null;
   overlay.classList.add('active');
+  overlay.removeAttribute('inert');
   overlay.setAttribute('aria-hidden', 'false');
   document.querySelectorAll('[data-open-search]').forEach(btn => {
     btn.setAttribute('aria-expanded', 'true');
@@ -48,6 +49,7 @@ function closeSearch() {
   const wasActive = overlay.classList.contains('active');
   overlay.classList.remove('active');
   overlay.setAttribute('aria-hidden', 'true');
+  overlay.setAttribute('inert', '');
   document.querySelectorAll('[data-open-search]').forEach(btn => {
     btn.setAttribute('aria-expanded', 'false');
   });

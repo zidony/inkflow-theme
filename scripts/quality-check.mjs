@@ -121,6 +121,13 @@ function checkHtml(file, source, issues) {
     }
   }
 
+  for (const match of source.matchAll(/<(?:div|section)\b[^>]*\b(?:class=["'][^"']*\b(?:search-overlay|lightbox)\b[^"']*["']|id=["'](?:searchOverlay|lightbox)["'])[^>]*>/gi)) {
+    const tag = match[0];
+    if (getAttribute(tag, 'aria-hidden') === 'true' && !/\binert\b/i.test(tag)) {
+      addIssue(issues, file, 'hidden overlay dialog is missing inert');
+    }
+  }
+
   for (const match of source.matchAll(/<a\b[^>]*>/gi)) {
     const tag = match[0];
     const href = getAttribute(tag, 'href');

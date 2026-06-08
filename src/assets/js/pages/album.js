@@ -100,6 +100,7 @@ function openLightbox(key) {
   if (capEl) capEl.textContent = data.caption || data.cap || '';
 
   lb.classList.add('active');
+  lb.removeAttribute('inert');
   lb.setAttribute('aria-hidden', 'false');
   document.body.classList.add('is-scroll-locked');
   lb.querySelector('.lb-close')?.focus();
@@ -112,6 +113,7 @@ function closeLightbox(e) {
   if (lb) {
     lb.classList.remove('active');
     lb.setAttribute('aria-hidden', 'true');
+    lb.setAttribute('inert', '');
   }
   document.body.classList.remove('is-scroll-locked');
   if (wasActive && lightboxLastFocused?.isConnected) lightboxLastFocused.focus();

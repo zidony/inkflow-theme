@@ -64,9 +64,11 @@ test('search overlay opens and closes', async ({ page }) => {
   await expectNoConsoleErrors(page, async () => {
     await gotoPage(page, '/index.html');
     const overlay = page.locator('#searchOverlay');
+    await expect(overlay).toHaveAttribute('inert', '');
     await page.getByRole('button', { name: /搜索/ }).click();
     await expect(overlay).toHaveClass(/active/);
     await expect(overlay).toHaveAttribute('aria-hidden', 'false');
+    await expect(overlay).not.toHaveAttribute('inert', '');
     const searchInput = page.locator('#searchInput');
     await expect(searchInput).toBeFocused();
     await overlay.getByRole('button', { name: 'JavaScript' }).press('Enter');
@@ -74,6 +76,7 @@ test('search overlay opens and closes', async ({ page }) => {
     await page.getByRole('button', { name: '关闭搜索' }).click();
     await expect(overlay).not.toHaveClass(/active/);
     await expect(overlay).toHaveAttribute('aria-hidden', 'true');
+    await expect(overlay).toHaveAttribute('inert', '');
   });
 });
 
@@ -81,12 +84,15 @@ test('album lightbox opens and closes', async ({ page }) => {
   await expectNoConsoleErrors(page, async () => {
     await gotoPage(page, '/album-list.html');
     const lightbox = page.locator('#lightbox');
+    await expect(lightbox).toHaveAttribute('inert', '');
     await page.locator('[data-lightbox-key="kyoto"]').click();
     await expect(lightbox).toHaveClass(/active/);
     await expect(lightbox).toHaveAttribute('aria-hidden', 'false');
+    await expect(lightbox).not.toHaveAttribute('inert', '');
     await page.getByRole('button', { name: '关闭图片预览' }).click();
     await expect(lightbox).not.toHaveClass(/active/);
     await expect(lightbox).toHaveAttribute('aria-hidden', 'true');
+    await expect(lightbox).toHaveAttribute('inert', '');
   });
 });
 
