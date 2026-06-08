@@ -34,6 +34,10 @@ function hasAccessibleName(tag, content = '') {
   return stripTags(content).length > 0;
 }
 
+function getAttribute(tag, name) {
+  return tag.match(new RegExp(`\\b${name}=["']([^"']+)["']`, 'i'))?.[1] || '';
+}
+
 function checkDuplicateIds(file, source, issues) {
   const ids = new Map();
   for (const match of source.matchAll(/\bid=["']([^"']+)["']/g)) {
@@ -63,6 +67,19 @@ function checkButtons(file, source, issues) {
   }
 }
 
+function checkFormControls(file, source, issues) {
+  for (const match of source.matchAll(/<(input|select|textarea)\b[^>]*>/gi)) {
+    const [tag, element] = match;
+    const type = getAttribute(tag, 'type').toLowerCase();
+    if (['hidden', 'submit', 'button', 'reset'].includes(type)) continue;
+    if (hasAccessibleName(tag)) continue;
+
+    const id = getAttribute(tag, 'id');
+    const hasLabel = id && new RegExp(`<label\\b[^>]*\\bfor=["']${id.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}["']`, 'i').test(source);
+    if (!hasLabel) addIssue(issues, file, `${element} is missing an accessible name`);
+  }
+}
+
 const files = await walk(srcDir);
 const issues = [];
 
@@ -72,6 +89,7 @@ for (const file of files) {
   checkDuplicateIds(file, source, issues);
   checkImages(file, source, issues);
   checkButtons(file, source, issues);
+  checkFormControls(file, source, issues);
 }
 
 if (issues.length) {

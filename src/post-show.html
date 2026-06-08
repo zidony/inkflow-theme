@@ -388,7 +388,7 @@ export function LikeButton({ postId, initialCount }: Props) {
 
           <!-- Comment input -->
           <div class="comment-input-wrap">
-            <textarea class="ink-input ink-input-gray" placeholder="写下你的想法…支持 Markdown 语法"></textarea>
+            <textarea class="ink-input ink-input-gray" placeholder="写下你的想法…支持 Markdown 语法" aria-label="评论内容"></textarea>
             <div class="d-flex align-items-center justify-content-between mt-2">
               <span class="u-text-xxs-muted"><i class="bi bi-markdown me-1"></i>支持 Markdown</span>
               <button type="button" class="ink-btn ink-btn-soft"><i class="bi bi-send me-1"></i> 发布评论</button>
@@ -549,7 +549,7 @@ export function LikeButton({ postId, initialCount }: Props) {
           <div class="ink-brand-title"><i class="bi bi-envelope-paper me-2"></i>订阅周刊</div>
           <p class="ink-brand-sub">每周精选 5 篇文章，直达收件箱，不骚扰，只分享。</p>
           <div class="ink-brand-form">
-            <input type="email" class="ink-input ink-input-ghost ink-input-sm mb-3" placeholder="your@email.com" />
+            <input type="email" class="ink-input ink-input-ghost ink-input-sm mb-3" placeholder="your@email.com" aria-label="订阅邮箱地址" />
             <button type="button" class="ink-btn ink-btn-soft w-100">
               <i class="bi bi-send-fill me-1"></i> 立即订阅
             </button>

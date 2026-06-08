@@ -26,7 +26,7 @@
         <div class="profile-avatar-edit" data-avatar-trigger title="更换头像">
           <i class="bi bi-camera"></i>
         </div>
-        <input type="file" id="avatarInput" accept="image/*" class="d-none" />
+        <input type="file" id="avatarInput" accept="image/*" class="d-none" aria-label="上传头像" />
       </div>
       <div class="pb-2">
         <h1 class="profile-hero-name">陈明远</h1>
@@ -124,34 +124,34 @@
           <div class="row g-3">
             <div class="col-md-6">
               <label class="profile-label">姓名 <span class="text-danger">*</span></label>
-              <input type="text" class="ink-input ink-input-gray" value="陈明远" readonly />
+              <input type="text" class="ink-input ink-input-gray" value="陈明远" readonly aria-label="姓名" />
             </div>
             <div class="col-md-6">
               <label class="profile-label">用户名</label>
               <div class="ink-input-wrap has-icon-left">
                 <i class="bi bi-at fs-5"></i>
-                <input type="text" class="ink-input ink-input-gray" value="chenmingyuan" readonly />
+                <input type="text" class="ink-input ink-input-gray" value="chenmingyuan" readonly aria-label="用户名" />
               </div>
             </div>
             <div class="col-md-6">
               <label class="profile-label">职位 / 身份</label>
-              <input type="text" class="ink-input ink-input-gray" value="全栈工程师 · 产品思考者" readonly />
+              <input type="text" class="ink-input ink-input-gray" value="全栈工程师 · 产品思考者" readonly aria-label="职位或身份" />
             </div>
             <div class="col-md-6">
               <label class="profile-label">所在城市</label>
-              <input type="text" class="ink-input ink-input-gray" value="上海，中国" readonly />
+              <input type="text" class="ink-input ink-input-gray" value="上海，中国" readonly aria-label="所在城市" />
             </div>
             <div class="col-12">
               <label class="profile-label">个人简介</label>
-              <textarea class="ink-input ink-input-gray u-resize-none" rows="3" readonly>专注于 Web 技术与 AI 应用的探索者，相信好的技术文章能改变一个开发者的职业轨迹。在 INKFLOW 写作已有 4 年，累计发布 128 篇原创文章。</textarea>
+              <textarea class="ink-input ink-input-gray u-resize-none" rows="3" readonly aria-label="个人简介">专注于 Web 技术与 AI 应用的探索者，相信好的技术文章能改变一个开发者的职业轨迹。在 INKFLOW 写作已有 4 年，累计发布 128 篇原创文章。</textarea>
             </div>
             <div class="col-md-6">
               <label class="profile-label">个人网站</label>
-              <input type="url" class="ink-input ink-input-gray" value="https://inkflow.dev" readonly />
+              <input type="url" class="ink-input ink-input-gray" value="https://inkflow.dev" readonly aria-label="个人网站" />
             </div>
             <div class="col-md-6">
               <label class="profile-label">GitHub</label>
-              <input type="text" class="ink-input ink-input-gray" value="github.com/chenmingyuan" readonly />
+              <input type="text" class="ink-input ink-input-gray" value="github.com/chenmingyuan" readonly aria-label="GitHub" />
             </div>
           </div>
         </div>
@@ -178,25 +178,25 @@
             <div class="col-md-6">
               <label class="profile-label">绑定邮箱</label>
               <div class="position-relative">
-                <input type="email" class="ink-input ink-input-gray" value="chen@inkflow.dev" readonly />
+                <input type="email" class="ink-input ink-input-gray" value="chen@inkflow.dev" readonly aria-label="绑定邮箱" />
                 <span class="profile-verified-badge">已验证</span>
               </div>
             </div>
             <div class="col-md-6">
               <label class="profile-label">手机号码</label>
-              <input type="tel" class="ink-input ink-input-gray" value="138 **** 8888" readonly />
+              <input type="tel" class="ink-input ink-input-gray" value="138 **** 8888" readonly aria-label="手机号码" />
             </div>
             <div class="col-12">
               <label class="profile-label">当前密码</label>
-              <input type="password" class="ink-input ink-input-gray" placeholder="输入当前密码以修改" readonly />
+              <input type="password" class="ink-input ink-input-gray" placeholder="输入当前密码以修改" readonly aria-label="当前密码" />
             </div>
             <div class="col-md-6">
               <label class="profile-label">新密码</label>
-              <input type="password" class="ink-input ink-input-gray" placeholder="至少 8 位，包含字母和数字" readonly />
+              <input type="password" class="ink-input ink-input-gray" placeholder="至少 8 位，包含字母和数字" readonly aria-label="新密码" />
             </div>
             <div class="col-md-6">
               <label class="profile-label">确认新密码</label>
-              <input type="password" class="ink-input ink-input-gray" placeholder="再次输入新密码" readonly />
+              <input type="password" class="ink-input ink-input-gray" placeholder="再次输入新密码" readonly aria-label="确认新密码" />
             </div>
           </div>
 
@@ -228,7 +228,7 @@
                 <div class="profile-notify-sub">有新文章发布时通过邮件通知我</div>
               </div>
               <label class="notify-label-wrap mb-0">
-                <input type="checkbox" checked class="notify-toggle" />
+                <input type="checkbox" checked class="notify-toggle" aria-label="新文章发布邮件通知" />
                 <span class="notify-slider"></span>
               </label>
             </div>
@@ -238,7 +238,7 @@
                 <div class="profile-notify-sub">有人回复我的评论时通知我</div>
               </div>
               <label class="notify-label-wrap mb-0">
-                <input type="checkbox" checked class="notify-toggle" />
+                <input type="checkbox" checked class="notify-toggle" aria-label="评论回复通知" />
                 <span class="notify-slider"></span>
               </label>
             </div>
@@ -248,7 +248,7 @@
                 <div class="profile-notify-sub">每周一期精选内容摘要</div>
               </div>
               <label class="notify-label-wrap mb-0">
-                <input type="checkbox" class="notify-toggle" />
+                <input type="checkbox" class="notify-toggle" aria-label="周刊推送通知" />
                 <span class="notify-slider"></span>
               </label>
             </div>
