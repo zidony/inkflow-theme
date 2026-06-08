@@ -43,6 +43,10 @@ function addIssue(issues, file, message) {
   issues.push(`${relative(file)}: ${message}`);
 }
 
+function getAttribute(tag, name) {
+  return tag.match(new RegExp(`\\b${name}=["']([^"']+)["']`, 'i'))?.[1] || '';
+}
+
 function checkHtml(file, source, issues) {
   const inlineStyles = source.match(/<[^>]+\sstyle\s*=/gi) || [];
   if (inlineStyles.length) addIssue(issues, file, `${inlineStyles.length} inline style attribute(s)`);
@@ -55,6 +59,16 @@ function checkHtml(file, source, issues) {
 
   if (/[�]|[鍙嬫儏閾炬帴灞曪紑棣栭〉]/.test(source)) {
     addIssue(issues, file, 'possible mojibake or replacement character');
+  }
+
+  for (const match of source.matchAll(/<a\b[^>]*>/gi)) {
+    const tag = match[0];
+    if (getAttribute(tag, 'target') !== '_blank') continue;
+
+    const rel = getAttribute(tag, 'rel').split(/\s+/);
+    if (!rel.includes('noopener') || !rel.includes('noreferrer')) {
+      addIssue(issues, file, 'target="_blank" link missing rel="noopener noreferrer"');
+    }
   }
 }
 
