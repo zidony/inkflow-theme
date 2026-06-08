@@ -1,8 +1,13 @@
 /* PAGINATION */
 .ink-pagination .page-link {
   border: 1px solid var(--ink-border); border-radius: var(--radius-sm) !important; padding: .5rem .85rem;
-  color: var(--ink-muted); font-size: .88rem; font-weight: 500; background: var(--ink-card);
+  color: var(--ink-muted); font-family: var(--font-body); font-size: .88rem; font-weight: 500; background: var(--ink-card);
   transition: all var(--transition);
 }
 .ink-pagination .page-link:hover { background: rgba(var(--ink-primary-rgb),.08); border-color: var(--ink-primary); color: var(--ink-primary); }
 .ink-pagination .page-item.active .page-link { background: var(--ink-primary); border-color: var(--ink-primary); color: #fff; }
+.ink-pagination .page-item.disabled .page-link,
+.ink-pagination .page-link:disabled {
+  pointer-events: none;
+  opacity: .55;
+}

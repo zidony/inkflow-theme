@@ -66,12 +66,7 @@ function checkHtml(file, source, issues) {
     const href = getAttribute(tag, 'href');
 
     if (href === '#') {
-      const allowedPlaceholder =
-        tag.includes('page-link');
-
-      if (!allowedPlaceholder) {
-        addIssue(issues, file, 'unexpected placeholder href="#" link');
-      }
+      addIssue(issues, file, 'unexpected placeholder href="#" link');
     }
 
     if (getAttribute(tag, 'target') !== '_blank') continue;
