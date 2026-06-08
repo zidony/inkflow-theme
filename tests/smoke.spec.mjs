@@ -30,11 +30,16 @@ async function expectNoConsoleErrors(page, action) {
   expect(errors, errors.join('\n')).toEqual([]);
 }
 
+async function gotoPage(page, pagePath) {
+  await page.goto(pagePath, { waitUntil: 'domcontentloaded' });
+  await page.waitForFunction(() => document.readyState !== 'loading' && document.title.length > 0);
+}
+
 test.describe('dist page smoke', () => {
   for (const pagePath of pages) {
     test(`${pagePath} renders without runtime errors`, async ({ page }) => {
       await expectNoConsoleErrors(page, async () => {
-        await page.goto(`/${pagePath}`, { waitUntil: 'domcontentloaded' });
+        await gotoPage(page, `/${pagePath}`);
         await expect(page).toHaveTitle(/INKFLOW/);
         await expect(page.locator('h1')).toHaveCount(1);
         await expect(page.locator('body')).toContainText('INKFLOW');
@@ -47,7 +52,7 @@ test.describe('dist page smoke', () => {
 
 test('theme toggle switches document theme', async ({ page }) => {
   await expectNoConsoleErrors(page, async () => {
-    await page.goto('/index.html', { waitUntil: 'domcontentloaded' });
+    await gotoPage(page, '/index.html');
     const html = page.locator('html');
     await expect(html).toHaveAttribute('data-bs-theme', 'light');
     await page.getByRole('button', { name: '切换深色与浅色主题' }).click();
@@ -57,7 +62,7 @@ test('theme toggle switches document theme', async ({ page }) => {
 
 test('search overlay opens and closes', async ({ page }) => {
   await expectNoConsoleErrors(page, async () => {
-    await page.goto('/index.html', { waitUntil: 'domcontentloaded' });
+    await gotoPage(page, '/index.html');
     const overlay = page.locator('#searchOverlay');
     await page.getByRole('button', { name: /搜索/ }).click();
     await expect(overlay).toHaveClass(/active/);
@@ -70,7 +75,7 @@ test('search overlay opens and closes', async ({ page }) => {
 
 test('album lightbox opens and closes', async ({ page }) => {
   await expectNoConsoleErrors(page, async () => {
-    await page.goto('/album-list.html', { waitUntil: 'domcontentloaded' });
+    await gotoPage(page, '/album-list.html');
     const lightbox = page.locator('#lightbox');
     await page.locator('[data-lightbox-key="kyoto"]').click();
     await expect(lightbox).toHaveClass(/active/);
@@ -83,7 +88,7 @@ test('album lightbox opens and closes', async ({ page }) => {
 
 test('login tabs switch panels', async ({ page }) => {
   await expectNoConsoleErrors(page, async () => {
-    await page.goto('/login.html', { waitUntil: 'domcontentloaded' });
+    await gotoPage(page, '/login.html');
     await page.getByRole('tab', { name: '注册' }).click();
     await expect(page.locator('#registerForm')).toBeVisible();
     await expect(page.locator('#loginForm')).toBeHidden();
@@ -95,7 +100,7 @@ test('login tabs switch panels', async ({ page }) => {
 
 test('profile avatar rejects unsupported files', async ({ page }) => {
   await expectNoConsoleErrors(page, async () => {
-    await page.goto('/profile.html', { waitUntil: 'domcontentloaded' });
+    await gotoPage(page, '/profile.html');
     await page.locator('#avatarInput').setInputFiles({
       name: 'avatar.svg',
       mimeType: 'image/svg+xml',
@@ -109,15 +114,15 @@ test('profile avatar rejects unsupported files', async ({ page }) => {
 
 test('filter and sort controls use button semantics', async ({ page }) => {
   await expectNoConsoleErrors(page, async () => {
-    await page.goto('/album-list.html', { waitUntil: 'domcontentloaded' });
+    await gotoPage(page, '/album-list.html');
     await page.locator('button[data-album-filter="city"]').click();
     await expect(page.locator('button[data-album-filter="city"]')).toHaveClass(/active/);
 
-    await page.goto('/link-list.html', { waitUntil: 'domcontentloaded' });
+    await gotoPage(page, '/link-list.html');
     await page.locator('button[data-link-filter="tool"]').click();
     await expect(page.locator('button[data-link-filter="tool"]')).toHaveClass(/active/);
 
-    await page.goto('/tag-list.html', { waitUntil: 'domcontentloaded' });
+    await gotoPage(page, '/tag-list.html');
     await page.locator('button[data-tag-sort="alpha"]').click();
     await expect(page.locator('button[data-tag-sort="alpha"]')).toHaveClass(/active/);
   });
@@ -125,7 +130,7 @@ test('filter and sort controls use button semantics', async ({ page }) => {
 
 test('stateful controls update aria state', async ({ page }) => {
   await expectNoConsoleErrors(page, async () => {
-    await page.goto('/post-show.html', { waitUntil: 'domcontentloaded' });
+    await gotoPage(page, '/post-show.html');
 
     const likeBtn = page.locator('#likeBtn');
     await expect(likeBtn).toHaveAttribute('aria-pressed', 'false');
@@ -139,7 +144,7 @@ test('stateful controls update aria state', async ({ page }) => {
     await reactionBtn.click();
     await expect(reactionBtn).toHaveAttribute('aria-pressed', 'true');
 
-    await page.goto('/login.html', { waitUntil: 'domcontentloaded' });
+    await gotoPage(page, '/login.html');
     const passwordToggle = page.locator('.auth-pwd-toggle');
     await expect(passwordToggle).toHaveAttribute('aria-pressed', 'false');
     await expect(passwordToggle).toHaveAttribute('aria-label', '显示密码');
@@ -152,11 +157,11 @@ test('stateful controls update aria state', async ({ page }) => {
 
 test('demo action buttons show integration feedback', async ({ page }) => {
   await expectNoConsoleErrors(page, async () => {
-    await page.goto('/index.html', { waitUntil: 'domcontentloaded' });
+    await gotoPage(page, '/index.html');
     await page.locator('[data-demo-action]').first().click();
     await expect(page.locator('#inkToast')).toContainText('订阅功能需要接入邮件服务或后端 API');
 
-    await page.goto('/login.html', { waitUntil: 'domcontentloaded' });
+    await gotoPage(page, '/login.html');
     await page.locator('[data-demo-message*="Google"]').click();
     await expect(page.locator('#inkToast')).toContainText('Google 登录需要接入 OAuth 服务');
   });
