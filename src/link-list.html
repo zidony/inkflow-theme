@@ -285,12 +285,12 @@
                   <div class="link-apply-req"><i class="bi bi-check-circle-fill" aria-hidden="true"></i><span>已将本站添加至你的友链页面</span></div>
                   <div class="link-apply-req"><i class="bi bi-check-circle-fill" aria-hidden="true"></i><span>内容合法合规，无违禁内容</span></div>
                 </div>
-                <button type="button" class="ink-btn ink-btn-soft ink-btn-lg" data-toggle-link-apply>
+                <button type="button" class="ink-btn ink-btn-soft ink-btn-lg" data-toggle-link-apply aria-controls="linkApplyForm" aria-expanded="false">
                   <i class="bi bi-send-fill" aria-hidden="true"></i> 提交申请
                 </button>
               </div>
               <div class="col-md-5">
-                <div class="link-apply-form" id="linkApplyForm">
+                <div class="link-apply-form" id="linkApplyForm" hidden>
                   <input type="text" class="ink-input ink-input-ghost ink-input-sm" placeholder="博客名称 *" aria-label="博客名称" />
                   <input type="url" class="ink-input ink-input-ghost ink-input-sm" placeholder="博客地址 * (https://...)" aria-label="博客地址" />
                   <input type="url" class="ink-input ink-input-ghost ink-input-sm" placeholder="头像地址（可选）" aria-label="头像地址" />
@@ -298,7 +298,7 @@
                   <input type="email" class="ink-input ink-input-ghost ink-input-sm" placeholder="联系邮箱 *" aria-label="联系邮箱" />
                   <div class="d-flex gap-3">
                     <button type="button" class="ink-btn ink-btn-soft flex-fill" data-demo-action data-demo-message="友链申请需要接入后端审核流程"><i class="bi bi-check-lg me-1" aria-hidden="true"></i> 提交</button>
-                    <button type="button" data-toggle-link-apply class="ink-btn ink-btn-ghost-soft">取消</button>
+                    <button type="button" data-toggle-link-apply class="ink-btn ink-btn-ghost-soft" aria-controls="linkApplyForm" aria-expanded="false">取消</button>
                   </div>
                 </div>
               </div>

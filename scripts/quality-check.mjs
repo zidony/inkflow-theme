@@ -115,6 +115,22 @@ function checkHtml(file, source, issues) {
     }
   }
 
+  for (const match of source.matchAll(/<button\b[^>]*\bdata-toggle-link-apply\b[^>]*>/gi)) {
+    const tag = match[0];
+    if (getAttribute(tag, 'aria-controls') !== 'linkApplyForm') {
+      addIssue(issues, file, 'link apply toggle is missing aria-controls="linkApplyForm"');
+    }
+    if (!getAttribute(tag, 'aria-expanded')) {
+      addIssue(issues, file, 'link apply toggle is missing aria-expanded');
+    }
+  }
+
+  for (const match of source.matchAll(/<div\b[^>]*\bid=["']linkApplyForm["'][^>]*>/gi)) {
+    if (!/\bhidden\b/i.test(match[0])) {
+      addIssue(issues, file, 'link apply form is missing initial hidden state');
+    }
+  }
+
   for (const match of source.matchAll(/<button\b[^>]*\bdata-demo-action\b[^>]*>/gi)) {
     if (!getAttribute(match[0], 'data-demo-message')) {
       addIssue(issues, file, 'demo action is missing data-demo-message');

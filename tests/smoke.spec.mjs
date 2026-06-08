@@ -160,6 +160,32 @@ test('filter and sort controls use button semantics', async ({ page }) => {
   });
 });
 
+test('link apply form synchronizes expanded state', async ({ page }) => {
+  await expectNoConsoleErrors(page, async () => {
+    await gotoPage(page, '/link-list.html');
+
+    const form = page.locator('#linkApplyForm');
+    const trigger = page.locator('[data-toggle-link-apply]').first();
+    const cancel = page.locator('#linkApplyForm [data-toggle-link-apply]');
+
+    await expect(form).toBeHidden();
+    await expect(form).toHaveAttribute('hidden', '');
+    await expect(trigger).toHaveAttribute('aria-expanded', 'false');
+
+    await trigger.click();
+    await expect(form).toBeVisible();
+    await expect(form).toHaveClass(/show/);
+    await expect(form).not.toHaveAttribute('hidden', '');
+    await expect(trigger).toHaveAttribute('aria-expanded', 'true');
+    await expect(page.locator('#linkApplyForm input').first()).toBeFocused();
+
+    await cancel.click();
+    await expect(form).toBeHidden();
+    await expect(form).toHaveAttribute('hidden', '');
+    await expect(trigger).toHaveAttribute('aria-expanded', 'false');
+  });
+});
+
 test('stateful controls update aria state', async ({ page }) => {
   await expectNoConsoleErrors(page, async () => {
     await gotoPage(page, '/post-show.html');

@@ -13,9 +13,24 @@ function filterLinks(el, cat) {
   });
 }
 
+function setLinkApplyFormState(form, expanded) {
+  form.classList.toggle('show', expanded);
+  form.hidden = !expanded;
+
+  document.querySelectorAll('[data-toggle-link-apply][aria-controls="linkApplyForm"]').forEach(button => {
+    button.setAttribute('aria-expanded', String(expanded));
+  });
+
+  if (expanded) {
+    form.querySelector('input, textarea, select, button')?.focus();
+  }
+}
+
 function toggleLinkApplyForm() {
   const form = document.getElementById('linkApplyForm');
-  if (form) form.classList.toggle('show');
+  if (!form) return;
+
+  setLinkApplyFormState(form, !form.classList.contains('show'));
 }
 
 function copySiteInfo() {
