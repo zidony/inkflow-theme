@@ -47,6 +47,10 @@ function getAttribute(tag, name) {
   return tag.match(new RegExp(`\\b${name}=["']([^"']+)["']`, 'i'))?.[1] || '';
 }
 
+function hasClass(tag, className) {
+  return getAttribute(tag, 'class').split(/\s+/).includes(className);
+}
+
 function getFileName(file) {
   return relative(file).split('/').pop();
 }
@@ -102,6 +106,15 @@ function checkHtml(file, source, issues) {
 
   const nonAnchorSocialButtons = source.match(/<(?!a\b)[a-z0-9-]+\b[^>]*\bclass=["'][^"']*\bsocial-btn\b(?!-footer\b)[^"']*["'][^>]*>/gi) || [];
   if (nonAnchorSocialButtons.length) addIssue(issues, file, `${nonAnchorSocialButtons.length} non-anchor author social button(s)`);
+
+  for (const match of source.matchAll(/<div\b[^>]*\bclass=["'][^"']*(?:album-card-hover|photo-item-overlay)[^"']*["'][^>]*>/gi)) {
+    const tag = match[0];
+    if (!hasClass(tag, 'album-card-hover') && !hasClass(tag, 'photo-item-overlay')) continue;
+
+    if (getAttribute(tag, 'aria-hidden') !== 'true') {
+      addIssue(issues, file, 'decorative album overlay is missing aria-hidden="true"');
+    }
+  }
 
   const nonButtonAvatarTriggers = source.match(/<(?!button\b)[a-z0-9-]+\b[^>]*\bdata-avatar-trigger\b/gi) || [];
   if (nonButtonAvatarTriggers.length) addIssue(issues, file, `${nonButtonAvatarTriggers.length} non-button avatar trigger(s)`);
