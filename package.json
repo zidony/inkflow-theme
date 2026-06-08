@@ -10,9 +10,10 @@
     "lint": "eslint src/assets/js/**/*.js",
     "quality": "node scripts/quality-check.mjs",
     "a11y:check": "node scripts/a11y-check.mjs",
+    "seo:check": "node scripts/seo-check.mjs",
     "version:check": "node scripts/version-check.mjs",
     "dist:check": "node scripts/dist-check.mjs",
-    "check": "npm run lint && npm run quality && npm run a11y:check && npm run version:check && npm run build && npm run dist:check",
+    "check": "npm run lint && npm run quality && npm run a11y:check && npm run seo:check && npm run version:check && npm run build && npm run dist:check",
     "format": "prettier --write \"src/**/*.{css,js,html}\""
   },
   "devDependencies": {
