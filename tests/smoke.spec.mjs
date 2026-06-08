@@ -187,3 +187,23 @@ test('user menu avatar exposes expanded state', async ({ page }) => {
     await expect(wrapper).not.toHaveClass(/open/);
   });
 });
+
+test('toast messages expose live region semantics', async ({ page }) => {
+  await expectNoConsoleErrors(page, async () => {
+    await gotoPage(page, '/index.html');
+    await page.locator('[data-demo-action]').first().click();
+    const toast = page.locator('#inkToast');
+    await expect(toast).toHaveAttribute('role', 'status');
+    await expect(toast).toHaveAttribute('aria-live', 'polite');
+
+    await gotoPage(page, '/profile.html');
+    await page.locator('#avatarInput').setInputFiles({
+      name: 'avatar.svg',
+      mimeType: 'image/svg+xml',
+      buffer: Buffer.from('<svg xmlns="http://www.w3.org/2000/svg"></svg>')
+    });
+    const errorToast = page.locator('#inkToast');
+    await expect(errorToast).toHaveAttribute('role', 'alert');
+    await expect(errorToast).toHaveAttribute('aria-live', 'assertive');
+  });
+});
