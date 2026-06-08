@@ -127,6 +127,14 @@ function checkHtml(file, source, issues) {
     }
   }
 
+  for (const match of source.matchAll(/<button\b[^>]*\bclass=["'][^"']*\bpage-link\b[^"']*["'][^>]*>/gi)) {
+    const tag = match[0];
+    if (/\bdisabled\b/.test(tag)) continue;
+    if (!/\bdata-demo-action\b/.test(tag)) {
+      addIssue(issues, file, 'enabled pagination button is missing demo feedback');
+    }
+  }
+
   for (const match of source.matchAll(/<(?:div|section)\b[^>]*\b(?:class=["'][^"']*\b(?:search-overlay|lightbox)\b[^"']*["']|id=["'](?:searchOverlay|lightbox)["'])[^>]*>/gi)) {
     const tag = match[0];
     if (getAttribute(tag, 'aria-hidden') === 'true' && !/\binert\b/i.test(tag)) {

@@ -182,7 +182,7 @@ test('stateful controls update aria state', async ({ page }) => {
 test('demo action buttons show integration feedback', async ({ page }) => {
   await expectNoConsoleErrors(page, async () => {
     await gotoPage(page, '/index.html');
-    await page.locator('[data-demo-action]').first().click();
+    await page.locator('[data-demo-message*="订阅功能"]').first().click();
     await expect(page.locator('#inkToast')).toContainText('订阅功能需要接入邮件服务或后端 API');
 
     await gotoPage(page, '/login.html');
@@ -192,6 +192,11 @@ test('demo action buttons show integration feedback', async ({ page }) => {
     await gotoPage(page, '/post-show.html');
     await page.locator('.comment-action[data-demo-message*="评论回复"]').first().click();
     await expect(page.locator('#inkToast')).toContainText('评论回复需要接入评论 API');
+
+    await gotoPage(page, '/post-list.html');
+    await expect(page.locator('.page-link[aria-current="page"]')).toBeDisabled();
+    await page.getByRole('button', { name: '下一页' }).click();
+    await expect(page.locator('#inkToast')).toContainText('分页功能需要接入文章列表数据源或后端 API');
   });
 });
 
