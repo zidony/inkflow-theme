@@ -58,6 +58,14 @@ function checkImages(file, source, issues) {
   }
 }
 
+function checkIcons(file, source, issues) {
+  for (const match of source.matchAll(/<i\b[^>]*\bclass=["'][^"']*\bbi\b[^"']*["'][^>]*>/gi)) {
+    const tag = match[0];
+    if (/\baria-hidden=["']true["']/.test(tag) || /\b(?:aria-label|role)\s*=/.test(tag)) continue;
+    addIssue(issues, file, 'Bootstrap icon is missing aria-hidden="true" or an explicit semantic role');
+  }
+}
+
 function checkButtons(file, source, issues) {
   for (const match of source.matchAll(/<button\b([^>]*)>([\s\S]*?)<\/button>/gi)) {
     const [, attrs, content] = match;
@@ -106,6 +114,7 @@ for (const file of files) {
   const source = await readFile(file, 'utf8');
   checkDuplicateIds(file, source, issues);
   checkImages(file, source, issues);
+  checkIcons(file, source, issues);
   checkButtons(file, source, issues);
   checkLinks(file, source, issues);
   checkFormControls(file, source, issues);

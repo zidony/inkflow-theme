@@ -16,20 +16,20 @@
 <!-- FLOATING ACTIONS -->
 <div class="floating-actions">
   <button type="button" class="float-btn" id="likeBtn" aria-label="点赞" title="点赞">
-    <i class="bi bi-heart"></i>
+    <i class="bi bi-heart" aria-hidden="true"></i>
     <span class="float-count" id="likeCount">248</span>
   </button>
   <button type="button" class="float-btn" data-open-search aria-label="搜索" title="搜索">
-    <i class="bi bi-search"></i>
+    <i class="bi bi-search" aria-hidden="true"></i>
   </button>
   <button type="button" class="float-btn" data-copy-link aria-label="复制文章链接" title="复制文章链接">
-    <i class="bi bi-share"></i>
+    <i class="bi bi-share" aria-hidden="true"></i>
   </button>
   <button type="button" class="float-btn" aria-label="书签" title="书签">
-    <i class="bi bi-bookmark"></i>
+    <i class="bi bi-bookmark" aria-hidden="true"></i>
   </button>
   <button type="button" class="float-btn" data-scroll-comments aria-label="评论" title="评论">
-    <i class="bi bi-chat"></i>
+    <i class="bi bi-chat" aria-hidden="true"></i>
   </button>
 </div>
 
@@ -45,7 +45,7 @@
       </ol>
     </nav>
 
-    <div class="page-hero-eyebrow article-category"><i class="bi bi-cpu"></i> 技术 · 前端开发</div>
+    <div class="page-hero-eyebrow article-category"><i class="bi bi-cpu" aria-hidden="true"></i> 技术 · 前端开发</div>
 
     <h1 class="page-hero-title article-title">
       2025 年前端开发的终极工具链：<br>从 Vite 5 到 RSC 的完整指南
@@ -60,18 +60,18 @@
         </div>
       </div>
       <div class="meta-divider"></div>
-      <div class="meta-item"><i class="bi bi-calendar3"></i> 2025年2月28日</div>
-      <div class="meta-item"><i class="bi bi-clock"></i> 约 <strong>18</strong> 分钟阅读</div>
-      <div class="meta-item"><i class="bi bi-eye"></i> <strong>3,240</strong> 次阅读</div>
-      <div class="meta-item"><i class="bi bi-chat"></i> <strong>24</strong> 条评论</div>
+      <div class="meta-item"><i class="bi bi-calendar3" aria-hidden="true"></i> 2025年2月28日</div>
+      <div class="meta-item"><i class="bi bi-clock" aria-hidden="true"></i> 约 <strong>18</strong> 分钟阅读</div>
+      <div class="meta-item"><i class="bi bi-eye" aria-hidden="true"></i> <strong>3,240</strong> 次阅读</div>
+      <div class="meta-item"><i class="bi bi-chat" aria-hidden="true"></i> <strong>24</strong> 条评论</div>
     </div>
 
     <div class="article-tags">
-      <span class="art-tag"><i class="bi bi-hash"></i>JavaScript</span>
-      <span class="art-tag"><i class="bi bi-hash"></i>React</span>
-      <span class="art-tag"><i class="bi bi-hash"></i>Vite</span>
-      <span class="art-tag"><i class="bi bi-hash"></i>前端工程化</span>
-      <span class="art-tag"><i class="bi bi-hash"></i>性能优化</span>
+      <span class="art-tag"><i class="bi bi-hash" aria-hidden="true"></i>JavaScript</span>
+      <span class="art-tag"><i class="bi bi-hash" aria-hidden="true"></i>React</span>
+      <span class="art-tag"><i class="bi bi-hash" aria-hidden="true"></i>Vite</span>
+      <span class="art-tag"><i class="bi bi-hash" aria-hidden="true"></i>前端工程化</span>
+      <span class="art-tag"><i class="bi bi-hash" aria-hidden="true"></i>性能优化</span>
     </div>
   </div>
 </div>
@@ -79,7 +79,7 @@
 <!-- COVER IMAGE -->
 <div class="container position-relative article-cover-shell">
   <div class="article-cover mb-4">
-    <i class="bi bi-code-slash"></i>
+    <i class="bi bi-code-slash" aria-hidden="true"></i>
   </div>
 </div>
 
@@ -99,7 +99,7 @@
           <p>在这篇文章中，我将带你走过一个现代前端项目的完整工具链，从开发体验、构建优化到部署策略，每一个环节都给出我在实际项目中验证过的最佳实践。</p>
 
           <div class="callout callout-tip">
-            <i class="bi bi-lightbulb-fill callout-icon"></i>
+            <i class="bi bi-lightbulb-fill callout-icon" aria-hidden="true"></i>
             <p>本文适合有一定前端基础的开发者，如果你刚刚接触前端，建议先了解基础的 npm、Webpack 工作原理后再阅读本文。文中所有代码均已在 Node.js 20+ 环境下测试通过。</p>
           </div>
 
@@ -110,7 +110,7 @@
           <p>过去，当项目规模超过 1000 个模块时，HMR 响应时间会随着模块数增加而线性增长。Vite 5 通过引入<strong>懒加载模块图</strong>机制，将 HMR 复杂度从 O(n) 降低到了接近 O(1)。</p>
 
           <div class="article-img u-tint-blue u-h-260">
-            <i class="bi bi-bar-chart-line-fill"></i>
+            <i class="bi bi-bar-chart-line-fill" aria-hidden="true"></i>
           </div>
           <div class="img-caption">图 1：Vite 4 与 Vite 5 在不同项目规模下的 HMR 响应时间对比</div>
 
@@ -175,7 +175,7 @@ export default defineConfig({
           <p>RSC 从 2023 年进入公众视野至今，争议从未停止。支持者说它从根本上改变了数据获取的方式，反对者说它让心智负担翻倍。两种说法都有道理，关键在于<strong>你是否在正确的场景下使用它</strong>。</p>
 
           <div class="callout callout-warn">
-            <i class="bi bi-exclamation-triangle-fill callout-icon"></i>
+            <i class="bi bi-exclamation-triangle-fill callout-icon" aria-hidden="true"></i>
             <p>RSC 目前（2025年）仍然与打包工具深度耦合，在 Next.js 之外使用 RSC 的成本非常高。如果你不使用 Next.js App Router，本节内容可以暂时跳过。</p>
           </div>
 
@@ -237,7 +237,7 @@ export function LikeButton({ postId, initialCount }: Props) {
 }</code></pre>
 
           <div class="callout callout-info">
-            <i class="bi bi-info-circle-fill callout-icon"></i>
+            <i class="bi bi-info-circle-fill callout-icon" aria-hidden="true"></i>
             <p>黄金法则：<strong>默认使用 Server Component，只有在需要 <code>useState</code>、<code>useEffect</code>、事件监听器或浏览器 API 时，才添加 <code>'use client'</code></strong>。这样可以最大化减少客户端 JavaScript 体积。</p>
           </div>
 
@@ -305,24 +305,24 @@ export function LikeButton({ postId, initialCount }: Props) {
         <!-- REACTION BAR -->
         <div class="reaction-bar">
           <button type="button" class="reaction-btn active" id="reactLike" data-toggle-react>
-            <i class="bi bi-hand-thumbs-up-fill"></i> 很有帮助 <span class="count">186</span>
+            <i class="bi bi-hand-thumbs-up-fill" aria-hidden="true"></i> 很有帮助 <span class="count">186</span>
           </button>
           <button type="button" class="reaction-btn" data-toggle-react>
-            <i class="bi bi-fire"></i> 涨知识了 <span class="count">94</span>
+            <i class="bi bi-fire" aria-hidden="true"></i> 涨知识了 <span class="count">94</span>
           </button>
           <button type="button" class="reaction-btn" data-toggle-react>
-            <i class="bi bi-bookmark-heart"></i> 已收藏 <span class="count">248</span>
+            <i class="bi bi-bookmark-heart" aria-hidden="true"></i> 已收藏 <span class="count">248</span>
           </button>
           <span class="reaction-read-count">
-            <i class="bi bi-eye me-1"></i> 3,240 次阅读
+            <i class="bi bi-eye me-1" aria-hidden="true"></i> 3,240 次阅读
           </span>
         </div>
 
         <!-- SHARE BAR -->
         <div class="share-bar">
-          <span class="share-label"><i class="bi bi-share me-1"></i>分享这篇文章</span>
-          <button type="button" class="share-btn twitter"><i class="bi bi-twitter-x"></i> Twitter</button>
-          <button type="button" class="share-btn wechat"><i class="bi bi-wechat"></i> 微信</button>
+          <span class="share-label"><i class="bi bi-share me-1" aria-hidden="true"></i>分享这篇文章</span>
+          <button type="button" class="share-btn twitter"><i class="bi bi-twitter-x" aria-hidden="true"></i> Twitter</button>
+          <button type="button" class="share-btn wechat"><i class="bi bi-wechat" aria-hidden="true"></i> 微信</button>
           <button type="button" class="share-btn link-copy" data-copy-link aria-label="复制文章链接"><i class="bi bi-link-45deg" aria-hidden="true"></i> 复制链接</button>
         </div>
 
@@ -333,21 +333,21 @@ export function LikeButton({ postId, initialCount }: Props) {
           <div class="author-card-role">全栈工程师 · 产品思考者 · INKFLOW 主理人</div>
           <p class="author-card-bio">专注于 Web 技术与 AI 应用的探索者。相信好的技术文章能改变一个开发者的职业轨迹。在 INKFLOW 写作已有 4 年，累计发布 128 篇原创文章。</p>
           <div class="social-row">
-            <div class="social-btn"><i class="bi bi-twitter-x"></i></div>
-            <div class="social-btn"><i class="bi bi-github"></i></div>
-            <div class="social-btn"><i class="bi bi-linkedin"></i></div>
-            <div class="social-btn"><i class="bi bi-envelope-fill"></i></div>
+            <div class="social-btn"><i class="bi bi-twitter-x" aria-hidden="true"></i></div>
+            <div class="social-btn"><i class="bi bi-github" aria-hidden="true"></i></div>
+            <div class="social-btn"><i class="bi bi-linkedin" aria-hidden="true"></i></div>
+            <div class="social-btn"><i class="bi bi-envelope-fill" aria-hidden="true"></i></div>
           </div>
         </div>
 
         <!-- PREV / NEXT -->
         <div class="post-nav">
           <a href="post-show.html" class="post-nav-item">
-            <div class="post-nav-direction"><i class="bi bi-arrow-left"></i> 上一篇</div>
+            <div class="post-nav-direction"><i class="bi bi-arrow-left" aria-hidden="true"></i> 上一篇</div>
             <div class="post-nav-title">设计系统的本质：语义化 Token 体系构建实践</div>
           </a>
           <a href="post-show.html" class="post-nav-item next">
-            <div class="post-nav-direction">下一篇 <i class="bi bi-arrow-right"></i></div>
+            <div class="post-nav-direction">下一篇 <i class="bi bi-arrow-right" aria-hidden="true"></i></div>
             <div class="post-nav-title">本地部署 LLM：Ollama + Open WebUI 完全配置手册</div>
           </a>
         </div>
@@ -357,27 +357,27 @@ export function LikeButton({ postId, initialCount }: Props) {
         <div class="row g-3 mb-5">
           <div class="col-md-4">
             <a href="post-show.html" class="related-post u-tint-cyan">
-              <div class="related-post-img"><i class="bi bi-robot related-post-icon"></i></div>
+              <div class="related-post-img"><i class="bi bi-robot related-post-icon" aria-hidden="true"></i></div>
               <div class="related-post-body">
-                <div class="related-post-cat"><i class="bi bi-robot me-1"></i>AI</div>
+                <div class="related-post-cat"><i class="bi bi-robot me-1" aria-hidden="true"></i>AI</div>
                 <div class="related-post-title">本地部署 LLM：Ollama + Open WebUI 完全配置</div>
               </div>
             </a>
           </div>
           <div class="col-md-4">
             <a href="post-show.html" class="related-post u-tint-purple">
-              <div class="related-post-img"><i class="bi bi-shield-lock related-post-icon"></i></div>
+              <div class="related-post-img"><i class="bi bi-shield-lock related-post-icon" aria-hidden="true"></i></div>
               <div class="related-post-body">
-                <div class="related-post-cat"><i class="bi bi-shield-check me-1"></i>安全</div>
+                <div class="related-post-cat"><i class="bi bi-shield-check me-1" aria-hidden="true"></i>安全</div>
                 <div class="related-post-title">OWASP Top 10 漏洞防御清单（2025 版）</div>
               </div>
             </a>
           </div>
           <div class="col-md-4">
             <a href="post-show.html" class="related-post u-tint-blue">
-              <div class="related-post-img"><i class="bi bi-database related-post-icon"></i></div>
+              <div class="related-post-img"><i class="bi bi-database related-post-icon" aria-hidden="true"></i></div>
               <div class="related-post-body">
-                <div class="related-post-cat"><i class="bi bi-server me-1"></i>后端</div>
+                <div class="related-post-cat"><i class="bi bi-server me-1" aria-hidden="true"></i>后端</div>
                 <div class="related-post-title">PostgreSQL 性能调优：从慢查询到毫秒级响应</div>
               </div>
             </a>
@@ -394,8 +394,8 @@ export function LikeButton({ postId, initialCount }: Props) {
           <div class="comment-input-wrap">
             <textarea class="ink-input ink-input-gray" placeholder="写下你的想法…支持 Markdown 语法" aria-label="评论内容"></textarea>
             <div class="d-flex align-items-center justify-content-between mt-2">
-              <span class="u-text-xxs-muted"><i class="bi bi-markdown me-1"></i>支持 Markdown</span>
-              <button type="button" class="ink-btn ink-btn-soft"><i class="bi bi-send me-1"></i> 发布评论</button>
+              <span class="u-text-xxs-muted"><i class="bi bi-markdown me-1" aria-hidden="true"></i>支持 Markdown</span>
+              <button type="button" class="ink-btn ink-btn-soft"><i class="bi bi-send me-1" aria-hidden="true"></i> 发布评论</button>
             </div>
           </div>
 
@@ -412,8 +412,8 @@ export function LikeButton({ postId, initialCount }: Props) {
                   </div>
                   <div class="comment-text">终于有一篇把 2025 年工具链说清楚的文章了！关于 Vite 5 的懒加载模块图那部分讲得特别好，我之前一直以为 HMR 变慢是我项目代码质量的问题……原来是架构问题。明天就去升级。</div>
                   <div class="comment-actions">
-                    <button type="button" class="comment-action"><i class="bi bi-hand-thumbs-up"></i> 12</button>
-                    <button type="button" class="comment-action"><i class="bi bi-reply"></i> 回复</button>
+                    <button type="button" class="comment-action"><i class="bi bi-hand-thumbs-up" aria-hidden="true"></i> 12</button>
+                    <button type="button" class="comment-action"><i class="bi bi-reply" aria-hidden="true"></i> 回复</button>
                   </div>
                 </div>
               </div>
@@ -429,8 +429,8 @@ export function LikeButton({ postId, initialCount }: Props) {
                   </div>
                   <div class="comment-text">RSC 那部分我有个问题：如果 Server Component 里有需要登录才能访问的数据，认证逻辑应该写在哪里？是在每个 Server Component 里分别检查，还是有更优雅的方式？</div>
                   <div class="comment-actions">
-                    <button type="button" class="comment-action"><i class="bi bi-hand-thumbs-up"></i> 8</button>
-                    <button type="button" class="comment-action"><i class="bi bi-reply"></i> 回复</button>
+                    <button type="button" class="comment-action"><i class="bi bi-hand-thumbs-up" aria-hidden="true"></i> 8</button>
+                    <button type="button" class="comment-action"><i class="bi bi-reply" aria-hidden="true"></i> 回复</button>
                   </div>
                   <!-- Author reply -->
                   <div class="comment-item comment-item-author-reply mt-3">
@@ -460,8 +460,8 @@ export function LikeButton({ postId, initialCount }: Props) {
                   </div>
                   <div class="comment-text">状态管理推荐 Zustand 这个我赞同，但是对于大型项目，你觉得 Zustand + React Query 的组合怎么样？用 React Query 管服务端状态，Zustand 管客户端状态，感觉职责更清晰一些。</div>
                   <div class="comment-actions">
-                    <button type="button" class="comment-action"><i class="bi bi-hand-thumbs-up"></i> 23</button>
-                    <button type="button" class="comment-action"><i class="bi bi-reply"></i> 回复</button>
+                    <button type="button" class="comment-action"><i class="bi bi-hand-thumbs-up" aria-hidden="true"></i> 23</button>
+                    <button type="button" class="comment-action"><i class="bi bi-reply" aria-hidden="true"></i> 回复</button>
                   </div>
                 </div>
               </div>
@@ -471,7 +471,7 @@ export function LikeButton({ postId, initialCount }: Props) {
 
           <div class="text-center mt-4">
             <button type="button" class="comment-load-more">
-              <i class="bi bi-plus-circle me-1"></i> 加载更多评论（21 条）
+              <i class="bi bi-plus-circle me-1" aria-hidden="true"></i> 加载更多评论（21 条）
             </button>
           </div>
         </div>
@@ -483,7 +483,7 @@ export function LikeButton({ postId, initialCount }: Props) {
 
         <!-- TOC -->
         <div class="ink-card ink-card-shadow sidebar-card sidebar-card-sticky mb-4">
-          <div class="sidebar-title"><i class="bi bi-list-nested u-text-primary"></i> 目录</div>
+          <div class="sidebar-title"><i class="bi bi-list-nested u-text-primary" aria-hidden="true"></i> 目录</div>
           <ul class="toc-list">
             <li><a href="#vite5" class="active">Vite 5：不只是更快</a></li>
             <li><a href="#rsc" class="">React Server Components</a></li>
@@ -492,7 +492,7 @@ export function LikeButton({ postId, initialCount }: Props) {
             <li><a href="#conclusion" class="">结语</a></li>
           </ul>
           <div class="sidebar-reading-meta-wrap">
-            <div class="sidebar-reading-meta"><i class="bi bi-clock"></i> 约 18 分钟阅读</div>
+            <div class="sidebar-reading-meta"><i class="bi bi-clock" aria-hidden="true"></i> 约 18 分钟阅读</div>
           </div>
         </div>
 
@@ -503,28 +503,28 @@ export function LikeButton({ postId, initialCount }: Props) {
             <div class="popular-rank">01</div>
             <div>
               <div class="popular-post-title">React 18 并发特性深度解析与最佳实践</div>
-              <div class="popular-post-meta"><i class="bi bi-eye me-1"></i>8,421 次阅读</div>
+              <div class="popular-post-meta"><i class="bi bi-eye me-1" aria-hidden="true"></i>8,421 次阅读</div>
             </div>
           </div>
           <div class="popular-post-item">
             <div class="popular-rank">02</div>
             <div>
               <div class="popular-post-title">从零开始的 TypeScript 类型体操指南</div>
-              <div class="popular-post-meta"><i class="bi bi-eye me-1"></i>6,892 次阅读</div>
+              <div class="popular-post-meta"><i class="bi bi-eye me-1" aria-hidden="true"></i>6,892 次阅读</div>
             </div>
           </div>
           <div class="popular-post-item">
             <div class="popular-rank">03</div>
             <div>
               <div class="popular-post-title">Redis 实战：高并发场景下的缓存策略设计</div>
-              <div class="popular-post-meta"><i class="bi bi-eye me-1"></i>5,315 次阅读</div>
+              <div class="popular-post-meta"><i class="bi bi-eye me-1" aria-hidden="true"></i>5,315 次阅读</div>
             </div>
           </div>
           <div class="popular-post-item">
             <div class="popular-rank">04</div>
             <div>
               <div class="popular-post-title">程序员的职业天花板：技术 vs 管理的路径选择</div>
-              <div class="popular-post-meta"><i class="bi bi-eye me-1"></i>4,780 次阅读</div>
+              <div class="popular-post-meta"><i class="bi bi-eye me-1" aria-hidden="true"></i>4,780 次阅读</div>
             </div>
           </div>
         </div>
@@ -550,12 +550,12 @@ export function LikeButton({ postId, initialCount }: Props) {
 
         <!-- Newsletter -->
         <div class="ink-card ink-card-shadow sidebar-card mb-4 ink-bg-brand fade-up delay-1">
-          <div class="ink-brand-title"><i class="bi bi-envelope-paper me-2"></i>订阅周刊</div>
+          <div class="ink-brand-title"><i class="bi bi-envelope-paper me-2" aria-hidden="true"></i>订阅周刊</div>
           <p class="ink-brand-sub">每周精选 5 篇文章，直达收件箱，不骚扰，只分享。</p>
           <div class="ink-brand-form">
             <input type="email" class="ink-input ink-input-ghost ink-input-sm mb-3" placeholder="your@email.com" aria-label="订阅邮箱地址" />
             <button type="button" class="ink-btn ink-btn-soft w-100">
-              <i class="bi bi-send-fill me-1"></i> 立即订阅
+              <i class="bi bi-send-fill me-1" aria-hidden="true"></i> 立即订阅
             </button>
           </div>
         </div>
