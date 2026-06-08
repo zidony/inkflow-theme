@@ -56,7 +56,7 @@ function initPwdToggle() {
     const btn = e.target.closest('.auth-pwd-toggle');
     if (!btn) return;
 
-    const wrap  = btn.closest('.auth-input-icon-wrap');
+    const wrap  = btn.closest('.ink-input-wrap');
     const input = wrap && wrap.querySelector('input');
     if (!input) return;
     const isText = input.type === 'text';
@@ -73,6 +73,11 @@ function initLoginForm() {
   document.addEventListener('click', (e) => {
     if (e.target.closest('#doRegisterBtn')) {
       showToast('注册功能开发中，敬请期待');
+      return;
+    }
+
+    if (e.target.closest('[data-auth-forgot]')) {
+      showToast('密码找回功能开发中，敬请期待');
       return;
     }
 

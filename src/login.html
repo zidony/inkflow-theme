@@ -80,7 +80,7 @@
         <label class="auth-remember">
           <input type="checkbox" aria-label="记住我" /> 记住我
         </label>
-        <a href="#" class="auth-forgot">忘记密码？</a>
+        <button type="button" class="auth-forgot" data-auth-forgot>忘记密码？</button>
       </div>
 
       <button class="ink-btn ink-btn-soft w-100" id="doLoginBtn" type="button">
@@ -99,7 +99,7 @@
       </button>
 
       <div class="auth-switch">
-        还没有账号？<a href="#" aria-controls="registerForm" data-auth-switch="registerForm">立即注册</a>
+        还没有账号？<button type="button" class="auth-switch-action" aria-controls="registerForm" data-auth-switch="registerForm">立即注册</button>
       </div>
     </div>
 
@@ -148,7 +148,7 @@
       <div class="auth-terms-row">
         <input type="checkbox" id="agreeTerms" />
         <label for="agreeTerms">
-          我已阅读并同意 <a href="#">服务条款</a> 和 <a href="#">隐私政策</a>
+          我已阅读并同意 <a href="login.html#terms">服务条款</a> 和 <a href="login.html#privacy">隐私政策</a>
         </label>
       </div>
 
@@ -157,7 +157,7 @@
       </button>
 
       <div class="auth-switch">
-        已有账号？<a href="#" aria-controls="loginForm" data-auth-switch="loginForm">立即登录</a>
+        已有账号？<button type="button" class="auth-switch-action" aria-controls="loginForm" data-auth-switch="loginForm">立即登录</button>
       </div>
     </div>
 

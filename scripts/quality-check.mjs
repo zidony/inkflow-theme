@@ -67,11 +67,7 @@ function checkHtml(file, source, issues) {
 
     if (href === '#') {
       const allowedPlaceholder =
-        tag.includes('data-auth-switch') ||
-        tag.includes('auth-forgot') ||
-        tag.includes('page-link') ||
-        source.slice(match.index, match.index + 180).includes('服务条款') ||
-        source.slice(match.index, match.index + 180).includes('隐私政策');
+        tag.includes('page-link');
 
       if (!allowedPlaceholder) {
         addIssue(issues, file, 'unexpected placeholder href="#" link');

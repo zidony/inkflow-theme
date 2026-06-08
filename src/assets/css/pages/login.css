@@ -101,8 +101,25 @@ body:has(.auth-page) { overflow: hidden; }
   cursor: pointer;
 }
 .auth-remember input { accent-color: var(--ink-primary); }
-.auth-forgot { font-size: .85rem; color: var(--ink-primary); }
-.auth-forgot:hover { color: var(--ink-accent); }
+.auth-forgot,
+.auth-switch-action {
+  border: 0;
+  padding: 0;
+  background: transparent;
+  color: var(--ink-primary);
+  font-family: var(--font-body);
+  cursor: pointer;
+  transition: color var(--transition);
+}
+.auth-forgot {
+  font-size: .85rem;
+}
+.auth-switch-action {
+  font-size: inherit;
+  font-weight: 600;
+}
+.auth-forgot:hover,
+.auth-switch-action:hover { color: var(--ink-accent); }
 
 
 .auth-divider {
