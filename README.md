@@ -2,7 +2,7 @@
 
 > 一套面向独立博客的现代化前端主题模板，全面拥抱 Vite 工程化，开箱即用。
 
-![Version](https://img.shields.io/badge/version-3.2.1-green)
+![Version](https://img.shields.io/badge/version-3.2.2-green)
 ![Bootstrap](https://img.shields.io/badge/Bootstrap-5.3.8-7952b3)
 ![Bootstrap Icons](https://img.shields.io/badge/Bootstrap%20Icons-1.13.1-7952b3)
 ![License](https://img.shields.io/badge/license-CC%20BY%204.0-blue)
@@ -253,6 +253,7 @@ InkFlow Theme 是静态前端主题模板，登录、评论、订阅、点赞、
 
 | 版本 | 主要内容 |
 |------|---------|
+| **v3.2.2** | **可访问性与生产边界增强版**：补齐交互控件 ARIA 状态同步；将筛选、相册、头像等自定义交互改为原生按钮语义；强化头像上传校验；为演示按钮提供统一集成反馈；新增本地锚点、动态 selector、HTML 注入、随机性等质量门禁；稳定 Playwright smoke 测试。 |
 | **v3.2.1** | **生产质量补丁版**：修复登录、搜索快捷键等模块作用域运行时错误；统一公共 partial 复用；迁移页面级内联事件到模块化 JS；修复友链页中文乱码；升级 Vite 至 8.0.16 并清零 npm audit；开启生产压缩并新增 `npm run check` 发版前质量检查。 |
 | **v3.2.0** | **零依赖架构升级与组件化大满贯**：彻底拔除 Python 打包依赖，自研 Node.js 原生底层 ZIP 构建脚本；完成全站 `ink-input` 与 `ink-btn` 表单体系的终极组件化与样式大一统；优化自动化发布流水线。 |
 | **v3.1.0** | **深度分层与单文件构建策略**：采用标准 ITCSS 架构深度重组所有 CSS 文件与目录；模块化拆分 JS 职责（`core`, `components`, `pages`）；改写 Vite 配置与内部动态导入，实现全量前端资产打包为唯一的 `inkflow.js` 与 `inkflow.css`（零配置插件式集成）；关闭生产环境构建压缩并引入 Prettier 自动格式化机制。 |
