@@ -94,6 +94,8 @@ test('album lightbox opens and closes', async ({ page }) => {
     await expect(lightbox).not.toHaveAttribute('inert', '');
     await page.keyboard.press('Shift+Tab');
     await expect(page.getByRole('button', { name: '下一张图片' })).toBeFocused();
+    await page.getByRole('button', { name: '下载图片' }).click();
+    await expect(page.locator('#inkToast')).toContainText('图片下载功能需要接入真实图片资源');
     await page.getByRole('button', { name: '关闭图片预览' }).click();
     await expect(lightbox).not.toHaveClass(/active/);
     await expect(lightbox).toHaveAttribute('aria-hidden', 'true');
