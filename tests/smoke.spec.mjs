@@ -265,6 +265,21 @@ test('link apply form synchronizes expanded state', async ({ page }) => {
   });
 });
 
+test('form inputs expose browser assistance hints', async ({ page }) => {
+  await expectNoConsoleErrors(page, async () => {
+    await gotoPage(page, '/tag-list.html');
+    await expect(page.locator('#tagSearch')).toHaveAttribute('type', 'search');
+    await expect(page.locator('#tagSearch')).toHaveAttribute('autocomplete', 'off');
+
+    await gotoPage(page, '/link-list.html');
+    await expect(page.locator('input[aria-label="联系邮箱"]')).toHaveAttribute('autocomplete', 'email');
+    await expect(page.locator('input[aria-label="博客地址"]')).toHaveAttribute('autocomplete', 'url');
+
+    await gotoPage(page, '/index.html');
+    await expect(page.locator('input[aria-label="订阅邮箱地址"]').first()).toHaveAttribute('autocomplete', 'email');
+  });
+});
+
 test('stateful controls update aria state', async ({ page }) => {
   await expectNoConsoleErrors(page, async () => {
     await gotoPage(page, '/post-show.html');

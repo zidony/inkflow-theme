@@ -43,7 +43,7 @@ function openSearch() {
     btn.setAttribute('aria-expanded', 'true');
   });
   document.body.classList.add('is-scroll-locked');
-  const input = overlay.querySelector('input[type="text"]');
+  const input = overlay.querySelector('#searchInput');
   if (input) setTimeout(() => input.focus(), 100);
 }
 

@@ -125,6 +125,27 @@ function checkHtml(file, source, issues) {
     if (!getAttribute(tag, 'aria-controls')) addIssue(issues, file, 'user avatar menu button is missing aria-controls');
   }
 
+  for (const match of source.matchAll(/<input\b[^>]*>/gi)) {
+    const tag = match[0];
+    const type = getAttribute(tag, 'type').toLowerCase();
+    const autocomplete = getAttribute(tag, 'autocomplete').toLowerCase();
+    const searchText = `${getAttribute(tag, 'aria-label')} ${getAttribute(tag, 'placeholder')}`;
+
+    if (type === 'email' && autocomplete !== 'email') {
+      addIssue(issues, file, 'email input is missing autocomplete="email"');
+    }
+    if (type === 'url' && autocomplete !== 'url') {
+      addIssue(issues, file, 'URL input is missing autocomplete="url"');
+    }
+    if (type === 'tel' && autocomplete !== 'tel') {
+      addIssue(issues, file, 'telephone input is missing autocomplete="tel"');
+    }
+    if (/搜索/.test(searchText)) {
+      if (type !== 'search') addIssue(issues, file, 'search input should use type="search"');
+      if (autocomplete !== 'off') addIssue(issues, file, 'search input is missing autocomplete="off"');
+    }
+  }
+
   for (const match of source.matchAll(/<button\b[^>]*\bclass=["'][^"']*\bnavbar-toggler\b[^"']*["'][^>]*>/gi)) {
     const tag = match[0];
     if (getAttribute(tag, 'aria-controls') !== 'navMenu') {
