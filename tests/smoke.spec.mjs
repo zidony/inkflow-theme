@@ -188,6 +188,10 @@ test('demo action buttons show integration feedback', async ({ page }) => {
     await gotoPage(page, '/login.html');
     await page.locator('[data-demo-message*="Google"]').click();
     await expect(page.locator('#inkToast')).toContainText('Google 登录需要接入 OAuth 服务');
+
+    await gotoPage(page, '/post-show.html');
+    await page.locator('.comment-action[data-demo-message*="评论回复"]').first().click();
+    await expect(page.locator('#inkToast')).toContainText('评论回复需要接入评论 API');
   });
 });
 

@@ -121,6 +121,12 @@ function checkHtml(file, source, issues) {
     }
   }
 
+  for (const match of source.matchAll(/<button\b[^>]*\bclass=["'][^"']*\bcomment-action\b[^"']*["'][^>]*>/gi)) {
+    if (!/\bdata-demo-action\b/.test(match[0])) {
+      addIssue(issues, file, 'comment action is missing demo feedback');
+    }
+  }
+
   for (const match of source.matchAll(/<(?:div|section)\b[^>]*\b(?:class=["'][^"']*\b(?:search-overlay|lightbox)\b[^"']*["']|id=["'](?:searchOverlay|lightbox)["'])[^>]*>/gi)) {
     const tag = match[0];
     if (getAttribute(tag, 'aria-hidden') === 'true' && !/\binert\b/i.test(tag)) {
