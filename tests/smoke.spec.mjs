@@ -106,3 +106,19 @@ test('profile avatar rejects unsupported files', async ({ page }) => {
     await expect(page.locator('#inkToast')).toContainText('请选择 PNG、JPG、WebP 或 GIF 图片');
   });
 });
+
+test('filter and sort controls use button semantics', async ({ page }) => {
+  await expectNoConsoleErrors(page, async () => {
+    await page.goto('/album-list.html', { waitUntil: 'domcontentloaded' });
+    await page.locator('button[data-album-filter="city"]').click();
+    await expect(page.locator('button[data-album-filter="city"]')).toHaveClass(/active/);
+
+    await page.goto('/link-list.html', { waitUntil: 'domcontentloaded' });
+    await page.locator('button[data-link-filter="tool"]').click();
+    await expect(page.locator('button[data-link-filter="tool"]')).toHaveClass(/active/);
+
+    await page.goto('/tag-list.html', { waitUntil: 'domcontentloaded' });
+    await page.locator('button[data-tag-sort="alpha"]').click();
+    await expect(page.locator('button[data-tag-sort="alpha"]')).toHaveClass(/active/);
+  });
+});

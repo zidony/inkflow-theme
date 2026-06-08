@@ -79,6 +79,9 @@ function checkHtml(file, source, issues) {
   const duplicateClassAttrs = source.match(/<[^>]*\sclass="[^"]*"[^>]*\sclass="[^"]*"[^>]*>/gi) || [];
   if (duplicateClassAttrs.length) addIssue(issues, file, `${duplicateClassAttrs.length} duplicate class attribute(s)`);
 
+  const nonSemanticInteractiveSpans = source.match(/<span\b[^>]*\bdata-(?:album-filter|link-filter|tag-sort)=/gi) || [];
+  if (nonSemanticInteractiveSpans.length) addIssue(issues, file, `${nonSemanticInteractiveSpans.length} non-semantic interactive span(s)`);
+
   for (const match of source.matchAll(/<a\b[^>]*>/gi)) {
     const tag = match[0];
     const href = getAttribute(tag, 'href');

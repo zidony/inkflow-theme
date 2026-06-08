@@ -10,8 +10,9 @@
 
 /* Filter tabs */
 .filter-tab {
+  appearance: none;
   padding: .38rem .9rem; border-radius: 99px; border: 1px solid var(--ink-border);
-  font-size: .8rem; font-weight: 600; color: var(--ink-muted); background: var(--ink-card); white-space: nowrap;
+  font: inherit; font-size: .8rem; font-weight: 600; color: var(--ink-muted); background: var(--ink-card); white-space: nowrap;
   cursor: pointer; transition: all var(--transition);
 }
 .filter-tab.active, .filter-tab:hover { background: var(--ink-primary); border-color: var(--ink-primary); color: #fff; }

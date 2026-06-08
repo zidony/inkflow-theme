@@ -246,8 +246,9 @@
   margin-bottom: 1.75rem;
 }
 .sort-tab  {
+  appearance: none;
   padding: .38rem .9rem; border-radius: 99px; border: 1px solid var(--ink-border);
-  font-size: .82rem; font-weight: 600; color: var(--ink-muted); background: var(--ink-card);
+  font: inherit; font-size: .82rem; font-weight: 600; color: var(--ink-muted); background: var(--ink-card);
   cursor: pointer; transition: all var(--transition);
 }
 .sort-tab.active, .sort-tab:hover { background: var(--ink-primary); border-color: var(--ink-primary); color: #fff; }
