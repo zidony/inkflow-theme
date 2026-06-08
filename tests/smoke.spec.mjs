@@ -60,6 +60,28 @@ test('theme toggle switches document theme', async ({ page }) => {
   });
 });
 
+test('mobile navbar toggler exposes collapse state', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await expectNoConsoleErrors(page, async () => {
+    await gotoPage(page, '/index.html');
+
+    const toggler = page.locator('.navbar-toggler');
+    const menu = page.locator('#navMenu');
+
+    await expect(toggler).toHaveAttribute('aria-controls', 'navMenu');
+    await expect(toggler).toHaveAttribute('aria-expanded', 'false');
+    await expect(menu).not.toHaveClass(/show/);
+
+    await toggler.click();
+    await expect(toggler).toHaveAttribute('aria-expanded', 'true');
+    await expect(menu).toHaveClass(/show/);
+
+    await toggler.click();
+    await expect(toggler).toHaveAttribute('aria-expanded', 'false');
+    await expect(menu).not.toHaveClass(/show/);
+  });
+});
+
 test('search overlay opens and closes', async ({ page }) => {
   await expectNoConsoleErrors(page, async () => {
     await gotoPage(page, '/index.html');

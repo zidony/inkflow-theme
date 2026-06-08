@@ -105,6 +105,16 @@ function checkHtml(file, source, issues) {
     if (!getAttribute(tag, 'aria-controls')) addIssue(issues, file, 'user avatar menu button is missing aria-controls');
   }
 
+  for (const match of source.matchAll(/<button\b[^>]*\bclass=["'][^"']*\bnavbar-toggler\b[^"']*["'][^>]*>/gi)) {
+    const tag = match[0];
+    if (getAttribute(tag, 'aria-controls') !== 'navMenu') {
+      addIssue(issues, file, 'navbar toggler is missing aria-controls="navMenu"');
+    }
+    if (!getAttribute(tag, 'aria-expanded')) {
+      addIssue(issues, file, 'navbar toggler is missing aria-expanded');
+    }
+  }
+
   for (const match of source.matchAll(/<button\b[^>]*(?:data-toggle-react|data-toggle-bookmark|auth-pwd-toggle)[^>]*>/gi)) {
     const tag = match[0];
     if (!getAttribute(tag, 'aria-pressed')) {
