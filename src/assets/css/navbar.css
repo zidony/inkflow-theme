@@ -82,8 +82,10 @@
 .nav-user-dropdown-sub { font-size: .75rem; color: var(--ink-muted); }
 .nav-user-dropdown-item {
   display: flex; align-items: center; gap: .6rem;
+  width: 100%; border: 0;
   padding: .55rem 1rem;
-  font-size: .86rem; color: var(--ink-text); text-decoration: none;
+  background: transparent; font-family: var(--font-body);
+  font-size: .86rem; color: var(--ink-text); text-align: left; text-decoration: none;
   cursor: pointer; transition: all var(--transition);
 }
 .nav-user-dropdown-item:hover { background: rgba(var(--ink-primary-rgb),.06); color: var(--ink-primary); }

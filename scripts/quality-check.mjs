@@ -63,9 +63,25 @@ function checkHtml(file, source, issues) {
 
   for (const match of source.matchAll(/<a\b[^>]*>/gi)) {
     const tag = match[0];
+    const href = getAttribute(tag, 'href');
+
+    if (href === '#') {
+      const allowedPlaceholder =
+        tag.includes('data-lightbox-key') ||
+        tag.includes('data-auth-switch') ||
+        tag.includes('auth-forgot') ||
+        tag.includes('page-link') ||
+        source.slice(match.index, match.index + 180).includes('服务条款') ||
+        source.slice(match.index, match.index + 180).includes('隐私政策');
+
+      if (!allowedPlaceholder) {
+        addIssue(issues, file, 'unexpected placeholder href="#" link');
+      }
+    }
+
     if (getAttribute(tag, 'target') !== '_blank') continue;
 
-    if (getAttribute(tag, 'href') === '#') {
+    if (href === '#') {
       addIssue(issues, file, 'target="_blank" link uses placeholder href="#"');
     }
 
