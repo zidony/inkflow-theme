@@ -112,6 +112,9 @@ function checkJs(file, source, issues) {
   const htmlInjectionApis = source.match(/\.(?:innerHTML|outerHTML|insertAdjacentHTML)\b/g) || [];
   if (htmlInjectionApis.length) addIssue(issues, file, `${htmlInjectionApis.length} HTML injection API reference(s)`);
 
+  const unsafeSelectorTemplates = source.match(/querySelector(?:All)?\(`[^`]*\$\{(?!escapeCssString\()/g) || [];
+  if (unsafeSelectorTemplates.length) addIssue(issues, file, `${unsafeSelectorTemplates.length} unescaped dynamic selector template(s)`);
+
   const inlineStyleTemplates = source.match(/style\s*=\s*["'`]|style=\\["'`]/g) || [];
   if (inlineStyleTemplates.length) addIssue(issues, file, `${inlineStyleTemplates.length} generated inline style string(s)`);
 }

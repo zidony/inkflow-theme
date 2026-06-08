@@ -1,4 +1,4 @@
-import { initOnce } from '../core/utils.js';
+import { escapeCssString, initOnce } from '../core/utils.js';
 
 function initHeatmap() {
   const container = document.getElementById('heatmapGrid');
@@ -32,7 +32,7 @@ function setYear(el, year) {
     el.classList.add('active');
   } else {
     // 如果是通过 init 调用的，激活默认年份按钮
-    const defaultBtn = document.querySelector(`.year-btn[data-archive-year="${year}"]`);
+    const defaultBtn = document.querySelector(`.year-btn[data-archive-year="${escapeCssString(year)}"]`);
     if (defaultBtn) defaultBtn.classList.add('active');
   }
 

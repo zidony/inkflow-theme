@@ -1,4 +1,4 @@
-import { copyText, initOnce } from '../core/utils.js';
+import { copyText, escapeCssString, initOnce } from '../core/utils.js';
 
 function initReadingProgress() {
   const bar = document.getElementById('readingProgress');
@@ -32,7 +32,7 @@ function initTocSpy() {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         const id = entry.target.getAttribute('id');
-        const targetLink = document.querySelector(`.toc-list a[href="#${id}"]`);
+        const targetLink = document.querySelector(`.toc-list a[href="#${escapeCssString(id)}"]`);
         
         if (targetLink && targetLink !== currentActive) {
           if (currentActive) currentActive.classList.remove(activeClass);

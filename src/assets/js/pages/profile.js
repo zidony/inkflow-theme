@@ -1,4 +1,4 @@
-import { initOnce, showToast } from '../core/utils.js';
+import { escapeCssString, initOnce, showToast } from '../core/utils.js';
 
 function initProfileEdit() {
   const root = document.querySelector('[data-profile-section]');
@@ -26,7 +26,7 @@ function initProfileEdit() {
 }
 
 function enableEdit(section, enable) {
-  const container = document.querySelector(`[data-profile-section="${section}"]`);
+  const container = document.querySelector(`[data-profile-section="${escapeCssString(section)}"]`);
   if (!container) return;
   container.querySelectorAll('.profile-input').forEach(input => {
     input.readOnly = !enable;

@@ -42,6 +42,15 @@ export async function copyText(text) {
   }
 }
 
+export function escapeCssString(value) {
+  return String(value ?? '')
+    .replace(/\\/g, '\\\\')
+    .replace(/"/g, '\\"')
+    .replace(/\n/g, '\\a ')
+    .replace(/\r/g, '\\d ')
+    .replace(/\f/g, '\\c ');
+}
+
 export function initOnce(target, key) {
   if (!target) return false;
   const normalizedKey = key.replace(/[^a-zA-Z0-9]/g, '');
