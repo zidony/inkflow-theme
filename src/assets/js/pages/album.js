@@ -67,6 +67,10 @@ const LIGHTBOX_DATA = {
   p12: { icon: 'bi-tree-fill', bg: 'linear-gradient(135deg,#0a2517,#0d6b3f)', caption: '自然随拍 · 绿意' }
 };
 
+function getSafeBootstrapIcon(icon) {
+  return /^bi-[a-z0-9-]+$/i.test(icon || '') ? icon : 'bi-image';
+}
+
 function filterAlbum(el, cat) {
   document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
   el.classList.add('active');
@@ -88,7 +92,10 @@ function openLightbox(key) {
 
   if (imgEl) {
     imgEl.style.setProperty('--lightbox-bg', data.bg || 'linear-gradient(135deg,#0a1a10,#1a5c2a)');
-    imgEl.innerHTML = `<i class="bi ${data.icon || 'bi-image'} u-lightbox-active-icon"></i>`;
+    const icon = document.createElement('i');
+    icon.className = `bi ${getSafeBootstrapIcon(data.icon)} u-lightbox-active-icon`;
+    icon.setAttribute('aria-hidden', 'true');
+    imgEl.replaceChildren(icon);
   }
   if (capEl) capEl.textContent = data.caption || data.cap || '';
 

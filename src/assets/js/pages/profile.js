@@ -104,13 +104,15 @@ function initProfileActions() {
 function initProfileStreak() {
   const container = document.getElementById('streakDots');
   if (!container) return;
-  
-  const dotsHtml = Array.from({length: 21}, (_, i) => {
+
+  const dots = Array.from({length: 21}, (_, i) => {
     const active = i > 12 ? Math.random() > 0.3 : Math.random() > 0.7;
-    return `<div class="streak-dot${active ? ' active' : ''}"></div>`;
-  }).join('');
-  
-  container.innerHTML = dotsHtml;
+    const dot = document.createElement('div');
+    dot.className = `streak-dot${active ? ' active' : ''}`;
+    return dot;
+  });
+
+  container.replaceChildren(...dots);
 }
 
 function scrollToSection(id) {

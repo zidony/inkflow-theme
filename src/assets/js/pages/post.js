@@ -104,25 +104,35 @@ function toggleReact(el) {
   if (span) span.textContent = parseInt(span.textContent) + (el.classList.contains('active') ? 1 : -1);
 }
 
+function setButtonFeedback(btn, iconClass, text, ariaLabel) {
+  const icon = document.createElement('i');
+  icon.className = `bi ${iconClass} me-1`;
+  icon.setAttribute('aria-hidden', 'true');
+  btn.replaceChildren(icon, document.createTextNode(text));
+  btn.setAttribute('aria-label', ariaLabel);
+}
+
+function restoreButtonContent(btn, nodes, ariaLabel) {
+  btn.replaceChildren(...nodes.map(node => node.cloneNode(true)));
+  btn.setAttribute('aria-label', ariaLabel);
+}
+
 function copyCode(btn) {
   const code = btn.closest('pre')?.querySelector('code');
   if (!code) return;
 
-  const orig = btn.innerHTML;
+  const originalNodes = [...btn.childNodes].map(node => node.cloneNode(true));
   const origAriaLabel = btn.getAttribute('aria-label') || '复制代码';
   copyText(code.textContent)
     .then(() => {
-      btn.innerHTML = '<i class="bi bi-check-lg me-1"></i>已复制';
-      btn.setAttribute('aria-label', '代码已复制');
+      setButtonFeedback(btn, 'bi-check-lg', '已复制', '代码已复制');
     })
     .catch(() => {
-      btn.innerHTML = '<i class="bi bi-exclamation-triangle me-1"></i>复制失败';
-      btn.setAttribute('aria-label', '代码复制失败');
+      setButtonFeedback(btn, 'bi-exclamation-triangle', '复制失败', '代码复制失败');
     })
     .finally(() => {
       setTimeout(() => {
-        btn.innerHTML = orig;
-        btn.setAttribute('aria-label', origAriaLabel);
+        restoreButtonContent(btn, originalNodes, origAriaLabel);
       }, 1500);
     });
 }
@@ -130,21 +140,18 @@ function copyCode(btn) {
 function copyLink() {
   const btn = document.querySelector('.share-btn.link-copy');
   if (!btn) return;
-  const orig = btn.innerHTML;
+  const originalNodes = [...btn.childNodes].map(node => node.cloneNode(true));
   const origAriaLabel = btn.getAttribute('aria-label') || '复制文章链接';
   copyText(window.location.href)
     .then(() => {
-      btn.innerHTML = '<i class="bi bi-check-lg me-1"></i> 已复制';
-      btn.setAttribute('aria-label', '文章链接已复制');
+      setButtonFeedback(btn, 'bi-check-lg', ' 已复制', '文章链接已复制');
     })
     .catch(() => {
-      btn.innerHTML = '<i class="bi bi-exclamation-triangle me-1"></i> 复制失败';
-      btn.setAttribute('aria-label', '文章链接复制失败');
+      setButtonFeedback(btn, 'bi-exclamation-triangle', ' 复制失败', '文章链接复制失败');
     })
     .finally(() => {
       setTimeout(() => {
-        btn.innerHTML = orig;
-        btn.setAttribute('aria-label', origAriaLabel);
+        restoreButtonContent(btn, originalNodes, origAriaLabel);
       }, 1500);
     });
 }

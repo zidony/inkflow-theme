@@ -33,7 +33,7 @@ function renderCloud(list) {
 
   const max = Math.max(...list.map(t => t.count));
   const min = Math.min(...list.map(t => t.count));
-  container.innerHTML = '';
+  container.replaceChildren();
 
   list.forEach(tag => {
     const ratio = (tag.count - min) / (max - min || 1);

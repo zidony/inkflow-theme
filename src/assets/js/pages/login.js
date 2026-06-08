@@ -88,7 +88,10 @@ function initLoginForm() {
 
     if (!email || !pwd) { showToast('请填写邮箱和密码', 'error'); return; }
 
-    loginBtn.innerHTML = '<i class="bi bi-hourglass-split me-1"></i> 登录中…';
+    const icon = document.createElement('i');
+    icon.className = 'bi bi-hourglass-split me-1';
+    icon.setAttribute('aria-hidden', 'true');
+    loginBtn.replaceChildren(icon, document.createTextNode(' 登录中…'));
     loginBtn.disabled  = true;
 
     setTimeout(() => {

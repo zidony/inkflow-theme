@@ -38,7 +38,7 @@ function setYear(el, year) {
 
   const grid = document.getElementById('heatmapGrid');
   if (!grid) return;
-  grid.innerHTML = '';
+  grid.replaceChildren();
   
   const levels = [0, 0, 0, 1, 1, 2, 2, 3, 4];
   const seed = parseInt(year) % 100;
