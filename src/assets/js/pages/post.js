@@ -55,6 +55,8 @@ function initReactions() {
       liked = !liked;
       likeBtn.classList.toggle('active', liked);
       likeBtn.classList.toggle('liked', liked);
+      likeBtn.setAttribute('aria-pressed', liked ? 'true' : 'false');
+      likeBtn.setAttribute('aria-label', liked ? '取消点赞' : '点赞');
       
       const icon = likeBtn.querySelector('i');
       if (icon) {
@@ -100,8 +102,10 @@ function initPostActions() {
 
 function toggleReact(el) {
   el.classList.toggle('active');
+  const active = el.classList.contains('active');
+  el.setAttribute('aria-pressed', active ? 'true' : 'false');
   const span = el.querySelector('.count');
-  if (span) span.textContent = parseInt(span.textContent) + (el.classList.contains('active') ? 1 : -1);
+  if (span) span.textContent = parseInt(span.textContent) + (active ? 1 : -1);
 }
 
 function setButtonFeedback(btn, iconClass, text, ariaLabel) {

@@ -122,3 +122,30 @@ test('filter and sort controls use button semantics', async ({ page }) => {
     await expect(page.locator('button[data-tag-sort="alpha"]')).toHaveClass(/active/);
   });
 });
+
+test('stateful controls update aria state', async ({ page }) => {
+  await expectNoConsoleErrors(page, async () => {
+    await page.goto('/post-show.html', { waitUntil: 'domcontentloaded' });
+
+    const likeBtn = page.locator('#likeBtn');
+    await expect(likeBtn).toHaveAttribute('aria-pressed', 'false');
+    await likeBtn.focus();
+    await page.keyboard.press('Enter');
+    await expect(likeBtn).toHaveAttribute('aria-pressed', 'true');
+    await expect(likeBtn).toHaveAttribute('aria-label', '取消点赞');
+
+    const reactionBtn = page.locator('[data-toggle-react]').nth(1);
+    await expect(reactionBtn).toHaveAttribute('aria-pressed', 'false');
+    await reactionBtn.click();
+    await expect(reactionBtn).toHaveAttribute('aria-pressed', 'true');
+
+    await page.goto('/login.html', { waitUntil: 'domcontentloaded' });
+    const passwordToggle = page.locator('.auth-pwd-toggle');
+    await expect(passwordToggle).toHaveAttribute('aria-pressed', 'false');
+    await expect(passwordToggle).toHaveAttribute('aria-label', '显示密码');
+    await passwordToggle.focus();
+    await page.keyboard.press('Enter');
+    await expect(passwordToggle).toHaveAttribute('aria-pressed', 'true');
+    await expect(passwordToggle).toHaveAttribute('aria-label', '隐藏密码');
+  });
+});

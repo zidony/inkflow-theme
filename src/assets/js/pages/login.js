@@ -61,6 +61,8 @@ function initPwdToggle() {
     if (!input) return;
     const isText = input.type === 'text';
     input.type = isText ? 'password' : 'text';
+    btn.setAttribute('aria-pressed', isText ? 'false' : 'true');
+    btn.setAttribute('aria-label', isText ? '显示密码' : '隐藏密码');
     const icon = btn.querySelector('i');
     if (icon) icon.className = isText ? 'bi bi-eye' : 'bi bi-eye-slash';
   });

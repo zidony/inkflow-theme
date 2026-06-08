@@ -88,6 +88,16 @@ function checkHtml(file, source, issues) {
   const nonButtonAvatarTriggers = source.match(/<(?!button\b)[a-z0-9-]+\b[^>]*\bdata-avatar-trigger\b/gi) || [];
   if (nonButtonAvatarTriggers.length) addIssue(issues, file, `${nonButtonAvatarTriggers.length} non-button avatar trigger(s)`);
 
+  for (const match of source.matchAll(/<button\b[^>]*(?:data-toggle-react|auth-pwd-toggle)[^>]*>/gi)) {
+    const tag = match[0];
+    if (!getAttribute(tag, 'aria-pressed')) {
+      addIssue(issues, file, 'stateful button is missing aria-pressed');
+    }
+    if (tag.includes('auth-pwd-toggle') && !getAttribute(tag, 'aria-controls')) {
+      addIssue(issues, file, 'password toggle is missing aria-controls');
+    }
+  }
+
   for (const match of source.matchAll(/<a\b[^>]*>/gi)) {
     const tag = match[0];
     const href = getAttribute(tag, 'href');
