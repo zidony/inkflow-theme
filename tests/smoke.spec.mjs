@@ -247,6 +247,15 @@ test('filter and sort controls use button semantics', async ({ page }) => {
     await page.locator('button[data-tag-sort="recent"]').click();
     await expect(page.locator('#tagCloudInner .tag-cloud-item').first()).toContainText('React');
     await expect(page.locator('#tagCloudInner .tag-cloud-hash').first()).toHaveAttribute('aria-hidden', 'true');
+
+    await gotoPage(page, '/post-list.html');
+    await expect(page.locator('#gridBtn')).toHaveAttribute('aria-pressed', 'true');
+    await expect(page.locator('#listBtn')).toHaveAttribute('aria-pressed', 'false');
+    await page.locator('#listBtn').click();
+    await expect(page.locator('#gridBtn')).toHaveAttribute('aria-pressed', 'false');
+    await expect(page.locator('#listBtn')).toHaveAttribute('aria-pressed', 'true');
+    await expect(page.locator('#gridView')).toHaveClass(/d-none/);
+    await expect(page.locator('#listView')).not.toHaveClass(/d-none/);
   });
 });
 

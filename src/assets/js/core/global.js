@@ -34,19 +34,19 @@ function initViewToggle() {
   const listView = document.getElementById('listView');
   if (!gridBtn || !listBtn || !initOnce(gridBtn, 'viewToggle')) return;
 
-  gridBtn.addEventListener('click', () => {
-    gridBtn.classList.add('active');
-    listBtn.classList.remove('active');
-    if (gridView) gridView.classList.remove('d-none');
-    if (listView) listView.classList.add('d-none');
-  });
+  const setViewMode = (mode) => {
+    const isGrid = mode === 'grid';
+    gridBtn.classList.toggle('active', isGrid);
+    listBtn.classList.toggle('active', !isGrid);
+    gridBtn.setAttribute('aria-pressed', String(isGrid));
+    listBtn.setAttribute('aria-pressed', String(!isGrid));
+    if (gridView) gridView.classList.toggle('d-none', !isGrid);
+    if (listView) listView.classList.toggle('d-none', isGrid);
+  };
 
-  listBtn.addEventListener('click', () => {
-    listBtn.classList.add('active');
-    gridBtn.classList.remove('active');
-    if (listView) listView.classList.remove('d-none');
-    if (gridView) gridView.classList.add('d-none');
-  });
+  setViewMode(gridBtn.classList.contains('active') ? 'grid' : 'list');
+  gridBtn.addEventListener('click', () => setViewMode('grid'));
+  listBtn.addEventListener('click', () => setViewMode('list'));
 }
 
 function initKeyboard() {
