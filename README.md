@@ -231,6 +231,10 @@ npm run release
 因为项目中配置了 `vite.config.mjs` 的 `base: './'`，您可以直接将生成的 `dist/` 目录上传至任意静态平台（GitHub Pages / Vercel / Netlify）。
 **强烈建议：** 我们已配置好 `.github/workflows/ci.yml`、`.github/workflows/deploy.yml` 与 `.github/workflows/release.yml`。PR / push 会自动运行 `npm run check` 与 `npm audit`，部署和发版流程也会先通过同一套质量门禁。
 
+### 生产集成说明
+
+InkFlow Theme 是静态前端主题模板，登录、评论、订阅、点赞、收藏、个人资料等交互默认为演示逻辑。正式商用前请阅读 [生产集成说明](docs/integration.md)，并接入真实 CMS、认证系统、后端 API 与安全防护。
+
 ---
 
 ## 🔧 JS 模块说明

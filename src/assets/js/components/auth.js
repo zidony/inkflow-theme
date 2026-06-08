@@ -1,5 +1,6 @@
 import { initOnce } from '../core/utils.js';
 
+// Demo-only UI auth state. Replace with server-backed auth in production.
 const inkflowAuth = {
   setUser(user) {
     const loginBtn = document.getElementById('navLoginBtn');

@@ -219,6 +219,10 @@ npm run release
 Because `vite.config.mjs` is configured with `base: './'`, you can directly host the generated `dist/` directory on any static platform (GitHub Pages / Vercel / Netlify).
 **Highly Recommended:** `.github/workflows/ci.yml`, `.github/workflows/deploy.yml`, and `.github/workflows/release.yml` are pre-configured. Pull requests and pushes run `npm run check` plus `npm audit`, and deployment/release jobs pass through the same quality gate first.
 
+### Production Integration Notes
+
+InkFlow Theme is a static frontend theme template. Login, comments, subscriptions, likes, bookmarks, profile settings, and similar interactions are demo flows by default. Before commercial production use, read the [production integration notes](docs/integration.en.md) and connect a real CMS, auth system, backend APIs, and security controls.
+
 ---
 
 ## 🔧 JS Module Instructions
