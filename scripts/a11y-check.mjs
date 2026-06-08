@@ -100,6 +100,15 @@ function checkFormControls(file, source, issues) {
   }
 }
 
+function checkAuthLabels(file, source, issues) {
+  for (const match of source.matchAll(/<label\b[^>]*\bclass=["'][^"']*\bauth-label\b[^"']*["'][^>]*>/gi)) {
+    const tag = match[0];
+    if (!getAttribute(tag, 'for')) {
+      addIssue(issues, file, 'auth label is missing for attribute');
+    }
+  }
+}
+
 function checkPaginationNavs(file, source, issues) {
   for (const match of source.matchAll(/<nav\b([^>]*)>[\s\S]*?\bpagination\b[\s\S]*?<\/nav>/gi)) {
     const [, attrs] = match;
@@ -121,6 +130,7 @@ for (const file of files) {
   checkButtons(file, source, issues);
   checkLinks(file, source, issues);
   checkFormControls(file, source, issues);
+  checkAuthLabels(file, source, issues);
   checkPaginationNavs(file, source, issues);
 }
 

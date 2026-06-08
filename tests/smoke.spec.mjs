@@ -169,6 +169,8 @@ test('stateful controls update aria state', async ({ page }) => {
     await expect(reactionBtn).toHaveAttribute('aria-pressed', 'true');
 
     await gotoPage(page, '/login.html');
+    await expect(page.locator('label[for="loginEmail"]')).toHaveText('邮箱地址');
+    await expect(page.locator('#loginEmail')).toHaveAttribute('autocomplete', 'email');
     const passwordToggle = page.locator('.auth-pwd-toggle');
     await expect(passwordToggle).toHaveAttribute('aria-pressed', 'false');
     await expect(passwordToggle).toHaveAttribute('aria-label', '显示密码');

@@ -58,18 +58,18 @@
       <div class="auth-form-sub">登录你的 INKFLOW 账号，继续探索</div>
 
       <div class="mb-3">
-        <label class="auth-label">邮箱地址</label>
+        <label class="auth-label" for="loginEmail">邮箱地址</label>
         <div class="ink-input-wrap has-icon-left">
           <i class="bi bi-envelope" aria-hidden="true"></i>
-          <input type="email" class="ink-input ink-input-white" id="loginEmail" placeholder="your@email.com" aria-label="邮箱地址" />
+          <input type="email" class="ink-input ink-input-white" id="loginEmail" placeholder="your@email.com" aria-label="邮箱地址" autocomplete="email" />
         </div>
       </div>
 
       <div class="mb-3">
-        <label class="auth-label">密码</label>
+        <label class="auth-label" for="loginPassword">密码</label>
         <div class="ink-input-wrap has-icon-left">
           <i class="bi bi-lock" aria-hidden="true"></i>
-          <input type="password" class="ink-input ink-input-white has-toggle" id="loginPassword" placeholder="输入密码" aria-label="密码" />
+          <input type="password" class="ink-input ink-input-white has-toggle" id="loginPassword" placeholder="输入密码" aria-label="密码" autocomplete="current-password" />
           <button class="auth-pwd-toggle" type="button" aria-label="显示密码" aria-controls="loginPassword" aria-pressed="false">
             <i class="bi bi-eye" aria-hidden="true"></i>
           </button>
@@ -77,8 +77,8 @@
       </div>
 
       <div class="auth-options">
-        <label class="auth-remember">
-          <input type="checkbox" aria-label="记住我" /> 记住我
+        <label class="auth-remember" for="rememberMe">
+          <input type="checkbox" id="rememberMe" aria-label="记住我" /> 记住我
         </label>
         <button type="button" class="auth-forgot" data-auth-forgot>忘记密码？</button>
       </div>
@@ -111,37 +111,37 @@
       <div class="row g-3">
         <div class="col-6">
           <div class="mb-3">
-            <label class="auth-label">姓名</label>
+            <label class="auth-label" for="registerName">姓名</label>
             <div class="ink-input-wrap has-icon-left">
               <i class="bi bi-person" aria-hidden="true"></i>
-              <input type="text" class="ink-input ink-input-white" placeholder="你的姓名" aria-label="姓名" />
+              <input type="text" class="ink-input ink-input-white" id="registerName" placeholder="你的姓名" aria-label="姓名" autocomplete="name" />
             </div>
           </div>
         </div>
         <div class="col-6">
           <div class="mb-3">
-            <label class="auth-label">用户名</label>
+            <label class="auth-label" for="registerUsername">用户名</label>
             <div class="ink-input-wrap has-icon-left">
               <i class="bi bi-at" aria-hidden="true"></i>
-              <input type="text" class="ink-input ink-input-white" placeholder="username" aria-label="用户名" />
+              <input type="text" class="ink-input ink-input-white" id="registerUsername" placeholder="username" aria-label="用户名" autocomplete="username" />
             </div>
           </div>
         </div>
       </div>
 
       <div class="mb-3">
-        <label class="auth-label">邮箱地址</label>
+        <label class="auth-label" for="registerEmail">邮箱地址</label>
         <div class="ink-input-wrap has-icon-left">
           <i class="bi bi-envelope" aria-hidden="true"></i>
-          <input type="email" class="ink-input ink-input-white" placeholder="your@email.com" aria-label="注册邮箱地址" />
+          <input type="email" class="ink-input ink-input-white" id="registerEmail" placeholder="your@email.com" aria-label="注册邮箱地址" autocomplete="email" />
         </div>
       </div>
 
       <div class="mb-3">
-        <label class="auth-label">密码</label>
+        <label class="auth-label" for="registerPassword">密码</label>
         <div class="ink-input-wrap has-icon-left">
           <i class="bi bi-lock" aria-hidden="true"></i>
-          <input type="password" class="ink-input ink-input-white" placeholder="至少 8 位，包含字母和数字" aria-label="注册密码" />
+          <input type="password" class="ink-input ink-input-white" id="registerPassword" placeholder="至少 8 位，包含字母和数字" aria-label="注册密码" autocomplete="new-password" />
         </div>
       </div>
 
