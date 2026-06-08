@@ -156,6 +156,13 @@ test('stateful controls update aria state', async ({ page }) => {
     await expect(likeBtn).toHaveAttribute('aria-pressed', 'true');
     await expect(likeBtn).toHaveAttribute('aria-label', '取消点赞');
 
+    const bookmarkBtn = page.locator('[data-toggle-bookmark]');
+    await expect(bookmarkBtn).toHaveAttribute('aria-pressed', 'false');
+    await bookmarkBtn.focus();
+    await page.keyboard.press('Enter');
+    await expect(bookmarkBtn).toHaveAttribute('aria-pressed', 'true');
+    await expect(bookmarkBtn).toHaveAttribute('aria-label', '取消书签');
+
     const reactionBtn = page.locator('[data-toggle-react]').nth(1);
     await expect(reactionBtn).toHaveAttribute('aria-pressed', 'false');
     await reactionBtn.click();

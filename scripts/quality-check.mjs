@@ -105,7 +105,7 @@ function checkHtml(file, source, issues) {
     if (!getAttribute(tag, 'aria-controls')) addIssue(issues, file, 'user avatar menu button is missing aria-controls');
   }
 
-  for (const match of source.matchAll(/<button\b[^>]*(?:data-toggle-react|auth-pwd-toggle)[^>]*>/gi)) {
+  for (const match of source.matchAll(/<button\b[^>]*(?:data-toggle-react|data-toggle-bookmark|auth-pwd-toggle)[^>]*>/gi)) {
     const tag = match[0];
     if (!getAttribute(tag, 'aria-pressed')) {
       addIssue(issues, file, 'stateful button is missing aria-pressed');

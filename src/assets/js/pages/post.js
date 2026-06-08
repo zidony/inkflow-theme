@@ -94,6 +94,12 @@ function initPostActions() {
       return;
     }
 
+    const bookmarkBtn = e.target.closest('[data-toggle-bookmark]');
+    if (bookmarkBtn) {
+      toggleBookmark(bookmarkBtn);
+      return;
+    }
+
     if (e.target.closest('[data-scroll-comments]')) {
       scrollToComments();
     }
@@ -106,6 +112,15 @@ function toggleReact(el) {
   el.setAttribute('aria-pressed', active ? 'true' : 'false');
   const span = el.querySelector('.count');
   if (span) span.textContent = parseInt(span.textContent) + (active ? 1 : -1);
+}
+
+function toggleBookmark(el) {
+  el.classList.toggle('active');
+  const active = el.classList.contains('active');
+  el.setAttribute('aria-pressed', active ? 'true' : 'false');
+  el.setAttribute('aria-label', active ? '取消书签' : '书签');
+  const icon = el.querySelector('i');
+  if (icon) icon.className = active ? 'bi bi-bookmark-fill' : 'bi bi-bookmark';
 }
 
 function setButtonFeedback(btn, iconClass, text, ariaLabel) {
