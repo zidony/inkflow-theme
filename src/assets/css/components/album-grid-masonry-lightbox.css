@@ -86,8 +86,10 @@
 @media (max-width: 768px)  { .photo-masonry { columns: 2; } }
 @media (max-width: 480px)  { .photo-masonry { columns: 1; } }
 .photo-item {
+  display: block; width: 100%; padding: 0; border: 0; appearance: none; text-align: left;
   break-inside: avoid; position: relative;
   margin-bottom: 10px; border-radius: var(--radius-md); overflow: hidden;
+  background: transparent;
   box-shadow: 0 2px 10px rgba(0,0,0,.08);
   cursor: pointer; transition: transform var(--transition), box-shadow var(--transition);
 }

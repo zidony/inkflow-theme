@@ -139,13 +139,5 @@ function initLightbox() {
       closeLightbox(e);
     }
   });
-
-  document.addEventListener('keydown', (e) => {
-    if (e.key !== 'Enter' && e.key !== ' ') return;
-    const lightboxTrigger = e.target.closest('[data-lightbox-key]');
-    if (!lightboxTrigger) return;
-    e.preventDefault();
-    openLightbox(lightboxTrigger.dataset.lightboxKey);
-  });
 }
 export { closeLightbox, initLightbox };

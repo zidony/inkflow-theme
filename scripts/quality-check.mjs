@@ -82,6 +82,12 @@ function checkHtml(file, source, issues) {
   const nonSemanticInteractiveSpans = source.match(/<span\b[^>]*\bdata-(?:album-filter|link-filter|tag-sort)=/gi) || [];
   if (nonSemanticInteractiveSpans.length) addIssue(issues, file, `${nonSemanticInteractiveSpans.length} non-semantic interactive span(s)`);
 
+  const roleButtonElements = source.match(/<(?!button\b)[a-z0-9-]+\b[^>]*\brole=["']button["']/gi) || [];
+  if (roleButtonElements.length) addIssue(issues, file, `${roleButtonElements.length} non-native role="button" element(s)`);
+
+  const nonButtonAvatarTriggers = source.match(/<(?!button\b)[a-z0-9-]+\b[^>]*\bdata-avatar-trigger\b/gi) || [];
+  if (nonButtonAvatarTriggers.length) addIssue(issues, file, `${nonButtonAvatarTriggers.length} non-button avatar trigger(s)`);
+
   for (const match of source.matchAll(/<a\b[^>]*>/gi)) {
     const tag = match[0];
     const href = getAttribute(tag, 'href');
