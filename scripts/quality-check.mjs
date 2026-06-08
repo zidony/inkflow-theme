@@ -65,6 +65,10 @@ function checkHtml(file, source, issues) {
     const tag = match[0];
     if (getAttribute(tag, 'target') !== '_blank') continue;
 
+    if (getAttribute(tag, 'href') === '#') {
+      addIssue(issues, file, 'target="_blank" link uses placeholder href="#"');
+    }
+
     const rel = getAttribute(tag, 'rel').split(/\s+/);
     if (!rel.includes('noopener') || !rel.includes('noreferrer')) {
       addIssue(issues, file, 'target="_blank" link missing rel="noopener noreferrer"');
