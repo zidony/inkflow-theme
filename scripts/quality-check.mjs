@@ -67,7 +67,6 @@ function checkHtml(file, source, issues) {
 
     if (href === '#') {
       const allowedPlaceholder =
-        tag.includes('data-lightbox-key') ||
         tag.includes('data-auth-switch') ||
         tag.includes('auth-forgot') ||
         tag.includes('page-link') ||
