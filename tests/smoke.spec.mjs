@@ -50,6 +50,46 @@ test.describe('dist page smoke', () => {
   }
 });
 
+test('theme reset removes viewport gaps without external CSS reset', async ({ page }) => {
+  await page.route('https://cdn.jsdelivr.net/**', route => route.abort());
+  await gotoPage(page, '/index.html');
+
+  const metrics = await page.evaluate(() => {
+    const bodyStyle = getComputedStyle(document.body);
+    const header = document.querySelector('header');
+    const footer = document.querySelector('.site-footer');
+    const headerRect = header?.getBoundingClientRect();
+
+    window.scrollTo(0, document.documentElement.scrollHeight);
+    const footerRect = footer?.getBoundingClientRect();
+
+    return {
+      bodyMarginTop: bodyStyle.marginTop,
+      bodyMarginBottom: bodyStyle.marginBottom,
+      headerTop: headerRect?.top ?? null,
+      footerBottomGap: footerRect
+        ? Math.max(0, document.documentElement.scrollHeight - (window.scrollY + footerRect.bottom))
+        : null,
+      headOnlyBodyTags: [...document.body.children]
+        .filter(el => ['META', 'LINK', 'TITLE'].includes(el.tagName))
+        .map(el => el.tagName),
+      contentAfterFooter: footer
+        ? [...document.body.children]
+            .slice([...document.body.children].indexOf(footer) + 1)
+            .filter(el => getComputedStyle(el).position !== 'fixed' && el.getBoundingClientRect().height > 0)
+            .map(el => ({ tag: el.tagName, id: el.id, className: el.className }))
+        : [],
+    };
+  });
+
+  expect(metrics.bodyMarginTop).toBe('0px');
+  expect(metrics.bodyMarginBottom).toBe('0px');
+  expect(metrics.headerTop).toBe(0);
+  expect(metrics.footerBottomGap).toBeLessThanOrEqual(1);
+  expect(metrics.headOnlyBodyTags).toEqual([]);
+  expect(metrics.contentAfterFooter).toEqual([]);
+});
+
 test('theme toggle switches document theme', async ({ page }) => {
   await expectNoConsoleErrors(page, async () => {
     await gotoPage(page, '/index.html');

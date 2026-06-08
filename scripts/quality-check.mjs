@@ -65,6 +65,10 @@ function checkCdnIntegrity(file, source, issues) {
 }
 
 function checkTextEncoding(file, source, issues) {
+  if (source.charCodeAt(0) === 0xfeff) {
+    addIssue(issues, file, 'UTF-8 BOM is not allowed in source templates');
+  }
+
   const mojibakePattern = /\uFFFD|\u951f|\u9366|\u95c1|\u6fb6\u5db6/;
   if (mojibakePattern.test(source)) {
     addIssue(issues, file, 'possible mojibake or replacement character');
