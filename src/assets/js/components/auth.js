@@ -32,6 +32,7 @@ const inkflowAuth = {
       userWrap.classList.add('d-none');
       userWrap.classList.remove('d-flex', 'open');
     }
+    document.getElementById('navUserAvatar')?.setAttribute('aria-expanded', 'false');
 
     try {
       localStorage.removeItem('inkflow-user');
@@ -62,9 +63,14 @@ function initUserAuth() {
   const wrapper = document.getElementById('navUserWrapper');
   const avatar  = document.getElementById('navUserAvatar');
   if (wrapper && avatar) {
-    avatar.addEventListener('click', () => wrapper.classList.toggle('open'));
+    const syncMenuState = (open) => {
+      wrapper.classList.toggle('open', open);
+      avatar.setAttribute('aria-expanded', open ? 'true' : 'false');
+    };
+
+    avatar.addEventListener('click', () => syncMenuState(!wrapper.classList.contains('open')));
     document.addEventListener('click', (e) => {
-      if (!wrapper.contains(e.target)) wrapper.classList.remove('open');
+      if (!wrapper.contains(e.target)) syncMenuState(false);
     });
   }
 

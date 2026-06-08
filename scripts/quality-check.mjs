@@ -93,6 +93,12 @@ function checkHtml(file, source, issues) {
   const nonButtonAvatarTriggers = source.match(/<(?!button\b)[a-z0-9-]+\b[^>]*\bdata-avatar-trigger\b/gi) || [];
   if (nonButtonAvatarTriggers.length) addIssue(issues, file, `${nonButtonAvatarTriggers.length} non-button avatar trigger(s)`);
 
+  for (const match of source.matchAll(/<button\b[^>]*\bid=["']navUserAvatar["'][^>]*>/gi)) {
+    const tag = match[0];
+    if (!getAttribute(tag, 'aria-expanded')) addIssue(issues, file, 'user avatar menu button is missing aria-expanded');
+    if (!getAttribute(tag, 'aria-controls')) addIssue(issues, file, 'user avatar menu button is missing aria-controls');
+  }
+
   for (const match of source.matchAll(/<button\b[^>]*(?:data-toggle-react|auth-pwd-toggle)[^>]*>/gi)) {
     const tag = match[0];
     if (!getAttribute(tag, 'aria-pressed')) {

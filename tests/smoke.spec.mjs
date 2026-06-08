@@ -166,3 +166,21 @@ test('demo action buttons show integration feedback', async ({ page }) => {
     await expect(page.locator('#inkToast')).toContainText('Google 登录需要接入 OAuth 服务');
   });
 });
+
+test('user menu avatar exposes expanded state', async ({ page }) => {
+  await expectNoConsoleErrors(page, async () => {
+    await page.goto('/index.html');
+    await page.evaluate(() => {
+      localStorage.setItem('inkflow-user', JSON.stringify({ name: '陈明远', initial: '陈' }));
+    });
+    await gotoPage(page, '/index.html');
+
+    const avatar = page.locator('#navUserAvatar');
+    const wrapper = page.locator('#navUserWrapper');
+    await expect(wrapper).toHaveClass(/d-flex/);
+    await expect(avatar).toHaveAttribute('aria-expanded', 'false');
+    await avatar.click();
+    await expect(avatar).toHaveAttribute('aria-expanded', 'true');
+    await expect(wrapper).toHaveClass(/open/);
+  });
+});
