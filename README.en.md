@@ -2,7 +2,7 @@
 
 > A modern frontend theme template tailored for independent blogs, fully embracing Vite engineering, out-of-the-box ready.
 
-![Version](https://img.shields.io/badge/version-3.2.2-green)
+![Version](https://img.shields.io/badge/version-3.2.3-green)
 ![Bootstrap](https://img.shields.io/badge/Bootstrap-5.3.8-7952b3)
 ![Bootstrap Icons](https://img.shields.io/badge/Bootstrap%20Icons-1.13.1-7952b3)
 ![License](https://img.shields.io/badge/license-CC%20BY%204.0-blue)
@@ -265,6 +265,7 @@ Modify the Google Fonts link in the `<head>` of HTML files, and update variables
 
 | Version | Key Updates |
 |---------|-------------|
+| **v3.2.3** | **Accessible Interaction Patch**: Improved user menu labels and Escape handling; added live-region semantics to toast feedback; replaced native `confirm()` with a themed confirmation modal plus a Bootstrap JS fallback; converted search suggestions and interactive tag pills to native button controls; added quality gates for blocking dialogs, non-semantic search tips, and non-semantic tag pills; expanded Playwright smoke coverage. |
 | **v3.2.2** | **Accessibility and Production Boundary Patch**: Synced ARIA state for interactive controls; replaced custom filter, album, and avatar interactions with native button semantics; hardened avatar upload validation; added unified feedback for demo-only actions; expanded quality gates for local anchors, dynamic selectors, HTML injection APIs, and non-deterministic UI; stabilized Playwright smoke navigation. |
 | **v3.2.1** | **Production Quality Patch**: Fixed module-scope runtime errors in login and search shortcuts; normalized shared partial usage; migrated page-level inline handlers into modular JS; restored corrupted Chinese text on the links page; upgraded Vite to 8.0.16 with a clean npm audit; enabled production minification and added `npm run check` for pre-release validation. |
 | **v3.2.0** | **Zero-Dependency Architecture & Componentization Milestone**: Completely removed Python packaging dependencies by writing a custom Node.js native zero-dependency ZIP build script; finalized the global componentization and style unification of the `.ink-input` and `.ink-btn` systems; optimized the automated release pipeline. |
