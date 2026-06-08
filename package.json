@@ -14,9 +14,11 @@
     "version:check": "node scripts/version-check.mjs",
     "dist:check": "node scripts/dist-check.mjs",
     "check": "npm run lint && npm run quality && npm run a11y:check && npm run seo:check && npm run version:check && npm run build && npm run dist:check",
+    "smoke": "node scripts/run-smoke.mjs",
     "format": "prettier --write \"src/**/*.{css,js,html}\""
   },
   "devDependencies": {
+    "@playwright/test": "^1.60.0",
     "eslint": "^8.57.0",
     "prettier": "^3.2.5",
     "vite": "^8.0.16",
