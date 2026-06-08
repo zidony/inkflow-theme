@@ -90,6 +90,9 @@ function checkHtml(file, source, issues) {
   const nonSemanticSearchTips = source.match(/<span\b[^>]*\bclass=["'][^"']*\bsearch-tip\b/gi) || [];
   if (nonSemanticSearchTips.length) addIssue(issues, file, `${nonSemanticSearchTips.length} non-semantic search tip span(s)`);
 
+  const nonSemanticTagPills = source.match(/<span\b[^>]*\bclass=["'][^"']*\btag-pill\b(?![^"']*\btag-sm\b)[^"']*["']/gi) || [];
+  if (nonSemanticTagPills.length) addIssue(issues, file, `${nonSemanticTagPills.length} non-semantic tag pill span(s)`);
+
   const roleButtonElements = source.match(/<(?!button\b)[a-z0-9-]+\b[^>]*\brole=["']button["']/gi) || [];
   if (roleButtonElements.length) addIssue(issues, file, `${roleButtonElements.length} non-native role="button" element(s)`);
 
