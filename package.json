@@ -10,7 +10,8 @@
     "lint": "eslint src/assets/js/**/*.js",
     "quality": "node scripts/quality-check.mjs",
     "version:check": "node scripts/version-check.mjs",
-    "check": "npm run lint && npm run quality && npm run version:check && npm run build",
+    "dist:check": "node scripts/dist-check.mjs",
+    "check": "npm run lint && npm run quality && npm run version:check && npm run build && npm run dist:check",
     "format": "prettier --write \"src/**/*.{css,js,html}\""
   },
   "devDependencies": {
