@@ -135,6 +135,15 @@ function checkHtml(file, source, issues) {
     }
   }
 
+  for (const match of source.matchAll(/<div\b[^>]*\bdata-profile-section=["'][^"']+["'][^>]*>([\s\S]*?)(?=<div class="ink-card ink-card-xl ink-card-shadow profile-card|<div class="danger-zone|<\/main>)/gi)) {
+    const section = match[1];
+    for (const control of section.matchAll(/<(?:input|textarea)\b[^>]*\bclass=["'][^"']*\bink-input\b[^"']*["'][^>]*>/gi)) {
+      if (!/\bprofile-input\b/.test(control[0])) {
+        addIssue(issues, file, 'profile editable control is missing profile-input class');
+      }
+    }
+  }
+
   for (const match of source.matchAll(/<(?:div|section)\b[^>]*\b(?:class=["'][^"']*\b(?:search-overlay|lightbox)\b[^"']*["']|id=["'](?:searchOverlay|lightbox)["'])[^>]*>/gi)) {
     const tag = match[0];
     if (getAttribute(tag, 'aria-hidden') === 'true' && !/\binert\b/i.test(tag)) {
