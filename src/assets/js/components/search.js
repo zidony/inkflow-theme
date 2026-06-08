@@ -1,4 +1,4 @@
-import { initOnce } from '../core/utils.js';
+import { initOnce, trapFocus } from '../core/utils.js';
 
 let searchLastFocused = null;
 
@@ -25,6 +25,10 @@ function initSearch() {
   });
   overlay.addEventListener('click', (e) => {
     if (e.target === overlay) closeSearch();
+  });
+  overlay.addEventListener('keydown', (e) => {
+    if (!overlay.classList.contains('active')) return;
+    trapFocus(overlay, e);
   });
 }
 

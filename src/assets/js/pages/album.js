@@ -1,4 +1,4 @@
-import { initOnce } from '../core/utils.js';
+import { initOnce, trapFocus } from '../core/utils.js';
 
 let lightboxLastFocused = null;
 
@@ -140,6 +140,11 @@ function initLightbox() {
     if (e.target === lb || e.target.closest('[data-lightbox-close]')) {
       closeLightbox(e);
     }
+  });
+
+  lb.addEventListener('keydown', (e) => {
+    if (!lb.classList.contains('active')) return;
+    trapFocus(lb, e);
   });
 }
 export { closeLightbox, initLightbox };

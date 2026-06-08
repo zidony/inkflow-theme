@@ -73,6 +73,9 @@ test('search overlay opens and closes', async ({ page }) => {
     await expect(searchInput).toBeFocused();
     await overlay.getByRole('button', { name: 'JavaScript' }).press('Enter');
     await expect(searchInput).toHaveValue('JavaScript');
+    await page.getByRole('button', { name: '关闭搜索' }).focus();
+    await page.keyboard.press('Shift+Tab');
+    await expect(overlay.getByRole('button', { name: 'AI' })).toBeFocused();
     await page.getByRole('button', { name: '关闭搜索' }).click();
     await expect(overlay).not.toHaveClass(/active/);
     await expect(overlay).toHaveAttribute('aria-hidden', 'true');
@@ -89,6 +92,8 @@ test('album lightbox opens and closes', async ({ page }) => {
     await expect(lightbox).toHaveClass(/active/);
     await expect(lightbox).toHaveAttribute('aria-hidden', 'false');
     await expect(lightbox).not.toHaveAttribute('inert', '');
+    await page.keyboard.press('Shift+Tab');
+    await expect(page.getByRole('button', { name: '下一张图片' })).toBeFocused();
     await page.getByRole('button', { name: '关闭图片预览' }).click();
     await expect(lightbox).not.toHaveClass(/active/);
     await expect(lightbox).toHaveAttribute('aria-hidden', 'true');
