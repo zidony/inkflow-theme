@@ -67,6 +67,15 @@ function checkButtons(file, source, issues) {
   }
 }
 
+function checkLinks(file, source, issues) {
+  for (const match of source.matchAll(/<a\b([^>]*)>([\s\S]*?)<\/a>/gi)) {
+    const [, attrs, content] = match;
+    if (!hasAccessibleName(attrs, content)) {
+      addIssue(issues, file, 'link is missing an accessible name');
+    }
+  }
+}
+
 function checkFormControls(file, source, issues) {
   for (const match of source.matchAll(/<(input|select|textarea)\b[^>]*>/gi)) {
     const [tag, element] = match;
@@ -80,6 +89,15 @@ function checkFormControls(file, source, issues) {
   }
 }
 
+function checkPaginationNavs(file, source, issues) {
+  for (const match of source.matchAll(/<nav\b([^>]*)>[\s\S]*?\bpagination\b[\s\S]*?<\/nav>/gi)) {
+    const [, attrs] = match;
+    if (!/\b(?:aria-label|aria-labelledby)\s*=/.test(attrs)) {
+      addIssue(issues, file, 'pagination nav is missing an accessible label');
+    }
+  }
+}
+
 const files = await walk(srcDir);
 const issues = [];
 
@@ -89,7 +107,9 @@ for (const file of files) {
   checkDuplicateIds(file, source, issues);
   checkImages(file, source, issues);
   checkButtons(file, source, issues);
+  checkLinks(file, source, issues);
   checkFormControls(file, source, issues);
+  checkPaginationNavs(file, source, issues);
 }
 
 if (issues.length) {
