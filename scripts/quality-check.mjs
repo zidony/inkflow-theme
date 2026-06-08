@@ -47,6 +47,19 @@ function getAttribute(tag, name) {
   return tag.match(new RegExp(`\\b${name}=["']([^"']+)["']`, 'i'))?.[1] || '';
 }
 
+function checkCdnIntegrity(file, source, issues) {
+  for (const match of source.matchAll(/<(?:link|script)\b[^>]*(?:href|src)=["']https:\/\/cdn\.jsdelivr\.net\/[^"']+["'][^>]*>/gi)) {
+    const tag = match[0];
+    if (!getAttribute(tag, 'integrity')) {
+      addIssue(issues, file, 'jsDelivr resource is missing SRI integrity');
+    }
+
+    if (getAttribute(tag, 'crossorigin') !== 'anonymous') {
+      addIssue(issues, file, 'jsDelivr resource is missing crossorigin="anonymous"');
+    }
+  }
+}
+
 function checkHtml(file, source, issues) {
   const inlineStyles = source.match(/<[^>]+\sstyle\s*=/gi) || [];
   if (inlineStyles.length) addIssue(issues, file, `${inlineStyles.length} inline style attribute(s)`);
@@ -80,6 +93,8 @@ function checkHtml(file, source, issues) {
       addIssue(issues, file, 'target="_blank" link missing rel="noopener noreferrer"');
     }
   }
+
+  checkCdnIntegrity(file, source, issues);
 }
 
 function checkJs(file, source, issues) {
