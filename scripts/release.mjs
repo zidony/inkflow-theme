@@ -30,6 +30,7 @@ class ZipWriter {
         this.fd = fs.openSync(outPath, 'w');
         this.offset = 0;
         this.centralDirectories = [];
+        this.closed = false;
     }
     
     addFile(zipPath, fileBuffer) {
@@ -110,6 +111,14 @@ class ZipWriter {
         
         fs.writeSync(this.fd, eocd);
         fs.closeSync(this.fd);
+        this.closed = true;
+    }
+
+    close() {
+        if (!this.closed) {
+            fs.closeSync(this.fd);
+            this.closed = true;
+        }
     }
 }
 
@@ -126,23 +135,39 @@ if (!fs.existsSync(distDir)) {
     process.exit(1);
 }
 
-let version = '1.0.0';
-let name = 'inkflow-theme';
+function readPackageMetadata() {
+    const versionPattern = /^\d+\.\d+\.\d+(?:-[0-9A-Za-z.-]+)?$/;
 
-if (fs.existsSync(packageJsonPath)) {
-    try {
-        const pkg = JSON.parse(fs.readFileSync(packageJsonPath, 'utf8'));
-        if (pkg.version) version = pkg.version;
-        if (pkg.name) name = pkg.name;
-    } catch (e) {
-        console.warn(`Warning: could not read package.json: ${e.message}`);
+    if (!fs.existsSync(packageJsonPath)) {
+        throw new Error('package.json does not exist.');
     }
+
+    const pkg = JSON.parse(fs.readFileSync(packageJsonPath, 'utf8'));
+    if (!pkg.name) throw new Error('package.json is missing name.');
+    if (!pkg.version) throw new Error('package.json is missing version.');
+    if (!versionPattern.test(pkg.version)) {
+        throw new Error(`package.json version is not valid semver: ${pkg.version}`);
+    }
+
+    return {
+        name: pkg.name,
+        version: pkg.version,
+    };
 }
 
 if (!fs.existsSync(releaseDir)) {
     fs.mkdirSync(releaseDir, { recursive: true });
 }
 
+let packageMetadata;
+try {
+    packageMetadata = readPackageMetadata();
+} catch (error) {
+    console.error(`Error: ${error.message}`);
+    process.exit(1);
+}
+
+const { name, version } = packageMetadata;
 const zipFilename = `${name}-v${version}.zip`;
 const zipPath = path.join(releaseDir, zipFilename);
 
@@ -153,39 +178,59 @@ if (fs.existsSync(zipPath)) {
 
 console.log(`Creating ZIP archive: releases/${zipFilename}...`);
 
-const zipWriter = new ZipWriter(zipPath);
 const topFolder = `${name}-v${version}`;
 
 // Helper to recursively read directory
-function walkDir(dir, callback) {
-    fs.readdirSync(dir).forEach(f => {
-        let dirPath = path.join(dir, f);
-        if (fs.statSync(dirPath).isDirectory()) {
-            walkDir(dirPath, callback);
-        } else {
-            callback(path.join(dir, f));
-        }
-    });
+function walkDir(dir, files = []) {
+    fs.readdirSync(dir, { withFileTypes: true })
+        .sort((a, b) => a.name.localeCompare(b.name))
+        .forEach(entry => {
+            const entryPath = path.join(dir, entry.name);
+            if (entry.isDirectory()) {
+                walkDir(entryPath, files);
+            } else {
+                files.push(entryPath);
+            }
+        });
+
+    return files;
 }
 
-// Add dist files
-walkDir(distDir, (filePath) => {
-    const relPath = path.relative(distDir, filePath);
-    const zipDest = path.posix.join(topFolder, relPath.replace(/\\/g, '/'));
-    zipWriter.addFile(zipDest, fs.readFileSync(filePath));
-});
+const zipWriter = new ZipWriter(zipPath);
 
-// Add README files
-fs.readdirSync(rootDir).forEach(f => {
-    if (f.toLowerCase().startsWith('readme') && f.toLowerCase().endsWith('.md')) {
-        const filePath = path.join(rootDir, f);
-        const zipDest = path.posix.join(topFolder, f);
-        zipWriter.addFile(zipDest, fs.readFileSync(filePath));
-        console.log(`Added to ZIP: ${f}`);
+try {
+    // Add dist files
+    const distFiles = walkDir(distDir);
+    if (!distFiles.length) {
+        throw new Error('dist/ directory is empty.');
     }
-});
 
-zipWriter.finalize();
+    for (const filePath of distFiles) {
+        const relPath = path.relative(distDir, filePath);
+        const zipDest = path.posix.join(topFolder, relPath.replace(/\\/g, '/'));
+        zipWriter.addFile(zipDest, fs.readFileSync(filePath));
+    }
+
+    // Add README files
+    fs.readdirSync(rootDir)
+        .filter(f => f.toLowerCase().startsWith('readme') && f.toLowerCase().endsWith('.md'))
+        .sort((a, b) => a.localeCompare(b))
+        .forEach(f => {
+            const filePath = path.join(rootDir, f);
+            const zipDest = path.posix.join(topFolder, f);
+            zipWriter.addFile(zipDest, fs.readFileSync(filePath));
+            console.log(`Added to ZIP: ${f}`);
+        });
+
+    zipWriter.finalize();
+} catch (error) {
+    zipWriter.close();
+    if (fs.existsSync(zipPath)) {
+        fs.unlinkSync(zipPath);
+    }
+    console.error(`Error: release packaging failed: ${error.message}`);
+    process.exit(1);
+}
 
 const stats = fs.statSync(zipPath);
 console.log(`=== Success! Package created: releases/${zipFilename} ===`);
