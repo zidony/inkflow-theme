@@ -2,7 +2,7 @@
 
 > A modern frontend theme template tailored for independent blogs, fully embracing Vite engineering, out-of-the-box ready.
 
-![Version](https://img.shields.io/badge/version-3.2.5-green)
+![Version](https://img.shields.io/badge/version-3.2.6-green)
 ![Bootstrap](https://img.shields.io/badge/Bootstrap-5.3.8-7952b3)
 ![Bootstrap Icons](https://img.shields.io/badge/Bootstrap%20Icons-1.13.1-7952b3)
 ![License](https://img.shields.io/badge/license-CC%20BY%204.0-blue)
@@ -265,6 +265,7 @@ Modify the Google Fonts link in the `<head>` of HTML files, and update variables
 
 | Version | Key Updates |
 |---------|-------------|
+| **v3.2.6** | **Layout and Fine-Grained Accessibility Patch**: Removed template BOMs and an extra home-page search fragment to fix the top viewport gap and the blank space after the home footer; converted author social icons into accessible links; hid decorative dynamic elements in albums, the tag cloud, and the profile writing streak; added more accurate input types and autocomplete hints for search, email, URL, and telephone fields; expanded related quality gates and smoke coverage. |
 | **v3.2.5** | **Form, Navigation, and Page Control Accessibility Patch**: Added state feedback, label associations, and ARIA synchronization for pagination controls, the links application form, mobile navigation, login forms, and profile editing; fixed editable profile fields; added recent sorting for the tag page; expanded quality gates and Playwright smoke coverage so these interactions remain verifiable. |
 | **v3.2.4** | **Overlay and Demo Interaction Accessibility Patch**: Added `inert` to hidden search and lightbox overlays so keyboard users cannot tab into invisible content; added focus trapping and focus restoration for search, lightbox, and the account deletion modal; added consistent feedback for lightbox and comment demo actions; synchronized article bookmark `aria-pressed`, icon, and label state; expanded related quality gates and smoke coverage. |
 | **v3.2.3** | **Accessible Interaction Patch**: Improved user menu labels and Escape handling; added live-region semantics to toast feedback; replaced native `confirm()` with a themed confirmation modal plus a Bootstrap JS fallback; converted search suggestions and interactive tag pills to native button controls; added quality gates for blocking dialogs, non-semantic search tips, and non-semantic tag pills; expanded Playwright smoke coverage. |
