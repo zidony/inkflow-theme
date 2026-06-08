@@ -100,6 +100,15 @@ test('theme toggle switches document theme', async ({ page }) => {
   });
 });
 
+test('archive heatmap exposes summary without noisy cells', async ({ page }) => {
+  await expectNoConsoleErrors(page, async () => {
+    await gotoPage(page, '/archive-list.html');
+    await expect(page.locator('#heatmapGrid')).toHaveAttribute('aria-hidden', 'true');
+    await expect(page.locator('.heatmap-day')).toHaveCount(371);
+    await expect(page.locator('.archive-stat-heat-dot').first()).toHaveAttribute('aria-hidden', 'true');
+  });
+});
+
 test('mobile navbar toggler exposes collapse state', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await expectNoConsoleErrors(page, async () => {
