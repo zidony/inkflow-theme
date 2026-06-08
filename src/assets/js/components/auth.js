@@ -69,8 +69,17 @@ function initUserAuth() {
     };
 
     avatar.addEventListener('click', () => syncMenuState(!wrapper.classList.contains('open')));
+    avatar.addEventListener('keydown', (e) => {
+      if (e.key !== 'Escape') return;
+      syncMenuState(false);
+    });
     document.addEventListener('click', (e) => {
       if (!wrapper.contains(e.target)) syncMenuState(false);
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key !== 'Escape' || !wrapper.classList.contains('open')) return;
+      syncMenuState(false);
+      avatar.focus();
     });
   }
 

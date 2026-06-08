@@ -182,5 +182,8 @@ test('user menu avatar exposes expanded state', async ({ page }) => {
     await avatar.click();
     await expect(avatar).toHaveAttribute('aria-expanded', 'true');
     await expect(wrapper).toHaveClass(/open/);
+    await page.keyboard.press('Escape');
+    await expect(avatar).toHaveAttribute('aria-expanded', 'false');
+    await expect(wrapper).not.toHaveClass(/open/);
   });
 });
