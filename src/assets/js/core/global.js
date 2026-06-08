@@ -1,6 +1,6 @@
 import { closeSearch, openSearch } from '../components/search.js';
 import { closeLightbox } from '../pages/album.js';
-import { initOnce } from './utils.js';
+import { initOnce, showToast } from './utils.js';
 
 function initBackToTop() {
   const btn = document.getElementById('backToTop');
@@ -63,4 +63,15 @@ function initKeyboard() {
     }
   });
 }
-export { initBackToTop, initTagPills, initViewToggle, initKeyboard };
+
+function initDemoActions() {
+  if (!document.querySelector('[data-demo-action]') || !initOnce(document.documentElement, 'demoActions')) return;
+
+  document.addEventListener('click', (e) => {
+    const trigger = e.target.closest('[data-demo-action]');
+    if (!trigger) return;
+    showToast(trigger.dataset.demoMessage || '该演示功能需要接入后端服务');
+  });
+}
+
+export { initBackToTop, initTagPills, initViewToggle, initKeyboard, initDemoActions };

@@ -149,3 +149,15 @@ test('stateful controls update aria state', async ({ page }) => {
     await expect(passwordToggle).toHaveAttribute('aria-label', '隐藏密码');
   });
 });
+
+test('demo action buttons show integration feedback', async ({ page }) => {
+  await expectNoConsoleErrors(page, async () => {
+    await page.goto('/index.html', { waitUntil: 'domcontentloaded' });
+    await page.locator('[data-demo-action]').first().click();
+    await expect(page.locator('#inkToast')).toContainText('订阅功能需要接入邮件服务或后端 API');
+
+    await page.goto('/login.html', { waitUntil: 'domcontentloaded' });
+    await page.locator('[data-demo-message*="Google"]').click();
+    await expect(page.locator('#inkToast')).toContainText('Google 登录需要接入 OAuth 服务');
+  });
+});

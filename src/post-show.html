@@ -321,8 +321,8 @@ export function LikeButton({ postId, initialCount }: Props) {
         <!-- SHARE BAR -->
         <div class="share-bar">
           <span class="share-label"><i class="bi bi-share me-1" aria-hidden="true"></i>分享这篇文章</span>
-          <button type="button" class="share-btn twitter"><i class="bi bi-twitter-x" aria-hidden="true"></i> Twitter</button>
-          <button type="button" class="share-btn wechat"><i class="bi bi-wechat" aria-hidden="true"></i> 微信</button>
+          <button type="button" class="share-btn twitter" data-demo-action data-demo-message="社交分享需要接入真实分享渠道"><i class="bi bi-twitter-x" aria-hidden="true"></i> Twitter</button>
+          <button type="button" class="share-btn wechat" data-demo-action data-demo-message="微信分享需要接入二维码或分享 SDK"><i class="bi bi-wechat" aria-hidden="true"></i> 微信</button>
           <button type="button" class="share-btn link-copy" data-copy-link aria-label="复制文章链接"><i class="bi bi-link-45deg" aria-hidden="true"></i> 复制链接</button>
         </div>
 
@@ -395,7 +395,7 @@ export function LikeButton({ postId, initialCount }: Props) {
             <textarea class="ink-input ink-input-gray" placeholder="写下你的想法…支持 Markdown 语法" aria-label="评论内容"></textarea>
             <div class="d-flex align-items-center justify-content-between mt-2">
               <span class="u-text-xxs-muted"><i class="bi bi-markdown me-1" aria-hidden="true"></i>支持 Markdown</span>
-              <button type="button" class="ink-btn ink-btn-soft"><i class="bi bi-send me-1" aria-hidden="true"></i> 发布评论</button>
+              <button type="button" class="ink-btn ink-btn-soft" data-demo-action data-demo-message="评论发布需要接入后端 API"><i class="bi bi-send me-1" aria-hidden="true"></i> 发布评论</button>
             </div>
           </div>
 
@@ -470,7 +470,7 @@ export function LikeButton({ postId, initialCount }: Props) {
           </div>
 
           <div class="text-center mt-4">
-            <button type="button" class="comment-load-more">
+            <button type="button" class="comment-load-more" data-demo-action data-demo-message="加载更多评论需要接入评论 API">
               <i class="bi bi-plus-circle me-1" aria-hidden="true"></i> 加载更多评论（21 条）
             </button>
           </div>
@@ -554,7 +554,7 @@ export function LikeButton({ postId, initialCount }: Props) {
           <p class="ink-brand-sub">每周精选 5 篇文章，直达收件箱，不骚扰，只分享。</p>
           <div class="ink-brand-form">
             <input type="email" class="ink-input ink-input-ghost ink-input-sm mb-3" placeholder="your@email.com" aria-label="订阅邮箱地址" />
-            <button type="button" class="ink-btn ink-btn-soft w-100">
+            <button type="button" class="ink-btn ink-btn-soft w-100" data-demo-action data-demo-message="订阅功能需要接入邮件服务或后端 API">
               <i class="bi bi-send-fill me-1" aria-hidden="true"></i> 立即订阅
             </button>
           </div>

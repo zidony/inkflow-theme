@@ -103,6 +103,12 @@ function checkHtml(file, source, issues) {
     }
   }
 
+  for (const match of source.matchAll(/<button\b[^>]*\bdata-demo-action\b[^>]*>/gi)) {
+    if (!getAttribute(match[0], 'data-demo-message')) {
+      addIssue(issues, file, 'demo action is missing data-demo-message');
+    }
+  }
+
   for (const match of source.matchAll(/<a\b[^>]*>/gi)) {
     const tag = match[0];
     const href = getAttribute(tag, 'href');

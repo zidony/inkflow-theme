@@ -3,7 +3,7 @@ import { initThemeToggle } from './core/theme.js';
 import { initUserAuth } from './components/auth.js';
 import { initSearch } from './components/search.js';
 import { initScrollReveal, initCounters } from './core/animations.js';
-import { initBackToTop, initTagPills, initViewToggle, initKeyboard } from './core/global.js';
+import { initBackToTop, initTagPills, initViewToggle, initKeyboard, initDemoActions } from './core/global.js';
 
 // Import page-specific scripts for single bundling
 import * as ArchiveModule from './pages/archive.js';
@@ -26,6 +26,7 @@ const staticModules = [
   { selector: '[data-count]', init: initCounters },
   { selector: '.tag-pill', init: initTagPills },
   { selector: '#gridBtn', init: initViewToggle },
+  { selector: '[data-demo-action]', init: initDemoActions },
   { selector: 'body', init: initKeyboard }
 ];
 
