@@ -118,11 +118,37 @@ function checkPaginationNavs(file, source, issues) {
   }
 }
 
+function extractIds(source) {
+  return [...source.matchAll(/\bid=["']([^"']+)["']/gi)].map(match => match[1]);
+}
+
+function checkAriaIdReferences(file, source, sharedIds, issues) {
+  const ids = new Set([...extractIds(source), ...sharedIds]);
+  const idRefAttributes = ['aria-controls', 'aria-describedby', 'aria-labelledby'];
+
+  for (const attr of idRefAttributes) {
+    for (const match of source.matchAll(new RegExp(`\\b${attr}=["']([^"']+)["']`, 'gi'))) {
+      for (const id of match[1].trim().split(/\s+/)) {
+        if (id && !ids.has(id)) {
+          addIssue(issues, file, `${attr} references missing id "${id}"`);
+        }
+      }
+    }
+  }
+}
+
 const files = await walk(srcDir);
 const issues = [];
+const htmlFiles = files.filter(file => file.endsWith('.html'));
+const sharedPartialIds = new Set();
 
-for (const file of files) {
-  if (!file.endsWith('.html')) continue;
+for (const file of htmlFiles) {
+  if (!relative(file).startsWith('src/partials/')) continue;
+  const source = await readFile(file, 'utf8');
+  for (const id of extractIds(source)) sharedPartialIds.add(id);
+}
+
+for (const file of htmlFiles) {
   const source = await readFile(file, 'utf8');
   checkDuplicateIds(file, source, issues);
   checkImages(file, source, issues);
@@ -132,6 +158,7 @@ for (const file of files) {
   checkFormControls(file, source, issues);
   checkAuthLabels(file, source, issues);
   checkPaginationNavs(file, source, issues);
+  checkAriaIdReferences(file, source, sharedPartialIds, issues);
 }
 
 if (issues.length) {

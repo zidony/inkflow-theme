@@ -172,6 +172,7 @@ test('search overlay opens and closes', async ({ page }) => {
   await expectNoConsoleErrors(page, async () => {
     await gotoPage(page, '/index.html');
     const overlay = page.locator('#searchOverlay');
+    await expect(page.getByRole('button', { name: /搜索/ })).toHaveAttribute('aria-controls', 'searchOverlay');
     await expect(overlay).toHaveAttribute('inert', '');
     await page.getByRole('button', { name: /搜索/ }).click();
     await expect(overlay).toHaveClass(/active/);
