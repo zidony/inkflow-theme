@@ -450,6 +450,11 @@ test('demo action buttons show integration feedback', async ({ page }) => {
     await gotoPage(page, '/login.html');
     await page.locator('[data-demo-message*="Google"]').click();
     await expect(page.locator('#inkToast')).toContainText('Google 登录需要接入 OAuth 服务');
+    await page.locator('[data-demo-message*="密码找回"]').click();
+    await expect(page.locator('#inkToast')).toContainText('密码找回需要接入账号恢复服务');
+    await page.locator('[data-auth-switch="registerForm"]').click();
+    await page.locator('#doRegisterBtn').click();
+    await expect(page.locator('#inkToast')).toContainText('注册功能需要接入账号注册 API');
 
     await gotoPage(page, '/post-show.html');
     await page.locator('.comment-action[data-demo-message*="评论回复"]').first().click();

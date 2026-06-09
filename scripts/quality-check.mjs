@@ -233,6 +233,15 @@ function checkHtml(file, source, issues) {
     addIssue(issues, file, 'notification save action should use shared demo feedback');
   }
 
+  if (source.includes('data-auth-forgot')) {
+    addIssue(issues, file, 'forgot password action should use shared demo feedback');
+  }
+
+  const registerButton = source.match(/<button\b[^>]*\bid=["']doRegisterBtn["'][^>]*>/i)?.[0];
+  if (registerButton && !/\bdata-demo-action\b/.test(registerButton)) {
+    addIssue(issues, file, 'register submit action should use shared demo feedback');
+  }
+
   for (const match of source.matchAll(/<button\b[^>]*\bclass=["'][^"']*\bcomment-action\b[^"']*["'][^>]*>/gi)) {
     if (!/\bdata-demo-action\b/.test(match[0])) {
       addIssue(issues, file, 'comment action is missing demo feedback');
