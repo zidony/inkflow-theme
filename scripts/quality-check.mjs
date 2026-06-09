@@ -281,6 +281,7 @@ function checkHtml(file, source, issues) {
 
 function checkJs(file, source, issues) {
   checkTextEncoding(file, source, issues);
+  const relFile = relative(file);
 
   const customGlobalPattern = new RegExp(`window\\.(${bannedWindowGlobals.join('|')})\\b`, 'g');
   const customGlobals = source.match(customGlobalPattern) || [];
@@ -301,6 +302,10 @@ function checkJs(file, source, issues) {
 
   const inlineStyleTemplates = source.match(/style\s*=\s*["'`]|style=\\["'`]/g) || [];
   if (inlineStyleTemplates.length) addIssue(issues, file, `${inlineStyleTemplates.length} generated inline style string(s)`);
+
+  if (relFile === 'src/assets/js/components/auth.js' && !source.includes('function normalizeUser(')) {
+    addIssue(issues, file, 'auth restore should normalize stored demo user data');
+  }
 }
 
 function checkCss(file, source, issues) {

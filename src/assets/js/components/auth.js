@@ -1,8 +1,24 @@
 import { initOnce } from '../core/utils.js';
 
 // Demo-only UI auth state. Replace with server-backed auth in production.
+function normalizeUser(user) {
+  if (!user || typeof user !== 'object') return null;
+
+  const name = typeof user.name === 'string' ? user.name.trim() : '';
+  const initial = typeof user.initial === 'string' ? user.initial.trim() : '';
+  if (!name) return null;
+
+  return {
+    name,
+    initial: initial || name.charAt(0),
+  };
+}
+
 const inkflowAuth = {
   setUser(user) {
+    const normalized = normalizeUser(user);
+    if (!normalized) return false;
+
     const loginBtn = document.getElementById('navLoginBtn');
     const userWrap = document.getElementById('navUserWrapper');
     const avatar   = document.getElementById('navUserAvatar');
@@ -13,14 +29,16 @@ const inkflowAuth = {
       userWrap.classList.remove('d-none');
       userWrap.classList.add('d-flex');
     }
-    if (avatar)    avatar.textContent      = user.initial || user.name.charAt(0);
-    if (userName)  userName.textContent    = user.name;
+    if (avatar) avatar.textContent = normalized.initial;
+    if (userName) userName.textContent = normalized.name;
 
     try {
-      localStorage.setItem('inkflow-user', JSON.stringify(user));
+      localStorage.setItem('inkflow-user', JSON.stringify(normalized));
     } catch (e) {
       // Storage may be unavailable in restricted browser contexts.
     }
+
+    return true;
   },
 
   logout() {
@@ -49,7 +67,11 @@ const inkflowAuth = {
       return;
     }
     if (raw) {
-      try { this.setUser(JSON.parse(raw)); } catch (e) { /* ignore */ }
+      try {
+        if (!this.setUser(JSON.parse(raw))) this.logout();
+      } catch (e) {
+        this.logout();
+      }
     }
   }
 };

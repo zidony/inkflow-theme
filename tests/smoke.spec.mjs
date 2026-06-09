@@ -423,6 +423,20 @@ test('user menu avatar exposes expanded state', async ({ page }) => {
   });
 });
 
+test('stored demo auth state is validated before restore', async ({ page }) => {
+  await expectNoConsoleErrors(page, async () => {
+    await page.goto('/index.html');
+    await page.evaluate(() => {
+      localStorage.setItem('inkflow-user', JSON.stringify({ name: 42, initial: {} }));
+    });
+    await gotoPage(page, '/index.html');
+
+    await expect(page.locator('#navLoginBtn')).toBeVisible();
+    await expect(page.locator('#navUserWrapper')).toHaveClass(/d-none/);
+    await expect.poll(async () => page.evaluate(() => localStorage.getItem('inkflow-user'))).toBeNull();
+  });
+});
+
 test('toast messages expose live region semantics', async ({ page }) => {
   await expectNoConsoleErrors(page, async () => {
     await gotoPage(page, '/index.html');
