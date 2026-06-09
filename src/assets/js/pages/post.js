@@ -35,8 +35,12 @@ function initTocSpy() {
         const targetLink = document.querySelector(`.toc-list a[href="#${escapeCssString(id)}"]`);
         
         if (targetLink && targetLink !== currentActive) {
-          if (currentActive) currentActive.classList.remove(activeClass);
+          if (currentActive) {
+            currentActive.classList.remove(activeClass);
+            currentActive.removeAttribute('aria-current');
+          }
           targetLink.classList.add(activeClass);
+          targetLink.setAttribute('aria-current', 'location');
           currentActive = targetLink;
         }
       }
@@ -44,6 +48,8 @@ function initTocSpy() {
   }, observerOptions);
 
   headings.forEach(h => observer.observe(h));
+  currentActive = document.querySelector('.toc-list a.active');
+  if (currentActive) currentActive.setAttribute('aria-current', 'location');
 }
 
 function initReactions() {

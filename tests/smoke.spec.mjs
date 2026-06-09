@@ -365,6 +365,8 @@ test('stateful controls update aria state', async ({ page }) => {
   await expectNoConsoleErrors(page, async () => {
     await gotoPage(page, '/post-show.html');
 
+    await expect(page.locator('.toc-list a.active')).toHaveAttribute('aria-current', 'location');
+
     const likeBtn = page.locator('#likeBtn');
     await expect(likeBtn).toHaveAttribute('aria-pressed', 'false');
     await likeBtn.focus();

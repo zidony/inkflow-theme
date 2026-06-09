@@ -201,6 +201,12 @@ function checkHtml(file, source, issues) {
     }
   }
 
+  for (const match of source.matchAll(/<ul\b[^>]*\bclass=["'][^"']*\btoc-list\b[^"']*["'][^>]*>[\s\S]*?<\/ul>/gi)) {
+    if (!/\bclass=["'][^"']*\bactive\b[^"']*["'][^>]*\baria-current=["']location["']/.test(match[0])) {
+      addIssue(issues, file, 'active table-of-contents link is missing aria-current="location"');
+    }
+  }
+
   for (const match of source.matchAll(/<button\b[^>]*\bdata-toggle-link-apply\b[^>]*>/gi)) {
     const tag = match[0];
     if (getAttribute(tag, 'aria-controls') !== 'linkApplyForm') {
