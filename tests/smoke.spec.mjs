@@ -399,6 +399,42 @@ test('stateful controls update aria state', async ({ page }) => {
   });
 });
 
+test('copy link feedback stays on clicked button', async ({ page }) => {
+  await page.addInitScript(() => {
+    Object.defineProperty(navigator, 'clipboard', {
+      configurable: true,
+      value: {
+        writeText: async () => {}
+      }
+    });
+  });
+
+  await expectNoConsoleErrors(page, async () => {
+    await gotoPage(page, '/post-show.html');
+
+    const floatingCopy = page.locator('.float-btn[data-copy-link]');
+    const shareCopy = page.locator('.share-btn.link-copy');
+
+    await expect(floatingCopy).toHaveAttribute('aria-label', '复制文章链接');
+    await expect(shareCopy).toHaveAttribute('aria-label', '复制文章链接');
+
+    await floatingCopy.click();
+    await expect(floatingCopy).toHaveAttribute('aria-label', '文章链接已复制');
+    await expect(floatingCopy.locator('.bi-check-lg')).toHaveCount(1);
+    await expect(shareCopy).toHaveAttribute('aria-label', '复制文章链接');
+
+    await floatingCopy.click();
+    await expect(floatingCopy.locator('.bi-check-lg')).toHaveCount(1);
+    await page.waitForTimeout(1600);
+    await expect(floatingCopy).toHaveAttribute('aria-label', '复制文章链接');
+
+    await shareCopy.click();
+    await expect(shareCopy).toHaveAttribute('aria-label', '文章链接已复制');
+    await expect(shareCopy).toContainText('已复制');
+    await expect(floatingCopy).toHaveAttribute('aria-label', '复制文章链接');
+  });
+});
+
 test('demo action buttons show integration feedback', async ({ page }) => {
   await expectNoConsoleErrors(page, async () => {
     await gotoPage(page, '/index.html');

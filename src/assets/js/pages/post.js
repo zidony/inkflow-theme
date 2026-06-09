@@ -95,8 +95,9 @@ function initPostActions() {
       return;
     }
 
-    if (e.target.closest('[data-copy-link]')) {
-      copyLink();
+    const copyLinkBtn = e.target.closest('[data-copy-link]');
+    if (copyLinkBtn) {
+      copyLink(copyLinkBtn);
       return;
     }
 
@@ -129,25 +130,58 @@ function toggleBookmark(el) {
   if (icon) icon.className = active ? 'bi bi-bookmark-fill' : 'bi bi-bookmark';
 }
 
+const copyFeedbackState = new WeakMap();
+
 function setButtonFeedback(btn, iconClass, text, ariaLabel) {
   const icon = document.createElement('i');
   icon.className = `bi ${iconClass} me-1`;
   icon.setAttribute('aria-hidden', 'true');
-  btn.replaceChildren(icon, document.createTextNode(text));
+  const nodes = text ? [icon, document.createTextNode(text)] : [icon];
+  btn.replaceChildren(...nodes);
   btn.setAttribute('aria-label', ariaLabel);
+  if (btn.hasAttribute('title')) btn.setAttribute('title', ariaLabel);
 }
 
-function restoreButtonContent(btn, nodes, ariaLabel) {
+function getButtonOriginalState(btn, fallbackAriaLabel) {
+  const currentState = copyFeedbackState.get(btn);
+  if (currentState) {
+    clearTimeout(currentState.restoreTimer);
+    return currentState;
+  }
+
+  const state = {
+    ariaLabel: btn.getAttribute('aria-label') || fallbackAriaLabel,
+    nodes: [...btn.childNodes].map(node => node.cloneNode(true)),
+    restoreTimer: null,
+    title: btn.getAttribute('title')
+  };
+  copyFeedbackState.set(btn, state);
+  return state;
+}
+
+function restoreButtonContent(btn, state) {
+  const { nodes, ariaLabel, title } = state;
   btn.replaceChildren(...nodes.map(node => node.cloneNode(true)));
   btn.setAttribute('aria-label', ariaLabel);
+  if (title === null) {
+    btn.removeAttribute('title');
+  } else {
+    btn.setAttribute('title', title);
+  }
+  copyFeedbackState.delete(btn);
+}
+
+function scheduleButtonRestore(btn, state) {
+  state.restoreTimer = setTimeout(() => {
+    restoreButtonContent(btn, state);
+  }, 1500);
 }
 
 function copyCode(btn) {
   const code = btn.closest('pre')?.querySelector('code');
   if (!code) return;
 
-  const originalNodes = [...btn.childNodes].map(node => node.cloneNode(true));
-  const origAriaLabel = btn.getAttribute('aria-label') || '复制代码';
+  const originalState = getButtonOriginalState(btn, '复制代码');
   copyText(code.textContent)
     .then(() => {
       setButtonFeedback(btn, 'bi-check-lg', '已复制', '代码已复制');
@@ -156,28 +190,24 @@ function copyCode(btn) {
       setButtonFeedback(btn, 'bi-exclamation-triangle', '复制失败', '代码复制失败');
     })
     .finally(() => {
-      setTimeout(() => {
-        restoreButtonContent(btn, originalNodes, origAriaLabel);
-      }, 1500);
+      scheduleButtonRestore(btn, originalState);
     });
 }
 
-function copyLink() {
-  const btn = document.querySelector('.share-btn.link-copy');
+function copyLink(btn = document.querySelector('.share-btn.link-copy')) {
   if (!btn) return;
-  const originalNodes = [...btn.childNodes].map(node => node.cloneNode(true));
-  const origAriaLabel = btn.getAttribute('aria-label') || '复制文章链接';
+  const originalState = getButtonOriginalState(btn, '复制文章链接');
+  const feedbackText = btn.classList.contains('float-btn') ? '' : ' 已复制';
+  const errorText = btn.classList.contains('float-btn') ? '' : ' 复制失败';
   copyText(window.location.href)
     .then(() => {
-      setButtonFeedback(btn, 'bi-check-lg', ' 已复制', '文章链接已复制');
+      setButtonFeedback(btn, 'bi-check-lg', feedbackText, '文章链接已复制');
     })
     .catch(() => {
-      setButtonFeedback(btn, 'bi-exclamation-triangle', ' 复制失败', '文章链接复制失败');
+      setButtonFeedback(btn, 'bi-exclamation-triangle', errorText, '文章链接复制失败');
     })
     .finally(() => {
-      setTimeout(() => {
-        restoreButtonContent(btn, originalNodes, origAriaLabel);
-      }, 1500);
+      scheduleButtonRestore(btn, originalState);
     });
 }
 
