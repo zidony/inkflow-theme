@@ -231,6 +231,22 @@ test('login tabs switch panels', async ({ page }) => {
   });
 });
 
+test('login submit exposes busy state while processing', async ({ page }) => {
+  await expectNoConsoleErrors(page, async () => {
+    await gotoPage(page, '/login.html');
+
+    const loginButton = page.locator('#doLoginBtn');
+    await expect(loginButton).toHaveAttribute('aria-busy', 'false');
+    await page.locator('#loginEmail').fill('demo@inkflow.dev');
+    await page.locator('#loginPassword').fill('password123');
+    await loginButton.click();
+
+    await expect(loginButton).toBeDisabled();
+    await expect(loginButton).toHaveAttribute('aria-busy', 'true');
+    await expect(loginButton).toContainText('登录中');
+  });
+});
+
 test('profile avatar rejects unsupported files', async ({ page }) => {
   await expectNoConsoleErrors(page, async () => {
     await gotoPage(page, '/profile.html');

@@ -195,6 +195,12 @@ function checkHtml(file, source, issues) {
     if (!getAttribute(tag, 'tabindex')) addIssue(issues, file, 'tab button is missing roving tabindex');
   }
 
+  for (const match of source.matchAll(/<button\b[^>]*\bid=["']doLoginBtn["'][^>]*>/gi)) {
+    if (!getAttribute(match[0], 'aria-busy')) {
+      addIssue(issues, file, 'login submit button is missing aria-busy');
+    }
+  }
+
   for (const match of source.matchAll(/<button\b[^>]*\bdata-toggle-link-apply\b[^>]*>/gi)) {
     const tag = match[0];
     if (getAttribute(tag, 'aria-controls') !== 'linkApplyForm') {

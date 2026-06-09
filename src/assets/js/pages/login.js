@@ -86,6 +86,7 @@ function initLoginForm() {
     }
 
     if (!e.target.closest('#doLoginBtn')) return;
+    if (loginBtn.disabled) return;
 
     const email = document.getElementById('loginEmail')?.value;
     const pwd   = document.getElementById('loginPassword')?.value;
@@ -96,7 +97,8 @@ function initLoginForm() {
     icon.className = 'bi bi-hourglass-split me-1';
     icon.setAttribute('aria-hidden', 'true');
     loginBtn.replaceChildren(icon, document.createTextNode(' 登录中…'));
-    loginBtn.disabled  = true;
+    loginBtn.disabled = true;
+    loginBtn.setAttribute('aria-busy', 'true');
 
     setTimeout(() => {
       inkflowAuth.setUser({ name: '陈明远', initial: '陈' });
