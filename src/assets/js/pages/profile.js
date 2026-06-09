@@ -147,7 +147,14 @@ function initProfileActions() {
     });
   }
 
-  document.getElementById('accountDeleteModal')?.addEventListener('hidden.bs.modal', restoreDeleteModalFocus);
+  const accountDeleteModalEl = document.getElementById('accountDeleteModal');
+  if (accountDeleteModalEl && initOnce(accountDeleteModalEl, 'deleteModalFocus')) {
+    accountDeleteModalEl.addEventListener('keydown', (e) => {
+      if (!accountDeleteModalEl.classList.contains('show') || e.key !== 'Tab') return;
+      trapFocus(accountDeleteModalEl, e);
+    }, true);
+    accountDeleteModalEl.addEventListener('hidden.bs.modal', restoreDeleteModalFocus);
+  }
 }
 
 function initProfileStreak() {
