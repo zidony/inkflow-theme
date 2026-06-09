@@ -82,6 +82,16 @@ function checkTextEncoding(file, source, issues) {
 function checkHtml(file, source, issues) {
   checkTextEncoding(file, source, issues);
   const localIds = new Set([...source.matchAll(/\bid=["']([^"']+)["']/gi)].map(match => match[1]));
+  const relFile = relative(file);
+
+  if (!relFile.startsWith('src/partials/') && source.includes('<body')) {
+    if (!source.includes('{{> scripts }}')) {
+      addIssue(issues, file, 'page entry should include the shared scripts partial');
+    }
+    if (/bootstrap@5\.3\.8\/dist\/js\/bootstrap\.bundle\.min\.js|\/assets\/js\/inkflow\.js/.test(source)) {
+      addIssue(issues, file, 'page entry should not duplicate shared script tags');
+    }
+  }
 
   const inlineStyles = source.match(/<[^>]+\sstyle\s*=/gi) || [];
   if (inlineStyles.length) addIssue(issues, file, `${inlineStyles.length} inline style attribute(s)`);
