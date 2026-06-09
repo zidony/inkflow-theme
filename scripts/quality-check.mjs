@@ -172,6 +172,13 @@ function checkHtml(file, source, issues) {
     }
   }
 
+  for (const match of source.matchAll(/<button\b[^>]*\brole=["']tab["'][^>]*>/gi)) {
+    const tag = match[0];
+    if (!getAttribute(tag, 'aria-selected')) addIssue(issues, file, 'tab button is missing aria-selected');
+    if (!getAttribute(tag, 'aria-controls')) addIssue(issues, file, 'tab button is missing aria-controls');
+    if (!getAttribute(tag, 'tabindex')) addIssue(issues, file, 'tab button is missing roving tabindex');
+  }
+
   for (const match of source.matchAll(/<button\b[^>]*\bdata-toggle-link-apply\b[^>]*>/gi)) {
     const tag = match[0];
     if (getAttribute(tag, 'aria-controls') !== 'linkApplyForm') {

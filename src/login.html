@@ -48,8 +48,8 @@
 
     <!-- Tab switcher (v2.0: .auth-tab-btn 替代 inline style + switchTab()) -->
     <div class="auth-tab-switcher" role="tablist" aria-label="认证方式">
-      <button type="button" class="auth-tab-btn active" id="loginTab" role="tab" aria-selected="true" aria-controls="loginForm" data-auth-tab="loginForm">登录</button>
-      <button type="button" class="auth-tab-btn" id="registerTab" role="tab" aria-selected="false" aria-controls="registerForm" data-auth-tab="registerForm">注册</button>
+      <button type="button" class="auth-tab-btn active" id="loginTab" role="tab" aria-selected="true" aria-controls="loginForm" tabindex="0" data-auth-tab="loginForm">登录</button>
+      <button type="button" class="auth-tab-btn" id="registerTab" role="tab" aria-selected="false" aria-controls="registerForm" tabindex="-1" data-auth-tab="registerForm">注册</button>
     </div>
 
     <!-- LOGIN FORM -->

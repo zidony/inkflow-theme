@@ -8,8 +8,10 @@ function initAuthTabs() {
 
   const activateTab = (target) => {
     tabBtns.forEach(btn => {
-      btn.classList.toggle('active', btn.dataset.authTab === target);
-      btn.setAttribute('aria-selected', btn.dataset.authTab === target ? 'true' : 'false');
+      const isActive = btn.dataset.authTab === target;
+      btn.classList.toggle('active', isActive);
+      btn.setAttribute('aria-selected', isActive ? 'true' : 'false');
+      btn.setAttribute('tabindex', isActive ? '0' : '-1');
     });
     document.querySelectorAll('.auth-tab-pane').forEach(pane => {
       const isActive = pane.id === target;

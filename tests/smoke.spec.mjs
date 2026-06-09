@@ -194,12 +194,18 @@ test('album lightbox opens and closes', async ({ page }) => {
 test('login tabs switch panels', async ({ page }) => {
   await expectNoConsoleErrors(page, async () => {
     await gotoPage(page, '/login.html');
+    await expect(page.locator('#loginTab')).toHaveAttribute('tabindex', '0');
+    await expect(page.locator('#registerTab')).toHaveAttribute('tabindex', '-1');
     await page.getByRole('tab', { name: '注册' }).click();
     await expect(page.locator('#registerForm')).toBeVisible();
     await expect(page.locator('#loginForm')).toBeHidden();
+    await expect(page.locator('#loginTab')).toHaveAttribute('tabindex', '-1');
+    await expect(page.locator('#registerTab')).toHaveAttribute('tabindex', '0');
     await page.getByRole('button', { name: '立即登录' }).click();
     await expect(page.locator('#loginForm')).toBeVisible();
     await expect(page.locator('#registerForm')).toBeHidden();
+    await expect(page.locator('#loginTab')).toHaveAttribute('tabindex', '0');
+    await expect(page.locator('#registerTab')).toHaveAttribute('tabindex', '-1');
   });
 });
 
@@ -411,7 +417,7 @@ test('profile danger action uses themed confirmation modal', async ({ page }) =>
     await page.keyboard.press('Shift+Tab');
     await expect(modal.locator('[data-confirm-delete-submit]')).toBeFocused();
 
-    await modal.locator('[data-bs-dismiss="modal"]').last().click();
+    await modal.locator('.modal-footer [data-bs-dismiss="modal"]').first().click();
     await expect(modal).not.toHaveClass(/show/);
     await expect(deleteButton).toBeFocused();
 

@@ -10,6 +10,7 @@ const STREAK_PATTERN = [
 let accountDeleteModal;
 let accountDeleteModalFallbackBackdrop;
 let accountDeleteLastFocused = null;
+let accountDeleteCloseTimer = 0;
 
 function initProfileEdit() {
   const root = document.querySelector('[data-profile-section]');
@@ -120,18 +121,21 @@ function initProfileActions() {
       return;
     }
 
-    if (e.target.closest('#accountDeleteModal [data-bs-dismiss="modal"]')) {
-      hideDeleteModal();
-      return;
-    }
-
     if (e.target.closest('[data-confirm-delete]')) {
       confirmDelete();
       return;
     }
 
-    if (e.target.closest('[data-confirm-delete-submit]')) {
+    const deleteSubmit = e.target.closest('[data-confirm-delete-submit]');
+    if (deleteSubmit) {
       submitDeleteRequest();
+      return;
+    }
+
+    if (e.target.closest('#accountDeleteModal [data-bs-dismiss="modal"]')) {
+      if (!globalThis.bootstrap?.Modal) {
+        hideDeleteModalFallback(document.getElementById('accountDeleteModal'));
+      }
     }
   });
 
@@ -191,12 +195,18 @@ function submitDeleteRequest() {
 }
 
 function hideDeleteModal() {
-  if (accountDeleteModal) {
-    accountDeleteModal.hide();
+  const modalEl = document.getElementById('accountDeleteModal');
+  const Modal = globalThis.bootstrap?.Modal;
+
+  clearTimeout(accountDeleteCloseTimer);
+  if (modalEl && Modal) {
+    (accountDeleteModal || Modal.getInstance(modalEl))?.hide();
+    accountDeleteCloseTimer = setTimeout(() => {
+      if (modalEl.classList.contains('show')) hideDeleteModalFallback(modalEl);
+    }, 350);
     return;
   }
 
-  const modalEl = document.getElementById('accountDeleteModal');
   hideDeleteModalFallback(modalEl);
 }
 
