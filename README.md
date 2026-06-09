@@ -2,7 +2,7 @@
 
 > 一套面向独立博客的现代化前端主题模板，全面拥抱 Vite 工程化，开箱即用。
 
-![Version](https://img.shields.io/badge/version-3.2.6-green)
+![Version](https://img.shields.io/badge/version-3.2.7-green)
 ![Bootstrap](https://img.shields.io/badge/Bootstrap-5.3.8-7952b3)
 ![Bootstrap Icons](https://img.shields.io/badge/Bootstrap%20Icons-1.13.1-7952b3)
 ![License](https://img.shields.io/badge/license-CC%20BY%204.0-blue)
@@ -253,6 +253,7 @@ InkFlow Theme 是静态前端主题模板，登录、评论、订阅、点赞、
 
 | 版本 | 主要内容 |
 |------|---------|
+| **v3.2.7** | **交互状态与弹窗稳定性补丁版**：隐藏归档热力图与图例中的装饰单元，避免辅助技术朗读大量无意义格子；为文章列表网格/列表视图切换补齐 `aria-pressed` 状态同步与质量门禁；为登录/注册 Tab 增加 roving `tabindex`；强化账号注销 modal 的关闭路径与 fallback 兜底，并扩展 Playwright smoke 覆盖。 |
 | **v3.2.6** | **布局与细粒度可访问性补丁版**：移除模板 BOM 与首页多余搜索片段，修复页面顶部白边和首页页脚后空白；将作者社交图标改为可访问链接；为相册、标签云与个人资料动态装饰元素补齐隐藏语义；为搜索、邮箱、URL、电话等表单字段补充更准确的输入类型和 autocomplete 提示；扩展对应质量门禁与 smoke 覆盖。 |
 | **v3.2.5** | **表单、导航与页面控件可访问性补丁版**：为分页、友链申请表单、移动端导航、登录表单与个人资料编辑补齐状态反馈、标签关联和 ARIA 同步；修复个人资料编辑字段不可编辑问题；为标签页新增最近排序逻辑；扩展质量门禁与 Playwright smoke 覆盖，确保这些交互持续可验证。 |
 | **v3.2.4** | **Overlay 与演示交互可访问性补丁版**：为隐藏态搜索层与相册 lightbox 增加 `inert`，防止键盘误入不可见内容；为搜索层、lightbox 与账号注销 modal 补齐焦点循环和关闭后的焦点恢复；为相册 lightbox、评论操作等演示按钮补充统一反馈；完善文章书签按钮的 `aria-pressed` 状态、图标和标签同步；扩展相关质量门禁与 smoke 覆盖。 |
