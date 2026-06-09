@@ -302,6 +302,13 @@ test('filter and sort controls use button semantics', async ({ page }) => {
     await expect(page.locator('button[data-tag-sort="recent"]')).toHaveAttribute('aria-pressed', 'true');
     await expect(page.locator('#tagCloudInner .tag-cloud-item').first()).toContainText('React');
     await expect(page.locator('#tagCloudInner .tag-cloud-hash').first()).toHaveAttribute('aria-hidden', 'true');
+    await expect(page.locator('#tagResultStatus')).toHaveAttribute('role', 'status');
+    await page.locator('#tagSearch').fill('React');
+    await expect(page.locator('#tagResultStatus')).toContainText('找到');
+    await expect(page.locator('#tagCloudInner .tag-cloud-item')).toHaveCount(1);
+    await page.locator('#tagSearch').fill('not-a-real-tag');
+    await expect(page.locator('#tagResultStatus')).toContainText('未找到与“not-a-real-tag”匹配的标签');
+    await expect(page.locator('#tagCloudInner')).toContainText('未找到与“not-a-real-tag”匹配的标签');
 
     await gotoPage(page, '/archive-list.html');
     await expect(page.locator('button[data-archive-year="2025"]')).toHaveAttribute('aria-pressed', 'true');

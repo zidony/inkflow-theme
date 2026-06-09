@@ -42,13 +42,42 @@ const TAG_RECENCY = {
   Git: '2025-01-05',
 };
 
-function renderCloud(list) {
+function updateTagResultStatus(list, query = '') {
+  const status = document.getElementById('tagResultStatus');
+  if (!status) return;
+
+  const queryText = query.trim();
+  if (!queryText) {
+    status.textContent = `共 ${list.length} 个标签`;
+    return;
+  }
+
+  status.textContent = list.length
+    ? `找到 ${list.length} 个匹配标签`
+    : `未找到与“${queryText}”匹配的标签`;
+}
+
+function renderEmptyTagResult(query) {
+  const empty = document.createElement('p');
+  empty.className = 'text-muted mb-0';
+  empty.textContent = `未找到与“${query.trim()}”匹配的标签`;
+  return empty;
+}
+
+function renderCloud(list, query = '') {
   const container = document.getElementById('tagCloudInner');
   if (!container) return;
 
+  container.replaceChildren();
+  updateTagResultStatus(list, query);
+
+  if (!list.length) {
+    container.appendChild(renderEmptyTagResult(query));
+    return;
+  }
+
   const max = Math.max(...list.map(t => t.count));
   const min = Math.min(...list.map(t => t.count));
-  container.replaceChildren();
 
   list.forEach(tag => {
     const ratio = (tag.count - min) / (max - min || 1);
@@ -103,8 +132,9 @@ function initTagCloud() {
   const tagSearch = document.getElementById('tagSearch');
   if (tagSearch) {
     tagSearch.addEventListener('input', function () {
-      const q = this.value.toLowerCase();
-      renderCloud(q ? TAGS.filter(t => t.name.toLowerCase().includes(q)) : TAGS);
+      const q = this.value.trim();
+      const normalizedQuery = q.toLowerCase();
+      renderCloud(normalizedQuery ? TAGS.filter(t => t.name.toLowerCase().includes(normalizedQuery)) : TAGS, q);
     });
   }
 

@@ -248,6 +248,10 @@ function checkHtml(file, source, issues) {
     }
   }
 
+  if (source.includes('id="tagSearch"') && !/id=["']tagResultStatus["'][^>]*\brole=["']status["'][^>]*\baria-live=["']polite["']/.test(source)) {
+    addIssue(issues, file, 'tag search is missing polite result status');
+  }
+
   for (const match of source.matchAll(/<button\b[^>]*\bclass=["'][^"']*\bcomment-action\b[^"']*["'][^>]*>/gi)) {
     if (!/\bdata-demo-action\b/.test(match[0])) {
       addIssue(issues, file, 'comment action is missing demo feedback');
