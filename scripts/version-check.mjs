@@ -3,6 +3,7 @@ import path from 'node:path';
 
 const root = process.cwd();
 const expectedVersionPattern = /^\d+\.\d+\.\d+(?:-[0-9A-Za-z.-]+)?$/;
+const expectedLicense = 'CC-BY-4.0';
 
 function resolveRoot(file) {
   return path.join(root, file);
@@ -76,6 +77,9 @@ const releaseScript = await readText('scripts/release.mjs', issues);
 
 if (pkg) {
   if (!pkg.name) addIssue(issues, 'package.json', 'missing package name');
+  if (pkg.license !== expectedLicense) {
+    addIssue(issues, 'package.json', `license is ${pkg.license || 'missing'}, expected ${expectedLicense}`);
+  }
   if (!pkg.version) {
     addIssue(issues, 'package.json', 'missing package version');
   } else if (!expectedVersionPattern.test(pkg.version)) {

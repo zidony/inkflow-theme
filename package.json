@@ -2,6 +2,7 @@
   "name": "inkflow-theme",
   "version": "3.2.8",
   "description": "Inkflow Blog Theme Template",
+  "license": "CC-BY-4.0",
   "scripts": {
     "dev": "vite",
     "build": "vite build && prettier --write \"dist/**/*.{html,css,js}\"",
