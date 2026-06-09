@@ -425,9 +425,15 @@ test('copy link feedback stays on clicked button', async ({ page }) => {
 
     await floatingCopy.click();
     await expect(floatingCopy.locator('.bi-check-lg')).toHaveCount(1);
-    await page.waitForTimeout(1600);
-    await expect(floatingCopy).toHaveAttribute('aria-label', '复制文章链接');
+    await expect(floatingCopy).toHaveAttribute('aria-label', '复制文章链接', { timeout: 3000 });
 
+    await shareCopy.scrollIntoViewIfNeeded();
+    await expect(shareCopy).toBeVisible();
+    await expect.poll(async () => shareCopy.evaluate((el) => {
+      const rect = el.getBoundingClientRect();
+      const centerTarget = document.elementFromPoint(rect.left + rect.width / 2, rect.top + rect.height / 2);
+      return el.contains(centerTarget);
+    })).toBe(true);
     await shareCopy.click();
     await expect(shareCopy).toHaveAttribute('aria-label', '文章链接已复制');
     await expect(shareCopy).toContainText('已复制');
@@ -453,6 +459,10 @@ test('demo action buttons show integration feedback', async ({ page }) => {
     await expect(page.locator('.page-link[aria-current="page"]')).toBeDisabled();
     await page.getByRole('button', { name: '下一页' }).click();
     await expect(page.locator('#inkToast')).toContainText('分页功能需要接入文章列表数据源或后端 API');
+
+    await gotoPage(page, '/profile.html');
+    await page.locator('[data-demo-message*="通知偏好保存"]').click();
+    await expect(page.locator('#inkToast')).toContainText('通知偏好保存需要接入用户设置 API');
   });
 });
 

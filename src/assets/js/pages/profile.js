@@ -116,11 +116,6 @@ function initProfileActions() {
       return;
     }
 
-    if (e.target.closest('[data-save-notify]')) {
-      showToast('通知设置已保存 ✓');
-      return;
-    }
-
     if (e.target.closest('[data-confirm-delete]')) {
       confirmDelete();
       return;
