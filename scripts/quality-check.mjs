@@ -166,6 +166,16 @@ function checkHtml(file, source, issues) {
     }
   }
 
+  for (const match of source.matchAll(/<button\b[^>]*\bdata-open-search\b[^>]*>/gi)) {
+    const tag = match[0];
+    if (getAttribute(tag, 'aria-controls') !== 'searchOverlay') {
+      addIssue(issues, file, 'search trigger is missing aria-controls="searchOverlay"');
+    }
+    if (!getAttribute(tag, 'aria-expanded')) {
+      addIssue(issues, file, 'search trigger is missing aria-expanded');
+    }
+  }
+
   for (const match of source.matchAll(/<button\b[^>]*(?:data-toggle-react|data-toggle-bookmark|auth-pwd-toggle)[^>]*>/gi)) {
     const tag = match[0];
     if (!getAttribute(tag, 'aria-pressed')) {

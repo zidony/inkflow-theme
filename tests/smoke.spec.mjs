@@ -172,11 +172,14 @@ test('search overlay opens and closes', async ({ page }) => {
   await expectNoConsoleErrors(page, async () => {
     await gotoPage(page, '/index.html');
     const overlay = page.locator('#searchOverlay');
-    await expect(page.getByRole('button', { name: /搜索/ })).toHaveAttribute('aria-controls', 'searchOverlay');
+    const searchTrigger = page.locator('[data-open-search]').first();
+    await expect(searchTrigger).toHaveAttribute('aria-controls', 'searchOverlay');
+    await expect(searchTrigger).toHaveAttribute('aria-expanded', 'false');
     await expect(overlay).toHaveAttribute('inert', '');
-    await page.getByRole('button', { name: /搜索/ }).click();
+    await searchTrigger.click();
     await expect(overlay).toHaveClass(/active/);
     await expect(overlay).toHaveAttribute('aria-hidden', 'false');
+    await expect(searchTrigger).toHaveAttribute('aria-expanded', 'true');
     await expect(overlay).not.toHaveAttribute('inert', '');
     const searchInput = page.locator('#searchInput');
     await expect(searchInput).toBeFocused();
@@ -188,6 +191,7 @@ test('search overlay opens and closes', async ({ page }) => {
     await page.getByRole('button', { name: '关闭搜索' }).click();
     await expect(overlay).not.toHaveClass(/active/);
     await expect(overlay).toHaveAttribute('aria-hidden', 'true');
+    await expect(searchTrigger).toHaveAttribute('aria-expanded', 'false');
     await expect(overlay).toHaveAttribute('inert', '');
   });
 });
