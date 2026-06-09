@@ -2,7 +2,7 @@
 
 > A modern frontend theme template tailored for independent blogs, fully embracing Vite engineering, out-of-the-box ready.
 
-![Version](https://img.shields.io/badge/version-3.2.8-green)
+![Version](https://img.shields.io/badge/version-3.2.9-green)
 ![Bootstrap](https://img.shields.io/badge/Bootstrap-5.3.8-7952b3)
 ![Bootstrap Icons](https://img.shields.io/badge/Bootstrap%20Icons-1.13.1-7952b3)
 ![License](https://img.shields.io/badge/license-CC%20BY%204.0-blue)
@@ -265,6 +265,7 @@ Modify the Google Fonts link in the `<head>` of HTML files, and update variables
 
 | Version | Key Updates |
 |---------|-------------|
+| **v3.2.9** | **Copy Feedback, Modal Focus, and License Delivery Patch**: Added `aria-busy`, disabled state, success/error button feedback, and restore behavior to the links page "copy site info" action, with new quality gates and smoke coverage; bound the account deletion modal focus trap at the modal capture phase for more stable cooperation with Bootstrap's focus trap; added CC BY 4.0 license metadata to `package.json` and the lockfile; added a standalone `LICENSE` file and ensured the release ZIP includes it. |
 | **v3.2.8** | **Interaction Feedback and Semantic Hardening Patch**: Validated and cleared invalid stored demo auth state; exposed `aria-busy` on the login submit button; synchronized `aria-current="location"` for the active post table-of-contents item; fixed copy feedback so floating and inline article copy buttons update only the clicked control and restore reliably after repeated clicks; unified notification saves, password recovery, and registration placeholders through the shared `data-demo-action` feedback pattern; expanded quality gates and Playwright smoke coverage. |
 | **v3.2.7** | **Interaction State, Motion Preference, and Modal Stability Patch**: Hid decorative archive heatmap cells and legend markers from assistive technology; synchronized `aria-pressed` for the post view toggle plus album, links, tag, and archive segmented controls with quality gates; added roving `tabindex` to the login/register tabs; hardened the account deletion modal close path and fallback behavior; respected `prefers-reduced-motion` across global CSS motion, scroll reveal, counter animation, and home hero parallax; reused the shared scripts partial on the login page; expanded Playwright smoke coverage. |
 | **v3.2.6** | **Layout and Fine-Grained Accessibility Patch**: Removed template BOMs and an extra home-page search fragment to fix the top viewport gap and the blank space after the home footer; converted author social icons into accessible links; hid decorative dynamic elements in albums, the tag cloud, and the profile writing streak; added more accurate input types and autocomplete hints for search, email, URL, and telephone fields; expanded related quality gates and smoke coverage. |
