@@ -90,3 +90,7 @@ export function initOnce(target, key) {
   target.dataset[flag] = 'true';
   return true;
 }
+
+export function prefersReducedMotion() {
+  return globalThis.matchMedia?.('(prefers-reduced-motion: reduce)').matches === true;
+}

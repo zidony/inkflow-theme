@@ -1,0 +1,25 @@
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: .001ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-delay: 0ms !important;
+    transition-duration: .001ms !important;
+  }
+
+  .fade-up {
+    opacity: 1;
+    transform: none;
+  }
+
+  .hero-card.is-parallax-ready {
+    transition: none;
+    will-change: auto;
+  }
+}

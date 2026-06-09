@@ -287,14 +287,27 @@ function checkJs(file, source, issues) {
   if (inlineStyleTemplates.length) addIssue(issues, file, `${inlineStyleTemplates.length} generated inline style string(s)`);
 }
 
+function checkCss(file, source, issues) {
+  checkTextEncoding(file, source, issues);
+
+  if (relative(file) === 'src/assets/css/main.css' && !source.includes('@import "./utils/reduced-motion.css";')) {
+    addIssue(issues, file, 'main stylesheet is missing reduced-motion import');
+  }
+
+  if (relative(file) === 'src/assets/css/utils/reduced-motion.css' && !source.includes('prefers-reduced-motion: reduce')) {
+    addIssue(issues, file, 'reduced-motion stylesheet is missing prefers-reduced-motion media query');
+  }
+}
+
 const files = await walk(srcDir);
 const issues = [];
 
 for (const file of files) {
-  if (!/\.(html|js)$/.test(file)) continue;
+  if (!/\.(html|js|css)$/.test(file)) continue;
   const source = await readFile(file, 'utf8');
   if (file.endsWith('.html')) checkHtml(file, source, issues);
   if (file.endsWith('.js')) checkJs(file, source, issues);
+  if (file.endsWith('.css')) checkCss(file, source, issues);
 }
 
 if (issues.length) {

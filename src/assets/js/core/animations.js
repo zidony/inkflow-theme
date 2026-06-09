@@ -1,6 +1,13 @@
+import { prefersReducedMotion } from './utils.js';
+
 function initScrollReveal() {
   const elements = document.querySelectorAll('.fade-up');
   if (!elements.length) return;
+
+  if (prefersReducedMotion()) {
+    elements.forEach(el => el.classList.add('visible'));
+    return;
+  }
 
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
@@ -17,6 +24,15 @@ function initScrollReveal() {
 function initCounters() {
   const counters = document.querySelectorAll('[data-count]');
   if (!counters.length) return;
+
+  if (prefersReducedMotion()) {
+    counters.forEach(el => {
+      const target = parseInt(el.dataset.count, 10);
+      const suffix = el.dataset.suffix || '';
+      el.textContent = Number.isFinite(target) ? `${target}${suffix}` : el.textContent;
+    });
+    return;
+  }
 
   function animateCounter(el, target, suffix) {
     const duration  = 1800;

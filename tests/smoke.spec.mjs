@@ -100,6 +100,28 @@ test('theme toggle switches document theme', async ({ page }) => {
   });
 });
 
+test('reduced motion preference disables decorative motion', async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  await expectNoConsoleErrors(page, async () => {
+    await gotoPage(page, '/index.html');
+
+    const firstFade = page.locator('.fade-up').first();
+    const heroCard = page.locator('.hero-card');
+
+    await expect(firstFade).toHaveClass(/visible/);
+    await expect(page.locator('[data-count="128"]')).toHaveText('128');
+    await expect(page.locator('[data-count="56"]')).toHaveText('56k');
+    await expect(heroCard).not.toHaveClass(/is-parallax-ready/);
+
+    const before = await heroCard.evaluate(el => getComputedStyle(el).transform);
+    await page.mouse.move(120, 120);
+    await page.waitForTimeout(100);
+    const after = await heroCard.evaluate(el => getComputedStyle(el).transform);
+
+    expect(after).toBe(before);
+  });
+});
+
 test('archive heatmap exposes summary without noisy cells', async ({ page }) => {
   await expectNoConsoleErrors(page, async () => {
     await gotoPage(page, '/archive-list.html');

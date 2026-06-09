@@ -1,9 +1,10 @@
-import { initOnce } from '../core/utils.js';
+import { initOnce, prefersReducedMotion } from '../core/utils.js';
 
 function initParallax() {
   const hero = document.querySelector('.hero-gradient');
   const card = document.querySelector('.hero-card');
   if (!hero || !card || !initOnce(hero, 'parallax')) return;
+  if (prefersReducedMotion()) return;
 
   card.classList.add('is-parallax-ready');
 
