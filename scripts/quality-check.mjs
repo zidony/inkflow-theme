@@ -198,6 +198,16 @@ function checkHtml(file, source, issues) {
     }
   }
 
+  for (const match of source.matchAll(/<input\b[^>]*\bclass=["'][^"']*\bnotify-toggle\b[^"']*["'][^>]*>/gi)) {
+    const tag = match[0];
+    if (getAttribute(tag, 'role') !== 'switch') {
+      addIssue(issues, file, 'notification toggle is missing role="switch"');
+    }
+    if (!getAttribute(tag, 'aria-checked')) {
+      addIssue(issues, file, 'notification toggle is missing aria-checked');
+    }
+  }
+
   for (const match of source.matchAll(/<button\b[^>]*\brole=["']tab["'][^>]*>/gi)) {
     const tag = match[0];
     if (!getAttribute(tag, 'aria-selected')) addIssue(issues, file, 'tab button is missing aria-selected');

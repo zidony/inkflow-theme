@@ -270,6 +270,7 @@ test('profile edit controls toggle readonly fields', async ({ page }) => {
   await expectNoConsoleErrors(page, async () => {
     await gotoPage(page, '/profile.html');
     const nameInput = page.locator('#profileName');
+    const weeklySwitch = page.getByRole('switch', { name: '周刊推送通知' });
 
     await expect(page.locator('#streakDots')).toHaveAttribute('aria-hidden', 'true');
     await expect(nameInput).toHaveAttribute('readonly', '');
@@ -277,6 +278,9 @@ test('profile edit controls toggle readonly fields', async ({ page }) => {
     await expect(nameInput).not.toHaveAttribute('readonly', '');
     await page.locator('[data-profile-cancel="basic"]').click();
     await expect(nameInput).toHaveAttribute('readonly', '');
+    await expect(weeklySwitch).toHaveAttribute('aria-checked', 'false');
+    await page.locator('.notify-label-wrap').filter({ has: weeklySwitch }).click();
+    await expect(weeklySwitch).toHaveAttribute('aria-checked', 'true');
   });
 });
 

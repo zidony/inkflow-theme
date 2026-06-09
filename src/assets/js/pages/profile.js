@@ -134,18 +134,7 @@ function initProfileActions() {
     }
   });
 
-  const tfaSwitch = document.getElementById('tfaSwitch');
-  const tfaLabel = document.getElementById('tfaLabel');
-  if (tfaSwitch && tfaLabel) {
-    const syncTfaState = () => {
-      tfaLabel.textContent = tfaSwitch.checked ? '已开启' : '未开启';
-      tfaSwitch.setAttribute('aria-checked', tfaSwitch.checked ? 'true' : 'false');
-    };
-    syncTfaState();
-    tfaSwitch.addEventListener('change', () => {
-      syncTfaState();
-    });
-  }
+  initNotifySwitches();
 
   const accountDeleteModalEl = document.getElementById('accountDeleteModal');
   if (accountDeleteModalEl && initOnce(accountDeleteModalEl, 'deleteModalFocus')) {
@@ -155,6 +144,21 @@ function initProfileActions() {
     }, true);
     accountDeleteModalEl.addEventListener('hidden.bs.modal', restoreDeleteModalFocus);
   }
+}
+
+function initNotifySwitches() {
+  document.querySelectorAll('.notify-toggle').forEach(toggle => {
+    const syncSwitchState = () => {
+      toggle.setAttribute('aria-checked', toggle.checked ? 'true' : 'false');
+      if (toggle.id === 'tfaSwitch') {
+        const tfaLabel = document.getElementById('tfaLabel');
+        if (tfaLabel) tfaLabel.textContent = toggle.checked ? '已开启' : '未开启';
+      }
+    };
+
+    syncSwitchState();
+    toggle.addEventListener('change', syncSwitchState);
+  });
 }
 
 function initProfileStreak() {
