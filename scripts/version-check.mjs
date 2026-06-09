@@ -65,7 +65,22 @@ function checkReleaseScript(source, packageName, version, issues) {
     addIssue(issues, 'scripts/release.mjs', 'release metadata should be read from package.json');
   }
 
+  if (!source.includes("normalized === 'license'")) {
+    addIssue(issues, 'scripts/release.mjs', 'release package should include LICENSE');
+  }
+
   if (!packageName || !version) return;
+}
+
+function checkLicenseFile(source, issues) {
+  if (!source.trim()) {
+    addIssue(issues, 'LICENSE', 'missing license file');
+    return;
+  }
+
+  if (!source.includes('Creative Commons Attribution 4.0 International') || !source.includes('https://creativecommons.org/licenses/by/4.0/')) {
+    addIssue(issues, 'LICENSE', 'license file should describe CC BY 4.0');
+  }
 }
 
 const issues = [];
@@ -73,6 +88,7 @@ const pkg = await readJson('package.json', issues);
 const lock = await readJson('package-lock.json', issues);
 const readme = await readText('README.md', issues);
 const readmeEn = await readText('README.en.md', issues);
+const license = await readText('LICENSE', issues);
 const releaseScript = await readText('scripts/release.mjs', issues);
 
 if (pkg) {
@@ -116,6 +132,7 @@ if (pkg?.version) {
 }
 
 checkReleaseScript(releaseScript, pkg?.name, pkg?.version, issues);
+checkLicenseFile(license, issues);
 
 if (issues.length) {
   console.error('Version consistency check failed:');

@@ -211,9 +211,15 @@ try {
         zipWriter.addFile(zipDest, fs.readFileSync(filePath));
     }
 
-    // Add README files
+    // Add root documentation files
     fs.readdirSync(rootDir)
-        .filter(f => f.toLowerCase().startsWith('readme') && f.toLowerCase().endsWith('.md'))
+        .filter(f => {
+            const normalized = f.toLowerCase();
+            return (
+                (normalized.startsWith('readme') && normalized.endsWith('.md')) ||
+                normalized === 'license'
+            );
+        })
         .sort((a, b) => a.localeCompare(b))
         .forEach(f => {
             const filePath = path.join(rootDir, f);
