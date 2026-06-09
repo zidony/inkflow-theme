@@ -77,8 +77,11 @@ function renderCloud(list) {
 }
 
 function sortTags(type, activeTab) {
-  document.querySelectorAll('.sort-tab').forEach(tab => tab.classList.remove('active'));
-  if (activeTab) activeTab.classList.add('active');
+  document.querySelectorAll('.sort-tab').forEach(tab => {
+    const isActive = tab === activeTab;
+    tab.classList.toggle('active', isActive);
+    tab.setAttribute('aria-pressed', String(isActive));
+  });
 
   const sorted = [...TAGS];
   if (type === 'count') sorted.sort((a, b) => b.count - a.count);

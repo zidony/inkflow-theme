@@ -72,8 +72,11 @@ function getSafeBootstrapIcon(icon) {
 }
 
 function filterAlbum(el, cat) {
-  document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
-  el.classList.add('active');
+  document.querySelectorAll('.filter-tab').forEach(tab => {
+    const isActive = tab === el;
+    tab.classList.toggle('active', isActive);
+    tab.setAttribute('aria-pressed', String(isActive));
+  });
 
   document.querySelectorAll('#albumGrid [data-cat]').forEach(card => {
     const visible = cat === 'all' || card.dataset.cat === cat;

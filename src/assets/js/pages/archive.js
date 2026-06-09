@@ -1,4 +1,4 @@
-import { escapeCssString, initOnce } from '../core/utils.js';
+import { initOnce } from '../core/utils.js';
 
 function initHeatmap() {
   const container = document.getElementById('heatmapGrid');
@@ -19,22 +19,23 @@ function initArchiveTabs() {
     const year = tab.dataset.archiveYear;
     if (year) setYear(tab, year);
     else {
-      document.querySelectorAll('.archive-year-tab').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.archive-year-tab').forEach(t => {
+        t.classList.remove('active');
+        t.setAttribute('aria-pressed', 'false');
+      });
       tab.classList.add('active');
+      tab.setAttribute('aria-pressed', 'true');
     }
   });
 }
 
 /* year-btn switching for archive heatmap */
 function setYear(el, year) {
-  document.querySelectorAll('.year-btn').forEach(b => b.classList.remove('active'));
-  if (el) {
-    el.classList.add('active');
-  } else {
-    // 如果是通过 init 调用的，激活默认年份按钮
-    const defaultBtn = document.querySelector(`.year-btn[data-archive-year="${escapeCssString(year)}"]`);
-    if (defaultBtn) defaultBtn.classList.add('active');
-  }
+  document.querySelectorAll('.year-btn').forEach(b => {
+    const isActive = el ? b === el : b.dataset.archiveYear === year;
+    b.classList.toggle('active', isActive);
+    b.setAttribute('aria-pressed', String(isActive));
+  });
 
   const grid = document.getElementById('heatmapGrid');
   if (!grid) return;

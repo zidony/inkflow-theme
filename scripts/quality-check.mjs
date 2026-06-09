@@ -172,6 +172,12 @@ function checkHtml(file, source, issues) {
     }
   }
 
+  for (const match of source.matchAll(/<button\b[^>]*\bclass=["'][^"']*\b(?:filter-tab|sort-tab|year-btn)\b[^"']*["'][^>]*>/gi)) {
+    if (!getAttribute(match[0], 'aria-pressed')) {
+      addIssue(issues, file, 'segmented control button is missing aria-pressed');
+    }
+  }
+
   for (const match of source.matchAll(/<button\b[^>]*\brole=["']tab["'][^>]*>/gi)) {
     const tag = match[0];
     if (!getAttribute(tag, 'aria-selected')) addIssue(issues, file, 'tab button is missing aria-selected');

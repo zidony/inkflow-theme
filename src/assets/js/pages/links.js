@@ -1,8 +1,11 @@
 import { copyText, initOnce, showToast } from '../core/utils.js';
 
 function filterLinks(el, cat) {
-  document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
-  el.classList.add('active');
+  document.querySelectorAll('.filter-tab').forEach(tab => {
+    const isActive = tab === el;
+    tab.classList.toggle('active', isActive);
+    tab.setAttribute('aria-pressed', String(isActive));
+  });
 
   document.querySelectorAll('[data-link-cat]').forEach(card => {
     const col = card.closest('.col-md-6, .col-12, [class*="col"]');

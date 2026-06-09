@@ -262,19 +262,36 @@ test('profile edit controls toggle readonly fields', async ({ page }) => {
 test('filter and sort controls use button semantics', async ({ page }) => {
   await expectNoConsoleErrors(page, async () => {
     await gotoPage(page, '/album-list.html');
+    await expect(page.locator('button[data-album-filter="all"]')).toHaveAttribute('aria-pressed', 'true');
     await page.locator('button[data-album-filter="city"]').click();
     await expect(page.locator('button[data-album-filter="city"]')).toHaveClass(/active/);
+    await expect(page.locator('button[data-album-filter="all"]')).toHaveAttribute('aria-pressed', 'false');
+    await expect(page.locator('button[data-album-filter="city"]')).toHaveAttribute('aria-pressed', 'true');
 
     await gotoPage(page, '/link-list.html');
+    await expect(page.locator('button[data-link-filter="all"]')).toHaveAttribute('aria-pressed', 'true');
     await page.locator('button[data-link-filter="tool"]').click();
     await expect(page.locator('button[data-link-filter="tool"]')).toHaveClass(/active/);
+    await expect(page.locator('button[data-link-filter="all"]')).toHaveAttribute('aria-pressed', 'false');
+    await expect(page.locator('button[data-link-filter="tool"]')).toHaveAttribute('aria-pressed', 'true');
 
     await gotoPage(page, '/tag-list.html');
+    await expect(page.locator('button[data-tag-sort="count"]')).toHaveAttribute('aria-pressed', 'true');
     await page.locator('button[data-tag-sort="alpha"]').click();
     await expect(page.locator('button[data-tag-sort="alpha"]')).toHaveClass(/active/);
+    await expect(page.locator('button[data-tag-sort="count"]')).toHaveAttribute('aria-pressed', 'false');
+    await expect(page.locator('button[data-tag-sort="alpha"]')).toHaveAttribute('aria-pressed', 'true');
     await page.locator('button[data-tag-sort="recent"]').click();
+    await expect(page.locator('button[data-tag-sort="alpha"]')).toHaveAttribute('aria-pressed', 'false');
+    await expect(page.locator('button[data-tag-sort="recent"]')).toHaveAttribute('aria-pressed', 'true');
     await expect(page.locator('#tagCloudInner .tag-cloud-item').first()).toContainText('React');
     await expect(page.locator('#tagCloudInner .tag-cloud-hash').first()).toHaveAttribute('aria-hidden', 'true');
+
+    await gotoPage(page, '/archive-list.html');
+    await expect(page.locator('button[data-archive-year="2025"]')).toHaveAttribute('aria-pressed', 'true');
+    await page.locator('button[data-archive-year="2024"]').click();
+    await expect(page.locator('button[data-archive-year="2025"]')).toHaveAttribute('aria-pressed', 'false');
+    await expect(page.locator('button[data-archive-year="2024"]')).toHaveAttribute('aria-pressed', 'true');
 
     await gotoPage(page, '/post-list.html');
     await expect(page.locator('#gridBtn')).toHaveAttribute('aria-pressed', 'true');
