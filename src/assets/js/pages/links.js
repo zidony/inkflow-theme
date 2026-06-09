@@ -36,7 +36,45 @@ function toggleLinkApplyForm() {
   setLinkApplyFormState(form, !form.classList.contains('show'));
 }
 
-function copySiteInfo() {
+function getCopySiteButtonState(btn) {
+  if (!btn) return;
+
+  return {
+    label: btn.getAttribute('aria-label') || '复制本站信息',
+    nodes: [...btn.childNodes].map(node => node.cloneNode(true)),
+  };
+}
+
+function setCopySiteButtonFeedback(btn, state) {
+  if (!btn) return;
+
+  const icon = document.createElement('i');
+  const isSuccess = state === 'success';
+  icon.className = `bi ${isSuccess ? 'bi-check-lg' : 'bi-exclamation-triangle'} me-1`;
+  icon.setAttribute('aria-hidden', 'true');
+  btn.replaceChildren(icon, document.createTextNode(isSuccess ? '已复制本站信息' : '复制失败'));
+  btn.setAttribute('aria-label', isSuccess ? '本站信息已复制' : '本站信息复制失败');
+}
+
+function restoreCopySiteButton(btn, state) {
+  if (!btn || !state) return;
+
+  setTimeout(() => {
+    btn.replaceChildren(...state.nodes.map(node => node.cloneNode(true)));
+    btn.setAttribute('aria-label', state.label);
+    btn.setAttribute('aria-busy', 'false');
+    btn.disabled = false;
+  }, 1500);
+}
+
+function copySiteInfo(btn) {
+  if (btn?.disabled) return;
+  const buttonState = getCopySiteButtonState(btn);
+  if (btn) {
+    btn.disabled = true;
+    btn.setAttribute('aria-busy', 'true');
+  }
+
   const text = [
     '博客名称：INKFLOW',
     '地址：https://inkflow.dev',
@@ -44,8 +82,17 @@ function copySiteInfo() {
   ].join('\n');
 
   copyText(text)
-    .then(() => showToast('站点信息已复制'))
-    .catch(() => showToast('复制失败，请手动复制', 'error'));
+    .then(() => {
+      setCopySiteButtonFeedback(btn, 'success');
+      showToast('站点信息已复制');
+    })
+    .catch(() => {
+      setCopySiteButtonFeedback(btn, 'error');
+      showToast('复制失败，请手动复制', 'error');
+    })
+    .finally(() => {
+      restoreCopySiteButton(btn, buttonState);
+    });
 }
 
 function initLinksPage() {
@@ -64,8 +111,9 @@ function initLinksPage() {
       return;
     }
 
-    if (e.target.closest('[data-copy-site-info]')) {
-      copySiteInfo();
+    const copySiteInfoBtn = e.target.closest('[data-copy-site-info]');
+    if (copySiteInfoBtn) {
+      copySiteInfo(copySiteInfoBtn);
     }
   });
 }

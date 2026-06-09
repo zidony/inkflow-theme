@@ -242,6 +242,12 @@ function checkHtml(file, source, issues) {
     addIssue(issues, file, 'register submit action should use shared demo feedback');
   }
 
+  for (const match of source.matchAll(/<button\b[^>]*\bdata-copy-site-info\b[^>]*>/gi)) {
+    if (!getAttribute(match[0], 'aria-busy')) {
+      addIssue(issues, file, 'site info copy button is missing aria-busy');
+    }
+  }
+
   for (const match of source.matchAll(/<button\b[^>]*\bclass=["'][^"']*\bcomment-action\b[^"']*["'][^>]*>/gi)) {
     if (!/\bdata-demo-action\b/.test(match[0])) {
       addIssue(issues, file, 'comment action is missing demo feedback');

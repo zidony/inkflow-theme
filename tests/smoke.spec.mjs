@@ -346,6 +346,35 @@ test('link apply form synchronizes expanded state', async ({ page }) => {
   });
 });
 
+test('site info copy button exposes busy feedback', async ({ page }) => {
+  await page.addInitScript(() => {
+    Object.defineProperty(navigator, 'clipboard', {
+      configurable: true,
+      value: {
+        writeText: async () => {}
+      }
+    });
+  });
+
+  await expectNoConsoleErrors(page, async () => {
+    await gotoPage(page, '/link-list.html');
+    const copyButton = page.locator('[data-copy-site-info]');
+
+    await expect(copyButton).toHaveAttribute('aria-busy', 'false');
+    await expect(copyButton).toHaveAttribute('aria-label', '复制本站信息');
+
+    await copyButton.click();
+    await expect(copyButton).toBeDisabled();
+    await expect(copyButton).toHaveAttribute('aria-busy', 'true');
+    await expect(copyButton).toHaveAttribute('aria-label', '本站信息已复制');
+    await expect(copyButton).toContainText('已复制本站信息');
+    await expect(page.locator('#inkToast')).toContainText('站点信息已复制');
+
+    await expect(copyButton).toHaveAttribute('aria-busy', 'false', { timeout: 3000 });
+    await expect(copyButton).toHaveAttribute('aria-label', '复制本站信息');
+  });
+});
+
 test('form inputs expose browser assistance hints', async ({ page }) => {
   await expectNoConsoleErrors(page, async () => {
     await gotoPage(page, '/tag-list.html');
