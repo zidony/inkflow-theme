@@ -78,10 +78,20 @@ function filterAlbum(el, cat) {
     tab.setAttribute('aria-pressed', String(isActive));
   });
 
+  let visibleCount = 0;
   document.querySelectorAll('#albumGrid [data-cat]').forEach(card => {
     const visible = cat === 'all' || card.dataset.cat === cat;
+    if (visible) visibleCount += 1;
     card.classList.toggle('is-filtered-out', !visible);
   });
+
+  const status = document.getElementById('albumFilterStatus');
+  if (status) {
+    const label = el?.textContent.trim() || '全部';
+    status.textContent = cat === 'all'
+      ? `显示全部 ${visibleCount} 个相册`
+      : `${label}分类显示 ${visibleCount} 个相册`;
+  }
 }
 
 function openLightbox(key) {

@@ -279,10 +279,13 @@ test('filter and sort controls use button semantics', async ({ page }) => {
   await expectNoConsoleErrors(page, async () => {
     await gotoPage(page, '/album-list.html');
     await expect(page.locator('button[data-album-filter="all"]')).toHaveAttribute('aria-pressed', 'true');
+    await expect(page.locator('#albumFilterStatus')).toHaveAttribute('role', 'status');
     await page.locator('button[data-album-filter="city"]').click();
     await expect(page.locator('button[data-album-filter="city"]')).toHaveClass(/active/);
     await expect(page.locator('button[data-album-filter="all"]')).toHaveAttribute('aria-pressed', 'false');
     await expect(page.locator('button[data-album-filter="city"]')).toHaveAttribute('aria-pressed', 'true');
+    await expect(page.locator('#albumFilterStatus')).toContainText('城市分类显示 2 个相册');
+    await expect(page.locator('#albumGrid [data-cat="city"]:not(.is-filtered-out)')).toHaveCount(2);
 
     await gotoPage(page, '/link-list.html');
     await expect(page.locator('button[data-link-filter="all"]')).toHaveAttribute('aria-pressed', 'true');
