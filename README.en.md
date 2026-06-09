@@ -2,7 +2,7 @@
 
 > A modern frontend theme template tailored for independent blogs, fully embracing Vite engineering, out-of-the-box ready.
 
-![Version](https://img.shields.io/badge/version-3.2.10-green)
+![Version](https://img.shields.io/badge/version-3.2.12-green)
 ![Bootstrap](https://img.shields.io/badge/Bootstrap-5.3.8-7952b3)
 ![Bootstrap Icons](https://img.shields.io/badge/Bootstrap%20Icons-1.13.1-7952b3)
 ![License](https://img.shields.io/badge/license-CC%20BY%204.0-blue)

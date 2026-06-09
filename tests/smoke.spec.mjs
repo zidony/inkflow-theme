@@ -13,6 +13,12 @@ const pages = [
   'login.html',
 ];
 
+const layoutViewports = [
+  { name: 'mobile', width: 390, height: 844 },
+  { name: 'tablet', width: 768, height: 1024 },
+  { name: 'desktop', width: 1440, height: 900 },
+];
+
 async function expectNoConsoleErrors(page, action) {
   const errors = [];
   page.on('console', (message) => {
@@ -35,6 +41,57 @@ async function gotoPage(page, pagePath) {
   await page.waitForFunction(() => document.readyState !== 'loading' && document.title.length > 0);
 }
 
+async function expectViewportLayoutStable(page) {
+  const metrics = await page.evaluate(() => {
+    const documentElement = document.documentElement;
+    const body = document.body;
+    const primary = document.querySelector('main, header, .auth-page, .page-hero, .profile-hero');
+    const authPage = document.querySelector('.auth-page');
+    const footer = document.querySelector('.site-footer');
+    const fixedElements = [...document.querySelectorAll('*')]
+      .filter(el => {
+        const style = getComputedStyle(el);
+        if (!['fixed', 'sticky'].includes(style.position)) return false;
+        const rect = el.getBoundingClientRect();
+        return rect.width > 0 && rect.height > 0;
+      })
+      .map(el => {
+        const rect = el.getBoundingClientRect();
+        return {
+          tag: el.tagName,
+          id: el.id,
+          className: String(el.className),
+          left: rect.left,
+          right: rect.right,
+        };
+      });
+
+    window.scrollTo(0, documentElement.scrollHeight);
+    const footerRect = footer?.getBoundingClientRect();
+
+    return {
+      scrollWidth: documentElement.scrollWidth,
+      clientWidth: documentElement.clientWidth,
+      bodyWidth: Math.ceil(body.getBoundingClientRect().width),
+      viewportWidth: window.innerWidth,
+      primaryHeight: primary?.getBoundingClientRect().height ?? 0,
+      authPageExists: Boolean(authPage),
+      footerExists: Boolean(footer),
+      footerBottomGap: footerRect
+        ? Math.max(0, documentElement.scrollHeight - (window.scrollY + footerRect.bottom))
+        : 0,
+      fixedOverflow: fixedElements.filter(el => el.left < -1 || el.right > window.innerWidth + 1),
+    };
+  });
+
+  expect(metrics.scrollWidth, `document overflow: ${JSON.stringify(metrics)}`).toBeLessThanOrEqual(metrics.clientWidth + 1);
+  expect(metrics.bodyWidth, `body overflow: ${JSON.stringify(metrics)}`).toBeLessThanOrEqual(metrics.viewportWidth + 1);
+  expect(metrics.primaryHeight, `primary content missing: ${JSON.stringify(metrics)}`).toBeGreaterThan(0);
+  expect(metrics.footerExists || metrics.authPageExists, `footer missing: ${JSON.stringify(metrics)}`).toBe(true);
+  expect(metrics.footerBottomGap, `footer gap: ${JSON.stringify(metrics)}`).toBeLessThanOrEqual(1);
+  expect(metrics.fixedOverflow, `fixed/sticky overflow: ${JSON.stringify(metrics.fixedOverflow)}`).toEqual([]);
+}
+
 test.describe('dist page smoke', () => {
   for (const pagePath of pages) {
     test(`${pagePath} renders without runtime errors`, async ({ page }) => {
@@ -47,6 +104,32 @@ test.describe('dist page smoke', () => {
         await expect(page.locator('script[src*="assets/js/inkflow.js"]')).toHaveCount(1);
       });
     });
+  }
+});
+
+test.describe('multi-viewport layout smoke', () => {
+  for (const viewport of layoutViewports) {
+    for (const pagePath of pages) {
+      test(`${pagePath} keeps a stable ${viewport.name} layout`, async ({ page }) => {
+        await page.setViewportSize({ width: viewport.width, height: viewport.height });
+        await expectNoConsoleErrors(page, async () => {
+          await gotoPage(page, `/${pagePath}`);
+          await expectViewportLayoutStable(page);
+
+          const navbar = page.locator('#mainNavbar');
+          if (await navbar.count()) {
+            if (viewport.width < 992) {
+              const toggler = page.locator('.navbar-toggler');
+              await expect(toggler).toBeVisible();
+              await toggler.click();
+              await expect(page.locator('#navMenu')).toHaveClass(/show/);
+            } else {
+              await expect(page.locator('#navMenu')).toBeVisible();
+            }
+          }
+        });
+      });
+    }
   }
 });
 
