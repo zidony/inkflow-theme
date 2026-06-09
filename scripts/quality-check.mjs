@@ -256,6 +256,10 @@ function checkHtml(file, source, issues) {
     addIssue(issues, file, 'album filter is missing polite result status');
   }
 
+  if (source.includes('data-link-filter') && !/id=["']linkFilterStatus["'][^>]*\brole=["']status["'][^>]*\baria-live=["']polite["']/.test(source)) {
+    addIssue(issues, file, 'link filter is missing polite result status');
+  }
+
   for (const match of source.matchAll(/<button\b[^>]*\bclass=["'][^"']*\bcomment-action\b[^"']*["'][^>]*>/gi)) {
     if (!/\bdata-demo-action\b/.test(match[0])) {
       addIssue(issues, file, 'comment action is missing demo feedback');

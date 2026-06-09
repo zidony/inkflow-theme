@@ -7,13 +7,23 @@ function filterLinks(el, cat) {
     tab.setAttribute('aria-pressed', String(isActive));
   });
 
+  let visibleCount = 0;
   document.querySelectorAll('[data-link-cat]').forEach(card => {
     const col = card.closest('.col-md-6, .col-12, [class*="col"]');
     if (!col) return;
     const visible = cat === 'all' || card.dataset.linkCat === cat;
+    if (visible) visibleCount += 1;
     col.classList.add('link-filter-item');
     col.classList.toggle('is-filtered-out', !visible);
   });
+
+  const status = document.getElementById('linkFilterStatus');
+  if (status) {
+    const label = el?.textContent.trim() || '全部';
+    status.textContent = cat === 'all'
+      ? `显示全部 ${visibleCount} 个链接`
+      : `${label}分类显示 ${visibleCount} 个链接`;
+  }
 }
 
 function setLinkApplyFormState(form, expanded) {

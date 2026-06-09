@@ -289,10 +289,13 @@ test('filter and sort controls use button semantics', async ({ page }) => {
 
     await gotoPage(page, '/link-list.html');
     await expect(page.locator('button[data-link-filter="all"]')).toHaveAttribute('aria-pressed', 'true');
+    await expect(page.locator('#linkFilterStatus')).toHaveAttribute('role', 'status');
     await page.locator('button[data-link-filter="tool"]').click();
     await expect(page.locator('button[data-link-filter="tool"]')).toHaveClass(/active/);
     await expect(page.locator('button[data-link-filter="all"]')).toHaveAttribute('aria-pressed', 'false');
     await expect(page.locator('button[data-link-filter="tool"]')).toHaveAttribute('aria-pressed', 'true');
+    await expect(page.locator('#linkFilterStatus')).toContainText('工具资源分类显示 5 个链接');
+    await expect(page.locator('[data-link-cat="tool"]:not(.is-filtered-out)')).toHaveCount(5);
 
     await gotoPage(page, '/tag-list.html');
     await expect(page.locator('button[data-tag-sort="count"]')).toHaveAttribute('aria-pressed', 'true');
