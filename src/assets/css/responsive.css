@@ -404,13 +404,17 @@
   transform: translateY(-50%);
 }
 
-/* --- FOOTER: Recent items --- */
-.footer-recent-item { padding-bottom: .75rem; border-bottom: 1px solid rgba(255,255,255,.06); }
-.footer-recent-title {
+/* --- FOOTER: Latest items --- */
+.footer-latest-item { padding-bottom: .75rem; border-bottom: 1px solid rgba(255,255,255,.06); }
+.footer-latest-title {
   margin-bottom: .2rem;
   font-size: .85rem; color: rgba(255,255,255,.7); font-weight: 500;
+  transition: color var(--transition);
 }
-.footer-recent-meta { font-size: .75rem; color: rgba(255,255,255,.3); }
+.footer-latest-meta { font-size: .75rem; color: rgba(255,255,255,.3); }
+.footer-latest-item:hover .footer-latest-title {
+  color: var(--ink-primary);
+}
 
 /* --- POST LIST: Meta separators and category tags --- */
 .meta-sep { color: var(--ink-muted); opacity: .5; }
