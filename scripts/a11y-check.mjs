@@ -118,6 +118,55 @@ function checkPaginationNavs(file, source, issues) {
   }
 }
 
+function checkLandmarks(file, source, issues) {
+  const mainCount = [...source.matchAll(/<main\b/gi)].length;
+  if (mainCount === 0) {
+    addIssue(issues, file, 'page is missing a <main> landmark');
+  } else if (mainCount > 1) {
+    addIssue(issues, file, `page has ${mainCount} <main> landmarks, expected exactly one`);
+  } else {
+    const mainTag = source.match(/<main\b[^>]*>/i)?.[0] || '';
+    const mainId = getAttribute(mainTag, 'id');
+    if (mainId !== 'main-content') {
+      addIssue(issues, file, '<main> landmark should use id="main-content" as the skip-link target');
+    }
+  }
+}
+
+function checkSkipLink(file, source, issues, skipLinkPartials) {
+  // The skip-link may be inlined or supplied by an included partial (e.g. navbar).
+  const includesSkipPartial = [...source.matchAll(/\{\{>\s*([\w-]+)\s*\}\}/g)]
+    .some(match => skipLinkPartials.has(match[1]));
+  if (includesSkipPartial) return;
+
+  const skipLink = source.match(/<a\b[^>]*\bclass=["'][^"']*\bskip-link\b[^"']*["'][^>]*>/i)?.[0];
+  if (!skipLink) {
+    addIssue(issues, file, 'page is missing a skip-to-content link (WCAG 2.4.1)');
+    return;
+  }
+  if (getAttribute(skipLink, 'href') !== '#main-content') {
+    addIssue(issues, file, 'skip-link should target href="#main-content"');
+  }
+}
+
+function checkHeadingHierarchy(file, source, issues) {
+  const levels = [...source.matchAll(/<h([1-6])\b/gi)].map(match => Number(match[1]));
+  if (!levels.length) return;
+
+  const h1Count = levels.filter(level => level === 1).length;
+  if (h1Count !== 1) {
+    addIssue(issues, file, `expected exactly one <h1>, found ${h1Count}`);
+  }
+
+  let previous = 0;
+  for (const level of levels) {
+    if (previous && level > previous + 1) {
+      addIssue(issues, file, `heading level skips from h${previous} to h${level}`);
+    }
+    previous = level;
+  }
+}
+
 function extractIds(source) {
   return [...source.matchAll(/\bid=["']([^"']+)["']/gi)].map(match => match[1]);
 }
@@ -141,11 +190,15 @@ const files = await walk(srcDir);
 const issues = [];
 const htmlFiles = files.filter(file => file.endsWith('.html'));
 const sharedPartialIds = new Set();
+const skipLinkPartials = new Set();
 
 for (const file of htmlFiles) {
   if (!relative(file).startsWith('src/partials/')) continue;
   const source = await readFile(file, 'utf8');
   for (const id of extractIds(source)) sharedPartialIds.add(id);
+  if (/<a\b[^>]*\bclass=["'][^"']*\bskip-link\b[^"']*["']/i.test(source)) {
+    skipLinkPartials.add(path.basename(file, '.html'));
+  }
 }
 
 for (const file of htmlFiles) {
@@ -159,6 +212,13 @@ for (const file of htmlFiles) {
   checkAuthLabels(file, source, issues);
   checkPaginationNavs(file, source, issues);
   checkAriaIdReferences(file, source, sharedPartialIds, issues);
+
+  // Full page-level landmark/heading checks (skip shared partials).
+  if (!relative(file).startsWith('src/partials/') && /<body\b/i.test(source)) {
+    checkLandmarks(file, source, issues);
+    checkSkipLink(file, source, issues, skipLinkPartials);
+    checkHeadingHierarchy(file, source, issues);
+  }
 }
 
 if (issues.length) {

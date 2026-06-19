@@ -4,6 +4,30 @@
   outline-offset: 3px;
   box-shadow: 0 0 0 4px rgba(var(--ink-primary-rgb), .18);
 }
+
+/* Skip to main content (WCAG 2.4.1 Bypass Blocks) */
+.skip-link {
+  position: fixed;
+  top: .75rem;
+  left: .75rem;
+  z-index: var(--z-toast);
+  padding: .625rem 1.25rem;
+  border-radius: var(--radius-md);
+  background: var(--ink-primary);
+  color: #fff;
+  font-weight: 600;
+  text-decoration: none;
+  box-shadow: var(--shadow-hover);
+  transform: translateY(-150%);
+  transition: transform .2s cubic-bezier(.4, 0, .2, 1);
+}
+.skip-link:focus,
+.skip-link:focus-visible {
+  transform: translateY(0);
+  color: #fff;
+  outline: 2px solid var(--ink-accent);
+  outline-offset: 3px;
+}
 body.is-scroll-locked { overflow: hidden; }
 .is-filtered-out {
   opacity: .25;

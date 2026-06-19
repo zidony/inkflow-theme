@@ -320,7 +320,8 @@ function checkHtml(file, source, issues) {
 
     const samePageAnchor = href.match(/^#([^#?]+)$/)?.[1];
     const fileAnchor = href.match(/^([^#?]+\.html)#([^#?]+)$/);
-    if (samePageAnchor && !localIds.has(samePageAnchor)) {
+    // Partials are fragments: their same-page anchors resolve against the host page, not the partial itself.
+    if (samePageAnchor && !relFile.startsWith('src/partials/') && !localIds.has(samePageAnchor)) {
       addIssue(issues, file, `missing local anchor target "${samePageAnchor}"`);
     }
     if (fileAnchor && fileAnchor[1] === getFileName(file) && !localIds.has(fileAnchor[2])) {
