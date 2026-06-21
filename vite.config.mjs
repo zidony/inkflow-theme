@@ -24,7 +24,7 @@ const useCdn = process.env.INKFLOW_CDN === '1';
  * across every page — no per-file duplication.
  */
 const site = {
-  url: 'https://inkflow.example.com/',
+  url: 'https://zidony.github.io/inkflow-theme/',
   name: 'INKFLOW',
   locale: 'zh_CN',
   twitter: '@inkflow',
