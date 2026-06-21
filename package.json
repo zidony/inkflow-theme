@@ -6,24 +6,38 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build && prettier --write \"dist/**/*.{html,css,js}\"",
+    "icons": "node scripts/generate-icons.mjs",
     "preview": "vite preview",
     "release": "npm run check && node scripts/release.mjs",
     "lint": "eslint src/assets/js/**/*.js",
+    "style:lint": "stylelint \"src/assets/css/**/*.css\"",
+    "style:fix": "stylelint \"src/assets/css/**/*.css\" --fix",
     "quality": "node scripts/quality-check.mjs",
     "a11y:check": "node scripts/a11y-check.mjs",
     "seo:check": "node scripts/seo-check.mjs",
     "version:check": "node scripts/version-check.mjs",
     "dist:check": "node scripts/dist-check.mjs",
-    "check": "npm run lint && npm run quality && npm run a11y:check && npm run seo:check && npm run version:check && npm run build && npm run dist:check",
+    "check": "npm run lint && npm run style:lint && npm run quality && npm run a11y:check && npm run seo:check && npm run version:check && npm run build && npm run dist:check",
     "smoke": "node scripts/run-smoke.mjs",
     "format": "prettier --write \"src/**/*.{css,js,html}\""
   },
   "devDependencies": {
+    "@fontsource/dm-sans": "^5.2.8",
+    "@fontsource/jetbrains-mono": "^5.2.8",
+    "@fontsource/playfair-display": "^5.2.8",
     "@playwright/test": "^1.60.0",
+    "bootstrap": "^5.3.8",
+    "bootstrap-icons": "^1.13.1",
+    "esbuild": "^0.28.1",
     "eslint": "^8.57.0",
     "prettier": "^3.2.5",
+    "purgecss": "^8.0.0",
+    "stylelint": "^17.13.0",
+    "stylelint-config-standard": "^40.0.0",
     "vite": "^8.0.16",
-    "vite-plugin-handlebars": "^2.0.3",
-    "vite-plugin-purgecss": "^0.2.13"
+    "vite-plugin-handlebars": "^2.0.3"
+  },
+  "overrides": {
+    "js-yaml": "^4.2.0"
   }
 }

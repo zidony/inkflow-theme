@@ -1,3 +1,6 @@
+/* 0. Vendor (Bootstrap + Icons + self-hosted fonts) — stripped in CDN build mode */
+@import "./vendor.css";
+
 /* 1. Base / Variables / Resets */
 @import "./base/variables.css";
 @import "./base/design-tokens.css";

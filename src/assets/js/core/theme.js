@@ -5,11 +5,16 @@ function initThemeToggle() {
   const icon = document.getElementById('themeIcon');
   if (!btn || !initOnce(btn, 'themeToggle')) return;
 
-  let savedTheme = 'light';
+  let savedTheme = null;
   try {
-    savedTheme = localStorage.getItem('inkflow-theme') || 'light';
+    savedTheme = localStorage.getItem('inkflow-theme');
   } catch (e) {
-    savedTheme = 'light';
+    savedTheme = null;
+  }
+  // Fall back to the theme already resolved by the inline FOUC-prevention
+  // script in head.html (which honours prefers-color-scheme on first visit).
+  if (savedTheme !== 'light' && savedTheme !== 'dark') {
+    savedTheme = document.documentElement.getAttribute('data-bs-theme') || 'light';
   }
   applyTheme(savedTheme, icon);
 
