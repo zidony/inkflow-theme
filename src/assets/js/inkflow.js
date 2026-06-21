@@ -1,3 +1,7 @@
+// Self-hosted Bootstrap JS (tree-shaken to the components actually used).
+// Skipped automatically when the build injects the Bootstrap CDN bundle instead.
+import './vendor.js';
+
 import { initNavbar } from './components/navbar.js';
 import { initThemeToggle } from './core/theme.js';
 import { initUserAuth } from './components/auth.js';

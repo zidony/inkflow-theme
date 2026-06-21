@@ -8,6 +8,31 @@ InkFlow Theme 是一款静态前端主题模板。`dist/` 产物可以直接部�
 - 基于 Bootstrap 5.3.8 的布局、组件样式、暗色模式、导航、搜索弹层、相册灯箱、代码复制、文章目录等前端交互。
 - Vite 构建后的相对路径产物，适合 GitHub Pages、Vercel、Netlify、OSS/CDN 等静态环境。
 
+## 资源交付模式（自托管 / CDN）
+
+主题默认**自托管** Bootstrap、Bootstrap Icons 与三款 Web 字体（DM Sans / Playfair Display / JetBrains Mono），构建时由 Vite 从 `node_modules` 打包进本地产物，**不向 jsDelivr 或 Google Fonts 发起任何外部请求**。这对中国大陆访客（Google Fonts 常不可达）和 GDPR 合规（无第三方字体调用）尤为重要。
+
+- 默认自托管构建：`npm run build`
+- 改用 CDN 交付：`INKFLOW_CDN=1 npm run build`（Windows PowerShell：`$env:INKFLOW_CDN=1; npm run build`）
+
+两种模式产物等价可用，仅资源来源不同。CDN 模式下 CSS 体积更小，但首屏依赖外部网络；自托管模式无外部依赖、首屏更稳定。字体仅打包实际使用的字重与 latin / latin-ext 子集，CJK 字形回退到系统字体（PingFang SC / 微软雅黑）。
+
+## 站点 SEO 配置
+
+`vite.config.mjs` 顶部的 `site` 对象是 canonical、`og:url`、`og:image`、JSON-LD 结构化数据与 `sitemap.xml` / `robots.txt` 的**唯一来源**：
+
+```js
+const site = {
+  url: 'https://inkflow.example.com/', // ← 上线前必须改为真实生产域名（结尾带 /）
+  name: 'INKFLOW',
+  locale: 'zh_CN',
+  twitter: '@inkflow',
+  ogImage: 'og-cover.png',
+};
+```
+
+品牌图标（`favicon.svg` / `favicon.ico` / `apple-touch-icon.png` / `og-cover.png`）由 `npm run icons` 从品牌色生成，位于 `src/public/`；可直接替换为自有品牌素材。
+
 ## 需要生产接入的部分
 
 正式商用时，请将以下演示逻辑替换为真实业务能力：

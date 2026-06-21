@@ -1,15 +1,17 @@
 /* CSS CUSTOM PROPERTIES (Design Tokens) */
 :root {
   /* Brand colours */
-  --ink-primary:      #0a6640;
-  --ink-primary-rgb:  10, 102, 64;
-  --ink-accent:       #00c98d;
-  --ink-accent-rgb:   0, 201, 141;
+  --ink-primary:        #0a6640;
+  --ink-primary-rgb:    10, 102, 64;
+  --ink-primary-strong: #084f32;  /* darker primary for hover depth (does not shift by theme) */
+  --ink-accent:         #00c98d;
+  --ink-accent-rgb:     0, 201, 141;
+  --ink-on-bright:      #0d1117;   /* text/icon colour on bright accent surfaces */
 
   /* Surface colours */
   --ink-dark:    #0d1117;
   --ink-surface: #f8faf9;
-  --ink-card:    #ffffff;
+  --ink-card:    #fff;
   --ink-border:  #e4ede9;
   --ink-muted:   #4e6353;
   --ink-heading: #0d1117;
@@ -34,5 +36,5 @@
 
 /* Dark mode overrides */
 [data-bs-theme="dark"] {
-  --ink-primary: #00c98d; --ink-accent: #4dffc0; --ink-dark: #f0f6f3; --ink-surface: #0d1117; --ink-card: #161c22; --ink-border: #212e27; --ink-muted: #8ec2aa; --ink-heading: #f0f6f3; --ink-text: #c8ddd5; --shadow-card: 0 2px 20px rgba(0,0,0,.4); --shadow-hover: 0 8px 40px rgba(0,0,0,.6);
+  --ink-primary: #00c98d; --ink-accent: #4dffc0; --ink-primary-rgb: 0, 201, 141; --ink-accent-rgb: 77, 255, 192; --ink-dark: #f0f6f3; --ink-surface: #0d1117; --ink-card: #161c22; --ink-border: #212e27; --ink-muted: #8ec2aa; --ink-heading: #f0f6f3; --ink-text: #c8ddd5; --shadow-card: 0 2px 20px rgba(0,0,0,.4); --shadow-hover: 0 8px 40px rgba(0,0,0,.6);
 }

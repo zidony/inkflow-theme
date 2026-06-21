@@ -8,11 +8,10 @@
   height: 3px;
   transform-origin: left;
   content: ''; transform: scaleX(0); transition: transform var(--transition);
+  /* u-tint-* integration for category cards */
+  background: var(--tint-color, var(--ink-primary)) !important;
 }
 .category-card:hover::after { transform: scaleX(1); }
-
-/* u-tint-* integration for category cards */
-.category-card::after { background: var(--tint-color, var(--ink-primary)) !important; }
 
 /* .ink-icon — Light theme universal icon container (consolidates cat-icon / cat-std-icon / ink-icon-box)
    Example: <div class="ink-icon ink-rounded-md ink-icon-md u-tint-green"> */

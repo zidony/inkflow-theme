@@ -31,7 +31,7 @@
 /* Article body typography */
 .article-body {
   font-size: 1.05rem; line-height: 1.85; color: var(--ink-text); text-align: justify;
-  /* Prevent long unbroken strings/URLs from overflowing */ word-wrap: break-word; overflow-wrap: break-word; word-break: break-word; }
+  /* Prevent long unbroken strings/URLs from overflowing */ overflow-wrap: break-word; }
 /* Ensure media does not exceed parent width */
 .article-body img,
 .article-body video,

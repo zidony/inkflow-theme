@@ -44,6 +44,7 @@
 .ink-breadcrumb .breadcrumb-item + .breadcrumb-item::before { color: rgba(255,255,255,.3); }
 .ink-breadcrumb .breadcrumb-item:first-child a::before {
   margin-right: .25rem;
+  /* stylelint-disable-next-line font-family-no-missing-generic-family-keyword -- icon font, no generic fallback */
   font-family: "bootstrap-icons"; vertical-align: -.1em;
   content: "\f425";
 }

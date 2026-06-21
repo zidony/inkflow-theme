@@ -25,6 +25,7 @@
   overflow: hidden !important;
   white-space: nowrap !important;
   border: 0 !important;
+  /* stylelint-disable-next-line property-no-deprecated -- legacy clip kept for max screen-reader compat alongside clip-path */
   clip: rect(0, 0, 0, 0) !important;
   clip-path: inset(50%) !important;
 }

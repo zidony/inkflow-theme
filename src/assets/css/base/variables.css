@@ -60,69 +60,64 @@
   --z-loader:      9998;
   --z-toast:       9999;
 
-  /* Primary */
-  --bs-primary:            #0a6640;
-  --bs-primary-rgb:        10, 102, 64;
+  /* Primary — single-sourced from design-tokens.css --ink-* */
+  --bs-primary:            var(--ink-primary);
+  --bs-primary-rgb:        var(--ink-primary-rgb);
 
   /* Link */
-  --bs-link-color:         #0a6640;
-  --bs-link-color-rgb:     10, 102, 64;
-  --bs-link-hover-color:   #00c98d;
+  --bs-link-color:         var(--ink-primary);
+  --bs-link-color-rgb:     var(--ink-primary-rgb);
+  --bs-link-hover-color:   var(--ink-accent);
 
   /* Border radius — Align with INKFLOW radius tokens */
-  --bs-border-radius:      12px;
-  --bs-border-radius-sm:   6px;
-  --bs-border-radius-lg:   20px;
-  --bs-border-radius-xl:   32px;
+  --bs-border-radius:      var(--radius-md);
+  --bs-border-radius-sm:   var(--radius-sm);
+  --bs-border-radius-lg:   var(--radius-lg);
+  --bs-border-radius-xl:   var(--radius-xl);
   --bs-border-radius-pill: 99px;
 
   /* Form focus ring */
-  --bs-focus-ring-color:   rgba(10, 102, 64, .25);
+  --bs-focus-ring-color:   rgba(var(--ink-primary-rgb), .25);
 
   /* Body */ --bs-body-font-family: 'DM Sans', 'PingFang SC', 'Microsoft YaHei', sans-serif; --bs-body-font-size: 16px; --bs-body-line-height: 1.75; }
 
-/* Dark mode BS overrides */
-[data-bs-theme="dark"] {
-  --bs-primary: #00c98d; --bs-primary-rgb: 0, 201, 141; --bs-link-color: #00c98d; --bs-link-hover-color: #4dffc0;
-}
+/* Dark mode: --bs-* automatically follow --ink-* (which shift in design-tokens.css),
+   so no separate dark overrides are needed here. */
 
 /* btn-primary gradient overlay (overrides BS default solid color) */
 .btn-primary {
   border-color: transparent;
-  background: linear-gradient(135deg, #00c98d, #0a6640); font-weight: 600; letter-spacing: .02em;
+  background: linear-gradient(135deg, var(--ink-accent), var(--ink-primary)); font-weight: 600; letter-spacing: .02em;
   transition: all .28s cubic-bezier(.4,0,.2,1);
 }
 .btn-primary:hover,
 .btn-primary:focus {
   border-color: transparent;
-  background: linear-gradient(135deg, #00c98d, #084f32); box-shadow: 0 6px 20px rgba(0,201,141,.35);
+  background: linear-gradient(135deg, var(--ink-accent), var(--ink-primary-strong)); box-shadow: 0 6px 20px rgba(var(--ink-accent-rgb),.35);
   transform: translateY(-1px);
 }
 .btn-primary:active { transform: none; }
 
-/* btn-outline-primary overrides */
-.btn-outline-primary { color: #0a6640; border-color: #0a6640; }
-.btn-outline-primary:hover { background: #0a6640; border-color: #0a6640; }
-[data-bs-theme="dark"] .btn-outline-primary { color: #00c98d; border-color: #00c98d; }
-[data-bs-theme="dark"] .btn-outline-primary:hover { background: #00c98d; color: #0d1117; }
+/* btn-outline-primary overrides (colours follow --ink-* across themes) */
+.btn-outline-primary { color: var(--ink-primary); border-color: var(--ink-primary); }
+.btn-outline-primary:hover { background: var(--ink-primary); border-color: var(--ink-primary); }
+[data-bs-theme="dark"] .btn-outline-primary:hover { color: var(--ink-on-bright); }
 
 /* form-control focus ring */
 .form-control:focus,
-.form-select:focus { border-color: #0a6640; box-shadow: 0 0 0 .25rem rgba(10,102,64,.18); }
-[data-bs-theme="dark"] .form-control:focus,
-[data-bs-theme="dark"] .form-select:focus { border-color: #00c98d; box-shadow: 0 0 0 .25rem rgba(0,201,141,.18); }
+.form-select:focus { border-color: var(--ink-primary); box-shadow: 0 0 0 .25rem rgba(var(--ink-primary-rgb),.18); }
 
 /* nav-pills / nav-tabs brand color */
 .nav-pills .nav-link.active,
-.nav-pills .show > .nav-link { background-color: #0a6640; }
-[data-bs-theme="dark"] .nav-pills .nav-link.active { background-color: #00c98d; color: #0d1117; }
-.nav-tabs .nav-link.active { color: #0a6640; border-bottom-color: #0a6640; }
+.nav-pills .show > .nav-link { background-color: var(--ink-primary); }
+[data-bs-theme="dark"] .nav-pills .nav-link.active { color: var(--ink-on-bright); }
+.nav-tabs .nav-link.active { color: var(--ink-primary); border-bottom-color: var(--ink-primary); }
 
 /* Badge */
-.badge.bg-primary { background-color: #0a6640 !important; }
+.badge.bg-primary { background-color: var(--ink-primary) !important; }
 
 /* Progress bar */
-.progress-bar { background-color: #0a6640; }
+.progress-bar { background-color: var(--ink-primary); }
 
 /* Checkbox / Radio accent */
-.form-check-input:checked { background-color: #0a6640; border-color: #0a6640; }
+.form-check-input:checked { background-color: var(--ink-primary); border-color: var(--ink-primary); }

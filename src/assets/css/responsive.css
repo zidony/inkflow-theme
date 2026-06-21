@@ -427,9 +427,7 @@
 }
 
 /* --- LOGIN: Auth tab panes --- */
-/* .auth-tab-pane: visibility controlled by initAuthTabs() via style.display */
-.auth-tab-pane { /* display managed by JS */}
+/* .auth-tab-pane visibility is controlled by initAuthTabs() via style.display — no static styles. */
 
-/* --- CONTEXT selectors: standalone triggers --- */
-.ink-breadcrumb {}   /* styles applied via .ink-breadcrumb .* child selectors */
-.ink-pagination {}   /* styles applied via .ink-pagination .* child selectors */
+/* --- CONTEXT selectors --- */
+/* .ink-breadcrumb / .ink-pagination styles are applied via their child selectors elsewhere. */
