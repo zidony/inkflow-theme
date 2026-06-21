@@ -6,6 +6,21 @@
   <meta property="og:title" content="INKFLOW - 个人博客">
   <meta property="og:description" content="探索 INKFLOW 的技术文章、设计思考、AI 实践与个人写作内容。">
   <meta property="og:type" content="website">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "INKFLOW",
+    "url": "{{site.url}}",
+    "description": "一个关于技术、设计与人文的独立博客。",
+    "inLanguage": "zh-CN",
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": "{{site.url}}post-list.html?q={search_term_string}",
+      "query-input": "required name=search_term_string"
+    }
+  }
+  </script>
   {{> head }}
 </head>
 <body>

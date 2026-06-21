@@ -1,27 +1,55 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#0a6640" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0d1117" media="(prefers-color-scheme: dark)">
+
+  <!-- Canonical & social metadata (canonical/og:url derived from vite.config site.url) -->
+  <link rel="canonical" href="{{canonical}}">
+  <meta property="og:url" content="{{canonical}}">
+  <meta property="og:site_name" content="{{site.name}}">
+  <meta property="og:locale" content="{{site.locale}}">
+  <meta property="og:image" content="{{ogImageUrl}}">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="{{site.twitter}}">
+  <meta name="twitter:image" content="{{ogImageUrl}}">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+
+  <!-- Favicons & web app manifest -->
+  <link rel="icon" href="favicon.ico" sizes="32x32">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <link rel="manifest" href="site.webmanifest">
 
   <!-- 1. Theme Check (Run instantly to prevent Flash of Unstyled Content) -->
   <script id="inkflow-theme-check">
     (function() {
-      var savedTheme = 'light';
+      var savedTheme = null;
       try {
-        savedTheme = localStorage.getItem('inkflow-theme') || 'light';
+        savedTheme = localStorage.getItem('inkflow-theme');
       } catch (e) {
-        savedTheme = 'light';
+        savedTheme = null;
+      }
+      if (savedTheme !== 'light' && savedTheme !== 'dark') {
+        var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+        savedTheme = prefersDark ? 'dark' : 'light';
       }
       document.documentElement.setAttribute('data-bs-theme', savedTheme);
     })();
   </script>
 
-  <!-- 2. Fonts Preconnect (Both are required by Google Fonts) -->
+  <!-- 2. Vendor styles.
+       Default (self-hosted): Bootstrap, Bootstrap Icons and the web fonts are
+       bundled into the local stylesheet — no external CSS requests.
+       CDN mode (INKFLOW_CDN=1): served from jsDelivr / Google Fonts instead. -->
+  {{#if cdn}}
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-  <!-- 3. External CSS Dependencies -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css" integrity="sha384-CK2SzKma4jA5H/MXDUU7i1TqZlCFaD4T01vtyDFvPlD97JQyS+IsSh1nI2EFbpyk" crossorigin="anonymous">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+  {{/if}}
 
-  <!-- 4. Main Theme CSS (Vite will replace this with inkflow.css on build) -->
+  <!-- 3. Main Theme CSS (Vite replaces this with inkflow.css on build).
+       In self-hosted mode this also carries the bundled vendor + font CSS. -->
   <link rel="stylesheet" href="/assets/css/main.css">

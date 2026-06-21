@@ -43,6 +43,34 @@ const entries = (await readDirSafe(srcDir))
 const issues = [];
 const titles = new Map();
 
+// Shared canonical/social tags are provided by the head partial (DRY).
+const headPartial = await readFile(path.join(srcDir, 'partials', 'head.html'), 'utf8').catch(() => '');
+const headProvides = {
+  canonical: /<link\s+rel=["']canonical["']/i.test(headPartial),
+  ogUrl: /<meta\s+property=["']og:url["']/i.test(headPartial),
+  ogImage: /<meta\s+property=["']og:image["']/i.test(headPartial),
+  twitterCard: /<meta\s+name=["']twitter:card["']/i.test(headPartial),
+  themeColor: /<meta\s+name=["']theme-color["']/i.test(headPartial),
+};
+for (const [key, present] of Object.entries(headProvides)) {
+  if (!present) addIssue(issues, 'src/partials/head.html', `head partial is missing shared ${key} tag`);
+}
+
+function checkJsonLd(file, source) {
+  for (const match of source.matchAll(/<script\s+type=["']application\/ld\+json["']\s*>([\s\S]*?)<\/script>/gi)) {
+    // Strip Handlebars expressions before validating JSON structure.
+    const json = match[1].replace(/\{\{[^}]*\}\}/g, 'x');
+    try {
+      const parsed = JSON.parse(json);
+      if (!parsed['@context'] || !parsed['@type']) {
+        addIssue(issues, file, 'JSON-LD block is missing @context or @type');
+      }
+    } catch {
+      addIssue(issues, file, 'JSON-LD block is not valid JSON');
+    }
+  }
+}
+
 for (const file of entries) {
   const source = await readFile(path.join(srcDir, file), 'utf8');
   const title = stripTags(getMetaContent(source, /<title>([\s\S]*?)<\/title>/i));
@@ -59,6 +87,18 @@ for (const file of entries) {
 
   if (!ogType) addIssue(issues, file, 'missing og:type');
   if (h1Count !== 1) addIssue(issues, file, `expected exactly one h1, found ${h1Count}`);
+
+  // Every page entry must pull in the shared head partial (canonical/og:image/icons).
+  if (!/\{\{>\s*head\s*\}\}/.test(source)) {
+    addIssue(issues, file, 'page entry is missing the shared head partial');
+  }
+
+  checkJsonLd(file, source);
+
+  // Article pages should ship BlogPosting structured data for rich results.
+  if (ogType === 'article' && !/"@type":\s*"BlogPosting"/.test(source)) {
+    addIssue(issues, file, 'article page is missing BlogPosting JSON-LD');
+  }
 
   if (title) {
     const existing = titles.get(title) || [];
