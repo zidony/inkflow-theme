@@ -5,6 +5,17 @@ All notable changes to this project are documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.3.1] - 2026-06-22
+
+### Fixed
+- Tag pill font-size inheritance issue: removed `font: inherit` from `.tag-pill:is(a, button)` that was overriding the base `font-size` declaration, causing tags to display larger than intended.
+- Link application form layout: added `mb-3` spacing to all input fields for proper vertical rhythm.
+- Footer link accessibility: added `pointer-events: none` to `.site-footer::before` decorative gradient to prevent it from blocking clicks on nearby links.
+
+### Changed
+- Normalized `<head>` tag order across all pages: `<meta charset>` now appears first, and JSON-LD structured data moved to the end, following HTML5 best practices and improving parser performance.
+- Consolidated font assets: all `.woff` and `.woff2` files now output to `assets/fonts/` instead of separate `assets/woff/` and `assets/woff2/` directories for better organization.
+
 ## [3.3.0] - 2026-06-21
 
 ### Added
