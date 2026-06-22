@@ -21,7 +21,7 @@
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
   <link rel="manifest" href="site.webmanifest">
 
-  <!-- 1. Theme Check (Run instantly to prevent Flash of Unstyled Content) -->
+  <!-- Theme Check: run instantly to prevent FOUC (Flash of Unstyled Content) -->
   <script id="inkflow-theme-check">
     (function() {
       var savedTheme = null;
@@ -38,7 +38,7 @@
     })();
   </script>
 
-  <!-- 2. Vendor styles.
+  <!-- Vendor styles.
        Default (self-hosted): Bootstrap, Bootstrap Icons and the web fonts are
        bundled into the local stylesheet — no external CSS requests.
        CDN mode (INKFLOW_CDN=1): served from jsDelivr / Google Fonts instead. -->
@@ -50,6 +50,6 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
   {{/if}}
 
-  <!-- 3. Main Theme CSS (Vite replaces this with inkflow.css on build).
+  <!-- Main Theme CSS (Vite replaces this with inkflow.css on build).
        In self-hosted mode this also carries the bundled vendor + font CSS. -->
   <link rel="stylesheet" href="/assets/css/main.css">

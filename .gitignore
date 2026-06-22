@@ -53,6 +53,7 @@ releases/
 dist/
 dist-ssr/
 temp/
+dev/
 *.zip
 __pycache__/
 scratch/

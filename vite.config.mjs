@@ -187,6 +187,10 @@ export default defineConfig({
           if (assetInfo.name && assetInfo.name.endsWith('.css')) {
             return 'assets/css/inkflow.css';
           }
+          // Fonts (woff, woff2, ttf, eot) go to assets/fonts/
+          if (assetInfo.name && /\.(woff2?|ttf|eot)$/i.test(assetInfo.name)) {
+            return 'assets/fonts/[name]-[hash][extname]';
+          }
           return 'assets/[ext]/[name]-[hash][extname]';
         }
       }
