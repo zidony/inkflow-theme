@@ -251,37 +251,7 @@ InkFlow Theme 是静态前端主题模板，登录、评论、订阅、点赞、
 
 ## 📋 版本历史
 
-| 版本 | 主要内容 |
-|------|---------|
-| **v3.2.10** | **动态结果播报可访问性补丁版**：为标签搜索增加 `role="status"` / `aria-live="polite"` 结果播报和无结果可见提示；为相册筛选与友链筛选补充结果数量播报；新增对应质量门禁，确保标签搜索、相册筛选、友链筛选都必须提供 polite 状态反馈；扩展 Playwright smoke 覆盖动态结果变化。 |
-| **v3.2.9** | **复制反馈、弹窗焦点与授权交付补丁版**：为友链页“复制本站信息”按钮增加 `aria-busy`、禁用态、成功/失败按钮反馈与恢复逻辑，并新增质量门禁和 smoke 覆盖；将账号注销确认弹窗的焦点陷阱绑定到 modal 捕获阶段，稳定与 Bootstrap focus trap 的协作；补充 `package.json` / lockfile 的 CC BY 4.0 license 元数据；新增独立 `LICENSE` 文件，并确保 release zip 自动包含授权文件。 |
-| **v3.2.8** | **交互反馈与语义硬化补丁版**：校验并清理无效的本地演示登录状态；为登录提交按钮暴露 `aria-busy` 忙碌状态；为文章目录当前项同步 `aria-current="location"`；修复文章页顶部浮动复制按钮与正文分享复制按钮反馈串台问题，并稳定连续点击后的恢复状态；将通知偏好保存、找回密码、注册等演示占位入口统一到共享 `data-demo-action` 反馈机制；扩展质量门禁与 Playwright smoke 覆盖。 |
-| **v3.2.7** | **交互状态、动态偏好与弹窗稳定性补丁版**：隐藏归档热力图与图例装饰单元；为文章视图切换、相册、友链、标签、归档年份等分段控件同步 `aria-pressed` 状态并增加质量门禁；为登录/注册 Tab 增加 roving `tabindex`；强化账号注销 modal 的关闭路径与 fallback 兜底；尊重 `prefers-reduced-motion`，为全局 CSS 动效、滚动 reveal、计数动画与首页视差提供减少动态效果降级；登录页改为复用共享 scripts partial；扩展 Playwright smoke 覆盖。 |
-| **v3.2.6** | **布局与细粒度可访问性补丁版**：移除模板 BOM 与首页多余搜索片段，修复页面顶部白边和首页页脚后空白；将作者社交图标改为可访问链接；为相册、标签云与个人资料动态装饰元素补齐隐藏语义；为搜索、邮箱、URL、电话等表单字段补充更准确的输入类型和 autocomplete 提示；扩展对应质量门禁与 smoke 覆盖。 |
-| **v3.2.5** | **表单、导航与页面控件可访问性补丁版**：为分页、友链申请表单、移动端导航、登录表单与个人资料编辑补齐状态反馈、标签关联和 ARIA 同步；修复个人资料编辑字段不可编辑问题；为标签页新增最近排序逻辑；扩展质量门禁与 Playwright smoke 覆盖，确保这些交互持续可验证。 |
-| **v3.2.4** | **Overlay 与演示交互可访问性补丁版**：为隐藏态搜索层与相册 lightbox 增加 `inert`，防止键盘误入不可见内容；为搜索层、lightbox 与账号注销 modal 补齐焦点循环和关闭后的焦点恢复；为相册 lightbox、评论操作等演示按钮补充统一反馈；完善文章书签按钮的 `aria-pressed` 状态、图标和标签同步；扩展相关质量门禁与 smoke 覆盖。 |
-| **v3.2.3** | **可访问性交互补丁版**：完善用户菜单按钮标签与 Escape 关闭；为 toast 增加 live region 语义；用主题化确认弹窗替换原生 `confirm()` 并提供无 Bootstrap JS 降级；将搜索建议与交互型标签胶囊改为原生 button 控件；新增阻塞弹窗、非语义搜索提示与标签胶囊质量门禁；扩展 Playwright smoke 覆盖。 |
-| **v3.2.2** | **可访问性与生产边界增强版**：补齐交互控件 ARIA 状态同步；将筛选、相册、头像等自定义交互改为原生按钮语义；强化头像上传校验；为演示按钮提供统一集成反馈；新增本地锚点、动态 selector、HTML 注入、随机性等质量门禁；稳定 Playwright smoke 测试。 |
-| **v3.2.1** | **生产质量补丁版**：修复登录、搜索快捷键等模块作用域运行时错误；统一公共 partial 复用；迁移页面级内联事件到模块化 JS；修复友链页中文乱码；升级 Vite 至 8.0.16 并清零 npm audit；开启生产压缩并新增 `npm run check` 发版前质量检查。 |
-| **v3.2.0** | **零依赖架构升级与组件化大满贯**：彻底拔除 Python 打包依赖，自研 Node.js 原生底层 ZIP 构建脚本；完成全站 `ink-input` 与 `ink-btn` 表单体系的终极组件化与样式大一统；优化自动化发布流水线。 |
-| **v3.1.0** | **深度分层与单文件构建策略**：采用标准 ITCSS 架构深度重组所有 CSS 文件与目录；模块化拆分 JS 职责（`core`, `components`, `pages`）；改写 Vite 配置与内部动态导入，实现全量前端资产打包为唯一的 `inkflow.js` 与 `inkflow.css`（零配置插件式集成）；关闭生产环境构建压缩并引入 Prettier 自动格式化机制。 |
-| **v3.0.0** | **跨越式前端工程化重构**：引入 Vite 基座与开发 HMR 热更新；将 120KB 单体 CSS 深度模块化拆分为 `src/css` 多个组件；重写入口与构建流；新增基于 Python 的自动发版脚本与 GitHub Actions 全自动部署流水线。全面走向国际标准化商用主题架构。 |
-| **v2.5** | 极致性能与架构优化：全面消除 FOIT（全站 HTML 注入 `preconnect`），建立全局 Z-Index 变量体系消灭 Magic Number，为动画组件配置 GPU 硬件加速 (`translateZ(0)`)，并统一 `profile-card` HTML 树结构实现组件归一化。 |
-| **v2.4** | 深度 CSS 架构重构：引入 Logical Grouping 规范对全站 2400 行 CSS 进行格式化压缩，完全清理死代码 (Dead Code)，中文化注释全部重构为符合国际前端标准的专业英文注释，重构动态标签云融合 CSS 变量。 |
-| **v2.3** | 重构全局 `.u-tint-*` 通用双轨色彩组件系统，彻底去除全站所有 HTML 中硬编码的内联背景渐变色与样式，实现 100% 动态色彩上下文解耦 |
-| **v2.2** | 设计系统 WCAG 2.1 AA 对齐，重构 TOC 滚动高亮为 IntersectionObserver 观察者模式，优化主页 Parallax GPU 硬件加速，100% 收归 HTML 页内脚本，去除 document.write() 并完善全站 A11y 与 JSON-LD SEO 语义数据 |
-| **v2.1** | 统一头像组件系统（.ink-avatar），11 个旧类合并为基础类 + 16 个修饰符，删除全部头像内联渐变色，友链头像统一截取首字符 |
-| **v2.0** | 全局内联样式组件化提取（13 个新 CSS 组件类）、FOIT 闪烁修复、index.html 长文精选结构修复、7 个页面 HTML 清理 |
-| **v1.9** | 静态文件重命名（blog-theme→index、post-detail→post-show）、assets 目录结构、Bootstrap 升级至 5.3.8、article-body 防溢出保护 |
-| **v1.8** | 修复登录 Tab 切换、social-btn 居中问题（错误合并回滚）、文章正文防溢出 CSS |
-| **v1.7** | 修复 navbar-collapse PC 宽度背景残留 Bug、mobile 头像下拉可点击、合并5组重复 CSS 类 |
-| **v1.6** | 恢复搜索按钮、TFA toggle 改为 checkbox 实现、消除双 class 属性 |
-| **v1.5** | 导航栏/页脚全站标准化、profile 页 inline style 大规模替换为 CSS class |
-| **v1.4** | CSS 去重（11处重复选择器）、JS viewToggle/toggleApplyForm bug 修复、彩色标签云恢复 |
-| **v1.3** | page-specific JS/CSS 抽离、profile 个人资料页新增、CSS Design Token 规范化 |
-| **v1.2** | 全套 10 页面重构、外部 inkflow.css/js、Bootstrap 变量覆盖、class 驱动 Toast |
-| **v1.1** | 功能补完与小修 |
-| **v1.0** | 初始版本，单文件原型实现 |
+请查看 [CHANGELOG.md](CHANGELOG.md) 了解详细的版本更新记录。
 
 ---
 
