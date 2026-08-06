@@ -5,6 +5,55 @@ All notable changes to this project are documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Added
+- `core/registry.js`: component registration table with a `WeakSet` guard against
+  double initialization (no `data-initialized` markers in the DOM).
+- `core/events.js`: centralized `inkflow:*` CustomEvent constants plus `emit` /
+  `on` / `off` helpers; `emit` dispatches cancelable events, so adapters can
+  `preventDefault()` to take over an interaction.
+- `window.Inkflow` global API: `init` / `initComponent` / `destroy`,
+  `components.toast` / `lightbox` / `tagCloud` / `categoryFilter`, `events`,
+  `version`. Exposed by `core/bootstrap.js`.
+- `components/toast.js`: themed toast component + legacy `window.ink_toast`
+  alias (API-compatible drop-in).
+- `components/lightbox.js`: generic lightbox — real images via
+  `[data-lightbox-url]` or demo placeholders via `[data-lightbox-key]`;
+  keeps the `#lightbox.active` DOM contract.
+- `components/tag-cloud.js`: tag cloud driven by a `application/json` data
+  script (CSP-safe), with `Inkflow.components.tagCloud.render()`.
+- `components/category-filter.js`: generic `[data-filter-scope]` filtering
+  factory shared by album and links pages.
+- Per-page code-splitting: page modules (album/archive/links/login/parallax/
+  post/profile) are loaded with dynamic `import()` only when needed; stable
+  chunk names (no hashes) keep the build deterministic.
+- `inkflow-theme-check.js` moved out of `<head>` into a standalone classic
+  script: theme persistence is now fully CSP-compatible (no inline script, no
+  `'unsafe-inline'`).
+- `docs/inkflow-js-api.md`: public API, `data-*` contract, CustomEvent surface,
+  CSP notes and CMS integration checklist.
+- `tests/components.spec.mjs`: Playwright DOM tests for the Inkflow API, CSP
+  readiness, tag cloud, lightbox, toast, adapter event consumption and the
+  category filter.
+
+### Changed
+- `inkflow.js` is now a registration entry point; all components declare
+  themselves against the registry instead of being imperatively wired.
+- Demo-only behaviors (fake login, streak dots, demo like toggling, local
+  avatar preview) are isolated behind events: CMS adapters take over by
+  listening to `inkflow:like-toggle` / `inkflow:avatar-change` and calling
+  `preventDefault()`.
+- Build: Bootstrap vendor split into its own `inkflow-vendor.js` chunk; the
+  main bundle dropped from ~62 KB to ~23 KB (gzip 7.7 KB).
+- Lightbox images are constrained (`max-height: 72vh; object-fit: contain`) so
+  oversized CMS images cannot push the close button off-screen.
+
+### Security
+- Fixed `events.js` `emit()` not dispatching cancelable CustomEvents, which
+  silently broke the adapter takeover contract for `inkflow:like-toggle` and
+  `inkflow:avatar-change`.
+
 ## [3.3.2] - 2026-06-22
 
 ### Changed

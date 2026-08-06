@@ -21,22 +21,10 @@
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
   <link rel="manifest" href="site.webmanifest">
 
-  <!-- Theme Check: run instantly to prevent FOUC (Flash of Unstyled Content) -->
-  <script id="inkflow-theme-check">
-    (function() {
-      var savedTheme = null;
-      try {
-        savedTheme = localStorage.getItem('inkflow-theme');
-      } catch (e) {
-        savedTheme = null;
-      }
-      if (savedTheme !== 'light' && savedTheme !== 'dark') {
-        var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-        savedTheme = prefersDark ? 'dark' : 'light';
-      }
-      document.documentElement.setAttribute('data-bs-theme', savedTheme);
-    })();
-  </script>
+  <!-- Theme Check: runs instantly to prevent FOUC (Flash of Unstyled Content).
+       External classic script (not a module) so it executes synchronously
+       before first paint and stays CSP-safe — no inline script required. -->
+  <script src="inkflow-theme-check.js"></script>
 
   <!-- Vendor styles.
        Default (self-hosted): Bootstrap, Bootstrap Icons and the web fonts are

@@ -26,14 +26,15 @@ export const InkflowEvents = {
 };
 
 /**
- * Dispatch an inkflow event on the document (bubbles, cancelable via listeners
- * calling preventDefault is NOT supported — detail is informational only).
- * @param {string} name  Event name, e.g. InkflowEvents.SEARCH_OPEN.
+ * Dispatch an inkflow event on the document (bubbles, cancelable). Listeners
+ * may call preventDefault() to take over an interaction — dispatchEvent then
+ * resolves to false, which callers treat as "handled by an adapter".
+ * @param {string} name  Event name, e.g. InkflowEvents.LIKE_TOGGLE.
  * @param {*}      detail Optional payload delivered on `event.detail`.
  * @returns {boolean} `false` if a listener called preventDefault(), else true.
  */
 export function emit(name, detail = null) {
-  return document.dispatchEvent(new CustomEvent(name, { detail, bubbles: true }));
+  return document.dispatchEvent(new CustomEvent(name, { detail, bubbles: true, cancelable: true }));
 }
 
 /** Subscribe to an inkflow event on the document. */
