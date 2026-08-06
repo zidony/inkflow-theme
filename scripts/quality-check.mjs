@@ -117,19 +117,6 @@ function checkHtml(file, source, issues) {
   const nonAnchorSocialButtons = source.match(/<(?!a\b)[a-z0-9-]+\b[^>]*\bclass=["'][^"']*\bsocial-btn\b(?!-footer\b)[^"']*["'][^>]*>/gi) || [];
   if (nonAnchorSocialButtons.length) addIssue(issues, file, `${nonAnchorSocialButtons.length} non-anchor author social button(s)`);
 
-  for (const match of source.matchAll(/<div\b[^>]*\bclass=["'][^"']*(?:album-card-hover|photo-item-overlay)[^"']*["'][^>]*>/gi)) {
-    const tag = match[0];
-    // photo-item-overlay is purely decorative (a caption overlay) so it must be
-    // hidden; album-card-hover may now contain interactive buttons (lightbox
-    // preview / like) and must NOT be aria-hidden — those buttons are checked
-    // for accessible names by a11y-check instead.
-    if (!hasClass(tag, 'photo-item-overlay')) continue;
-
-    if (getAttribute(tag, 'aria-hidden') !== 'true') {
-      addIssue(issues, file, 'decorative album overlay is missing aria-hidden="true"');
-    }
-  }
-
   const nonButtonAvatarTriggers = source.match(/<(?!button\b)[a-z0-9-]+\b[^>]*\bdata-avatar-trigger\b/gi) || [];
   if (nonButtonAvatarTriggers.length) addIssue(issues, file, `${nonButtonAvatarTriggers.length} non-button avatar trigger(s)`);
 

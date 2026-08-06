@@ -284,10 +284,10 @@ test('album lightbox opens and closes', async ({ page }) => {
     await gotoPage(page, '/album-list.html');
     const lightbox = page.locator('#lightbox');
     await expect(lightbox).toHaveAttribute('inert', '');
-    // hover overlay contains interactive buttons now (lightbox preview / like),
-    // so it must NOT be aria-hidden; photo-item-overlay stays decorative.
-    await expect(page.locator('.album-card-hover').first()).not.toHaveAttribute('aria-hidden', 'true');
-    await expect(page.locator('.photo-item-overlay').first()).toHaveAttribute('aria-hidden', 'true');
+    // photo-actions is the unified hover action layer with interactive buttons
+    // (zoom preview + enter) — it must NOT be aria-hidden.
+    await expect(page.locator('.photo-actions').first()).not.toHaveAttribute('aria-hidden', 'true');
+    await expect(page.locator('.photo-action-btn').first()).toHaveAttribute('aria-label', '预览大图');
     await page.getByRole('button', { name: '预览大图' }).first().click();
     await expect(lightbox).toHaveClass(/active/);
     await expect(lightbox).toHaveAttribute('aria-hidden', 'false');

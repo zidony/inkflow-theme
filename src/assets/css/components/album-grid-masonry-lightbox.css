@@ -55,19 +55,6 @@
   transition: transform .5s cubic-bezier(.4,0,.2,1);
 }
 .album-card:hover .album-card-img { transform: scale(1.08); }
-.album-card-hover {
-  position: absolute; display: flex; align-items: center; justify-content: center; gap: .75rem;
-  inset: 0; background: rgba(0,0,0,.5); opacity: 0;
-  transition: opacity var(--transition);
-}
-.album-card:hover .album-card-hover { opacity: 1; }
-.album-card-hover-btn {
-  display: flex; align-items: center; justify-content: center;
-  width: 44px; height: 44px; border-radius: 50%; border: 1px solid rgba(255,255,255,.3);
-  background: rgba(255,255,255,.15); color: #fff; font-size: 1.1rem;
-  transition: all var(--transition);
-}
-.album-card-hover-btn:hover { background: rgba(255,255,255,.3); }
 .album-card-body { padding: 1.1rem 1.25rem 1.25rem; }
 .album-card-title {
   margin-bottom: .3rem;
@@ -100,33 +87,31 @@
   transition: transform .5s cubic-bezier(.4,0,.2,1);
 }
 .photo-item:hover .photo-ph { transform: scale(1.06); }
-.photo-item-overlay {
-  position: absolute; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: .4rem;
-  inset: 0; background: rgba(0,0,0,.45); opacity: 0;
-  /* decorative caption: never intercept pointer events (the zoom button below
-     it must stay clickable even while the overlay is hidden) */
-  pointer-events: none;
+
+/* Unified hover action layer for album cards and photo cards: two circular
+   buttons appear centered on the artwork — preview (zoom/lightbox) and enter
+   the child page (detail). Hidden until hover/focus, pure UI (no full-card
+   dark overlay). The lightbox button is wired via data-lightbox-key/url and
+   the theme's delegation preventDefault()s the card navigation; the enter
+   button has no handler and bubbles to the card link. */
+.photo-actions {
+  position: absolute; display: flex; align-items: center; justify-content: center; gap: .75rem;
+  inset: 0; opacity: 0; z-index: 2;
   transition: opacity var(--transition);
 }
-.photo-item:hover .photo-item-overlay { opacity: 1; }
-.photo-item-overlay i     { color: #fff; font-size: 1.8rem; }
-.photo-item-overlay span  { color: rgba(255,255,255,.8); font-size: .78rem; font-weight: 500; }
-
-/* Zoom button inside a photo card: opens the lightbox without leaving the
-   card link (detail page) — the theme's data-lightbox-url delegation calls
-   preventDefault() on the card navigation. */
-.photo-lightbox-trigger {
-  position: absolute; right: .75rem; bottom: .75rem; z-index: 2;
+.album-card:hover .photo-actions,
+.photo-item:hover .photo-actions,
+.photo-actions:focus-within { opacity: 1; }
+.photo-action-btn {
   display: flex; align-items: center; justify-content: center;
-  width: 38px; height: 38px; border-radius: 50%;
+  width: 44px; height: 44px; border-radius: 50%;
   border: 1px solid rgba(255,255,255,.35);
-  background: rgba(0,0,0,.35); color: #fff; font-size: 1.05rem;
-  cursor: pointer; opacity: 0;
-  transition: opacity var(--transition), background var(--transition);
+  background: rgba(0,0,0,.35); color: #fff; font-size: 1.15rem; cursor: pointer;
+  backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px);
+  transition: background var(--transition), transform var(--transition);
 }
-.photo-item:hover .photo-lightbox-trigger,
-.photo-lightbox-trigger:focus-visible { opacity: 1; }
-.photo-lightbox-trigger:hover { background: rgba(0,0,0,.6); }
+.photo-action-btn:hover { background: rgba(0,0,0,.62); transform: scale(1.08); }
+.photo-action-btn:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
 
 /* Lightbox */
 .lightbox {
