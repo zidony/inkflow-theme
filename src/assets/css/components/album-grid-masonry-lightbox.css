@@ -103,6 +103,9 @@
 .photo-item-overlay {
   position: absolute; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: .4rem;
   inset: 0; background: rgba(0,0,0,.45); opacity: 0;
+  /* decorative caption: never intercept pointer events (the zoom button below
+     it must stay clickable even while the overlay is hidden) */
+  pointer-events: none;
   transition: opacity var(--transition);
 }
 .photo-item:hover .photo-item-overlay { opacity: 1; }
