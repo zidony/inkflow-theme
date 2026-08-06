@@ -83,7 +83,8 @@
 .photo-item:hover { transform: translateY(-3px); box-shadow: 0 8px 25px rgba(0,0,0,.15); }
 .photo-ph {
   display: flex; align-items: center; justify-content: center;
-  background: var(--tint-gradient, var(--ink-border)) !important;
+  background: var(--tint-gradient, var(--ink-border));
+  background-size: cover; background-position: center;
   transition: transform .5s cubic-bezier(.4,0,.2,1);
 }
 .photo-item:hover .photo-ph { transform: scale(1.06); }

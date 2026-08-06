@@ -32,9 +32,10 @@ data-* 自动初始化 + CustomEvent 接管机制 + CSP 兼容）。YTCMS 同步
 | `layout/main.php` | theme-check 外置；资源引用加 `?v=3.3.2`；移除 `#liveToast` DOM |
 | `account_login.php` | 同上（theme-check + 版本串） |
 | `post_show.php` `post_channel.php` `account_profile.php` | 脚本引用加 `?v=3.3.2` |
-| `file_list.php` | 照片卡改为 `<a href="/file/id">` 进详情 + `photo-lightbox-trigger` 放大镜开灯箱（post-review 调整） |
+| `file_list.php` | 照片卡 `div.photo-item` + `photo-actions` 双按钮（放大镜灯箱 + 进详情）；`data-bg` 懒加载（post-review 调整） |
 | `file_channel.php` | 照片卡同上；新增主题 `#lightbox` DOM；脚本引用移除 |
 | `tag_list.php` | `#tagCloudInner` 加 `data-tag-cloud-source="yt-tagcloud-data"` |
+| `js/inkflow-lazy.js` | **新增**：照片背景图 IntersectionObserver 懒加载（`photo-ph[data-bg]` 滚动进视口前 300px 才加载） |
 | `js/post-show.js` | 点赞改为监听 `inkflow:like-toggle` + preventDefault 接管 |
 | `js/account_profile.js` | 头像改为监听 `inkflow:avatar-change` + preventDefault 接管 |
 | `js/inkflow-layout.js` | 删除 `window.ink_toast` 重定义（统一主题 toast） |
