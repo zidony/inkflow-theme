@@ -119,7 +119,11 @@ function checkHtml(file, source, issues) {
 
   for (const match of source.matchAll(/<div\b[^>]*\bclass=["'][^"']*(?:album-card-hover|photo-item-overlay)[^"']*["'][^>]*>/gi)) {
     const tag = match[0];
-    if (!hasClass(tag, 'album-card-hover') && !hasClass(tag, 'photo-item-overlay')) continue;
+    // photo-item-overlay is purely decorative (a caption overlay) so it must be
+    // hidden; album-card-hover may now contain interactive buttons (lightbox
+    // preview / like) and must NOT be aria-hidden — those buttons are checked
+    // for accessible names by a11y-check instead.
+    if (!hasClass(tag, 'photo-item-overlay')) continue;
 
     if (getAttribute(tag, 'aria-hidden') !== 'true') {
       addIssue(issues, file, 'decorative album overlay is missing aria-hidden="true"');

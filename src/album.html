@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-bs-theme="light">
+<head>
+  <title>INKFLOW - 云南大理 · 苍山洱海</title>
+  <meta name="description" content="云南大理相册：苍山十九峰在晨雾中若隐若现，洱海日出染红湖面，白族村落稻田金黄，喜洲老宅诉说着茶马古道的故事，38 张照片记录 2023 年秋天的环海骑行。">
+  <meta property="og:title" content="INKFLOW - 云南大理 · 苍山洱海">
+  <meta property="og:description" content="苍山十九峰、洱海晨雾、白族村落与喜洲老宅的光影记录，38 张照片带你重走环海骑行路。">
+  <meta property="og:type" content="website">
+  {{> head }}
+</head>
+<body>
+<div class="reading-progress" id="readingProgress"></div>
+
+{{> navbar }}
+
+<!-- PAGE HERO -->
+<div class="page-hero">
+  <div class="container position-relative z-1">
+    <nav aria-label="breadcrumb" class="ink-breadcrumb mb-3"><ol class="breadcrumb mb-0">
+      <li class="breadcrumb-item"><a href="index.html">首页</a></li>
+      <li class="breadcrumb-item"><a href="album-list.html">相册</a></li>
+      <li class="breadcrumb-item active" aria-current="page">云南大理 · 苍山洱海</li>
+    </ol></nav>
+    <div class="page-hero-eyebrow"><i class="bi bi-geo-alt-fill" aria-hidden="true"></i> 旅行 · 云南</div>
+    <h1 class="page-hero-title">云南大理 · 苍山洱海</h1>
+    <p class="page-hero-sub">苍山十九峰，洱海一叶舟——38 张照片记录 2023 年秋天的环海骑行</p>
+    <div class="d-flex flex-wrap gap-3 mt-4">
+      <a href="album-list.html" class="ink-btn ink-btn-soft"><i class="bi bi-arrow-left me-1" aria-hidden="true"></i> 返回相册列表</a>
+      <span class="ink-btn ink-btn-ghost" aria-hidden="true"><i class="bi bi-images me-1" aria-hidden="true"></i> 38 张照片</span>
+    </div>
+  </div>
+</div>
+
+<!-- MAIN -->
+<main class="py-5" id="main-content">
+  <div class="container">
+    <div class="masonry-section fade-up">
+      <p class="visually-hidden" id="albumFilterStatus" role="status" aria-live="polite">共 8 张精选照片</p>
+      <div class="photo-masonry" id="photoMasonry">
+        <button type="button" class="photo-item u-tint-green" data-lightbox-key="dali-1" data-lightbox-title="苍山 · 晨雾">
+          <div class="photo-ph u-h-280"><i class="bi bi-mountain" aria-hidden="true"></i></div>
+          <div class="photo-item-overlay" aria-hidden="true"><i class="bi bi-zoom-in" aria-hidden="true"></i><span>查看大图</span></div>
+        </button>
+        <button type="button" class="photo-item u-tint-blue" data-lightbox-key="dali-2" data-lightbox-title="洱海 · 日出">
+          <div class="photo-ph u-h-220"><i class="bi bi-sunrise" aria-hidden="true"></i></div>
+          <div class="photo-item-overlay" aria-hidden="true"><i class="bi bi-zoom-in" aria-hidden="true"></i><span>查看大图</span></div>
+        </button>
+        <button type="button" class="photo-item u-tint-cyan" data-lightbox-key="dali-3" data-lightbox-title="白族村落 · 稻田">
+          <div class="photo-ph u-h-240"><i class="bi bi-flower2" aria-hidden="true"></i></div>
+          <div class="photo-item-overlay" aria-hidden="true"><i class="bi bi-zoom-in" aria-hidden="true"></i><span>查看大图</span></div>
+        </button>
+        <button type="button" class="photo-item u-tint-amber" data-lightbox-key="dali-4" data-lightbox-title="喜洲 · 老宅">
+          <div class="photo-ph u-h-200"><i class="bi bi-house-heart" aria-hidden="true"></i></div>
+          <div class="photo-item-overlay" aria-hidden="true"><i class="bi bi-zoom-in" aria-hidden="true"></i><span>查看大图</span></div>
+        </button>
+        <button type="button" class="photo-item u-tint-purple" data-lightbox-key="dali-5" data-lightbox-title="洱海 · 黄昏">
+          <div class="photo-ph u-h-260"><i class="bi bi-sunset" aria-hidden="true"></i></div>
+          <div class="photo-item-overlay" aria-hidden="true"><i class="bi bi-zoom-in" aria-hidden="true"></i><span>查看大图</span></div>
+        </button>
+        <button type="button" class="photo-item u-tint-pink" data-lightbox-key="dali-6" data-lightbox-title="苍山 · 徒步道">
+          <div class="photo-ph u-h-230"><i class="bi bi-signpost-2" aria-hidden="true"></i></div>
+          <div class="photo-item-overlay" aria-hidden="true"><i class="bi bi-zoom-in" aria-hidden="true"></i><span>查看大图</span></div>
+        </button>
+        <button type="button" class="photo-item u-tint-green" data-lightbox-key="dali-7" data-lightbox-title="双廊 · 渔村">
+          <div class="photo-ph u-h-190"><i class="bi bi-boat" aria-hidden="true"></i></div>
+          <div class="photo-item-overlay" aria-hidden="true"><i class="bi bi-zoom-in" aria-hidden="true"></i><span>查看大图</span></div>
+        </button>
+        <button type="button" class="photo-item u-tint-blue" data-lightbox-key="dali-8" data-lightbox-title="环海西路 · 骑行">
+          <div class="photo-ph u-h-250"><i class="bi bi-bicycle" aria-hidden="true"></i></div>
+          <div class="photo-item-overlay" aria-hidden="true"><i class="bi bi-zoom-in" aria-hidden="true"></i><span>查看大图</span></div>
+        </button>
+      </div>
+    </div>
+  </div>
+</main>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="lbCaption" data-lightbox-close inert>
+  <div class="lb-inner" id="lbInner">
+    <button type="button" class="lb-close" aria-label="关闭图片预览" data-lightbox-close><i class="bi bi-x-lg" aria-hidden="true"></i></button>
+    <div class="lb-img" id="lbImg">
+      <i class="bi bi-image u-lightbox-placeholder-icon" aria-hidden="true"></i>
+    </div>
+    <div class="lb-caption" id="lbCaption">苍山 · 晨雾</div>
+    <div class="lb-nav">
+      <button type="button" class="lb-nav-btn" aria-label="上一张图片"><i class="bi bi-chevron-left" aria-hidden="true"></i></button>
+      <button type="button" class="lb-nav-btn" aria-label="喜欢这张图片" data-demo-action data-demo-message="喜欢图片功能需要接入用户收藏或点赞 API"><i class="bi bi-heart" aria-hidden="true"></i></button>
+      <button type="button" class="lb-nav-btn" aria-label="下载图片" data-demo-action data-demo-message="图片下载功能需要接入真实图片资源"><i class="bi bi-download" aria-hidden="true"></i></button>
+      <button type="button" class="lb-nav-btn" aria-label="分享图片" data-demo-action data-demo-message="图片分享功能需要接入分享链接或平台 SDK"><i class="bi bi-share" aria-hidden="true"></i></button>
+      <button type="button" class="lb-nav-btn" aria-label="下一张图片"><i class="bi bi-chevron-right" aria-hidden="true"></i></button>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+
+{{> footer }}
+
+{{> search }}
+{{> back-to-top }}
+{{> scripts }}
+</body>
+</html>

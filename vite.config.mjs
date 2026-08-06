@@ -171,6 +171,7 @@ export default defineConfig({
         tagList: resolve(srcDir, 'tag-list.html'),
         archiveList: resolve(srcDir, 'archive-list.html'),
         albumList: resolve(srcDir, 'album-list.html'),
+        albumShow: resolve(srcDir, 'album.html'),
         linkList: resolve(srcDir, 'link-list.html'),
         profilePage: resolve(srcDir, 'profile.html'),
         loginPage: resolve(srcDir, 'login.html')

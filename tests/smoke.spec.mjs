@@ -284,9 +284,11 @@ test('album lightbox opens and closes', async ({ page }) => {
     await gotoPage(page, '/album-list.html');
     const lightbox = page.locator('#lightbox');
     await expect(lightbox).toHaveAttribute('inert', '');
-    await expect(page.locator('.album-card-hover').first()).toHaveAttribute('aria-hidden', 'true');
+    // hover overlay contains interactive buttons now (lightbox preview / like),
+    // so it must NOT be aria-hidden; photo-item-overlay stays decorative.
+    await expect(page.locator('.album-card-hover').first()).not.toHaveAttribute('aria-hidden', 'true');
     await expect(page.locator('.photo-item-overlay').first()).toHaveAttribute('aria-hidden', 'true');
-    await page.locator('[data-lightbox-key="kyoto"]').click();
+    await page.getByRole('button', { name: '预览大图' }).first().click();
     await expect(lightbox).toHaveClass(/active/);
     await expect(lightbox).toHaveAttribute('aria-hidden', 'false');
     await expect(lightbox).not.toHaveAttribute('inert', '');

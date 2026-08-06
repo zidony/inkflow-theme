@@ -53,9 +53,19 @@ body:has(.auth-page) { overflow: hidden; }
 }
 .auth-feature-list li i { color: var(--ink-accent); font-size: 1rem; flex-shrink: 0; }
 .auth-right {
-  display: flex; flex-direction: column; justify-content: center;
+  display: flex; flex-direction: column;
+  /* flex-start + auto-margin pseudo-elements keep the column vertically
+     centered when short, but let it scroll from the top when the form is
+     taller than the viewport (e.g. with a captcha row). justify-content:
+     center would clip the top of overflowing content. */
+  justify-content: flex-start;
   width: 480px; max-width: 100%; padding: 4rem 3rem;
   background: var(--ink-surface);
+  overflow-y: auto;
+}
+.auth-right::before,
+.auth-right::after {
+  content: ''; margin: auto;
 }
 @media (max-width: 768px) {
   .auth-left { display: none; }
