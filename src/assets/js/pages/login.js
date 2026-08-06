@@ -75,12 +75,19 @@ function initLoginForm() {
   const loginBtn = document.getElementById('doLoginBtn');
   if (!loginBtn || !initOnce(loginBtn, 'loginForm')) return;
 
+  // Demo login only runs on the theme's own preview markup (`#loginEmail` /
+  // `#loginPassword`). On CMS pages with a real server-backed form the theme
+  // must not interfere — the form submits through its normal flow.
+  const emailInput = document.getElementById('loginEmail');
+  const pwdInput = document.getElementById('loginPassword');
+  if (!emailInput || !pwdInput) return;
+
   document.addEventListener('click', (e) => {
     if (!e.target.closest('#doLoginBtn')) return;
     if (loginBtn.disabled) return;
 
-    const email = document.getElementById('loginEmail')?.value;
-    const pwd   = document.getElementById('loginPassword')?.value;
+    const email = emailInput.value;
+    const pwd = pwdInput.value;
 
     if (!email || !pwd) { showToast('请填写邮箱和密码', 'error'); return; }
 

@@ -20,6 +20,7 @@ export const InkflowEvents = {
   TOAST: 'inkflow:toast',
   LIKE_TOGGLE: 'inkflow:like-toggle',
   AVATAR_CHANGE: 'inkflow:avatar-change',
+  AUTH_CHANGE: 'inkflow:auth-change',
   INIT: 'inkflow:init',
   DESTROY: 'inkflow:destroy',
 };

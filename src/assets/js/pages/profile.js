@@ -1,5 +1,6 @@
 import { escapeCssString, initOnce, trapFocus } from '../core/utils.js';
 import { showToast } from '../components/toast.js';
+import { InkflowEvents, emit } from '../core/events.js';
 
 const AVATAR_MAX_BYTES = 2 * 1024 * 1024;
 const AVATAR_ALLOWED_TYPES = new Set(['image/png', 'image/jpeg', 'image/webp', 'image/gif']);
@@ -91,6 +92,12 @@ function initAvatarUpload() {
       return;
     }
 
+    // CMS adapters (e.g. YTCMS account_profile) listen to
+    // `inkflow:avatar-change` and preventDefault() to take over the upload;
+    // with no consumer the standalone preview shows a local readback.
+    const consumed = !emit(InkflowEvents.AVATAR_CHANGE, { file, input, preview });
+    if (consumed) return;
+
     const reader = new FileReader();
     reader.onload = (e) => {
       preview.style.setProperty('--avatar-image', `url(${e.target.result})`);
@@ -165,6 +172,10 @@ function initNotifySwitches() {
 function initProfileStreak() {
   const container = document.getElementById('streakDots');
   if (!container) return;
+
+  // Server-rendered dots (CMS pages) take precedence; the demo pattern only
+  // fills an empty container so real activity data is never overwritten.
+  if (container.children.length > 0) return;
 
   const dots = STREAK_PATTERN.map((active) => {
     const dot = document.createElement('div');

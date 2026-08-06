@@ -1,6 +1,10 @@
 import { initOnce } from '../core/utils.js';
+import { InkflowEvents, emit } from '../core/events.js';
 
 // Demo-only UI auth state. Replace with server-backed auth in production.
+// The theme itself never talks to a backend: `setUser`/`logout` update the
+// demo UI and localStorage, then emit `inkflow:auth-change` so a CMS adapter
+// can observe (or take over) the state transition.
 function normalizeUser(user) {
   if (!user || typeof user !== 'object') return null;
 
@@ -38,6 +42,8 @@ const inkflowAuth = {
       // Storage may be unavailable in restricted browser contexts.
     }
 
+    emit(InkflowEvents.AUTH_CHANGE, { user: normalized });
+
     return true;
   },
 
@@ -57,6 +63,7 @@ const inkflowAuth = {
     } catch (e) {
       // Ignore storage failures; the visible UI has already been reset.
     }
+    emit(InkflowEvents.AUTH_CHANGE, { user: null });
   },
 
   restore() {
