@@ -2,6 +2,9 @@
 // Skipped automatically when the build injects the Bootstrap CDN bundle instead.
 import './vendor.js';
 
+import { registerComponent, initAll } from './core/registry.js';
+import { attachInkflow } from './core/bootstrap.js';
+
 import { initNavbar } from './components/navbar.js';
 import { initThemeToggle } from './core/theme.js';
 import { initUserAuth } from './components/auth.js';
@@ -9,7 +12,8 @@ import { initSearch } from './components/search.js';
 import { initScrollReveal, initCounters } from './core/animations.js';
 import { initBackToTop, initTagPills, initViewToggle, initKeyboard, initDemoActions } from './core/global.js';
 
-// Import page-specific scripts for single bundling
+// Page-specific modules (imported statically for the single-bundle build;
+// G4 moves these to dynamic import() so pages only download what they need).
 import * as ArchiveModule from './pages/archive.js';
 import * as AlbumModule from './pages/album.js';
 import * as PostModule from './pages/post.js';
@@ -19,54 +23,75 @@ import * as LoginModule from './pages/login.js';
 import * as TagModule from './pages/tag.js';
 import * as LinksModule from './pages/links.js';
 
-// Static global initialization
-const staticModules = [
-  { selector: '#mainNavbar', init: initNavbar },
-  { selector: '#backToTop', init: initBackToTop },
-  { selector: '#themeToggle', init: initThemeToggle },
-  { selector: '#navUserWrapper', init: initUserAuth },
-  { selector: '#searchOverlay', init: initSearch },
-  { selector: '.fade-up', init: initScrollReveal },
-  { selector: '[data-count]', init: initCounters },
-  { selector: '.tag-pill', init: initTagPills },
-  { selector: '#gridBtn', init: initViewToggle },
-  { selector: '[data-demo-action]', init: initDemoActions },
-  { selector: 'body', init: initKeyboard }
-];
+// ---------------------------------------------------------------------------
+// Component registration.
+//
+// Every component is registered with a selector + init function. The registry
+// (core/registry.js) guarantees idempotent initialization keyed on the target
+// element, so repeated `Inkflow.init()` calls or dynamic DOM re-scans are safe.
+// ---------------------------------------------------------------------------
 
-// Page-specific initialization (synchronous now, but conditionally executed based on DOM)
-const pageModules = [
-  { selector: '#heatmapGrid', init: () => { ArchiveModule.initHeatmap(); ArchiveModule.initArchiveTabs(); } },
-  { selector: '#lightbox', init: () => AlbumModule.initLightbox() },
-  { selector: '.toc-list', init: () => { PostModule.initTocSpy(); PostModule.initReadingProgress(); PostModule.initReactions(); PostModule.initPostActions(); } },
-  { selector: '.hero-gradient', init: () => ParallaxModule.initParallax() },
-  { selector: '[data-profile-section]', init: () => { ProfileModule.initProfileEdit(); ProfileModule.initAvatarUpload(); ProfileModule.initProfileStreak(); ProfileModule.initProfileActions(); } },
-  { selector: '.auth-tab-btn', init: () => { LoginModule.initAuthTabs(); LoginModule.initPwdToggle(); LoginModule.initLoginForm(); } },
-  { selector: '#tagCloudInner', init: () => TagModule.initTagCloud() },
-  { selector: '[data-link-filter]', init: () => LinksModule.initLinksPage() }
-];
+// Static, site-wide UI components.
+registerComponent('navbar', { selector: '#mainNavbar', init: initNavbar });
+registerComponent('backToTop', { selector: '#backToTop', init: initBackToTop });
+registerComponent('themeToggle', { selector: '#themeToggle', init: initThemeToggle });
+registerComponent('userAuth', { selector: '#navUserWrapper', init: initUserAuth });
+registerComponent('search', { selector: '#searchOverlay', init: initSearch });
+registerComponent('scrollReveal', { selector: '.fade-up', init: initScrollReveal });
+registerComponent('counters', { selector: '[data-count]', init: initCounters });
+registerComponent('tagPills', { selector: '.tag-pill', init: initTagPills });
+registerComponent('viewToggle', { selector: '#gridBtn', init: initViewToggle });
+registerComponent('demoActions', { selector: '[data-demo-action]', init: initDemoActions });
+registerComponent('keyboard', { selector: 'body', init: initKeyboard });
+
+// Page-specific components (guarded by their presence in the DOM).
+registerComponent('archive', {
+  selector: '#heatmapGrid',
+  init: () => {
+    ArchiveModule.initHeatmap();
+    ArchiveModule.initArchiveTabs();
+  },
+});
+registerComponent('lightbox', { selector: '#lightbox', init: () => AlbumModule.initLightbox() });
+registerComponent('post', {
+  selector: '.toc-list',
+  init: () => {
+    PostModule.initTocSpy();
+    PostModule.initReadingProgress();
+    PostModule.initReactions();
+    PostModule.initPostActions();
+  },
+});
+registerComponent('parallax', { selector: '.hero-gradient', init: () => ParallaxModule.initParallax() });
+registerComponent('profile', {
+  selector: '[data-profile-section]',
+  init: () => {
+    ProfileModule.initProfileEdit();
+    ProfileModule.initAvatarUpload();
+    ProfileModule.initProfileStreak();
+    ProfileModule.initProfileActions();
+  },
+});
+registerComponent('login', {
+  selector: '.auth-tab-btn',
+  init: () => {
+    LoginModule.initAuthTabs();
+    LoginModule.initPwdToggle();
+    LoginModule.initLoginForm();
+  },
+});
+registerComponent('tagCloud', { selector: '#tagCloudInner', init: () => TagModule.initTagCloud() });
+registerComponent('links', { selector: '[data-link-filter]', init: () => LinksModule.initLinksPage() });
+
+// Expose the Inkflow global API and initialize everything on DOM ready.
+attachInkflow();
 
 function initPage() {
-  if (document.documentElement.dataset.inkflowInitialized === 'true') return;
-  document.documentElement.dataset.inkflowInitialized = 'true';
-
-  // 1. Run global UI modules
-  staticModules.forEach(({ selector, init }) => {
-    if (document.querySelector(selector)) {
-      try { init(); } catch (err) { console.error(err); }
-    }
-  });
-
-  // 2. Run page-specific modules (conditionally)
-  pageModules.forEach(({ selector, init }) => {
-    if (document.querySelector(selector)) {
-      try { init(); } catch (err) { console.error(`Failed to init page module for ${selector}:`, err); }
-    }
-  });
+  initAll();
 }
 
 if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', initPage);
+  document.addEventListener('DOMContentLoaded', initPage, { once: true });
 } else {
   initPage();
 }
