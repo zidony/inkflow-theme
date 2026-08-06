@@ -88,6 +88,8 @@ inline `on*` attributes are required — everything is delegated.
 | Search | `[data-open-search]` / `[data-close-search]` / `.search-tip` | overlay `#searchOverlay` with `#searchInput`; Ctrl/Cmd+K opens; Esc closes |
 | Lightbox | `[data-lightbox-url]` (+ `[data-lightbox-title]`) | opens `#lightbox` with a real image; `#lbImg`/`#lbCaption`/`.lb-close`; `.active` class toggles visibility |
 | Lightbox (demo) | `[data-lightbox-key]` | placeholder gradient/icon mode; data registered via `Inkflow.components.lightbox.setData()` |
+| Photo hover actions | `.photo-actions` > `.photo-action-btn` (an `<a>`) | unified album/photo card hover layer: zoom link carries `data-lightbox-url`/`data-lightbox-key` (+`data-lightbox-title`) — delegation calls `preventDefault()` and opens the lightbox; the enter link has no handler and bubbles to its own `href` (child page). Buttons are hidden until hover/`focus-within`; keyboard focus reaches them via Tab |
+| Lazy photo background (CMS adapter) | `.photo-ph[data-bg="url"]` | adapter observes the cards and swaps `background-image` in when the card is within 300px of the viewport; placeholder tint gradient shows until then and when JS is absent |
 | Tag cloud | `#tagCloudInner` + `#inkflow-tagcloud-data` JSON script | renders cloud; `[data-tag-sort]` buttons; `#tagSearch` filters; `#tagResultStatus` announces results |
 | Tag cloud (custom source) | `data-tag-cloud-source="some-id"` on `#tagCloudInner` | reads JSON from the given script id instead |
 | Category filter | `[data-filter-scope]` > `[data-filter-value]` buttons + `[data-filter-category]` items + `[data-filter-status]` output | mutual-exclusive tabs, `.is-filtered-out` hiding, aria-live count |

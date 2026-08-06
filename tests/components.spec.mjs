@@ -86,6 +86,27 @@ test('lightbox opens real images via data-lightbox-url and closes', async ({ pag
   await expect(page.locator('#lightbox')).toHaveAttribute('inert', '');
 });
 
+test('lightbox traps Tab focus and restores it on close', async ({ page }) => {
+  await gotoPage(page, '/album-list.html');
+  const trigger = page.locator('.photo-action-btn[aria-label="预览大图"]').first();
+  await trigger.click();
+  await expect(page.locator('#lightbox')).toHaveClass(/active/);
+  await expect(page.locator('#lightbox .lb-close')).toBeFocused();
+
+  // Tab repeatedly — focus must never leave the lightbox (trap), then Escape closes
+  let escaped = false;
+  for (let i = 0; i < 12; i++) {
+    await page.keyboard.press('Tab');
+    const inside = await page.evaluate(() => document.getElementById('lightbox').contains(document.activeElement));
+    if (!inside) { escaped = true; break; }
+  }
+  expect(escaped).toBe(false);
+
+  await page.keyboard.press('Escape');
+  await expect(page.locator('#lightbox')).not.toHaveClass(/active/);
+  await expect(trigger).toBeFocused();
+});
+
 test('like toggle event can be consumed by an adapter (no demo state change)', async ({ page }) => {
   await gotoPage(page, '/post-show.html');
   const countBefore = (await page.locator('#likeCount').textContent()).trim();

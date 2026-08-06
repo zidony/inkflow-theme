@@ -1,7 +1,7 @@
-# YTCMS standard 主题升级适配说明（inkflow-theme v3.3.2 架构升级）
+# YTCMS standard 主题升级适配说明（inkflow-theme v3.4.0 架构升级）
 
 > 适用范围：YTCMS themes/standard（不含待淘汰的 themes/default）。
-> 关联仓库：inkflow-theme（v3.3.2，未升版本号）、YTCMS（v1.2.0，未升版本号）。
+> 关联仓库：inkflow-theme（v3.4.0）、YTCMS（v1.2.0，未升版本号）。
 > 提交记录见 YTCMS 仓库 G7a–G7e 五组提交，可逐组回滚。
 
 ## 1. 升级动机
@@ -29,9 +29,9 @@ data-* 自动初始化 + CustomEvent 接管机制 + CSP 兼容）。YTCMS 同步
 | `js/inkflow.js` | 新入口（23KB，原 62KB 单包） |
 | `js/rolldown-runtime.js` | 新运行时 |
 | `css/inkflow.css` | 灯箱图片约束、新组件样式 |
-| `layout/main.php` | theme-check 外置；资源引用加 `?v=3.3.2`；移除 `#liveToast` DOM |
+| `layout/main.php` | theme-check 外置；资源引用加 `?v=3.4.0`；移除 `#liveToast` DOM |
 | `account_login.php` | 同上（theme-check + 版本串） |
-| `post_show.php` `post_channel.php` `account_profile.php` | 脚本引用加 `?v=3.3.2` |
+| `post_show.php` `post_channel.php` `account_profile.php` | 脚本引用加 `?v=3.4.0` |
 | `file_list.php` | 照片卡 `div.photo-item` + `photo-actions` 双按钮（放大镜灯箱 + 进详情）；`data-bg` 懒加载（post-review 调整） |
 | `file_channel.php` | 照片卡同上；新增主题 `#lightbox` DOM；脚本引用移除 |
 | `tag_list.php` | `#tagCloudInner` 加 `data-tag-cloud-source="yt-tagcloud-data"` |
@@ -75,7 +75,7 @@ window.Inkflow.events.on('inkflow:like-toggle', function (e) {
 
 4. **JSON 数据注入**：标签云数据经 `application/json` script 传递（`yt-tagcloud-data`），
    主题组件经 `data-tag-cloud-source` 读取。
-5. **缓存失效**：资源引用统一带 `?v=3.3.2` 查询串（`yt:asset_theme` 本身不带版本）。
+5. **缓存失效**：资源引用统一带 `?v=3.4.0` 查询串（`yt:asset_theme` 本身不带版本）。
    下次发版时同步更新该串。
 
 ## 4. 回滚方案
@@ -91,7 +91,7 @@ window.Inkflow.events.on('inkflow:like-toggle', function (e) {
 | G7e | `04af12b` | 核心 flashdata 编译修复 |
 
 回滚 G7a 时需一并恢复旧 `inkflow.js`/`rolldown-runtime.js`（releases/
-inkflow-theme-v3.3.2.zip 为回滚锚点）。
+inkflow-theme-v3.4.0.zip 为回滚锚点）。
 
 ## 5. 验证清单（本地 ytcms.test）
 
