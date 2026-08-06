@@ -3,7 +3,7 @@
 import './vendor.js';
 
 import { registerComponent, initAll } from './core/registry.js';
-import { attachInkflow } from './core/bootstrap.js';
+import { attachInkflow, components as inkflowComponents } from './core/bootstrap.js';
 
 import { initNavbar } from './components/navbar.js';
 import { initThemeToggle } from './core/theme.js';
@@ -11,6 +11,10 @@ import { initUserAuth } from './components/auth.js';
 import { initSearch } from './components/search.js';
 import { initScrollReveal, initCounters } from './core/animations.js';
 import { initBackToTop, initTagPills, initViewToggle, initKeyboard, initDemoActions } from './core/global.js';
+import { initToast, showToast } from './components/toast.js';
+import { initLightbox, lightboxApi } from './components/lightbox.js';
+import { initTagCloud, tagCloudApi } from './components/tag-cloud.js';
+import { initFilterScope } from './components/category-filter.js';
 
 // Page-specific modules (imported statically for the single-bundle build;
 // G4 moves these to dynamic import() so pages only download what they need).
@@ -20,7 +24,6 @@ import * as PostModule from './pages/post.js';
 import * as ParallaxModule from './pages/parallax.js';
 import * as ProfileModule from './pages/profile.js';
 import * as LoginModule from './pages/login.js';
-import * as TagModule from './pages/tag.js';
 import * as LinksModule from './pages/links.js';
 
 // ---------------------------------------------------------------------------
@@ -32,6 +35,7 @@ import * as LinksModule from './pages/links.js';
 // ---------------------------------------------------------------------------
 
 // Static, site-wide UI components.
+registerComponent('toast', { selector: 'body', init: initToast });
 registerComponent('navbar', { selector: '#mainNavbar', init: initNavbar });
 registerComponent('backToTop', { selector: '#backToTop', init: initBackToTop });
 registerComponent('themeToggle', { selector: '#themeToggle', init: initThemeToggle });
@@ -44,6 +48,11 @@ registerComponent('viewToggle', { selector: '#gridBtn', init: initViewToggle });
 registerComponent('demoActions', { selector: '[data-demo-action]', init: initDemoActions });
 registerComponent('keyboard', { selector: 'body', init: initKeyboard });
 
+// Generic components (available on any page whose DOM contract is present).
+registerComponent('lightbox', { selector: '#lightbox', init: initLightbox });
+registerComponent('tagCloud', { selector: '#tagCloudInner', init: initTagCloud });
+registerComponent('filterScope', { selector: '[data-filter-scope]', init: initFilterScope });
+
 // Page-specific components (guarded by their presence in the DOM).
 registerComponent('archive', {
   selector: '#heatmapGrid',
@@ -52,7 +61,10 @@ registerComponent('archive', {
     ArchiveModule.initArchiveTabs();
   },
 });
-registerComponent('lightbox', { selector: '#lightbox', init: () => AlbumModule.initLightbox() });
+registerComponent('albumPage', {
+  selector: '#albumGrid',
+  init: () => AlbumModule.initAlbumPage(),
+});
 registerComponent('post', {
   selector: '.toc-list',
   init: () => {
@@ -80,8 +92,16 @@ registerComponent('login', {
     LoginModule.initLoginForm();
   },
 });
-registerComponent('tagCloud', { selector: '#tagCloudInner', init: () => TagModule.initTagCloud() });
 registerComponent('links', { selector: '[data-link-filter]', init: () => LinksModule.initLinksPage() });
+
+// ---------------------------------------------------------------------------
+// Public programmatic APIs.
+// ---------------------------------------------------------------------------
+
+inkflowComponents.toast = { show: showToast };
+inkflowComponents.lightbox = lightboxApi;
+inkflowComponents.tagCloud = tagCloudApi;
+inkflowComponents.categoryFilter = { initScope: initFilterScope };
 
 // Expose the Inkflow global API and initialize everything on DOM ready.
 attachInkflow();

@@ -1,4 +1,5 @@
-import { initOnce, showToast } from '../core/utils.js';
+import { initOnce } from '../core/utils.js';
+import { showToast } from '../components/toast.js';
 import { inkflowAuth } from '../components/auth.js';
 
 function initAuthTabs() {

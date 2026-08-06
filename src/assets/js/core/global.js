@@ -1,6 +1,7 @@
 import { closeSearch, openSearch } from '../components/search.js';
-import { closeLightbox } from '../pages/album.js';
-import { initOnce, showToast } from './utils.js';
+import { closeLightbox } from '../components/lightbox.js';
+import { showToast } from '../components/toast.js';
+import { initOnce } from './utils.js';
 
 function initBackToTop() {
   const btn = document.getElementById('backToTop');

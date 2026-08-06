@@ -1,4 +1,5 @@
-import { escapeCssString, initOnce, showToast, trapFocus } from '../core/utils.js';
+import { escapeCssString, initOnce, trapFocus } from '../core/utils.js';
+import { showToast } from '../components/toast.js';
 
 const AVATAR_MAX_BYTES = 2 * 1024 * 1024;
 const AVATAR_ALLOWED_TYPES = new Set(['image/png', 'image/jpeg', 'image/webp', 'image/gif']);

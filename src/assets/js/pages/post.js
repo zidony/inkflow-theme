@@ -1,4 +1,5 @@
 import { copyText, escapeCssString, initOnce } from '../core/utils.js';
+import { InkflowEvents, emit } from '../core/events.js';
 
 function initReadingProgress() {
   const bar = document.getElementById('readingProgress');
@@ -53,17 +54,24 @@ function initTocSpy() {
 }
 
 function initReactions() {
-  const likeBtn   = document.getElementById('likeBtn');
+  const likeBtn = document.getElementById('likeBtn');
   const likeCount = document.getElementById('likeCount');
   if (likeBtn && likeCount && initOnce(likeBtn, 'reactionLike')) {
     let liked = false;
     likeBtn.addEventListener('click', () => {
+      // The theme never owns like state. Emit `inkflow:like-toggle` first so a
+      // CMS adapter (e.g. YTCMS post-show.js) can take over the interaction;
+      // adapters preventDefault() to signal they handled it. With no consumer
+      // the standalone demo toggles locally so the preview keeps working.
+      const consumed = !emit(InkflowEvents.LIKE_TOGGLE, { button: likeBtn, countEl: likeCount, liked });
+      if (consumed) return;
+
       liked = !liked;
       likeBtn.classList.toggle('active', liked);
       likeBtn.classList.toggle('liked', liked);
       likeBtn.setAttribute('aria-pressed', liked ? 'true' : 'false');
       likeBtn.setAttribute('aria-label', liked ? '取消点赞' : '点赞');
-      
+
       const icon = likeBtn.querySelector('i');
       if (icon) {
         icon.className = liked ? 'bi bi-heart-fill text-danger' : 'bi bi-heart';
@@ -71,7 +79,7 @@ function initReactions() {
 
       const countVal = parseInt(likeCount.textContent) || 0;
       likeCount.textContent = liked ? countVal + 1 : Math.max(0, countVal - 1);
-      
+
       likeBtn.classList.add('is-pressed');
       setTimeout(() => { likeBtn.classList.remove('is-pressed'); }, 200);
     });

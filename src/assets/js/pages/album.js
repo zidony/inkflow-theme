@@ -1,7 +1,11 @@
-import { initOnce, trapFocus } from '../core/utils.js';
+import { setLightboxData } from '../components/lightbox.js';
+import { createFilter } from '../components/category-filter.js';
 
-let lightboxLastFocused = null;
-
+/**
+ * Demo showcase data for the album preview page, injected into the generic
+ * Lightbox component via setLightboxData(). This is theme demo content only —
+ * CMS integrations use `data-lightbox-url` with real images instead.
+ */
 const LIGHTBOX_DATA = {
   kyoto: {
     icon: 'bi-tree-fill',
@@ -67,97 +71,20 @@ const LIGHTBOX_DATA = {
   p12: { icon: 'bi-tree-fill', bg: 'linear-gradient(135deg,#0a2517,#0d6b3f)', caption: '自然随拍 · 绿意' }
 };
 
-function getSafeBootstrapIcon(icon) {
-  return /^bi-[a-z0-9-]+$/i.test(icon || '') ? icon : 'bi-image';
+/**
+ * Album page bootstrap: feed the demo data to the generic Lightbox component
+ * and wire the (now shared) category filter.
+ */
+export function initAlbumPage() {
+  setLightboxData(LIGHTBOX_DATA);
+  initAlbumFilter();
 }
 
-function filterAlbum(el, cat) {
-  document.querySelectorAll('.filter-tab').forEach(tab => {
-    const isActive = tab === el;
-    tab.classList.toggle('active', isActive);
-    tab.setAttribute('aria-pressed', String(isActive));
-  });
-
-  let visibleCount = 0;
-  document.querySelectorAll('#albumGrid [data-cat]').forEach(card => {
-    const visible = cat === 'all' || card.dataset.cat === cat;
-    if (visible) visibleCount += 1;
-    card.classList.toggle('is-filtered-out', !visible);
-  });
-
-  const status = document.getElementById('albumFilterStatus');
-  if (status) {
-    const label = el?.textContent.trim() || '全部';
-    status.textContent = cat === 'all'
-      ? `显示全部 ${visibleCount} 个相册`
-      : `${label}分类显示 ${visibleCount} 个相册`;
-  }
-}
-
-function openLightbox(key) {
-  const lb = document.getElementById('lightbox');
-  if (!lb) return;
-  lightboxLastFocused = document.activeElement instanceof HTMLElement ? document.activeElement : null;
-
-  const data  = LIGHTBOX_DATA[key] || {};
-  const imgEl = document.getElementById('lbImg');
-  const capEl = document.getElementById('lbCaption');
-
-  if (imgEl) {
-    imgEl.style.setProperty('--lightbox-bg', data.bg || 'linear-gradient(135deg,#0a1a10,#1a5c2a)');
-    const icon = document.createElement('i');
-    icon.className = `bi ${getSafeBootstrapIcon(data.icon)} u-lightbox-active-icon`;
-    icon.setAttribute('aria-hidden', 'true');
-    imgEl.replaceChildren(icon);
-  }
-  if (capEl) capEl.textContent = data.caption || data.cap || '';
-
-  lb.classList.add('active');
-  lb.removeAttribute('inert');
-  lb.setAttribute('aria-hidden', 'false');
-  document.body.classList.add('is-scroll-locked');
-  lb.querySelector('.lb-close')?.focus();
-}
-
-function closeLightbox(e) {
-  if (e && e.target !== document.getElementById('lightbox') && !e.target.closest('.lb-close')) return;
-  const lb = document.getElementById('lightbox');
-  const wasActive = lb?.classList.contains('active');
-  if (lb) {
-    lb.classList.remove('active');
-    lb.setAttribute('aria-hidden', 'true');
-    lb.setAttribute('inert', '');
-  }
-  document.body.classList.remove('is-scroll-locked');
-  if (wasActive && lightboxLastFocused?.isConnected) lightboxLastFocused.focus();
-}
-
-function initLightbox() {
-  const lb = document.getElementById('lightbox');
-  if (!lb || !initOnce(lb, 'lightbox')) return;
-
-  document.addEventListener('click', (e) => {
-    const filterTab = e.target.closest('[data-album-filter]');
-    if (filterTab) {
-      filterAlbum(filterTab, filterTab.dataset.albumFilter);
-      return;
-    }
-
-    const lightboxTrigger = e.target.closest('[data-lightbox-key]');
-    if (lightboxTrigger) {
-      e.preventDefault();
-      openLightbox(lightboxTrigger.dataset.lightboxKey);
-      return;
-    }
-
-    if (e.target === lb || e.target.closest('[data-lightbox-close]')) {
-      closeLightbox(e);
-    }
-  });
-
-  lb.addEventListener('keydown', (e) => {
-    if (!lb.classList.contains('active')) return;
-    trapFocus(lb, e);
-  });
-}
-export { closeLightbox, initLightbox };
+const initAlbumFilter = createFilter({
+  triggerSelector: '[data-album-filter]',
+  triggerDataKey: 'albumFilter',
+  itemSelector: '#albumGrid [data-cat]',
+  itemDataKey: 'cat',
+  statusId: 'albumFilterStatus',
+  countSuffix: '相册',
+});

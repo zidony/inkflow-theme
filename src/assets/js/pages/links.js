@@ -1,30 +1,17 @@
-import { copyText, initOnce, showToast } from '../core/utils.js';
+import { copyText, initOnce } from '../core/utils.js';
+import { showToast } from '../components/toast.js';
+import { createFilter } from '../components/category-filter.js';
 
-function filterLinks(el, cat) {
-  document.querySelectorAll('.filter-tab').forEach(tab => {
-    const isActive = tab === el;
-    tab.classList.toggle('active', isActive);
-    tab.setAttribute('aria-pressed', String(isActive));
-  });
-
-  let visibleCount = 0;
-  document.querySelectorAll('[data-link-cat]').forEach(card => {
-    const col = card.closest('.col-md-6, .col-12, [class*="col"]');
-    if (!col) return;
-    const visible = cat === 'all' || card.dataset.linkCat === cat;
-    if (visible) visibleCount += 1;
-    col.classList.add('link-filter-item');
-    col.classList.toggle('is-filtered-out', !visible);
-  });
-
-  const status = document.getElementById('linkFilterStatus');
-  if (status) {
-    const label = el?.textContent.trim() || '全部';
-    status.textContent = cat === 'all'
-      ? `显示全部 ${visibleCount} 个链接`
-      : `${label}分类显示 ${visibleCount} 个链接`;
-  }
-}
+const initLinksFilter = createFilter({
+  triggerSelector: '[data-link-filter]',
+  triggerDataKey: 'linkFilter',
+  itemSelector: '[data-link-cat]',
+  itemDataKey: 'linkCat',
+  statusId: 'linkFilterStatus',
+  resolveTarget: (item) => item.closest('.col-md-6, .col-12, [class*="col"]'),
+  extraClass: 'link-filter-item',
+  countSuffix: '链接',
+});
 
 function setLinkApplyFormState(form, expanded) {
   form.classList.toggle('show', expanded);
@@ -109,13 +96,9 @@ function initLinksPage() {
   const root = document.querySelector('[data-link-filter]')?.closest('.container') || document.body;
   if (!initOnce(root, 'links')) return;
 
-  root.addEventListener('click', (e) => {
-    const filterTab = e.target.closest('[data-link-filter]');
-    if (filterTab) {
-      filterLinks(filterTab, filterTab.dataset.linkFilter);
-      return;
-    }
+  initLinksFilter();
 
+  root.addEventListener('click', (e) => {
     if (e.target.closest('[data-toggle-link-apply]')) {
       toggleLinkApplyForm();
       return;
