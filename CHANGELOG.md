@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.4.0] - 2026-08-06
+
 ### Added
 - `core/registry.js`: component registration table with a `WeakSet` guard against
   double initialization (no `data-initialized` markers in the DOM).
@@ -53,6 +55,38 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Fixed `events.js` `emit()` not dispatching cancelable CustomEvents, which
   silently broke the adapter takeover contract for `inkflow:like-toggle` and
   `inkflow:avatar-change`.
+
+### Added
+- `src/album.html`: new demo album detail page (vite entry; 11 pages total).
+- `.photo-actions` / `.photo-action-btn`: unified hover action layer for album
+  and photo cards — two round buttons (zoom lightbox via `data-lightbox-key` /
+  `data-lightbox-url`, enter child page) fade in on hover / `focus-within`;
+  keyboard reachable, `focus-visible` outline provided.
+- `scripts/ytcms-integration.mjs`: committed live integration check for the
+  YTCMS standard theme (14 UI assertions).
+- Lightbox focus-trap regression test: Tab stays inside the lightbox, Escape
+  closes it, focus returns to the triggering element.
+
+### Changed
+- Photo/album cards now use a plain `<div>` outer container with `<a>` action
+  buttons: the previous nested `<button>` inside `<button>`/`<a>` was invalid
+  HTML and the parser ejected the action icons outside the card. Zoom links
+  keep progressive enhancement (no-JS opens the original image).
+- `.photo-ph` renders `background-size: cover` / `center` plus a non-`!important`
+  placeholder gradient, so CMS adapters can lazy-load real images via
+  `data-bg` + IntersectionObserver.
+- Login page vertical centering fix (`flex-start` + `margin: auto`) so tall
+  content scrolls instead of being clipped by the `100vh` flex centering bug.
+- Album-list cards link into the new album.html detail page; lightbox preview
+  opens via the zoom button (preview does not leave the page).
+- Demo lightbox prev/next buttons now show placeholder toasts instead of being
+  silent.
+
+### Fixed
+- Search input border invisible on light surfaces: `ink-input-ghost` →
+  `ink-input-gray` (ghost is a dark-background-only variant).
+- Stray action buttons left inside album.html by an earlier reparse fix
+  (regex truncation) — removed; browser-parse check confirms zero stray nodes.
 
 ## [3.3.2] - 2026-06-22
 
