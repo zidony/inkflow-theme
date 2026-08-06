@@ -2,7 +2,10 @@ import { defineConfig } from 'vite';
 import handlebars from 'vite-plugin-handlebars';
 import { PurgeCSS } from 'purgecss';
 
-import { resolve, basename } from 'path';
+import { resolve, basename, join, relative } from 'path';
+import { createHash } from 'node:crypto';
+import { readdirSync, readFileSync, statSync, writeFileSync, existsSync } from 'node:fs';
+import { execSync } from 'node:child_process';
 
 const srcDir = resolve(__dirname, 'src');
 
@@ -146,6 +149,56 @@ function purgeCssPlugin() {
   };
 }
 
+/* Emits dist/assets/js/manifest.json at build end: package version, source Git
+ * SHA, build date and a per-file SHA-256 map. Gives CMS sync scripts a
+ * machine-readable record of which dist files belong to which build, so
+ * artifacts can be verified (and traceable) instead of trusted by copy-paste.
+ * Not part of the page payload — build metadata only. */
+function buildManifestPlugin() {
+  return {
+    name: 'inkflow-build-manifest',
+    closeBundle() {
+      const distDir = resolve(__dirname, 'dist');
+      const files = {};
+      const walk = (dir) => {
+        for (const entry of readdirSync(dir)) {
+          const full = join(dir, entry);
+          const st = statSync(full);
+          if (st.isDirectory()) {
+            walk(full);
+          } else {
+            const rel = relative(distDir, full).split('\\').join('/');
+            const digest = createHash('sha256').update(readFileSync(full)).digest('hex');
+            files[rel] = `sha256-${digest}`;
+          }
+        }
+      };
+      walk(distDir);
+
+      let gitSha = null;
+      try {
+        gitSha = execSync('git rev-parse HEAD', { encoding: 'utf8' }).trim();
+      } catch (e) {
+        gitSha = null;
+      }
+
+      const pkgPath = join(__dirname, 'package.json');
+      const pkg = existsSync(pkgPath) ? JSON.parse(readFileSync(pkgPath, 'utf8')) : {};
+
+      const manifest = {
+        name: pkg.name || 'inkflow-theme',
+        version: pkg.version || '0.0.0',
+        gitSha,
+        buildDate: new Date().toISOString(),
+        entry: 'assets/js/inkflow.js',
+        runtimeDeps: ['assets/js/rolldown-runtime.js'],
+        files,
+      };
+      writeFileSync(join(distDir, 'assets', 'js', 'manifest.json'), JSON.stringify(manifest, null, 2) + '\n');
+    },
+  };
+}
+
 export default defineConfig({
   root: srcDir,
   base: './',
@@ -158,6 +211,7 @@ export default defineConfig({
     }),
     seoFilesPlugin(),
     purgeCssPlugin(),
+    buildManifestPlugin(),
   ],
   build: {
     minify: 'esbuild',

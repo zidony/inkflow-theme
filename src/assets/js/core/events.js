@@ -23,7 +23,24 @@ export const InkflowEvents = {
   AUTH_CHANGE: 'inkflow:auth-change',
   INIT: 'inkflow:init',
   DESTROY: 'inkflow:destroy',
+  ERROR: 'inkflow:error',
 };
+
+/**
+ * Emit a normalized error event so adapters / debuggers can observe failures
+ * across components without inspecting internals.
+ * @param {string} component Component name (e.g. 'tag-cloud').
+ * @param {string} operation Operation that failed (e.g. 'parse-data').
+ * @param {*}      error     The original error (message is extracted).
+ * @returns {boolean} `false` if a listener called preventDefault().
+ */
+export function emitError(component, operation, error) {
+  return emit(InkflowEvents.ERROR, {
+    component,
+    operation,
+    error: error instanceof Error ? error.message : String(error),
+  });
+}
 
 /**
  * Dispatch an inkflow event on the document (bubbles, cancelable). Listeners

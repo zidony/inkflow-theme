@@ -16,7 +16,7 @@
  * Emits `inkflow:lightbox-open` / `inkflow:lightbox-close`.
  */
 import { initOnce, trapFocus } from '../core/utils.js';
-import { InkflowEvents, emit } from '../core/events.js';
+import { InkflowEvents, emit, emitError } from '../core/events.js';
 
 let lightboxLastFocused = null;
 let lightboxDemoData = null;
@@ -87,6 +87,7 @@ export function openLightbox(url, options = {}) {
       img.alt = options.title || '';
       img.className = 'lb-image';
       img.setAttribute('loading', 'lazy');
+      img.addEventListener('error', () => emitError('lightbox', 'image-load', new Error(`failed to load ${img.src}`)), { once: true });
       imgEl.appendChild(img);
     }
     if (capEl) capEl.textContent = options.title || '';

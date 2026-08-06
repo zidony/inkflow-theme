@@ -107,6 +107,19 @@ test('lightbox traps Tab focus and restores it on close', async ({ page }) => {
   await expect(trigger).toBeFocused();
 });
 
+test('component errors are observable via inkflow:error', async ({ page }) => {
+  // Corrupt the demo auth storage before the page boots: restore() must
+  // surface a normalized inkflow:error instead of failing silently.
+  await page.addInitScript(() => {
+    localStorage.setItem('inkflow-user', '{corrupt-json');
+    window.__inkflowErrors = [];
+    document.addEventListener('inkflow:error', (e) => window.__inkflowErrors.push(e.detail));
+  });
+  await gotoPage(page, '/index.html');
+  const errors = await page.evaluate(() => window.__inkflowErrors);
+  expect(errors.some((e) => e.component === 'auth' && e.operation === 'restore' && e.error)).toBe(true);
+});
+
 test('like toggle event can be consumed by an adapter (no demo state change)', async ({ page }) => {
   await gotoPage(page, '/post-show.html');
   const countBefore = (await page.locator('#likeCount').textContent()).trim();

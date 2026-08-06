@@ -1,5 +1,5 @@
 import { initOnce } from '../core/utils.js';
-import { InkflowEvents, emit } from '../core/events.js';
+import { InkflowEvents, emit, emitError } from '../core/events.js';
 
 // Demo-only UI auth state. Replace with server-backed auth in production.
 // The theme itself never talks to a backend: `setUser`/`logout` update the
@@ -77,6 +77,7 @@ const inkflowAuth = {
       try {
         if (!this.setUser(JSON.parse(raw))) this.logout();
       } catch (e) {
+        emitError('auth', 'restore', e);
         this.logout();
       }
     }

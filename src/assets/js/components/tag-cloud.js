@@ -16,6 +16,7 @@
  * API: Inkflow.components.tagCloud.render(list, query)
  */
 import { initOnce } from '../core/utils.js';
+import { emitError } from '../core/events.js';
 
 const DEFAULT_HREF = 'post-list.html';
 const SIZE_MIN = 0.78;
@@ -135,6 +136,7 @@ function readScriptData(container) {
     const parsed = JSON.parse(script.textContent);
     return Array.isArray(parsed) ? parsed : [];
   } catch (err) {
+    emitError('tag-cloud', 'parse-data', err);
     return [];
   }
 }

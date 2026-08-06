@@ -117,6 +117,38 @@ if (!(await fileExists(path.join(distDir, 'assets/js/inkflow.js')))) {
   addIssue(issues, 'dist', 'missing assets/js/inkflow.js');
 }
 
+// Build manifest: present, version matches package.json, and every recorded
+// file hash still matches what is on disk (detects stale/corrupted builds).
+const manifestPath = path.join(distDir, 'assets/js/manifest.json');
+if (!(await fileExists(manifestPath))) {
+  addIssue(issues, 'dist', 'missing assets/js/manifest.json (build manifest)');
+} else {
+  try {
+    const manifest = JSON.parse(await readFile(manifestPath, 'utf8'));
+    const pkg = JSON.parse(await readFile(path.join(root, 'package.json'), 'utf8'));
+    if (manifest.version !== pkg.version) {
+      addIssue(issues, 'dist', `manifest version ${manifest.version} != package.json ${pkg.version}`);
+    }
+    if (!manifest.gitSha) {
+      addIssue(issues, 'dist', 'manifest missing gitSha (git unavailable at build time?)');
+    }
+    const { createHash } = await import('node:crypto');
+    for (const [file, expected] of Object.entries(manifest.files)) {
+      const full = path.join(distDir, file);
+      if (!(await fileExists(full))) {
+        addIssue(issues, 'dist', `manifest references missing file: ${file}`);
+        continue;
+      }
+      const actual = `sha256-${createHash('sha256').update(await readFile(full)).digest('hex')}`;
+      if (actual !== expected) {
+        addIssue(issues, 'dist', `manifest hash mismatch: ${file}`);
+      }
+    }
+  } catch (error) {
+    addIssue(issues, 'dist', `manifest unreadable (${error.message})`);
+  }
+}
+
 for (const entry of sourceEntries) {
   if (await fileExists(path.join(distDir, entry))) {
     await checkBuiltPage(entry, issues);
