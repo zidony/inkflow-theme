@@ -16,22 +16,15 @@ import { initLightbox, lightboxApi } from './components/lightbox.js';
 import { initTagCloud, tagCloudApi } from './components/tag-cloud.js';
 import { initFilterScope } from './components/category-filter.js';
 
-// Page-specific modules (imported statically for the single-bundle build;
-// G4 moves these to dynamic import() so pages only download what they need).
-import * as ArchiveModule from './pages/archive.js';
-import * as AlbumModule from './pages/album.js';
-import * as PostModule from './pages/post.js';
-import * as ParallaxModule from './pages/parallax.js';
-import * as ProfileModule from './pages/profile.js';
-import * as LoginModule from './pages/login.js';
-import * as LinksModule from './pages/links.js';
-
 // ---------------------------------------------------------------------------
 // Component registration.
 //
 // Every component is registered with a selector + init function. The registry
 // (core/registry.js) guarantees idempotent initialization keyed on the target
 // element, so repeated `Inkflow.init()` calls or dynamic DOM re-scans are safe.
+//
+// Page-specific components use dynamic import() so each page only downloads
+// the module it needs (see the resulting per-page chunks in dist/assets/js/).
 // ---------------------------------------------------------------------------
 
 // Static, site-wide UI components.
@@ -53,46 +46,65 @@ registerComponent('lightbox', { selector: '#lightbox', init: initLightbox });
 registerComponent('tagCloud', { selector: '#tagCloudInner', init: initTagCloud });
 registerComponent('filterScope', { selector: '[data-filter-scope]', init: initFilterScope });
 
-// Page-specific components (guarded by their presence in the DOM).
+// Page-specific components — modules are fetched on demand via dynamic import().
 registerComponent('archive', {
   selector: '#heatmapGrid',
-  init: () => {
-    ArchiveModule.initHeatmap();
-    ArchiveModule.initArchiveTabs();
+  init: async () => {
+    const { initHeatmap, initArchiveTabs } = await import(/* webpackChunkName: "archive" */ './pages/archive.js');
+    initHeatmap();
+    initArchiveTabs();
   },
 });
 registerComponent('albumPage', {
   selector: '#albumGrid',
-  init: () => AlbumModule.initAlbumPage(),
+  init: async () => {
+    const { initAlbumPage } = await import(/* webpackChunkName: "album" */ './pages/album.js');
+    initAlbumPage();
+  },
 });
 registerComponent('post', {
   selector: '.toc-list',
-  init: () => {
-    PostModule.initTocSpy();
-    PostModule.initReadingProgress();
-    PostModule.initReactions();
-    PostModule.initPostActions();
+  init: async () => {
+    const { initTocSpy, initReadingProgress, initReactions, initPostActions } = await import(/* webpackChunkName: "post" */ './pages/post.js');
+    initTocSpy();
+    initReadingProgress();
+    initReactions();
+    initPostActions();
   },
 });
-registerComponent('parallax', { selector: '.hero-gradient', init: () => ParallaxModule.initParallax() });
+registerComponent('parallax', {
+  selector: '.hero-gradient',
+  init: async () => {
+    const { initParallax } = await import(/* webpackChunkName: "parallax" */ './pages/parallax.js');
+    initParallax();
+  },
+});
 registerComponent('profile', {
   selector: '[data-profile-section]',
-  init: () => {
-    ProfileModule.initProfileEdit();
-    ProfileModule.initAvatarUpload();
-    ProfileModule.initProfileStreak();
-    ProfileModule.initProfileActions();
+  init: async () => {
+    const { initProfileEdit, initAvatarUpload, initProfileStreak, initProfileActions } = await import(/* webpackChunkName: "profile" */ './pages/profile.js');
+    initProfileEdit();
+    initAvatarUpload();
+    initProfileStreak();
+    initProfileActions();
   },
 });
 registerComponent('login', {
   selector: '.auth-tab-btn',
-  init: () => {
-    LoginModule.initAuthTabs();
-    LoginModule.initPwdToggle();
-    LoginModule.initLoginForm();
+  init: async () => {
+    const { initAuthTabs, initPwdToggle, initLoginForm } = await import(/* webpackChunkName: "login" */ './pages/login.js');
+    initAuthTabs();
+    initPwdToggle();
+    initLoginForm();
   },
 });
-registerComponent('links', { selector: '[data-link-filter]', init: () => LinksModule.initLinksPage() });
+registerComponent('links', {
+  selector: '[data-link-filter]',
+  init: async () => {
+    const { initLinksPage } = await import(/* webpackChunkName: "links" */ './pages/links.js');
+    initLinksPage();
+  },
+});
 
 // ---------------------------------------------------------------------------
 // Public programmatic APIs.

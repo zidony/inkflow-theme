@@ -172,14 +172,18 @@ export default defineConfig({
         archiveList: resolve(srcDir, 'archive-list.html'),
         albumList: resolve(srcDir, 'album-list.html'),
         linkList: resolve(srcDir, 'link-list.html'),
-        profile: resolve(srcDir, 'profile.html'),
-        login: resolve(srcDir, 'login.html')
+        profilePage: resolve(srcDir, 'profile.html'),
+        loginPage: resolve(srcDir, 'login.html')
       },
       output: {
         manualChunks(id) {
-          if (id.includes('.js') || id.includes('vite/modulepreload-polyfill')) {
-            return 'inkflow';
+          // Tree-shaken Bootstrap vendor bundle lives in its own stable chunk so
+          // the theme core stays small; page chunks (dynamic import()) are then
+          // emitted naturally by Rolldown per page module.
+          if (id.includes('node_modules/bootstrap')) {
+            return 'inkflow-vendor';
           }
+          return undefined;
         },
         entryFileNames: 'assets/js/[name].js',
         chunkFileNames: 'assets/js/[name].js',

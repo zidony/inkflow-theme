@@ -58,18 +58,20 @@ function resolveTarget(name, root) {
 
 /**
  * Initialize a single component. No-op if its target element is missing or it
- * is already initialized on that target.
+ * is already initialized on that target. `init` may return a Promise (e.g. a
+ * dynamically imported page module); the registry awaits it before marking the
+ * component initialized.
  * @param {string} name
  * @param {Element} [root] Explicit element; falls back to the registered selector.
- * @returns {boolean} true when initialized.
+ * @returns {Promise<boolean>} resolves true when initialized.
  */
-export function initComponent(name, root) {
+export async function initComponent(name, root) {
   const def = components.get(name);
   if (!def) return false;
   const target = resolveTarget(name, root);
   if (!target || initialized.has(target)) return false;
   try {
-    def.init(target);
+    await def.init(target);
     initialized.add(target);
     return true;
   } catch (err) {
@@ -99,18 +101,19 @@ export function destroyComponent(name, root) {
 
 /**
  * Initialize every registered auto component (or only those matching the
- * optional selector/root). Safe to call repeatedly.
+ * optional selector/root). Safe to call repeatedly; page components load their
+ * modules via dynamic import() in parallel.
  * @param {Element} [root] Re-scan a container for dynamic content.
- * @returns {Array<{name: string, ok: boolean}>} per-component results.
+ * @returns {Promise<Array<{name: string, ok: boolean}>>} per-component results.
  */
 export function initAll(root) {
-  const results = [];
+  const tasks = [];
   for (const name of components.keys()) {
     const def = components.get(name);
     if (!def.auto) continue;
     const target = root ? (root.matches?.(def.selector || '*') ? root : root.querySelector(def.selector)) : resolveTarget(name);
     if (!target || initialized.has(target)) continue;
-    results.push({ name, ok: initComponent(name, target) });
+    tasks.push(initComponent(name, target).then((ok) => ({ name, ok })));
   }
-  return results;
+  return Promise.all(tasks);
 }
