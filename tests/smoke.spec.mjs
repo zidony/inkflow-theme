@@ -39,6 +39,10 @@ async function expectNoConsoleErrors(page, action) {
 async function gotoPage(page, pagePath) {
   await page.goto(pagePath, { waitUntil: 'domcontentloaded' });
   await page.waitForFunction(() => document.readyState !== 'loading' && document.title.length > 0);
+  // Theme entry is a module script; wait until the Inkflow global is wired up
+  // so delegated interactions (demo actions, lightbox, toast) are bound before
+  // tests click anything (avoids load-race flakes).
+  await page.waitForFunction(() => typeof window.Inkflow?.components === 'object');
 }
 
 async function expectViewportLayoutStable(page) {

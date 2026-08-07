@@ -3,6 +3,9 @@ import { expect, test } from '@playwright/test';
 async function gotoPage(page, pagePath) {
   await page.goto(pagePath, { waitUntil: 'domcontentloaded' });
   await page.waitForFunction(() => document.readyState !== 'loading' && document.title.length > 0);
+  // Theme entry is a module script — wait until the Inkflow global is wired up
+  // before tests reach into window.Inkflow (avoids load-race flakes).
+  await page.waitForFunction(() => typeof window.Inkflow?.components === 'object');
 }
 
 test('Inkflow global API is exposed with version, components and events', async ({ page }) => {
