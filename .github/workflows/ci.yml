@@ -9,6 +9,11 @@ on:
       - main
   workflow_dispatch:
 
+# One in-flight run per workflow: a newer push supersedes the older run.
+concurrency:
+  group: "ci-${{ github.ref }}"
+  cancel-in-progress: true
+
 permissions:
   contents: read
 

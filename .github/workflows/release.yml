@@ -6,6 +6,11 @@ on:
       - 'v*'
   workflow_dispatch:
 
+# Re-pushing the same tag (or a newer tag) supersedes an in-flight release run.
+concurrency:
+  group: "release-${{ github.ref }}"
+  cancel-in-progress: true
+
 jobs:
   build-and-release:
     name: Build and Create Release
