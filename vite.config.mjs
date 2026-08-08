@@ -49,7 +49,7 @@ function seoContext(pagePath) {
 // Pages that belong in the public sitemap (auth pages are intentionally excluded).
 const sitemapPages = [
   'index.html', 'post-list.html', 'post-show.html', 'category-list.html',
-  'tag-list.html', 'archive-list.html', 'album-list.html', 'link-list.html',
+  'tag-list.html', 'archive-list.html', 'album-list.html', 'album.html', 'photo.html', 'link-list.html',
 ];
 
 /* Emits robots.txt and sitemap.xml at build time from the single `site` source. */
@@ -194,7 +194,11 @@ function buildManifestPlugin() {
         runtimeDeps: ['assets/js/rolldown-runtime.js'],
         files,
       };
-      writeFileSync(join(distDir, 'assets', 'js', 'manifest.json'), JSON.stringify(manifest, null, 2) + '\n');
+      const manifestHash = `sha256-${createHash('sha256').update(JSON.stringify(manifest)).digest('hex')}`;
+      writeFileSync(
+        join(distDir, 'assets', 'js', 'manifest.json'),
+        JSON.stringify({ ...manifest, manifestHash }, null, 2) + '\n',
+      );
     },
   };
 }
@@ -226,6 +230,7 @@ export default defineConfig({
         archiveList: resolve(srcDir, 'archive-list.html'),
         albumList: resolve(srcDir, 'album-list.html'),
         albumShow: resolve(srcDir, 'album.html'),
+        photoShow: resolve(srcDir, 'photo.html'),
         linkList: resolve(srcDir, 'link-list.html'),
         profilePage: resolve(srcDir, 'profile.html'),
         loginPage: resolve(srcDir, 'login.html')

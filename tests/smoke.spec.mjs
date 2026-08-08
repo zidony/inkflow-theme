@@ -8,6 +8,8 @@ const pages = [
   'tag-list.html',
   'archive-list.html',
   'album-list.html',
+  'album.html',
+  'photo.html',
   'link-list.html',
   'profile.html',
   'login.html',

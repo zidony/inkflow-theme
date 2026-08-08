@@ -57,6 +57,14 @@ const LIGHTBOX_DATA = {
     bg: 'linear-gradient(135deg,#0a2517,#0d6b3f)',
     caption: '成都午后 · 市井烟火'
   },
+  'dali-1': { icon: 'bi-cloud-fog2-fill', bg: 'linear-gradient(135deg,#0a2517,#0d6b3f)', caption: '苍山 · 晨雾' },
+  'dali-2': { icon: 'bi-sunrise-fill', bg: 'linear-gradient(135deg,#041b35,#0d6ecc)', caption: '洱海 · 日出' },
+  'dali-3': { icon: 'bi-house-heart-fill', bg: 'linear-gradient(135deg,#082933,#0891b2)', caption: '白族村落 · 稻田' },
+  'dali-4': { icon: 'bi-bank2', bg: 'linear-gradient(135deg,#301b02,#d97706)', caption: '喜洲 · 老宅' },
+  'dali-5': { icon: 'bi-water', bg: 'linear-gradient(135deg,#1b0e3a,#7c3aed)', caption: '洱海 · 黄昏' },
+  'dali-6': { icon: 'bi-bicycle', bg: 'linear-gradient(135deg,#351302,#ea580c)', caption: '环海路 · 骑行' },
+  'dali-7': { icon: 'bi-clouds-fill', bg: 'linear-gradient(135deg,#0a2517,#10b981)', caption: '苍山脚下 · 云影' },
+  'dali-8': { icon: 'bi-moon-stars-fill', bg: 'linear-gradient(135deg,#380e0e,#ef4444)', caption: '古城 · 夜色' },
   p1: { icon: 'bi-tree', bg: 'linear-gradient(135deg,#0a2517,#0d6b3f)', caption: '旅行随拍 · 林间光影' },
   p2: { icon: 'bi-buildings', bg: 'linear-gradient(135deg,#041b35,#0d6ecc)', caption: '城市随拍 · 建筑轮廓' },
   p3: { icon: 'bi-flower2', bg: 'linear-gradient(135deg,#330516,#be185d)', caption: '自然随拍 · 花与风' },
@@ -75,9 +83,9 @@ const LIGHTBOX_DATA = {
  * Album page bootstrap: feed the demo data to the generic Lightbox component
  * and wire the (now shared) category filter.
  */
-export function initAlbumPage() {
+export function initAlbumPage(root) {
   setLightboxData(LIGHTBOX_DATA);
-  initAlbumFilter();
+  if (root?.matches?.('#albumGrid')) initAlbumFilter();
 }
 
 const initAlbumFilter = createFilter({

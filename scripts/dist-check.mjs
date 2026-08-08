@@ -1,9 +1,13 @@
+import { execFile } from 'node:child_process';
+import { createHash } from 'node:crypto';
 import { readdir, readFile, stat } from 'node:fs/promises';
 import path from 'node:path';
+import { promisify } from 'node:util';
 
 const root = process.cwd();
 const srcDir = path.join(root, 'src');
 const distDir = path.join(root, 'dist');
+const execFileAsync = promisify(execFile);
 
 const skipReferencePattern = /^(?:#|[a-z][a-z0-9+.-]*:|\/\/)/i;
 const localReferencePattern = /\.(?:html|css|js)(?:[?#].*)?$/i;
@@ -34,6 +38,29 @@ async function readDirSafe(dir) {
     return await readdir(dir, { withFileTypes: true });
   } catch {
     return [];
+  }
+}
+
+
+async function getDistFiles(dir = distDir) {
+  const files = [];
+  for (const entry of await readDirSafe(dir)) {
+    const full = path.join(dir, entry.name);
+    if (entry.isDirectory()) {
+      files.push(...await getDistFiles(full));
+    } else if (entry.isFile()) {
+      files.push(normalize(path.relative(distDir, full)));
+    }
+  }
+  return files.sort((a, b) => a.localeCompare(b));
+}
+
+async function getCurrentGitSha() {
+  try {
+    const { stdout } = await execFileAsync('git', ['rev-parse', 'HEAD'], { cwd: root });
+    return stdout.trim();
+  } catch {
+    return null;
   }
 }
 
@@ -131,9 +158,28 @@ if (!(await fileExists(manifestPath))) {
     }
     if (!manifest.gitSha) {
       addIssue(issues, 'dist', 'manifest missing gitSha (git unavailable at build time?)');
+    } else {
+      const currentGitSha = await getCurrentGitSha();
+      if (currentGitSha && manifest.gitSha !== currentGitSha) {
+        addIssue(issues, 'dist', `manifest gitSha ${manifest.gitSha} != current HEAD ${currentGitSha}`);
+      }
     }
-    const { createHash } = await import('node:crypto');
-    for (const [file, expected] of Object.entries(manifest.files)) {
+
+    const { manifestHash, ...manifestPayload } = manifest;
+    const actualManifestHash = `sha256-${createHash('sha256').update(JSON.stringify(manifestPayload)).digest('hex')}`;
+    if (!manifestHash) {
+      addIssue(issues, 'dist', 'manifest missing manifestHash');
+    } else if (manifestHash !== actualManifestHash) {
+      addIssue(issues, 'dist', 'manifestHash does not match manifest metadata');
+    }
+
+    const recordedFiles = Object.keys(manifest.files || {}).sort((a, b) => a.localeCompare(b));
+    const actualFiles = (await getDistFiles()).filter((file) => file !== 'assets/js/manifest.json');
+    for (const file of actualFiles.filter((file) => !recordedFiles.includes(file))) {
+      addIssue(issues, 'dist', `unlisted file is not covered by manifest: ${file}`);
+    }
+
+    for (const [file, expected] of Object.entries(manifest.files || {})) {
       const full = path.join(distDir, file);
       if (!(await fileExists(full))) {
         addIssue(issues, 'dist', `manifest references missing file: ${file}`);

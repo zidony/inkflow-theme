@@ -1,28 +1,36 @@
 /**
  * Inkflow component registry.
  *
- * Replaces the ad-hoc per-module `initOnce` data-attribute markers with a
- * single registry that owns the init/destroy lifecycle. `initialized` is a
- * WeakSet keyed by the DOM element, so components can be re-initialized after
- * dynamic DOM changes without leaving `data-inkflow*Initialized` residue.
+ * Initialization state is tracked per component and per DOM target. This is
+ * important when two components share one target (for example `toast` and
+ * `keyboard` both use `body`) and when a CMS inserts multiple component roots.
+ * In-flight initialization promises are also shared, making concurrent
+ * `Inkflow.init()` calls idempotent.
  *
  * A component definition:
  *   {
  *     selector: '#mainNavbar',        // queried when no explicit root is given
- *     init:     (root) => void,       // required
- *     destroy:  (root) => void | null,// optional
- *     auto:     true,                 // false = only init via Inkflow.init()
+ *     init:     (target) => void,     // required
+ *     destroy:  (target) => void,     // optional
+ *     auto:     true,                 // false = only init via Inkflow.initComponent()
+ *     multiple: false,                // true = initialize every selector match
  *   }
  */
 const components = new Map();
-const initialized = new WeakSet();
+const initializedByComponent = new Map();
+const inFlightByComponent = new Map();
 
-/**
- * Register a component definition.
- * @param {string} name Unique component name (kebab-case).
- * @param {Object} def  { selector, init, destroy?, auto? }
- * @returns {string} the registered name.
- */
+function initializedTargets(name) {
+  if (!initializedByComponent.has(name)) initializedByComponent.set(name, new WeakSet());
+  return initializedByComponent.get(name);
+}
+
+function inFlightTargets(name) {
+  if (!inFlightByComponent.has(name)) inFlightByComponent.set(name, new WeakMap());
+  return inFlightByComponent.get(name);
+}
+
+/** Register a component definition. */
 export function registerComponent(name, def) {
   if (!name || typeof name !== 'string') {
     throw new TypeError('registerComponent requires a component name');
@@ -35,6 +43,7 @@ export function registerComponent(name, def) {
     init: def.init,
     destroy: typeof def.destroy === 'function' ? def.destroy : null,
     auto: def.auto !== false,
+    multiple: def.multiple === true,
   });
   return name;
 }
@@ -44,54 +53,82 @@ export function hasComponent(name) {
   return components.has(name);
 }
 
-/** True if the component is currently initialized on the given target. */
-export function isInitialized(name, target) {
-  return initialized.has(resolveTarget(name, target));
+function resolveTarget(name, target) {
+  if (target) return target;
+  const def = components.get(name);
+  if (!def) return null;
+  if (!def.selector) return document;
+  return document.querySelector(def.selector);
 }
 
-function resolveTarget(name, root) {
-  if (root) return root;
-  const def = components.get(name);
-  if (!def || !def.selector) return document;
-  return document.querySelector(def.selector) || null;
-}
+function findTargets(def, root) {
+  if (!def.selector) return [root || document];
 
-/**
- * Initialize a single component. No-op if its target element is missing or it
- * is already initialized on that target. `init` may return a Promise (e.g. a
- * dynamically imported page module); the registry awaits it before marking the
- * component initialized.
- * @param {string} name
- * @param {Element} [root] Explicit element; falls back to the registered selector.
- * @returns {Promise<boolean>} resolves true when initialized.
- */
-export async function initComponent(name, root) {
-  const def = components.get(name);
-  if (!def) return false;
-  const target = resolveTarget(name, root);
-  if (!target || initialized.has(target)) return false;
-  try {
-    await def.init(target);
-    initialized.add(target);
-    return true;
-  } catch (err) {
-    console.error(`Inkflow: failed to initialize component "${name}":`, err);
-    return false;
+  const scope = root || document;
+  const matches = [];
+  if (scope instanceof Element && scope.matches(def.selector)) matches.push(scope);
+
+  if (typeof scope.querySelectorAll === 'function') {
+    const descendants = scope.querySelectorAll(def.selector);
+    if (def.multiple) matches.push(...descendants);
+    else if (!matches.length && descendants[0]) matches.push(descendants[0]);
   }
+
+  return def.multiple ? [...new Set(matches)] : matches.slice(0, 1);
+}
+
+/** True if the named component is initialized on the given target. */
+export function isInitialized(name, target) {
+  const resolved = resolveTarget(name, target);
+  return Boolean(resolved && initializedTargets(name).has(resolved));
 }
 
 /**
- * Destroy a component (restores listeners/state if the component opts in).
- * @returns {boolean} true when destroyed.
+ * Initialize one named component. Concurrent calls for the same component and
+ * target share one promise, so listeners and other side effects run once.
  */
-export function destroyComponent(name, root) {
+export function initComponent(name, target) {
+  const def = components.get(name);
+  if (!def) return Promise.resolve(false);
+
+  const resolved = resolveTarget(name, target);
+  if (!resolved) return Promise.resolve(false);
+
+  const initialized = initializedTargets(name);
+  if (initialized.has(resolved)) return Promise.resolve(false);
+
+  const inFlight = inFlightTargets(name);
+  const existing = inFlight.get(resolved);
+  if (existing) return existing;
+
+  const task = Promise.resolve()
+    .then(() => def.init(resolved))
+    .then(() => {
+      initialized.add(resolved);
+      return true;
+    })
+    .catch((err) => {
+      console.error(`Inkflow: failed to initialize component "${name}":`, err);
+      return false;
+    })
+    .finally(() => inFlight.delete(resolved));
+
+  inFlight.set(resolved, task);
+  return task;
+}
+
+/** Destroy a component that provides a destroy hook. */
+export function destroyComponent(name, target) {
   const def = components.get(name);
   if (!def || !def.destroy) return false;
-  const target = resolveTarget(name, root);
-  if (!target || !initialized.has(target)) return false;
+
+  const resolved = resolveTarget(name, target);
+  const initialized = initializedTargets(name);
+  if (!resolved || !initialized.has(resolved)) return false;
+
   try {
-    def.destroy(target);
-    initialized.delete(target);
+    def.destroy(resolved);
+    initialized.delete(resolved);
     return true;
   } catch (err) {
     console.error(`Inkflow: failed to destroy component "${name}":`, err);
@@ -100,20 +137,17 @@ export function destroyComponent(name, root) {
 }
 
 /**
- * Initialize every registered auto component (or only those matching the
- * optional selector/root). Safe to call repeatedly; page components load their
- * modules via dynamic import() in parallel.
- * @param {Element} [root] Re-scan a container for dynamic content.
- * @returns {Promise<Array<{name: string, ok: boolean}>>} per-component results.
+ * Initialize every registered auto component inside `root` (or the document).
+ * Components marked `multiple` are initialized for every matching target;
+ * singleton/page components use the first matching sentinel.
  */
 export function initAll(root) {
   const tasks = [];
-  for (const name of components.keys()) {
-    const def = components.get(name);
+  for (const [name, def] of components) {
     if (!def.auto) continue;
-    const target = root ? (root.matches?.(def.selector || '*') ? root : root.querySelector(def.selector)) : resolveTarget(name);
-    if (!target || initialized.has(target)) continue;
-    tasks.push(initComponent(name, target).then((ok) => ({ name, ok })));
+    for (const target of findTargets(def, root)) {
+      tasks.push(initComponent(name, target).then((ok) => ({ name, ok })));
+    }
   }
   return Promise.all(tasks);
 }

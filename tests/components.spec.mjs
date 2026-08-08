@@ -177,3 +177,68 @@ test('category filter standard contract filters items and announces count', asyn
   await page.locator('[data-filter-value="all"]').click();
   await expect(page.locator('#itemB')).not.toHaveClass(/is-filtered-out/);
 });
+
+
+test('album detail previews open in the lightbox instead of reloading the page', async ({ page }) => {
+  await gotoPage(page, '/album.html');
+  const trigger = page.locator('[data-lightbox-key="dali-1"]');
+  await trigger.click();
+  await expect(page).toHaveURL(/album\.html$/);
+  await expect(page.locator('#lightbox')).toHaveClass(/active/);
+  await expect(page.locator('#lbCaption')).toHaveText('苍山 · 晨雾');
+});
+
+test('concurrent Inkflow.init calls initialize one dynamic target only once', async ({ page }) => {
+  await gotoPage(page, '/index.html');
+  const clickBindings = await page.evaluate(async () => {
+    const scope = document.createElement('div');
+    scope.dataset.filterScope = '';
+    scope.innerHTML = '<button data-filter-value="all">全部</button><output data-filter-status></output>';
+    const add = scope.addEventListener.bind(scope);
+    let count = 0;
+    scope.addEventListener = (type, listener, options) => {
+      if (type === 'click') count += 1;
+      return add(type, listener, options);
+    };
+    document.body.appendChild(scope);
+    await Promise.all([window.Inkflow.init(scope), window.Inkflow.init(scope), window.Inkflow.init(scope)]);
+    return count;
+  });
+  expect(clickBindings).toBe(1);
+});
+
+test('Inkflow.init initializes every filter scope inside a dynamic container', async ({ page }) => {
+  await gotoPage(page, '/index.html');
+  await page.evaluate(async () => {
+    const container = document.createElement('section');
+    container.innerHTML = [1, 2].map((number) => `
+      <div data-filter-scope id="scope${number}">
+        <button data-filter-value="a">A</button>
+        <div data-filter-category="a">keep</div>
+        <div data-filter-category="b" id="scope${number}Hidden">hide</div>
+        <output data-filter-status></output>
+      </div>`).join('');
+    document.body.appendChild(container);
+    await window.Inkflow.init(container);
+  });
+
+  await page.locator('#scope1 [data-filter-value="a"]').click();
+  await page.locator('#scope2 [data-filter-value="a"]').click();
+  await expect(page.locator('#scope1Hidden')).toHaveClass(/is-filtered-out/);
+  await expect(page.locator('#scope2Hidden')).toHaveClass(/is-filtered-out/);
+});
+
+test('album photo artwork links to the photo detail page', async ({ page }) => {
+  await gotoPage(page, '/album.html');
+  await page.locator('.photo-ph[aria-label="查看图片详情"]').first().click();
+  await expect(page).toHaveURL(/photo\.html$/);
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText('苍山 · 晨雾');
+});
+
+test('photo detail page exposes metadata and opens its preview', async ({ page }) => {
+  await gotoPage(page, '/photo.html');
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText('苍山 · 晨雾');
+  await expect(page.locator('.photo-detail-meta')).toContainText('Sony A7 IV');
+  await page.locator('.photo-detail-preview').click();
+  await expect(page.locator('#lightbox')).toHaveClass(/active/);
+});

@@ -44,7 +44,7 @@ registerComponent('keyboard', { selector: 'body', init: initKeyboard });
 // Generic components (available on any page whose DOM contract is present).
 registerComponent('lightbox', { selector: '#lightbox', init: initLightbox });
 registerComponent('tagCloud', { selector: '#tagCloudInner', init: initTagCloud });
-registerComponent('filterScope', { selector: '[data-filter-scope]', init: initFilterScope });
+registerComponent('filterScope', { selector: '[data-filter-scope]', init: initFilterScope, multiple: true });
 
 // Page-specific components — modules are fetched on demand via dynamic import().
 registerComponent('archive', {
@@ -56,10 +56,10 @@ registerComponent('archive', {
   },
 });
 registerComponent('albumPage', {
-  selector: '#albumGrid',
-  init: async () => {
+  selector: '#albumGrid, #photoMasonry, #photoDetail',
+  init: async (root) => {
     const { initAlbumPage } = await import(/* webpackChunkName: "album" */ './pages/album.js');
-    initAlbumPage();
+    initAlbumPage(root);
   },
 });
 registerComponent('post', {

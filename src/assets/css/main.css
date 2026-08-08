@@ -45,6 +45,7 @@
 @import "./pages/profile.css";
 @import "./pages/category.css";
 @import "./pages/tag.css";
+@import "./pages/photo.css";
 
 /* 7. Utilities (Highest Specificity) */
 @import "./utils/utilities.css";

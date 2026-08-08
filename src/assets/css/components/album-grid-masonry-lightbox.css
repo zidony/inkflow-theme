@@ -97,7 +97,7 @@
    button has no handler and bubbles to the card link. */
 .photo-actions {
   position: absolute; display: flex; align-items: center; justify-content: center; gap: .75rem;
-  inset: 0; opacity: 0; z-index: 2;
+  inset: 0; opacity: 0; z-index: 2; pointer-events: none;
   transition: opacity var(--transition);
 }
 .album-card:hover .photo-actions,
@@ -108,7 +108,7 @@
   width: 44px; height: 44px; border-radius: 50%;
   border: 1px solid rgba(255,255,255,.35);
   background: rgba(0,0,0,.35); color: #fff; font-size: 1.15rem; cursor: pointer;
-  text-decoration: none;
+  text-decoration: none; pointer-events: auto;
   backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px);
   transition: background var(--transition), transform var(--transition);
 }
