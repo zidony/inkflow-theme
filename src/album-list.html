@@ -51,11 +51,15 @@
     <!-- FEATURED: 2 large hero albums -->
     <div class="row g-4 mb-4">
       <div class="col-md-7 fade-up delay-1">
-        <button type="button" class="album-hero u-tint-green" data-lightbox-key="kyoto">
+        <div class="album-hero u-tint-green">
           <div class="album-hero-img">
             <i class="bi bi-tree-fill" aria-hidden="true"></i>
           </div>
           <div class="album-hero-overlay"></div>
+          <div class="photo-actions">
+            <a href="photo.html" class="photo-action-btn" aria-label="预览大图" data-lightbox-key="kyoto" data-lightbox-title="四月京都 · 樱花季"><i class="bi bi-zoom-in" aria-hidden="true"></i></a>
+            <a href="photo.html" class="photo-action-btn" aria-label="查看四月京都图片详情"><i class="bi bi-arrow-right-circle" aria-hidden="true"></i></a>
+          </div>
           <div class="album-badge-top"><i class="bi bi-geo-alt-fill" aria-hidden="true"></i> 日本京都</div>
           <div class="album-badge-count"><i class="bi bi-images" aria-hidden="true"></i> 68 张</div>
           <div class="album-hero-body">
@@ -67,14 +71,18 @@
               <span class="album-meta-item"><i class="bi bi-heart-fill u-text-accent" aria-hidden="true"></i> 246</span>
             </div>
           </div>
-        </button>
+        </div>
       </div>
       <div class="col-md-5 fade-up delay-2">
-        <button type="button" class="album-hero u-tint-cyan u-h-full" data-lightbox-key="shanghai">
+        <div class="album-hero u-tint-cyan u-h-full">
           <div class="album-hero-img u-h-full u-min-h-280">
             <i class="bi bi-buildings-fill" aria-hidden="true"></i>
           </div>
           <div class="album-hero-overlay"></div>
+          <div class="photo-actions">
+            <a href="photo.html" class="photo-action-btn" aria-label="预览大图" data-lightbox-key="shanghai" data-lightbox-title="外滩霓虹 · 城市夜色"><i class="bi bi-zoom-in" aria-hidden="true"></i></a>
+            <a href="photo.html" class="photo-action-btn" aria-label="查看外滩霓虹图片详情"><i class="bi bi-arrow-right-circle" aria-hidden="true"></i></a>
+          </div>
           <div class="album-badge-top"><i class="bi bi-geo-alt-fill" aria-hidden="true"></i> 上海</div>
           <div class="album-badge-count"><i class="bi bi-images" aria-hidden="true"></i> 52 张</div>
           <div class="album-hero-body">
@@ -85,7 +93,7 @@
               <span class="album-meta-item"><i class="bi bi-heart-fill u-text-accent" aria-hidden="true"></i> 189</span>
             </div>
           </div>
-        </button>
+        </div>
       </div>
     </div>
 
@@ -215,65 +223,101 @@
       </div>
       <div class="photo-masonry" id="photoMasonry">
 
-        <button type="button" class="photo-item u-tint-green" data-lightbox-key="p1">
-          <div class="photo-ph u-h-200"><i class="bi bi-tree" aria-hidden="true"></i></div>
-          <div class="photo-item-overlay" aria-hidden="true"><i class="bi bi-zoom-in" aria-hidden="true"></i><span>查看大图</span></div>
-        </button>
+        <div class="photo-item u-tint-green">
+          <a href="photo.html" class="photo-ph u-h-200" aria-label="查看近期随拍图片详情"><i class="bi bi-tree" aria-hidden="true"></i></a>
+          <div class="photo-actions">
+            <a href="photo.html" class="photo-action-btn" aria-label="预览大图" data-lightbox-key="p1"><i class="bi bi-zoom-in" aria-hidden="true"></i></a>
+            <a href="photo.html" class="photo-action-btn" aria-label="查看近期随拍图片详情"><i class="bi bi-arrow-right-circle" aria-hidden="true"></i></a>
+          </div>
+        </div>
 
-        <button type="button" class="photo-item u-tint-blue" data-lightbox-key="p2">
-          <div class="photo-ph u-h-280"><i class="bi bi-buildings" aria-hidden="true"></i></div>
-          <div class="photo-item-overlay" aria-hidden="true"><i class="bi bi-zoom-in" aria-hidden="true"></i><span>查看大图</span></div>
-        </button>
+        <div class="photo-item u-tint-blue">
+          <a href="photo.html" class="photo-ph u-h-280" aria-label="查看近期随拍图片详情"><i class="bi bi-buildings" aria-hidden="true"></i></a>
+          <div class="photo-actions">
+            <a href="photo.html" class="photo-action-btn" aria-label="预览大图" data-lightbox-key="p2"><i class="bi bi-zoom-in" aria-hidden="true"></i></a>
+            <a href="photo.html" class="photo-action-btn" aria-label="查看近期随拍图片详情"><i class="bi bi-arrow-right-circle" aria-hidden="true"></i></a>
+          </div>
+        </div>
 
-        <button type="button" class="photo-item u-tint-pink" data-lightbox-key="p3">
-          <div class="photo-ph u-h-160"><i class="bi bi-flower2" aria-hidden="true"></i></div>
-          <div class="photo-item-overlay" aria-hidden="true"><i class="bi bi-zoom-in" aria-hidden="true"></i><span>查看大图</span></div>
-        </button>
+        <div class="photo-item u-tint-pink">
+          <a href="photo.html" class="photo-ph u-h-160" aria-label="查看近期随拍图片详情"><i class="bi bi-flower2" aria-hidden="true"></i></a>
+          <div class="photo-actions">
+            <a href="photo.html" class="photo-action-btn" aria-label="预览大图" data-lightbox-key="p3"><i class="bi bi-zoom-in" aria-hidden="true"></i></a>
+            <a href="photo.html" class="photo-action-btn" aria-label="查看近期随拍图片详情"><i class="bi bi-arrow-right-circle" aria-hidden="true"></i></a>
+          </div>
+        </div>
 
-        <button type="button" class="photo-item u-tint-amber" data-lightbox-key="p4">
-          <div class="photo-ph u-h-320"><i class="bi bi-sunrise" aria-hidden="true"></i></div>
-          <div class="photo-item-overlay" aria-hidden="true"><i class="bi bi-zoom-in" aria-hidden="true"></i><span>查看大图</span></div>
-        </button>
+        <div class="photo-item u-tint-amber">
+          <a href="photo.html" class="photo-ph u-h-320" aria-label="查看近期随拍图片详情"><i class="bi bi-sunrise" aria-hidden="true"></i></a>
+          <div class="photo-actions">
+            <a href="photo.html" class="photo-action-btn" aria-label="预览大图" data-lightbox-key="p4"><i class="bi bi-zoom-in" aria-hidden="true"></i></a>
+            <a href="photo.html" class="photo-action-btn" aria-label="查看近期随拍图片详情"><i class="bi bi-arrow-right-circle" aria-hidden="true"></i></a>
+          </div>
+        </div>
 
-        <button type="button" class="photo-item u-tint-purple" data-lightbox-key="p5">
-          <div class="photo-ph u-h-220"><i class="bi bi-lamp" aria-hidden="true"></i></div>
-          <div class="photo-item-overlay" aria-hidden="true"><i class="bi bi-zoom-in" aria-hidden="true"></i><span>查看大图</span></div>
-        </button>
+        <div class="photo-item u-tint-purple">
+          <a href="photo.html" class="photo-ph u-h-220" aria-label="查看近期随拍图片详情"><i class="bi bi-lamp" aria-hidden="true"></i></a>
+          <div class="photo-actions">
+            <a href="photo.html" class="photo-action-btn" aria-label="预览大图" data-lightbox-key="p5"><i class="bi bi-zoom-in" aria-hidden="true"></i></a>
+            <a href="photo.html" class="photo-action-btn" aria-label="查看近期随拍图片详情"><i class="bi bi-arrow-right-circle" aria-hidden="true"></i></a>
+          </div>
+        </div>
 
-        <button type="button" class="photo-item u-tint-blue" data-lightbox-key="p6">
-          <div class="photo-ph u-h-180"><i class="bi bi-water" aria-hidden="true"></i></div>
-          <div class="photo-item-overlay" aria-hidden="true"><i class="bi bi-zoom-in" aria-hidden="true"></i><span>查看大图</span></div>
-        </button>
+        <div class="photo-item u-tint-blue">
+          <a href="photo.html" class="photo-ph u-h-180" aria-label="查看近期随拍图片详情"><i class="bi bi-water" aria-hidden="true"></i></a>
+          <div class="photo-actions">
+            <a href="photo.html" class="photo-action-btn" aria-label="预览大图" data-lightbox-key="p6"><i class="bi bi-zoom-in" aria-hidden="true"></i></a>
+            <a href="photo.html" class="photo-action-btn" aria-label="查看近期随拍图片详情"><i class="bi bi-arrow-right-circle" aria-hidden="true"></i></a>
+          </div>
+        </div>
 
-        <button type="button" class="photo-item u-tint-green" data-lightbox-key="p7">
-          <div class="photo-ph u-h-260"><i class="bi bi-cloud-fog2" aria-hidden="true"></i></div>
-          <div class="photo-item-overlay" aria-hidden="true"><i class="bi bi-zoom-in" aria-hidden="true"></i><span>查看大图</span></div>
-        </button>
+        <div class="photo-item u-tint-green">
+          <a href="photo.html" class="photo-ph u-h-260" aria-label="查看近期随拍图片详情"><i class="bi bi-cloud-fog2" aria-hidden="true"></i></a>
+          <div class="photo-actions">
+            <a href="photo.html" class="photo-action-btn" aria-label="预览大图" data-lightbox-key="p7"><i class="bi bi-zoom-in" aria-hidden="true"></i></a>
+            <a href="photo.html" class="photo-action-btn" aria-label="查看近期随拍图片详情"><i class="bi bi-arrow-right-circle" aria-hidden="true"></i></a>
+          </div>
+        </div>
 
-        <button type="button" class="photo-item u-tint-red" data-lightbox-key="p8">
-          <div class="photo-ph u-h-190"><i class="bi bi-moon-stars" aria-hidden="true"></i></div>
-          <div class="photo-item-overlay" aria-hidden="true"><i class="bi bi-zoom-in" aria-hidden="true"></i><span>查看大图</span></div>
-        </button>
+        <div class="photo-item u-tint-red">
+          <a href="photo.html" class="photo-ph u-h-190" aria-label="查看近期随拍图片详情"><i class="bi bi-moon-stars" aria-hidden="true"></i></a>
+          <div class="photo-actions">
+            <a href="photo.html" class="photo-action-btn" aria-label="预览大图" data-lightbox-key="p8"><i class="bi bi-zoom-in" aria-hidden="true"></i></a>
+            <a href="photo.html" class="photo-action-btn" aria-label="查看近期随拍图片详情"><i class="bi bi-arrow-right-circle" aria-hidden="true"></i></a>
+          </div>
+        </div>
 
-        <button type="button" class="photo-item u-tint-blue" data-lightbox-key="p9">
-          <div class="photo-ph u-h-240"><i class="bi bi-cup-hot" aria-hidden="true"></i></div>
-          <div class="photo-item-overlay" aria-hidden="true"><i class="bi bi-zoom-in" aria-hidden="true"></i><span>查看大图</span></div>
-        </button>
+        <div class="photo-item u-tint-blue">
+          <a href="photo.html" class="photo-ph u-h-240" aria-label="查看近期随拍图片详情"><i class="bi bi-cup-hot" aria-hidden="true"></i></a>
+          <div class="photo-actions">
+            <a href="photo.html" class="photo-action-btn" aria-label="预览大图" data-lightbox-key="p9"><i class="bi bi-zoom-in" aria-hidden="true"></i></a>
+            <a href="photo.html" class="photo-action-btn" aria-label="查看近期随拍图片详情"><i class="bi bi-arrow-right-circle" aria-hidden="true"></i></a>
+          </div>
+        </div>
 
-        <button type="button" class="photo-item u-tint-orange" data-lightbox-key="p10">
-          <div class="photo-ph u-h-200"><i class="bi bi-bank" aria-hidden="true"></i></div>
-          <div class="photo-item-overlay" aria-hidden="true"><i class="bi bi-zoom-in" aria-hidden="true"></i><span>查看大图</span></div>
-        </button>
+        <div class="photo-item u-tint-orange">
+          <a href="photo.html" class="photo-ph u-h-200" aria-label="查看近期随拍图片详情"><i class="bi bi-bank" aria-hidden="true"></i></a>
+          <div class="photo-actions">
+            <a href="photo.html" class="photo-action-btn" aria-label="预览大图" data-lightbox-key="p10"><i class="bi bi-zoom-in" aria-hidden="true"></i></a>
+            <a href="photo.html" class="photo-action-btn" aria-label="查看近期随拍图片详情"><i class="bi bi-arrow-right-circle" aria-hidden="true"></i></a>
+          </div>
+        </div>
 
-        <button type="button" class="photo-item u-tint-cyan" data-lightbox-key="p11">
-          <div class="photo-ph u-h-300"><i class="bi bi-stars" aria-hidden="true"></i></div>
-          <div class="photo-item-overlay" aria-hidden="true"><i class="bi bi-zoom-in" aria-hidden="true"></i><span>查看大图</span></div>
-        </button>
+        <div class="photo-item u-tint-cyan">
+          <a href="photo.html" class="photo-ph u-h-300" aria-label="查看近期随拍图片详情"><i class="bi bi-stars" aria-hidden="true"></i></a>
+          <div class="photo-actions">
+            <a href="photo.html" class="photo-action-btn" aria-label="预览大图" data-lightbox-key="p11"><i class="bi bi-zoom-in" aria-hidden="true"></i></a>
+            <a href="photo.html" class="photo-action-btn" aria-label="查看近期随拍图片详情"><i class="bi bi-arrow-right-circle" aria-hidden="true"></i></a>
+          </div>
+        </div>
 
-        <button type="button" class="photo-item u-tint-green" data-lightbox-key="p12">
-          <div class="photo-ph u-h-170"><i class="bi bi-tree-fill" aria-hidden="true"></i></div>
-          <div class="photo-item-overlay" aria-hidden="true"><i class="bi bi-zoom-in" aria-hidden="true"></i><span>查看大图</span></div>
-        </button>
+        <div class="photo-item u-tint-green">
+          <a href="photo.html" class="photo-ph u-h-170" aria-label="查看近期随拍图片详情"><i class="bi bi-tree-fill" aria-hidden="true"></i></a>
+          <div class="photo-actions">
+            <a href="photo.html" class="photo-action-btn" aria-label="预览大图" data-lightbox-key="p12"><i class="bi bi-zoom-in" aria-hidden="true"></i></a>
+            <a href="photo.html" class="photo-action-btn" aria-label="查看近期随拍图片详情"><i class="bi bi-arrow-right-circle" aria-hidden="true"></i></a>
+          </div>
+        </div>
 
       </div>
     </div>

@@ -179,6 +179,46 @@ test('category filter standard contract filters items and announces count', asyn
 });
 
 
+test('featured albums expose separate preview and photo detail actions', async ({ page }) => {
+  await gotoPage(page, '/album-list.html');
+  const featured = page.locator('.album-hero').first();
+  const actions = featured.locator('.photo-action-btn');
+  await expect(actions).toHaveCount(2);
+
+  await featured.hover();
+  await expect(actions.first()).toBeVisible();
+  await actions.first().click();
+  await expect(page).toHaveURL(/album-list\.html$/);
+  await expect(page.locator('#lightbox')).toHaveClass(/active/);
+  await page.locator('#lightbox .lb-close').click();
+
+  await featured.hover();
+  await actions.nth(1).click();
+  await expect(page).toHaveURL(/photo\.html$/);
+});
+
+test('recent photos use the unified hover actions without legacy overlay text', async ({ page }) => {
+  await gotoPage(page, '/album-list.html');
+  const recent = page.locator('#photoMasonry .photo-item');
+  await expect(recent).toHaveCount(12);
+  await expect(page.locator('#photoMasonry .photo-item-overlay')).toHaveCount(0);
+
+  const first = recent.first();
+  const actions = first.locator('.photo-action-btn');
+  await expect(actions).toHaveCount(2);
+  await expect(first.locator('.photo-actions')).toHaveCSS('opacity', '0');
+  await first.hover();
+  await expect(first.locator('.photo-actions')).toHaveCSS('opacity', '1');
+
+  await actions.first().click();
+  await expect(page.locator('#lightbox')).toHaveClass(/active/);
+  await page.locator('#lightbox .lb-close').click();
+
+  await first.hover();
+  await actions.nth(1).click();
+  await expect(page).toHaveURL(/photo\.html$/);
+});
+
 test('album detail previews open in the lightbox instead of reloading the page', async ({ page }) => {
   await gotoPage(page, '/album.html');
   const trigger = page.locator('[data-lightbox-key="dali-1"]');

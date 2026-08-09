@@ -101,6 +101,7 @@
   transition: opacity var(--transition);
 }
 .album-card:hover .photo-actions,
+.album-hero:hover .photo-actions,
 .photo-item:hover .photo-actions,
 .photo-actions:focus-within { opacity: 1; }
 .photo-action-btn {
