@@ -2,7 +2,7 @@
 
 > 一套面向独立博客的现代化前端主题模板，全面拥抱 Vite 工程化，开箱即用。
 
-![Version](https://img.shields.io/badge/version-3.4.0-green)
+![Version](https://img.shields.io/badge/version-3.5.0-green)
 ![Bootstrap](https://img.shields.io/badge/Bootstrap-5.3.8-7952b3)
 ![Bootstrap Icons](https://img.shields.io/badge/Bootstrap%20Icons-1.13.1-7952b3)
 ![License](https://img.shields.io/badge/license-CC%20BY%204.0-blue)
@@ -40,7 +40,9 @@ inkflow-theme/
 ├── category-list.html     # 分类页
 ├── tag-list.html          # 标签页
 ├── archive-list.html      # 归档页
-├── album-list.html        # 相册页
+├── album-list.html        # 相册列表页
+├── album.html             # 相册详情页
+├── photo.html             # 图片详情页
 ├── link-list.html         # 友情链接页
 ├── profile.html           # 个人资料页
 ├── login.html             # 登录/注册页
@@ -164,10 +166,16 @@ inkflow-theme/
 
 ### album-list.html — 相册页
 
-- **大图 Hero 相册卡** — 首屏展示精选相册封面，渐变遮罩 + 标题 + 照片数量
-- **分类筛选** — Tab 按钮按主题（旅行/技术/生活/城市）过滤相册
-- **照片瀑布流** — 不等高 Masonry 布局展示照片缩略图
-- **Lightbox 全屏预览** — 点击任意照片进入全屏灯箱，支持左右键导航、下载、分享，ESC 关闭
+- **大图 Hero 相册卡** — 首屏展示精选相册封面，悬停后分别选择大图预览或图片详情
+- **分类筛选** — Tab 按钮按主题（旅行/城市/自然/生活/建筑）过滤相册
+- **照片瀑布流** — 不等高 Masonry 布局展示照片缩略图，统一使用预览/详情双操作层
+- **Lightbox 全屏预览** — 放大按钮进入全屏灯箱，详情按钮保持独立页面导航
+
+### album.html / photo.html — 相册与图片详情
+
+- **三级浏览路径** — 相册列表 → 相册内容 → 单张图片详情
+- **图片元数据** — 图片详情页预留拍摄时间、地点、相机、镜头、参数和版权字段
+- **渐进增强** — JavaScript 可用时打开灯箱，无脚本时详情链接仍可正常访问
 
 ### link-list.html — 友情链接页
 
@@ -229,7 +237,7 @@ npm run release
 ### 部署到静态平台
 
 因为项目中配置了 `vite.config.mjs` 的 `base: './'`，您可以直接将生成的 `dist/` 目录上传至任意静态平台（GitHub Pages / Vercel / Netlify）。
-**强烈建议：** 我们已配置好 `.github/workflows/ci.yml`、`.github/workflows/deploy.yml` 与 `.github/workflows/release.yml`。PR / push 会自动运行 `npm run check` 与 `npm audit`，部署和发版流程也会先通过同一套质量门禁。
+**强烈建议：** 我们已配置好 `.github/workflows/ci.yml`、`.github/workflows/deploy.yml` 与 `.github/workflows/release.yml`。PR / push 会自动运行 `npm run check`、`npm audit` 与 Chromium Smoke Tests，部署和发版流程也会先通过同一套质量门禁。
 
 ### 生产集成说明
 

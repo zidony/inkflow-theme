@@ -7,6 +7,39 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.5.0] - 2026-08-09
+
+### Added
+- `photo.html` standalone photo-detail template with breadcrumb navigation,
+  lightbox preview, EXIF-style metadata, story, licensing/actions, and previous/next
+  photo navigation.
+- `pages/photo.css` responsive styles for the photo-detail layout.
+- Chromium smoke tests in CI, including album/photo navigation, lightbox behavior,
+  concurrent component initialization, dynamic multi-scope filters, and mobile/tablet/desktop layouts.
+- Build-manifest self-verification through `manifestHash`, current-HEAD validation,
+  and detection of unlisted files in `dist/`.
+
+### Changed
+- Component initialization state is now tracked per component and DOM target;
+  concurrent `Inkflow.init()` calls share one in-flight promise.
+- `Inkflow.init(root)` supports every matching target for components registered
+  with `multiple: true`, enabling safe CMS insertion of multiple filter scopes.
+- Album list, album detail, and photo detail now form a three-level navigation
+  path: album list → album → photo.
+- Featured albums, album cards, album photos, and recent photos use the same
+  accessible hover/focus action layer with separate preview and detail actions.
+- `album.html` and `photo.html` are included in the public sitemap.
+
+### Fixed
+- Album-detail preview links no longer reload `album.html`; all Dali demo photos
+  now initialize the shared lightbox data correctly.
+- `toast` and `keyboard` can both initialize on `body` without one component
+  suppressing the other.
+- Dynamic category-filter scopes no longer receive duplicate click listeners.
+- Removed the obsolete recent-photo overlay markup that rendered the zoom label
+  in normal document flow on `album-list.html`.
+- Invisible hover action layers no longer block clicks on the underlying photo-detail link.
+
 ## [3.4.0] - 2026-08-06
 
 ### Added

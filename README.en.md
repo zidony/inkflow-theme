@@ -2,7 +2,7 @@
 
 > A modern frontend theme template tailored for independent blogs, fully embracing Vite engineering, out-of-the-box ready.
 
-![Version](https://img.shields.io/badge/version-3.4.0-green)
+![Version](https://img.shields.io/badge/version-3.5.0-green)
 ![Bootstrap](https://img.shields.io/badge/Bootstrap-5.3.8-7952b3)
 ![Bootstrap Icons](https://img.shields.io/badge/Bootstrap%20Icons-1.13.1-7952b3)
 ![License](https://img.shields.io/badge/license-CC%20BY%204.0-blue)
@@ -40,7 +40,9 @@ inkflow-theme/
 ├── category-list.html     # Categories
 ├── tag-list.html          # Tags
 ├── archive-list.html      # Archives
-├── album-list.html        # Albums
+├── album-list.html        # Album List
+├── album.html             # Album Detail
+├── photo.html             # Photo Detail
 ├── link-list.html         # Blogroll / Links
 ├── profile.html           # User Profile
 ├── login.html             # Login/Register
@@ -157,10 +159,15 @@ The most feature-complete page in the theme:
 - **Timeline** — Monthly grouped post timeline, each entry containing date, category tag, and reading time.
 
 ### album-list.html — Albums
-- **Large Hero Album Card** — Features curated album covers above the fold with gradient overlays, titles, and photo counts.
+- **Large Hero Album Cards** — Hover to choose between fullscreen preview and the photo-detail page.
 - **Category Filters** — Tab buttons to filter albums by topic (Travel/Tech/Life/City).
-- **Photo Masonry Grid** — Uneven masonry layout displaying photo thumbnails.
-- **Lightbox Fullscreen Preview** — Click any photo to enter a fullscreen lightbox supporting left/right navigation, download, share, and ESC to close.
+- **Photo Masonry Grid** — Uneven thumbnails with one consistent preview/detail action layer.
+- **Lightbox Fullscreen Preview** — The zoom action opens the lightbox while the detail action preserves page navigation.
+
+### album.html / photo.html — Album and Photo Detail
+- **Three-level navigation** — Album list → album contents → individual photo detail.
+- **Photo metadata** — Dedicated fields for capture time, location, camera, lens, settings, and licensing.
+- **Progressive enhancement** — Lightbox behavior with JavaScript; standard detail links remain usable without it.
 
 ### link-list.html — Blogroll / Links
 - **Featured Links Card** — Top area displaying 3 featured link cards, with a colored animated progress bar at the bottom.
@@ -217,7 +224,7 @@ npm run release
 ### Deploy to Static Platforms
 
 Because `vite.config.mjs` is configured with `base: './'`, you can directly host the generated `dist/` directory on any static platform (GitHub Pages / Vercel / Netlify).
-**Highly Recommended:** `.github/workflows/ci.yml`, `.github/workflows/deploy.yml`, and `.github/workflows/release.yml` are pre-configured. Pull requests and pushes run `npm run check` plus `npm audit`, and deployment/release jobs pass through the same quality gate first.
+**Highly Recommended:** `.github/workflows/ci.yml`, `.github/workflows/deploy.yml`, and `.github/workflows/release.yml` are pre-configured. Pull requests and pushes run `npm run check`, `npm audit`, and Chromium smoke tests; deployment/release jobs pass through the same quality gate first.
 
 ### Production Integration Notes
 
